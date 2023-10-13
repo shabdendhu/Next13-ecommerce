@@ -1,17 +1,8 @@
-import React from "react";
-import style from "./Login.module.scss";
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
-import Checkbox from "@mui/material/Checkbox";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import PersonIcon from "@mui/icons-material/Person";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { blue } from "@mui/material/colors";
+import style from "./Signup.module.scss";
+import EmailIcon from "@mui/icons-material/Email";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
@@ -27,34 +18,39 @@ const Home = () => {
     </div>
   );
 };
-const Login = () => {
+const Signup = () => {
   const router = useRouter();
-
   const handleSubmit = (e) => {
     console.log("====================================");
     console.log(e);
     console.log("====================================");
   };
-
   const handleredirectToLogin = () => {
-    console.log("====================================");
-
-    console.log("====================================");
-    router.push("/signup");
+    router.push("/login");
   };
   return (
     <div className={style.container}>
       {/* <Home /> */}
       <div className={style.logoHeader}>-:ACHARA:-</div>
-
       <div className={style.bluryBackground}>
         <div className={style.loginbackground}>
-          <h1 className={style.header}>Welcom Back</h1>
-          <p className={style.subheader}>Login To Your Account</p>
+          <h1 className={style.header}>Register</h1>
+          <p className={style.subheader}>Create your new account</p>
           <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.inputContainer}>
               <span>
                 <PersonIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+              <input placeholder="Full Name" />
+            </div>
+            <br />
+            <div className={style.inputContainer}>
+              <span>
+                <EmailIcon
                   style={{
                     color: "#0d4b0d",
                   }}
@@ -83,14 +79,12 @@ const Login = () => {
 
             <div className={style.forgotPassword}>Forgot Password?</div>
 
-            <div>
-              <button type="submit" className={style.loginButton}>
-                Login
-              </button>
-              <div className={style.footerInstruction}>
-                Don't have an account?{" "}
-                <b onClick={handleredirectToLogin}>Sign up</b>
-              </div>
+            <button type="submit" className={style.loginButton}>
+              Signup
+            </button>
+            <div className={style.footerInstruction}>
+              Already have an account?{" "}
+              <b onClick={handleredirectToLogin}>Log In</b>
             </div>
           </form>
         </div>
@@ -98,4 +92,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Signup;

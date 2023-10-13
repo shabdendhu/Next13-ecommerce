@@ -1,0 +1,96 @@
+@mixin onXs {
+  @media only screen and (min-width: 0px) {
+    @content;
+  }
+}
+
+@mixin onSm {
+  @media only screen and (min-width: 400px) {
+    @content;
+  }
+}
+
+@mixin onXmd {
+  @media only screen and (min-width: 426px) {
+    @content;
+  }
+}
+
+@mixin onMd {
+  @media only screen and (min-width: 426px) {
+    @content;
+  }
+}
+
+@mixin onLgS {
+  @media only screen and (min-width: 728px) {
+    @content;
+  }
+}
+
+@mixin onLg {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin onXl {
+  @media only screen and (min-width: 1536px) {
+    @content;
+  }
+}
+
+@mixin onXxl {
+  @media only screen and (min-width: 1800px) {
+    @content;
+  }
+}
+
+// max width
+
+@mixin onXsM {
+  @media only screen and (max-width: 0px) {
+    @content;
+  }
+}
+
+@mixin onSmM {
+  @media only screen and (max-width: 400px) {
+    @content;
+  }
+}
+
+@mixin onXmdM {
+  @media only screen and (max-width: 426px) {
+    @content;
+  }
+}
+
+@mixin onMdM {
+  @media only screen and (max-width: 426px) {
+    @content;
+  }
+}
+
+@mixin onLgSM {
+  @media only screen and (max-width: 728px) {
+    @content;
+  }
+}
+@mixin onLgM {
+  @media only screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin onXlM {
+  @media only screen and (max-width: 1536px) {
+    @content;
+  }
+}
+
+@mixin onXxlM {
+  @media only screen and (max-width: 1800px) {
+    @content;
+  }
+}
