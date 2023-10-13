@@ -1,0 +1,104 @@
+.container {
+  background: url("/bg2.jpg");
+  height: 100vh;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  width: 100%;
+  .loginbackground {
+    background-color: #ffffff;
+    height: 80%;
+    // position: absolute;
+    bottom: 0;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
+    .form {
+      // border: 1px solid red;
+
+      width: 80%;
+      max-width: 300px;
+      margin: auto;
+
+      .inputContainer {
+        background-color: #0d4b0d4d;
+        // border: 1px solid green;
+        display: flex;
+        padding: 0px 5px;
+        align-items: center;
+        height: 35px;
+        border-radius: 5px;
+        input {
+          background: transparent;
+          border: 1px solid red;
+          width: 100%;
+          outline: none;
+          height: 100%;
+          padding: 0px 10px;
+        }
+        input::placeholder {
+          color: #0d4b0d;
+        }
+      }
+    }
+    .header {
+      color: #0d4b0d;
+      font-size: 40px;
+      font-weight: 600;
+      margin: 20px 0px 0px;
+      text-align: center;
+    }
+    .subheader {
+      color: #00000096;
+      text-align: center;
+    }
+  }
+  .contentContainer {
+    height: 70%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    // border: 1px solid blue;
+    p {
+      text-align: left;
+      font-size: 55px;
+      font-weight: 600;
+      width: 90%;
+      margin: auto;
+      color: #ffffff;
+    }
+    .buttonContainer {
+      width: 100%;
+      // border: 1px solid pink;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      height: 100px;
+      .loginCard {
+        background-color: rgba(180, 180, 180, 0.539);
+        height: 40px;
+        max-width: 90%;
+        width: 90%;
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 19px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .createAccount {
+        color: #ffffff;
+        font-family: inherit;
+        cursor: pointer;
+      }
+    }
+  }
+}
