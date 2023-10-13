@@ -8,8 +8,10 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
+import Checkbox from '@mui/material/Checkbox';
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { blue } from "@mui/material/colors";
 const Home = () => {
   return (
     <div className={style.contentContainer}>
@@ -24,6 +26,7 @@ const Home = () => {
   );
 };
 const Login = () => {
+  
   return (
     <div className={style.container}>
       {/* <Home /> */}
@@ -59,6 +62,22 @@ const Login = () => {
                 }}
               />
             </span>
+          </div>
+          
+          <br/>
+          <div style={{justifycontain:'space-between'}}>
+            <span>
+            <Checkbox  />
+           rememberme 
+            </span>
+           
+            <span style={{fontSize:'12px',padding:'30px'}}>forgotpassword</span>
+            
+          </div>
+          <div >
+          <button 
+          style={{backgroundColor:'#40744d',color:'white',border: '1px solid black', borderRadius: '15px',padding:'3px',width:'100%', }}
+          >login</button>
           </div>
         </form>
       </div>
