@@ -88,7 +88,7 @@ const Login = () => {
                 Login
               </button>
               <div className={style.footerInstruction}>
-                Don't have an account?{" "}
+                Dont have an account?{" "}
                 <b onClick={handleredirectToLogin}>Sign up</b>
               </div>
             </div>
