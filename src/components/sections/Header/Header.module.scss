@@ -2,7 +2,7 @@
   background-color: rgba(0, 128, 0, 0.507);
   position: sticky;
   top: 0;
-  height: 80px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   .content {
@@ -12,6 +12,7 @@
     width: 80%;
     margin: auto;
     justify-content: space-between;
+    flex-wrap: wrap;
     .logoContainer {
       border: 1px solid red;
       color: #ffffff;
@@ -25,6 +26,7 @@
       width: 60%;
       display: flex;
       border-radius: 40px;
+      min-width: 415px;
       .searchBbar {
         border: 1px solid red;
         height: 100%;
