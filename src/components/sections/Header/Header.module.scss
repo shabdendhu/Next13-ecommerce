@@ -1,5 +1,5 @@
 .headerContainer {
-  background-color: rgba(0, 128, 0, 0.507);
+  background-color: rgba(7, 128, 7, 0.993);
   position: sticky;
   top: 0;
   height: 80px;
@@ -12,21 +12,25 @@
     width: 80%;
     margin: auto;
     justify-content: space-between;
+    align-items: center;
     .logoContainer {
       border: 1px solid red;
       color: #ffffff;
       font-size: 40px;
       font-weight: 600;
+      
+
     }
     .searchBarContainer {
-      border: 1px solid blue;
+      // border: 1px solid  rgb(6, 65, 14);
       overflow: hidden;
       background-color: #ffffff;
       width: 60%;
       display: flex;
       border-radius: 40px;
+      height:60%;
       .searchBbar {
-        border: 1px solid red;
+        // border: 1px solid rgb(6, 65, 14);
         height: 100%;
         flex: 1;
         background-color: transparent;
@@ -41,20 +45,29 @@
       .searchButton {
         aspect-ratio: 1;
         height: 100%;
-        border: 1px solid yellow;
-        background-color: #1d5510;
+        // border: 1px solid yellow;
+        background-color: #5ae741;
         display: flex;
         align-items: center;
         justify-content: center;
         .searchIcon {
           color: #ffffff;
-          font-size: 40px;
+          font-size: 30px;
+          
         }
       }
     }
     .loginButton {
-      background: #ffffff;
-      //   height: 40px;
+      background:#5ae741;
+      color: white;
+      font-size: 20px;
+      height: 60%;
+    padding: 10px 10px;
+    min-width: 121px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
     }
   }
 }
