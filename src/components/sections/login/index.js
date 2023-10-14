@@ -36,6 +36,11 @@ const Login = () => {
     console.log("====================================");
   };
 
+  const handleRedirectToForgotpassword =() => {
+    console.log("====================================");
+    router.push("/forgotpassword"); 
+  }
+
   const handleredirectToLogin = () => {
     console.log("====================================");
 
@@ -81,7 +86,7 @@ const Login = () => {
               </span>
             </div>
 
-            <div className={style.forgotPassword}>Forgot Password?</div>
+            <div className={style.forgotPassword} onClick={handleRedirectToForgotpassword}>Forgot Password?</div>
 
             <div>
               <button type="submit" className={style.loginButton}>
