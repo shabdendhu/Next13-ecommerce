@@ -9,6 +9,7 @@
   background-size: cover;
   width: 100%;
   flex-direction: column;
+  overflow: auto;
   .logoHeader {
     color: #ffffff;
     font-size: 50px;
@@ -27,6 +28,7 @@
     align-items: center;
     justify-content: center;
     max-width: 900px;
+    min-height: 500px;
     .loginbackground {
       background-color: #ffffff;
       // height: 80%;
@@ -77,7 +79,7 @@
         }
         .loginButton {
           position: absolute;
-          bottom: 40px;
+          bottom: 60px;
           background-color: #0a3514;
           color: white;
           border-radius: 15px;
