@@ -14,6 +14,8 @@ const Home = () => {
         style={{
           border: "1px solid blue",
           maxWidth: "80%",
+          margin:'auto',
+          height:'100%'
         }}
       >
         <Banner />
