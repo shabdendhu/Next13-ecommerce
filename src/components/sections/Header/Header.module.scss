@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     align-items: center;
     .logoContainer {
-      border: 1px solid red;
+      // border: 1px solid red;
       color: #ffffff;
       font-size: 40px;
       font-weight: 600;
@@ -24,19 +24,19 @@
       // border: 1px solid  rgb(6, 65, 14);
       overflow: hidden;
       background-color: #ffffff;
-      width: 60%;
+      width: 65%;
       display: flex;
       border-radius: 40px;
       min-width: 415px;
-      height: 60%;
+      height: 70%;
       .searchBbar {
         // border: 1px solid rgb(6, 65, 14);
         height: 100%;
         flex: 1;
         background-color: transparent;
         outline: none;
-        padding: 0px 20px;
-        font-size: 20px;
+        padding: 4px 20px;
+        font-size: 16px;
         color: #1d5510;
       }
       .searchBbar::placeholder {

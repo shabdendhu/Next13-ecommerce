@@ -1,12 +1,12 @@
 import React from "react";
-import style from "./forgotp.module.scss";
+import style from "./Newpassword.module.scss";
 import {
   IconButton,
   InputAdornment,
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import PasswordIcon from "@mui/icons-material/Password";
+import LockIcon from "@mui/icons-material/Lock";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { blue } from "@mui/material/colors";
@@ -46,27 +46,42 @@ const Newpassword = () => {
 
           <form className={style.form} onSubmit={handleSubmit}>
            
-              <div className={style.inputContainer}>
-                <span>
-                <PasswordIcon
-                    style={{
-                      color: "#0d4b0d",
-                    }}
-                  />
-                </span>
-                <input type="number" placeholder="New Password" />
-              </div>
-            
-              <div className={style.inputContainer}>
-                <span>
-                  <PasswordIcon
-                    style={{
-                      color: "#0d4b0d",
-                    }}
-                  />
-                </span>
-                <input type="number" placeholder="Confirm Password" />
-              </div>
+          <div className={style.inputContainer}>
+              <span>
+                <LockIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+              <input placeholder="Password" />
+              <span>
+                <VisibilityOffIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+            </div>
+
+            <br/>
+            <div className={style.inputContainer}>
+              <span>
+                <LockIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+              <input placeholder="Password" />
+              <span>
+                <VisibilityOffIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+            </div>
             
 
             <div>

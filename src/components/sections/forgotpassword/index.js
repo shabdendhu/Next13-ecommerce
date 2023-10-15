@@ -78,7 +78,7 @@ const Forgotpassword = () => {
 
             <div>
               <button type="submit" className={style.loginButton}>
-                submit
+                NEXT
               </button>
             </div>
           </form>
