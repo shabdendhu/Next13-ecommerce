@@ -1,15 +1,23 @@
 import Link from "next/link";
 import React from "react";
-
+import Banner from "@/components/sections/Banner";
 const Home = () => {
   return (
     <div
       style={{
         height: "1000px",
-        border: "10px solid blue",
+        // border: "10px solid blue"
+        background: "gray",
       }}
     >
-      <Link href={"/login"}>loin</Link> Home
+      <div
+        style={{
+          border: "1px solid blue",
+          maxWidth: "80%",
+        }}
+      >
+        <Banner />
+      </div>
     </div>
   );
 };
