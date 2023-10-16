@@ -1,0 +1,13 @@
+// @use "../../../styles/media.scss";
+.btn{
+    background-color: rgb(236, 245, 236);
+    border: 1px solid hsl(138, 83%, 19%);
+    color: green;
+    padding: 5px 20px;
+    border-radius: 30px;
+     margin-right: 20px;
+     .hover{
+        background-color: rgb(7, 80, 40);
+        color: #ffff;
+     }
+}

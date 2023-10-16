@@ -19,6 +19,7 @@ const Home = () => {
         }}
       >
         <Banner />
+        
       </div>
     </div>
   );
