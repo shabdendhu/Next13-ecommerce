@@ -3,8 +3,23 @@
   min-height: 250px;
   display: flex;
   flex-direction: row;
-.styles.icon{
-  position: relative;
-  
-}
+  align-items: center;
+  .bannerContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    scroll-snap-type: x mandatory; /* Enable horizontal scroll snapping */
+    scroll-behavior: smooth; /* Enable smooth scrolling for a better user experience */
+
+    img {
+      margin: 5px;
+      border-radius: 10px;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .bannerContainer::-webkit-scrollbar {
+    display: none;
+    margin: auto;
+  }
 }
