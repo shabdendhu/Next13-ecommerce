@@ -1,3 +1,5 @@
+@use "../../../styles/media.scss";
+
 .component {
   position: sticky;
   top: 0;
@@ -69,11 +71,15 @@
         justify-content: center;
         border-radius: 10px;
       }
+      @include media.onMdM() {
+        border: 1px solid red;
+        width: 95%;
+      }
     }
   }
   .navBar {
     background-color: #ffffff;
-    
+
     .navContent {
       min-height: 40px;
       // border: 1px solid red;
