@@ -1,16 +1,16 @@
 .cardContainer{
-    // border: 1px solid green;
+    border: 1px solid green;
+    border-radius: 10px;
      min-width: 200px ;
      min-height:300px;
      margin-bottom:10px;
      box-sizing: border-box;
+     overflow: hidden;
+     padding: 5px;
      
     //  margin-left:15px
 }
-.cardComponents{
-    margin-left: 15px;
-    align-items: center;
-}
+
 .cardimg{
     width:80%;
     max-width:200px;

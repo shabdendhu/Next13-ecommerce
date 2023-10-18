@@ -6,7 +6,7 @@ import styles from "./Category.module.scss";
 function Category() {
   return (
     <div className={styles.component}>
-      <div style={{ display: "flex", margin: "auto", width: "80%" }}>
+      <div style={{ display: "flex", margin: "auto", width: "100%",padding:"10px 0px" }}>
         <Chip text="All" />
         <Chip text="green" />
         <Chip text="organic" />
@@ -16,7 +16,7 @@ function Category() {
       {/* products */}
       <div
         style={{
-          border: "1px solid red",
+          // border: "1px solid red",
           display: "flex",
           flexDirection: "row",
           flexWrap: "wrap",
