@@ -1,0 +1,45 @@
+.cardContainer{
+    // border: 1px solid green;
+     min-width: 200px ;
+     min-height:300px;
+     margin-bottom:10px;
+     box-sizing: border-box;
+     
+    //  margin-left:15px
+}
+.cardComponents{
+    margin-left: 15px;
+    align-items: center;
+}
+.cardimg{
+    width:80%;
+    max-width:200px;
+    
+   
+}
+.cardinfo{
+    margin-top:10px;
+    margin-left:5px
+}
+.details{
+    bottom: 0;
+
+}
+
+.cardlower{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.btn{
+    background-color: #f5f5f5;
+    border: 1px solid rgb(17, 158, 17);
+    color:rgb(12, 182, 35);
+    border-radius: 5px;
+    width: 55px;
+    margin-right: 10px;
+    height: 36px;
+    width: 90px;
+    font-size: 15px;
+    font-weight: 600;
+}
