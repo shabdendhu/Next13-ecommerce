@@ -5,19 +5,19 @@
 }
 
 @mixin onSm {
-  @media only screen and (min-width: 400px) {
+  @media only screen and (min-width: 600px) {
     @content;
   }
 }
 
 @mixin onXmd {
-  @media only screen and (min-width: 426px) {
+  @media only screen and (min-width: 700px) {
     @content;
   }
 }
 
 @mixin onMd {
-  @media only screen and (min-width: 426px) {
+  @media only screen and (min-width: 900px) {
     @content;
   }
 }
@@ -55,19 +55,19 @@
 }
 
 @mixin onSmM {
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 600px) {
     @content;
   }
 }
 
 @mixin onXmdM {
-  @media only screen and (max-width: 426px) {
+  @media only screen and (max-width: 700px) {
     @content;
   }
 }
 
 @mixin onMdM {
-  @media only screen and (max-width: 426px) {
+  @media only screen and (max-width: 900px) {
     @content;
   }
 }
