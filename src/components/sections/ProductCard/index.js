@@ -5,11 +5,11 @@ const ProductCard = () => {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardimg}>
-        <img src="https://img.crofarm.com/images/prodsmall/f0c339326201.jpg" />
+        <img src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg" />
       </div>
 
       <div className={styles.cardinfo}>
-        <div style={{ fontWeight: "bold", marginBottom: "10px" }}>ALU</div>
+        <div style={{ fontWeight: "bold", marginBottom: "10px" }}>ACHAR</div>
 
         <div className={styles.details}>
           <div style={{ fontSize: "13px", fontWeight: "100px" }}>

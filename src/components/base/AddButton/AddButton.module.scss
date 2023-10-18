@@ -1,9 +1,41 @@
+.addButton{
+    border: 1px solid green;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100px;
+    height: 40px; 
+    color: green;
+    font-weight: 600;
+}
+
+
+
+
 .addRemoveButton{
 border: 1px solid green;
+background-color: rgb(18, 128, 18);
 border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: space-around;
 width: 100px;
 height: 40px;
+}
+
+.itemamt{
+    font-weight: 600;
+    color: rgb(240, 247, 242);
+    font-size: 15px;  
+}
+.increment{
+   font-weight: 600;
+    color: rgb(240, 247, 242);
+    font-size: 24px;
+}
+.decrement{
+    font-weight: 600;
+    color: rgb(240, 247, 242);
+    font-size: 33px;
 }

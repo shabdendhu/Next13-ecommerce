@@ -13,12 +13,12 @@ const AddButton = () => {
   return (
     <>
       {itemAmt === 0 ? (
-        <button className={styles.addRemoveButton} onClick={handleAdd}>add</button>
+        <button className={styles.addButton} onClick={handleAdd}>ADD</button>
       ) : (
         <button className={styles.addRemoveButton}>
-          <div onClick={handleAdd}>+</div>
-          <div>{itemAmt}</div>
-          <div onClick={handleRemove}>-</div>
+          <div className={styles.decrement}onClick={handleRemove}>-</div>
+          <div className={styles.itemamt}>{itemAmt}</div>
+          <div className={styles.increment} onClick={handleAdd}>+</div>
         </button>
       )}
     </>
