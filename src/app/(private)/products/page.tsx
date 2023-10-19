@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import Banner from "@/components/sections/Banner";
+import ProductsHomeSection from "@/components/sections/ProductsHomeSection";
+
 const Home = () => {
   return (
     <div
@@ -14,12 +16,12 @@ const Home = () => {
         style={{
           border: "1px solid blue",
           maxWidth: "80%",
-          margin:'auto',
-          height:'100%'
+          margin: "auto",
+          height: "100%",
         }}
       >
         <Banner />
-        
+        <ProductsHomeSection />
       </div>
     </div>
   );
