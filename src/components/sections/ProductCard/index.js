@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ProductCard.module.scss";
-import AddButton from "@/components/base/AddButton"
+import AddButton from "@/components/base/AddButton";
 const ProductCard = () => {
   return (
     <div className={styles.cardContainer}>
@@ -20,7 +20,7 @@ const ProductCard = () => {
 
         <div className={styles.cardlower}>
           <div style={{ fontSize: "13px", fontWeight: "100px" }}>1kg</div>
-            <AddButton/>
+          <AddButton />
         </div>
       </div>
     </div>

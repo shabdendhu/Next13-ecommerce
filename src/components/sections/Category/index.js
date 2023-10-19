@@ -2,6 +2,7 @@ import React from "react";
 import Chip from "@/components/base/Chip";
 import ProductCard from "@/components/sections/ProductCard";
 import styles from "./Category.module.scss";
+import { Grid } from "@mui/material";
 
 function Category() {
   return (
@@ -21,20 +22,16 @@ function Category() {
         <Chip text="ftr" />
       </div>
       {/* products */}
-      <div
-        style={{
-          // border: "1px solid red",
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          padding: "10px",
-        }}
-      >
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((e, i) => (
-          <ProductCard key={i} />
-        ))}
-      </div>
+
+      <Grid container gap={3}>
+        {Array(20)
+          .fill("k")
+          .map((e, i) => (
+            <Grid item key={i} xl={2} lg={3} md={4} sm={6} xs={12}>
+              <ProductCard />
+            </Grid>
+          ))}
+      </Grid>
     </div>
   );
 }

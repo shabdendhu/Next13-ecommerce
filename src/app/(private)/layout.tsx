@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div
           style={{
-            border: "1px solid red",
+            // border: "1px solid red",
             display: "flex",
             flexDirection: "column",
           }}

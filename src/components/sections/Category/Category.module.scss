@@ -1,12 +1,16 @@
-.component{
-    background-color: #FFFFFF;
-    width: 80%;
-    align-items: center;
-    margin: auto;
-    // padding: 10px 0px;
-    // margin-left: 30px;
-    // border:1px solid black;
+@use "../../../styles/media.scss";
+
+.component {
+  background-color: #ffffff;
+  width: 80%;
+  align-items: center;
+  margin: auto;
+  // padding: 10px 0px;
+  // margin-left: 30px;
+  // border:1px solid black;
+  @include media.onLgM() {
+    width: 98%;
+  }
 }
-.chips{
-    
+.chips {
 }
