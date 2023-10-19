@@ -1,1 +1,30 @@
-@use '../../../styles/media.scss';
+@use "../../../styles/media.scss";
+.component {
+  //   border: 1px solid red;
+  background-color: #10ff0054;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .cardContainer {
+      gap: 10px;
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      //   border: 1px solid blue;
+      overflow: auto;
+    }
+  }
+  .header {
+    font-weight: 600;
+    font-size: 30px;
+    color: #208b16;
+    text-align: center;
+  }
+}

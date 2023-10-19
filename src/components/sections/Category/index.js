@@ -23,7 +23,7 @@ function Category() {
       </div>
       {/* products */}
 
-      <Grid container gap={3}>
+      <Grid container justifyContent={"center"} gap={3}>
         {Array(20)
           .fill("k")
           .map((e, i) => (

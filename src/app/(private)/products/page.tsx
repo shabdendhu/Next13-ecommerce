@@ -7,20 +7,34 @@ const Home = () => {
   return (
     <div
       style={{
-        height: "1000px",
+        // height: "1000px",
         // border: "10px solid blue"
-        background: "gray",
+        background: "#dbdbdb",
       }}
     >
       <div
         style={{
-          border: "1px solid blue",
+          // border: "1px solid blue",
           maxWidth: "80%",
           margin: "auto",
           height: "100%",
         }}
       >
-        <Banner />
+        <div
+          style={{
+            margin: "20px 0px",
+            backgroundColor: "#10ff0054",
+            padding: "10px 0px",
+            borderRadius: 10,
+          }}
+        >
+          <Banner />
+        </div>
+        <ProductsHomeSection />
+        <ProductsHomeSection />
+        <ProductsHomeSection />
+        <ProductsHomeSection />
+        <ProductsHomeSection />
         <ProductsHomeSection />
       </div>
     </div>
