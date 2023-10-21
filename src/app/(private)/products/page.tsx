@@ -9,7 +9,7 @@ const Home = () => {
       style={{
         // height: "1000px",
         // border: "10px solid blue"
-        background: "#dbdbdb",
+        background: "#ffffff",
       }}
     >
       <div

@@ -1,8 +1,19 @@
+"use client";
 import React from "react";
 import styles from "./Header.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    console.log("eeeeeeeeeeee.....");
+    router.push("/login");
+  };
+
   return (
     <div className={styles.component}>
       <div className={styles.headerContainer}>
@@ -17,7 +28,14 @@ const Header = () => {
               <SearchIcon className={styles.searchIcon} />
             </span>
           </div>
-          <button className={styles.loginButton}>Login</button>
+          <div onclick={handleLogin}>
+            <PersonIcon
+              style={{ fontSize: "44px", color: "#3be114", cursor: "pointer" }}
+            />
+          </div>
+          <ShoppingBasketIcon
+            style={{ fontSize: "44px", color: "#3be114", cursor: "pointer" }}
+          />
         </div>
       </div>
       <div className={styles.navBar}>
