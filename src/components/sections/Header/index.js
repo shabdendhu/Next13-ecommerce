@@ -13,7 +13,9 @@ const Header = () => {
     console.log("eeeeeeeeeeee.....");
     router.push("/login");
   };
-
+  const handleClickCategory = () => {
+    router.push("/category");
+  };
   return (
     <div className={styles.component}>
       <div className={styles.headerContainer}>
@@ -28,22 +30,36 @@ const Header = () => {
               <SearchIcon className={styles.searchIcon} />
             </span>
           </div>
-          <div onclick={handleLogin}>
+          <div onclick={handleLogin}></div>
+          <div className={styles.rightIcon}>
             <PersonIcon
-              style={{ fontSize: "44px", color: "#3be114", cursor: "pointer" }}
+              style={{
+                fontSize: "44px",
+                color: "#FFFFFF",
+                cursor: "pointer",
+                marginRight: 10,
+              }}
+            />
+            <ShoppingBasketIcon
+              style={{ fontSize: "44px", color: "#FFFFFF", cursor: "pointer" }}
             />
           </div>
-          <ShoppingBasketIcon
-            style={{ fontSize: "44px", color: "#3be114", cursor: "pointer" }}
-          />
         </div>
       </div>
       <div className={styles.navBar}>
         <div className={styles.navContent}>
-          <div className={styles.navItem}>Category 1</div>
-          <div className={styles.navItem}>Category 2</div>
-          <div className={styles.navItem}>Category 3</div>
-          <div className={styles.navItem}>Category 4</div>
+          <div className={styles.navItem} onClick={handleClickCategory}>
+            Category 1
+          </div>
+          <div className={styles.navItem} onClick={handleClickCategory}>
+            Category 2
+          </div>
+          <div className={styles.navItem} onClick={handleClickCategory}>
+            Category 3
+          </div>
+          <div className={styles.navItem} onClick={handleClickCategory}>
+            Category 4
+          </div>
         </div>
       </div>
     </div>

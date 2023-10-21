@@ -4,13 +4,13 @@ import ProductCard from "../ProductCard";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 
-const ProductsHomeSection = () => {
+const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
   return (
-    <div className={styles.component}>
-      <div className={styles.header}>HEADER</div>
+    <div className={styles.component} {...props}>
+      <div className={styles.header}>{headerText}</div>
       <div className={styles.content}>
         <ArrowBackIosNewOutlinedIcon
-          style={{ color: "#208b16", fontSize: 35 }}
+          style={{ color: "#208b16", fontSize: 35, cursor: "pointer" }}
         />
         <div className={styles.cardContainer}>
           {Array(20)
@@ -25,7 +25,7 @@ const ProductsHomeSection = () => {
             ))}
         </div>
         <ArrowForwardIosOutlinedIcon
-          style={{ color: "#208b16", fontSize: 35 }}
+          style={{ color: "#208b16", fontSize: 35, cursor: "pointer" }}
         />
       </div>
     </div>

@@ -30,11 +30,18 @@ const Home = () => {
         >
           <Banner />
         </div>
+        <ProductsHomeSection
+          headerText="OFFERS"
+          style={{ backgroundColor: "#fcff8a" }}
+        />
         <ProductsHomeSection />
+        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
         <ProductsHomeSection />
+        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
         <ProductsHomeSection />
+        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
         <ProductsHomeSection />
-        <ProductsHomeSection />
+        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
         <ProductsHomeSection />
       </div>
     </div>
