@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Banner from "@/components/sections/Banner";
 import ProductsHomeSection from "@/components/sections/ProductsHomeSection";
+import BestSeller from "@/components/sections/BestSeller";
 
 const Home = () => {
   return (
@@ -30,6 +31,7 @@ const Home = () => {
         >
           <Banner />
         </div>
+        <BestSeller />
         <ProductsHomeSection
           headerText="OFFERS"
           style={{ backgroundColor: "#fcff8a" }}

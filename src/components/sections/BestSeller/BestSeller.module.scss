@@ -1,0 +1,24 @@
+.component {
+  border: 1px solid #dbdbdb;
+  height: 100px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  overflow: auto;
+  align-items: center;
+  padding: 0px 10px;
+  .sellers {
+    background-color: #d1d1d1;
+    height: 70px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

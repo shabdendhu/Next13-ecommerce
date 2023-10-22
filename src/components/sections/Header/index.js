@@ -16,11 +16,16 @@ const Header = () => {
   const handleClickCategory = () => {
     router.push("/category");
   };
+  const handleClickLogo = () => {
+    router.push("/products");
+  };
   return (
     <div className={styles.component}>
       <div className={styles.headerContainer}>
         <div className={styles.content}>
-          <div className={styles.logoContainer}>LOGO</div>
+          <div className={styles.logoContainer} onClick={handleClickLogo}>
+            LOGO
+          </div>
           <div className={styles.searchBarContainer}>
             <input
               placeholder="Search Products Here...."
@@ -33,6 +38,7 @@ const Header = () => {
           <div onclick={handleLogin}></div>
           <div className={styles.rightIcon}>
             <PersonIcon
+              onClick={() => router.push("/login")}
               style={{
                 fontSize: "44px",
                 color: "#FFFFFF",
