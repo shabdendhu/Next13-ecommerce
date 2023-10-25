@@ -1,9 +1,10 @@
 .component {
   // border: 1px solid red;
-  min-height: 250px;
+  min-height: 400px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
   .bannerContainer {
     display: flex;
     flex-direction: row;
@@ -14,6 +15,7 @@
     img {
       margin: 5px;
       border-radius: 10px;
+      height: 100%;
     }
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

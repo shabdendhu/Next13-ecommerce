@@ -13,6 +13,7 @@ import { mod } from "react-swipeable-views-core";
 const EnhancedSwipeableViews = bindKeyboard(
   autoPlay(virtualize(SwipeableViews))
 );
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const srcx = {
   slide:
@@ -50,33 +51,82 @@ function slideRenderer(params) {
     <div
       key={key}
       style={{
-        border: "1px solid red",
-        minHeight: 300,
+        // border: "1px solid red",
+        height: "50vh",
       }}
     >
       <img
         src={src}
         style={{
-          height: 300,
+          height: "50vh",
         }}
       />
     </div>
   );
 }
-
+const imageurl = [
+  "https://www.haldirams.com/media/wysiwyg/Sugar_Free_Web_1920x600px.jpg",
+  "https://www.haldirams.com/media/wysiwyg/Web_Sweets_Banner_1.png",
+  "https://www.haldirams.com/media/wysiwyg/Final_Loyatly_Program_Banner-Desk-new_1.jpg",
+  "https://www.haldirams.com/media/wysiwyg/haldirams_navratri_banner.png",
+  "https://www.haldirams.com/media/wysiwyg/HDFC-Banner_1_1_1_.jpg",
+];
 const Banner = () => {
   const containerRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [index, setIndex] = useState(0);
+  const handleChangeIndex = (index) => {
+    console.log({ index });
+    setIndex(index);
+  };
 
   return (
     <div className={styles.component}>
-      {/* <ArrowBackIosNewOutlinedIcon
-        style={{ color: "#208b16", cursor: "pointer", fontSize: 35 }}
-      /> */}
-      <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} />
-      {/* <ArrowForwardIosOutlinedIcon
-        style={{ color: "#208b16", cursor: "pointer", fontSize: 35 }}
-      /> */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          zIndex: 99,
+          background: "#FFFFFF",
+          padding: "20px 0px",
+          borderRadius: "0px 5px 5px 0px",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          if (index != 0) handleChangeIndex(index - 1);
+        }}
+      >
+        <ArrowBackIosNewOutlinedIcon
+          style={{ color: "#208b16", fontSize: 35 }}
+        />
+      </div>
+      <AutoPlaySwipeableViews index={index} onChangeIndex={handleChangeIndex}>
+        {imageurl.map((e, i) => (
+          <img
+            key={i}
+            src={e}
+            style={{
+              height: "60vh",
+            }}
+          />
+        ))}
+      </AutoPlaySwipeableViews>
+      <div
+        onClick={() => {
+          if (index != imageurl.length - 1) handleChangeIndex(index + 1);
+        }}
+        style={{
+          position: "absolute",
+          right: 0,
+          background: "#FFFFFF",
+          padding: "20px 0px",
+          borderRadius: "5px 0px 0px 5px",
+          cursor: "pointer",
+        }}
+      >
+        <ArrowForwardIosOutlinedIcon
+          style={{ color: "#000000", fontSize: 35 }}
+        />
+      </div>
     </div>
   );
 };

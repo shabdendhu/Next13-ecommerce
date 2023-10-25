@@ -3,6 +3,7 @@
 .component {
   position: sticky;
   top: 0;
+  z-index: 99;
   .headerContainer {
     background-color: rgba(14, 100, 14, 0.993);
     min-height: 80px;

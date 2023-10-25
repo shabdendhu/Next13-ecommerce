@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useRouter } from "next/navigation";
-
+import CategoryMenu from "@/components/base/CategoryMenu";
 const Header = () => {
   const router = useRouter();
 
@@ -54,17 +54,34 @@ const Header = () => {
       </div>
       <div className={styles.navBar}>
         <div className={styles.navContent}>
-          <div className={styles.navItem} onClick={handleClickCategory}>
-            Category 1
+          <CategoryMenu
+            icon={
+              <div
+                className={styles.navItem}
+                // onClick={() => router.push("/category")}
+              >
+                Achara & Pampada
+              </div>
+            }
+          />
+
+          <div
+            className={styles.navItem}
+            onClick={() => router.push("/brands")}
+          >
+            Brand ( Filter)
           </div>
-          <div className={styles.navItem} onClick={handleClickCategory}>
-            Category 2
+          <div
+            className={styles.navItem}
+            onClick={() => router.push("/offers")}
+          >
+            Offers
           </div>
-          <div className={styles.navItem} onClick={handleClickCategory}>
-            Category 3
-          </div>
-          <div className={styles.navItem} onClick={handleClickCategory}>
-            Category 4
+          <div
+            className={styles.navItem}
+            onClick={() => router.push("/new-lunches")}
+          >
+            New Launch
           </div>
         </div>
       </div>

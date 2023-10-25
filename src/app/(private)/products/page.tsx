@@ -31,20 +31,17 @@ const Home = () => {
         >
           <Banner />
         </div>
+
         <BestSeller />
         <ProductsHomeSection
           headerText="OFFERS"
           style={{ backgroundColor: "#fcff8a" }}
         />
-        <ProductsHomeSection />
-        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
-        <ProductsHomeSection />
-        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
-        <ProductsHomeSection />
-        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
-        <ProductsHomeSection />
-        <ProductsHomeSection style={{ backgroundColor: "#fcff8a" }} />
-        <ProductsHomeSection />
+        <ProductsHomeSection headerText="RECENTLY ADDED" />
+        <ProductsHomeSection
+          style={{ backgroundColor: "#fcff8a" }}
+          headerText="BEST SELLERS"
+        />
       </div>
     </div>
   );
