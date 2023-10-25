@@ -24,7 +24,7 @@ const Home = () => {
         <div
           style={{
             margin: "20px 0px",
-            backgroundColor: "#10ff0054",
+            // backgroundColor: "#10ff0054",
             padding: "10px 0px",
             borderRadius: 10,
           }}
