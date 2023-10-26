@@ -3,6 +3,7 @@ import React from "react";
 import Banner from "@/components/sections/Banner";
 import ProductsHomeSection from "@/components/sections/ProductsHomeSection";
 import BestSeller from "@/components/sections/BestSeller";
+import Footer from "@/components/sections/Footer";
 
 const Home = () => {
   return (
@@ -42,6 +43,8 @@ const Home = () => {
           style={{ backgroundColor: "#fcff8a" }}
           headerText="BEST SELLERS"
         />
+
+        {/* <Footer/> */}
       </div>
     </div>
   );
