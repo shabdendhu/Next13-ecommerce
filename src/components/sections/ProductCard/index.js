@@ -3,7 +3,7 @@ import styles from "./ProductCard.module.scss";
 import AddButton from "@/components/base/AddButton";
 const ProductCard = ({ className, ...props }) => {
   return (
-    <div className={styles.cardContainer} {...props}>
+    <div className={cx(styles.cardContainer)} {...props}>
       <div className={styles.cardimg}>
         <img src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg" />
       </div>

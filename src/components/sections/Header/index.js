@@ -6,6 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useRouter } from "next/navigation";
 import CategoryMenu from "@/components/base/CategoryMenu";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 const Header = () => {
   const router = useRouter();
 
@@ -39,6 +40,14 @@ const Header = () => {
           <div className={styles.rightIcon}>
             <PersonIcon
               onClick={() => router.push("/login")}
+              style={{
+                fontSize: "44px",
+                color: "#FFFFFF",
+                cursor: "pointer",
+                marginRight: 10,
+              }}
+            />
+            <FavoriteIcon
               style={{
                 fontSize: "44px",
                 color: "#FFFFFF",

@@ -8,6 +8,11 @@
   gap: 10px;
   border-radius: 10px;
   margin-top: 20px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none; /* Hide scrollbars for Chrome browsers */
+  }
   .content {
     display: flex;
     flex-direction: row;
@@ -26,5 +31,31 @@
     font-size: 30px;
     color: #208b16;
     text-align: center;
+  }
+}
+/* HorizontalScroll.scss */
+
+.scroll-container {
+  width: 100%; /* Set the desired width */
+  white-space: nowrap;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none; /* Hide scrollbars for Chrome browsers */
+  }
+
+  .scroll-item {
+    scroll-snap-align: start;
+    display: inline-block;
+    width: 100%; /* Set the desired width of each item */
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1); /* Adjust timing as needed */
+    will-change: transform;
+    transform-origin: 0% 50%;
+
+    &:hover {
+      transform: scale(1.05); /* Bouncy effect on hover */
+    }
   }
 }

@@ -1,23 +1,38 @@
-import React from "react";
+"use client";
+import React, { useRef } from "react";
 import styles from "./ProductsHomeSection.module.scss";
 import ProductCard from "../ProductCard";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 
 const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
+  const scrollContainerRef = useRef(null);
+  const handleScroll = (direction) => {
+    const scrollContainer = scrollContainerRef.current;
+
+    if (scrollContainer) {
+      if (direction === "left") {
+        scrollContainer.scrollLeft -= 100; // Adjust the scroll amount as needed
+      } else if (direction === "right") {
+        scrollContainer.scrollLeft += 100; // Adjust the scroll amount as needed
+      }
+    }
+  };
   return (
     <div className={styles.component} {...props}>
       <div className={styles.header}>{headerText}</div>
       <div className={styles.content}>
         <ArrowBackIosNewOutlinedIcon
+          onClick={() => handleScroll("left")}
           style={{ color: "#208b16", fontSize: 35, cursor: "pointer" }}
         />
-        <div className={styles.cardContainer}>
+        <div className={styles.cardContainer} ref={scrollContainerRef}>
           {Array(20)
             .fill(1)
             .map((e, i) => (
               <ProductCard
                 key={i}
+                className={styles.scrollItem}
                 style={{
                   backgroundColor: "#FFFFFF",
                 }}
@@ -25,6 +40,7 @@ const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
             ))}
         </div>
         <ArrowForwardIosOutlinedIcon
+          onClick={() => handleScroll("right")}
           style={{ color: "#208b16", fontSize: 35, cursor: "pointer" }}
         />
       </div>
