@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Footer.module.scss";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import InstagramIcon from "@mui/icons-material/Instagram";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Footer = () => {
@@ -70,39 +70,43 @@ const Footer = () => {
         </div>
         <div style={{ marginRight: "80px" }}>
           <ul>
-            <h1>REACH US</h1>
-            <h2>
+            <h1 >REACH US</h1>
+            <h2 style={{fontWeight:'500'}}>
               EMAIL:
               <span> tripathy@gmail.com</span>
             </h2>
-            <h2>
+            <h2 style={{fontWeight:'500'}}>
               CALL:
               <span> +91 712-2779451</span>
             </h2>
-            <h2>
+            <h2 style={{fontWeight:'500'}}>
               Customer Care Timming:
               <span> 10:00AM To 6:00PM </span>
             </h2>
           </ul>
+          <ul>
+            <h1>PAYMENT SECURED BY</h1>
+           <img src="https://www.haldirams.com/media/wysiwyg/Footer_Image_new_desk.jpg" alt=""/>
+          </ul>
         </div>
-        <div style={{}}>
+        <div>
           <ul>
             <h1>FOLLOW US</h1>
-            <div style={{ display: "flex" }}>
-             <FacebookIcon style={{color:'blue'}}/>
+            <div>
+              <FacebookIcon style={{ color: "blue" }} />
               <span>FACEBOOK</span>
             </div>
 
-            <div style={{ display: "flex" }}>
-              <TwitterIcon style={{color:'blue'}}/>
+            <div>
+              <TwitterIcon style={{ color: "blue" }} />
               <span>TWITTER</span>
             </div>
-            <div style={{ display: "red" }}>
-              <InstagramIcon style={{color:'red'}}/>
+            <div>
+              <InstagramIcon style={{ color: "red" }} />
               <span>INSTAGRAM</span>
             </div>
-            <div style={{ display: "flex" }}>
-              <YouTubeIcon style={{color:'red'}}/>
+            <div>
+              <YouTubeIcon style={{ color: "red" }} />
               <span>YOUTUBE</span>
             </div>
           </ul>
