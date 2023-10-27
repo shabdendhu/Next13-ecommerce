@@ -4,6 +4,7 @@ import styles from "./ProductsHomeSection.module.scss";
 import ProductCard from "../ProductCard";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import cx from "classnames";
 
 const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
   const scrollContainerRef = useRef(null);
@@ -12,9 +13,9 @@ const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
 
     if (scrollContainer) {
       if (direction === "left") {
-        scrollContainer.scrollLeft -= 100; // Adjust the scroll amount as needed
+        scrollContainer.scrollLeft -= 200; // Adjust the scroll amount as needed
       } else if (direction === "right") {
-        scrollContainer.scrollLeft += 100; // Adjust the scroll amount as needed
+        scrollContainer.scrollLeft += 200; // Adjust the scroll amount as needed
       }
     }
   };
@@ -32,7 +33,8 @@ const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
             .map((e, i) => (
               <ProductCard
                 key={i}
-                className={styles.scrollItem}
+                data={i}
+                className={cx(styles.scrollItem)}
                 style={{
                   backgroundColor: "#FFFFFF",
                 }}

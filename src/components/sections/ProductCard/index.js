@@ -3,7 +3,7 @@ import styles from "./ProductCard.module.scss";
 import cx from "classnames";
 import AddButton from "@/components/base/AddButton";
 
-const ProductCard = ({ className, ...props }) => {
+const ProductCard = ({ data, className, ...props }) => {
   return (
     <div className={cx(styles.cardContainer, className)} {...props}>
       <div className={styles.cardimg}>
@@ -11,7 +11,9 @@ const ProductCard = ({ className, ...props }) => {
       </div>
 
       <div className={styles.cardinfo}>
-        <div style={{ fontWeight: "bold", marginBottom: "10px" }}>ACHAR</div>
+        <div style={{ fontWeight: "bold", marginBottom: "10px" }}>
+          ACHAR{data}
+        </div>
 
         <div className={styles.details}>
           <div style={{ fontSize: "13px", fontWeight: "100px" }}>
