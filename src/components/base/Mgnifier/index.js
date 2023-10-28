@@ -1,48 +1,52 @@
 "use client";
 import React, { useState } from "react";
+import styles from "./Magnifier.module.scss";
+import cx from "classnames";
 
-const Magnifier = ({ imageUrl }) => {
-  const [isZoomed, setIsZoomed] = useState(false);
+const Magnifier = ({ imageSrc, magnifiedSrc, className }) => {
+  const [isMagnifierVisible, setIsMagnifierVisible] = useState(false);
 
   const handleMouseEnter = () => {
-    setIsZoomed(true);
+    setIsMagnifierVisible(true);
   };
 
   const handleMouseLeave = () => {
-    setIsZoomed(false);
+    setIsMagnifierVisible(false);
   };
 
   const handleMouseMove = (e) => {
-    if (isZoomed) {
-      // Calculate the position of the magnifier
-      const zoomer = document.getElementById("zoomer");
-      const image = document.getElementById("product-image");
-      const x = e.nativeEvent.offsetX;
-      const y = e.nativeEvent.offsetY;
-      const widthRatio = image.width / zoomer.offsetWidth;
-      const heightRatio = image.height / zoomer.offsetHeight;
+    const magnifier = document.querySelector(`.${styles.magnifier}`);
+    const image = document.querySelector(`.${styles.magnifierImage}`);
+    const { left, top, width, height } = image.getBoundingClientRect();
 
-      // Set the background position of the zoomed image
-      const xPos = -(x * widthRatio);
-      const yPos = -(y * heightRatio);
-      zoomer.style.backgroundPosition = `${xPos}px ${yPos}px`;
-    }
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+
+    const ratioX = image.width / width;
+    const ratioY = image.height / height;
+
+    magnifier.style.backgroundPosition = `-${x * ratioX}px -${y * ratioY}px`;
   };
 
   return (
     <div
-      className="magnifier-container"
+      className={cx(styles.magnifierContainer, className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      <div className={`zoomer ${isZoomed ? "zoomed" : ""}`} id="zoomer" />
-      <img
-        src={imageUrl}
-        alt="Product"
-        className="product-image"
-        id="product-image"
-      />
+      <img className={styles.magnifierImage} src={imageSrc} alt="Image" />
+      {true && (
+        <div
+          className={styles.magnifier}
+          style={{
+            width: 200,
+            height: 200,
+            borderRadius: 10,
+            backgroundImage: `url(${magnifiedSrc})`,
+          }}
+        />
+      )}
     </div>
   );
 };

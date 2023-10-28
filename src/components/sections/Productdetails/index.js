@@ -4,15 +4,39 @@ import styles from "./Productdetails.module.scss";
 import StarIcon from "@mui/icons-material/Star";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import Magnifier from "@/components/base/Mgnifier";
+
 const Productdetails = () => {
   const [showAllDetails, setShowAllDetails] = useState(false);
   return (
     <div className={styles.productdetailscontainer}>
       <div className={styles.productdetailsimg}>
-        <img
-          src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
-          alt=""
-          srcset=""
+        <div className={styles.imageContainer}>
+          <img
+            src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
+            alt=""
+            srcset=""
+          />
+          <img
+            src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
+            alt=""
+            srcset=""
+          />
+          <img
+            src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
+            alt=""
+            srcset=""
+          />
+          <img
+            src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
+            alt=""
+            srcset=""
+          />
+        </div>
+        <Magnifier
+          className={styles.magnifier}
+          imageSrc="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
+          magnifiedSrc="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
         />
       </div>
 
@@ -68,6 +92,7 @@ const Productdetails = () => {
               height: "55px",
               width: "50%",
               color: "#ffffff",
+              borderRadius: 10,
             }}
           >
             ADD TO BASKET
@@ -77,7 +102,9 @@ const Productdetails = () => {
               border: "2px solid black",
               display: "flex",
               alignItems: "center",
+              borderRadius: 10,
               padding: "0px 12px",
+              cursor: "pointer",
             }}
           >
             <BookmarkBorderOutlinedIcon />
