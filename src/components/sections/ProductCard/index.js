@@ -1,11 +1,22 @@
 import React from "react";
 import styles from "./ProductCard.module.scss";
+import Productdetails from "@/components/sections/Productdetails";
 import cx from "classnames";
 import AddButton from "@/components/base/AddButton";
+import { useRouter } from "next/navigation";
 
 const ProductCard = ({ data, className, ...props }) => {
+  const router = useRouter();
+  const handleRedirect = () => {
+    router.push("/productdetails");
+  };
+
   return (
-    <div className={cx(styles.cardContainer, className)} {...props}>
+    <div
+      onClick={handleRedirect}
+      className={cx(styles.cardContainer, className)}
+      {...props}
+    >
       <div className={styles.cardimg}>
         <img src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg" />
       </div>

@@ -1,0 +1,17 @@
+.productdetailscontainer{
+    min-height: 40px;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+   padding: 20px 10px;
+    // justify-content: space-between;
+    border: 1px solid red;
+
+}
+.productdetailsimg{
+    width: 30%;
+}
+.productdetails{
+    margin-left: 40px;
+}
