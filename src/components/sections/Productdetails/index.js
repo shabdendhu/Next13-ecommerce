@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./Productdetails.module.scss";
 import StarIcon from "@mui/icons-material/Star";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 const Productdetails = () => {
   const [showAllDetails, setShowAllDetails] = useState(false);
   return (
@@ -19,7 +19,7 @@ const Productdetails = () => {
       <div className={styles.productdetails}>
         <div>
           <b style={{ fontSize: "20px" }}>
-            Mother's Recipe Mixed Pickle (Roi) Jar, 1000 g
+            Mother&apos;s Recipe Mixed Pickle (Roi) Jar, 1000 g
           </b>
           <p
             style={{
@@ -29,7 +29,7 @@ const Productdetails = () => {
               marginBottom: "10px",
             }}
           >
-            by mother's recipy
+            by mother&apos;s recipy
           </p>
         </div>
         <div style={{ marginBottom: "15px" }}>
@@ -72,19 +72,23 @@ const Productdetails = () => {
           >
             ADD TO BASKET
           </button>
-          <h5 style={{border:'2px solid black',display:'flex',alignItems:'center',padding:'0px 12px'}}>
+          <h5
+            style={{
+              border: "2px solid black",
+              display: "flex",
+              alignItems: "center",
+              padding: "0px 12px",
+            }}
+          >
             <BookmarkBorderOutlinedIcon />
             <p>Save For Later</p>
           </h5>
         </div>
         <br />
-        <div style={{display:'flex',color:'rgb(22 16 16 / 74%)'}}>
-        <LocalShippingIcon style={{padding:'0px 3px'}}/>
-        <h>Standard: Get it in 1 day</h>
+        <div style={{ display: "flex", color: "rgb(22 16 16 / 74%)" }}>
+          <LocalShippingIcon style={{ padding: "0px 3px" }} />
+          <h>Standard: Get it in 1 day</h>
         </div>
-
-
-
 
         <div className="productdetails">
           <u style={{ fontSize: "20px", fontWeight: 400 }}>Details</u>
@@ -105,7 +109,7 @@ const Productdetails = () => {
               )}
             </ul>
             <ul style={{ marginLeft: "15px" }}>
-              <li>Top's Brand</li>
+              <li>Top&apos;s Brand</li>
               <li> NA</li>
               <li>Pickle</li>
               {showAllDetails && (

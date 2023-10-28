@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const ProductCard = ({ data, className, ...props }) => {
   const router = useRouter();
   const handleRedirect = () => {
-    router.push("/productdetails");
+    router.push("/product-details");
   };
 
   return (
