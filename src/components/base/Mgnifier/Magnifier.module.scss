@@ -1,0 +1,25 @@
+/* components/Magnifier.module.css */
+.magnifierContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.magnifierImage {
+  display: block;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.magnifier {
+  position: absolute;
+  border: 1px solid #ccc;
+  cursor: none;
+  background-repeat: no-repeat;
+  display: none;
+  right: -50%;
+  top: 100px;
+}
+
+.magnifierContainer:hover .magnifier {
+  display: block;
+}

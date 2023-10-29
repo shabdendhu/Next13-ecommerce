@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./ProductCard.module.scss";
 import Productdetails from "@/components/sections/Productdetails";
@@ -8,7 +9,7 @@ import { useRouter } from "next/navigation";
 const ProductCard = ({ data, className, ...props }) => {
   const router = useRouter();
   const handleRedirect = () => {
-    router.push("/productdetails");
+    router.push("/product-details");
   };
 
   return (
