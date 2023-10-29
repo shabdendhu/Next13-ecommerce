@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
         {/* admin header */}
         {/* header */}
-        <MiniDrawer children={children}/>
+        <MiniDrawer >{children}</MiniDrawer>
       {/* <body className={inter.className}>{children}</body> */}
     </html>
   );
