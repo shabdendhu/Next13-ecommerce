@@ -85,7 +85,7 @@ const Banner = () => {
         style={{
           position: "absolute",
           left: 0,
-          zIndex: 99,
+          zIndex: 98,
           background: "#FFFFFF",
           padding: "20px 0px",
           borderRadius: "0px 5px 5px 0px",

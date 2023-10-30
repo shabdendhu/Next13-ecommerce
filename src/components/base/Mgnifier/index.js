@@ -36,12 +36,12 @@ const Magnifier = ({ imageSrc, magnifiedSrc, className }) => {
       onMouseMove={handleMouseMove}
     >
       <img className={styles.magnifierImage} src={imageSrc} alt="Image" />
-      {true && (
+      {isMagnifierVisible && (
         <div
           className={styles.magnifier}
           style={{
-            width: 200,
-            height: 200,
+            width: 300,
+            height: 300,
             borderRadius: 10,
             backgroundImage: `url(${magnifiedSrc})`,
           }}
