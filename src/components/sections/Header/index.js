@@ -54,9 +54,11 @@ const Header = () => {
                 cursor: "pointer",
                 marginRight: 10,
               }}
+              onClick={() => router.push("/rating&reviews")}
             />
             <ShoppingBasketIcon
               style={{ fontSize: "44px", color: "#FFFFFF", cursor: "pointer" }}
+              onClick={() => router.push("/basket")}
             />
           </div>
         </div>
