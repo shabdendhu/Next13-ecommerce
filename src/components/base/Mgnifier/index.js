@@ -16,6 +16,7 @@ const Magnifier = ({ imageSrc, magnifiedSrc, className }) => {
 
   const handleMouseMove = (e) => {
     const magnifier = document.querySelector(`.${styles.magnifier}`);
+    if (!magnifier) return;
     const image = document.querySelector(`.${styles.magnifierImage}`);
     const { left, top, width, height } = image.getBoundingClientRect();
 
