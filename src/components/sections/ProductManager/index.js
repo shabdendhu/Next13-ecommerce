@@ -60,7 +60,8 @@ export default function ProductManager() {
           {rows.map((row) => (
             <TableRow
               key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              onClick={()=>console.log('slkdjddsj')}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 },cursor:'pointer' }}
             >
               <TableCell component="th" scope="row">
                 {row.name}
