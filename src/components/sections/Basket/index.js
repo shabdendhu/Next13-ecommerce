@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Basket.module.scss";
 import AddButton from "@/components/base/AddButton";
-import ProductCard from "../ProductCard";
+import ProductCard from "@/components/sections/ProductCard";
 
 const BasketProduct = () => {
  
