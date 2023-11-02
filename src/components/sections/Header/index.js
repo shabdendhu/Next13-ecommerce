@@ -29,7 +29,7 @@ const Header = () => {
           </div>
           <div className={styles.searchBarContainer}>
             <input
-              placeholder="Search Products Here...."
+              placeholder="Search Here...."
               className={styles.searchBbar}
             />
             <span className={styles.searchButton}>

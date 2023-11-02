@@ -4,6 +4,7 @@ import Banner from "@/components/sections/Banner";
 import ProductsHomeSection from "@/components/sections/ProductsHomeSection";
 import BestSeller from "@/components/sections/BestSeller";
 import Footer from "@/components/sections/Footer";
+import QuickCategory from "@/components/sections/QuickCategory";
 
 const Home = () => {
   return (
@@ -17,11 +18,12 @@ const Home = () => {
       <div
         style={{
           // border: "1px solid blue",
-          maxWidth: "80%",
+          maxWidth: "95%",
           margin: "auto",
           height: "100%",
         }}
       >
+        <QuickCategory />
         <div
           style={{
             margin: "20px 0px",

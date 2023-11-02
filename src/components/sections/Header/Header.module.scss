@@ -24,25 +24,31 @@
         color: #ffffff;
         font-size: 40px;
         font-weight: 600;
+        @include media.onMdM() {
+          display: none;
+        }
       }
       .searchBarContainer {
         // border: 1px solid  rgb(6, 65, 14);
-        overflow: hidden;
+        // overflow: hidden;
         background-color: #ffffff;
         width: 60%;
         display: flex;
         border-radius: 40px;
         min-width: 415px;
         height: 50px;
+        position: relative;
         .searchBbar {
           // border: 1px solid rgb(6, 65, 14);
           height: 100%;
           flex: 1;
           background-color: transparent;
           outline: none;
-          padding: 0px 20px;
+          padding: 0px 40px 0px 20px;
           font-size: 20px;
           color: #1d5510;
+          width: 100%;
+          // border: 1px solid black;
         }
         .searchBbar::placeholder {
           color: #1d5510;
@@ -55,14 +61,26 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          position: absolute;
+          right: 0;
+          border-radius: 0px 40px 40px 40px;
           .searchIcon {
             color: #ffffff;
             font-size: 30px;
           }
         }
+        @include media.onMdM() {
+          min-width: 200px;
+          width: 80%;
+          border: 1px solid purple;
+          height: 40px;
+        }
       }
       .rightIcon {
         // border: 1px solid #5ae741;
+        @include media.onMdM() {
+          display: none;
+        }
       }
       .loginButton {
         background: #5ae741;
@@ -81,6 +99,12 @@
         width: 95%;
       }
     }
+    @include media.onMdM() {
+      border: 1px solid red;
+      // width: 95%;
+      // background-color: transparent;
+      height: 40px;
+    }
   }
   .navBar {
     background-color: whitesmoke;
@@ -98,6 +122,9 @@
         cursor: pointer;
         font-weight: 500;
       }
+    }
+    @include media.onMdM() {
+      display: none;
     }
   }
 }
