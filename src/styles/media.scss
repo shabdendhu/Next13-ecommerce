@@ -94,3 +94,44 @@
     @content;
   }
 }
+
+// Orientation mixins
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+// Mixin for CSS rules specific to WebKit browsers (Safari, Chrome)
+@mixin forWebkit {
+  @supports (-webkit-appearance: none) {
+    @content;
+  }
+}
+
+// Mixin for CSS rules specific to Mozilla Firefox
+@mixin forFirefox {
+  @supports (-moz-appearance: none) {
+    @content;
+  }
+}
+
+// Mixin for CSS rules specific to Microsoft Edge
+@mixin forEdge {
+  @supports (-ms-ime-align: auto) {
+    @content;
+  }
+}
+
+// Mixin for CSS rules specific to Internet Explorer
+@mixin forIe {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+}

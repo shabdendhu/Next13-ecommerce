@@ -2,13 +2,13 @@
 
 .component {
   // border: 1px solid red;
-  min-height: 400px;
+  // min-height: 400px;
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
   overflow: hidden;
-  border: 1px solid red;
+  // border: 1px solid red;
   .laftArrowContainer {
     position: absolute;
     left: 0px;
@@ -17,6 +17,9 @@
     padding: 20px 0px;
     border-radius: 0px 5px 5px 0px;
     cursor: pointer;
+    @include media.onMdM() {
+      display: none;
+    }
   }
   .rightArrowContainer {
     position: absolute;
@@ -25,6 +28,9 @@
     padding: 20px 0px;
     border-radius: 5px 0px 0px 5px;
     cursor: pointer;
+    @include media.onMdM() {
+      display: none;
+    }
   }
   .bannerContainer {
     display: flex;
@@ -36,9 +42,9 @@
     img {
       margin: 5px;
       border-radius: 10px;
-      height: 60vh;
+      // height: 60vh;
       @include media.onMdM() {
-        height: 200px;
+        // height: 100%;
       }
     }
     -ms-overflow-style: none; /* IE and Edge */
@@ -46,6 +52,7 @@
   }
   @include media.onMdM() {
     min-height: 120px;
+    border-radius: 10px;
   }
   // .bannerContainer::-webkit-scrollbar {
   //   display: none;

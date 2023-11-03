@@ -1,0 +1,14 @@
+@use "../../../styles/media.scss";
+
+.component {
+  //   border: 1px solid red;
+  max-width: 90%;
+  margin: auto;
+  height: 100%;
+  @include media.onMdM() {
+    max-width: 98%;
+  }
+  @include media.landscape {
+    // max-width: 98%;
+  }
+}

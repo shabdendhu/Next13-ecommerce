@@ -95,12 +95,12 @@
         border-radius: 10px;
       }
       @include media.onMdM() {
-        border: 1px solid red;
+        // border: 1px solid red;
         width: 95%;
       }
     }
     @include media.onMdM() {
-      border: 1px solid red;
+      // border: 1px solid red;
       // width: 95%;
       // background-color: transparent;
       height: 40px;

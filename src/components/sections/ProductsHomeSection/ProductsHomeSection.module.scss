@@ -38,12 +38,34 @@
         display: none; /* Hide scrollbars for Chrome browsers */
       }
     }
+    .arrowLeft {
+      color: #208b16;
+      font-size: 35px;
+      cursor: pointer;
+      @include media.onMdM() {
+        display: none;
+      }
+    }
+    .arrowRight {
+      color: #208b16;
+      font-size: 35px;
+      cursor: pointer;
+      @include media.onMdM() {
+        display: none;
+      }
+    }
   }
   .header {
     font-weight: 600;
     font-size: 30px;
-    color: #208b16;
+    color: #5f1010;
     text-align: center;
+    @include media.onMdM() {
+      font-size: 20px;
+    }
+  }
+  @include media.onMdM() {
+    padding: 5px 0px;
   }
 }
 /* HorizontalScroll.scss */

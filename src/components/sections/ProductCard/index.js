@@ -23,15 +23,13 @@ const ProductCard = ({ data, className, ...props }) => {
       </div>
 
       <div className={styles.cardinfo}>
-        <div style={{ fontWeight: "bold", marginBottom: "10px" }}>
-          ACHAR{data}
-        </div>
+        <div className={styles.productName}>ACHAR{data}</div>
 
         <div className={styles.details}>
-          <div style={{ fontSize: "13px", fontWeight: "100px" }}>
-            $50/kg<span>$40/kg</span>
+          <div className={styles.priceInfo}>
+            <del> $50/kg</del> <span>$40/kg</span>
           </div>
-          <div style={{ fontWeight: "bold" }}>$30</div>
+          <div className={styles.price}>$30</div>
         </div>
 
         <div className={styles.cardlower}>

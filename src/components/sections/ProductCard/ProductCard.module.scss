@@ -1,3 +1,5 @@
+@use "../../../styles/media.scss";
+
 .cardContainer {
   border: 1px solid green;
   border-radius: 10px;
@@ -16,6 +18,11 @@
   // width: 100%;
 
   //  margin-left:15px
+  @include media.onMdM() {
+    min-width: 150px;
+    min-height: 250px;
+    max-width: 250px;
+  }
 }
 
 .cardimg {
@@ -29,9 +36,26 @@
 .cardinfo {
   margin-top: 10px;
   margin-left: 5px;
+  .productName {
+    font-weight: 600;
+    margin-bottom: 10px;
+    @include media.onMdM() {
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+  }
 }
 .details {
   bottom: 0;
+  .priceInfo {
+    font-size: 10px;
+    font-weight: 400;
+  }
+  .price {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(75, 9, 9);
+  }
 }
 
 .cardlower {

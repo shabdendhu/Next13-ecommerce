@@ -1,41 +1,52 @@
-.addButton{
-    border: 1px solid green;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 100px;
-    height: 40px; 
-    color: green;
-    font-weight: 600;
+@use "../../../styles/media.scss";
+
+.addButton {
+  border: 1px solid green;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100px;
+  height: 40px;
+  color: green;
+  font-weight: 600;
+  @include media.onMdM() {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 400;
+  }
 }
 
-
-
-
-.addRemoveButton{
-border: 1px solid green;
-background-color: rgb(18, 128, 18);
-border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: space-around;
-width: 100px;
-height: 40px;
+.addRemoveButton {
+  border: 1px solid green;
+  background-color: rgb(18, 128, 18);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100px;
+  height: 40px;
+  @include media.onMdM() {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+  }
 }
 
-.itemamt{
-    font-weight: 600;
-    color: rgb(240, 247, 242);
-    font-size: 15px;  
+.itemamt {
+  font-weight: 600;
+  color: rgb(240, 247, 242);
+  font-size: 15px;
 }
-.increment{
-   font-weight: 600;
-    color: rgb(240, 247, 242);
-    font-size: 24px;
+.increment {
+  font-weight: 600;
+  color: rgb(240, 247, 242);
+  font-size: 24px;
 }
-.decrement{
-    font-weight: 600;
-    color: rgb(240, 247, 242);
-    font-size: 33px;
+.decrement {
+  font-weight: 600;
+  color: rgb(240, 247, 242);
+  font-size: 33px;
 }

@@ -25,7 +25,7 @@ const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
       <div className={styles.content}>
         <ArrowBackIosNewOutlinedIcon
           onClick={() => handleScroll("left")}
-          style={{ color: "#208b16", fontSize: 35, cursor: "pointer" }}
+          className={styles.arrowLeft}
         />
         <div className={styles.cardContainer} ref={scrollContainerRef}>
           {Array(20)
@@ -43,7 +43,7 @@ const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
         </div>
         <ArrowForwardIosOutlinedIcon
           onClick={() => handleScroll("right")}
-          style={{ color: "#208b16", fontSize: 35, cursor: "pointer" }}
+          className={styles.arrowRight}
         />
       </div>
     </div>
