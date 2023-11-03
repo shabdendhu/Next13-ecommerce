@@ -1,3 +1,5 @@
+@use "../../../styles/media.scss";
+
 .component {
   // border: 1px solid #dbdbdb;
   height: 350px;
@@ -8,10 +10,10 @@
   overflow: auto;
   align-items: center;
   padding: 0px 10px;
-
+  border: 1px solid red;
   .sellers {
     background-color: #d1d1d1;
-    height: 70px;
+    // height: 70px;
     min-width: 200px;
     display: flex;
     align-items: center;
@@ -30,5 +32,8 @@
           rgba(0, 0, 0, 0.23) 0px 3px 6px;
       }
     }
+  }
+  @include media.onMdM() {
+    height: auto;
   }
 }

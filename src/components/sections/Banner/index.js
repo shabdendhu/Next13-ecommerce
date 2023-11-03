@@ -82,15 +82,7 @@ const Banner = () => {
   return (
     <div className={styles.component}>
       <div
-        style={{
-          position: "absolute",
-          left: 0,
-          zIndex: 98,
-          background: "#FFFFFF",
-          padding: "20px 0px",
-          borderRadius: "0px 5px 5px 0px",
-          cursor: "pointer",
-        }}
+        className={styles.laftArrowContainer}
         onClick={() => {
           if (index != 0) handleChangeIndex(index - 1);
         }}
@@ -101,30 +93,17 @@ const Banner = () => {
       </div>
       <AutoPlaySwipeableViews index={index} onChangeIndex={handleChangeIndex}>
         {imageurl.map((e, i) => (
-          <img
-            key={i}
-            src={e}
-            style={{
-              height: "60vh",
-            }}
-          />
+          <img key={i} src={e} />
         ))}
       </AutoPlaySwipeableViews>
       <div
         onClick={() => {
           if (index != imageurl.length - 1) handleChangeIndex(index + 1);
         }}
-        style={{
-          position: "absolute",
-          right: 0,
-          background: "#FFFFFF",
-          padding: "20px 0px",
-          borderRadius: "5px 0px 0px 5px",
-          cursor: "pointer",
-        }}
+        className={styles.rightArrowContainer}
       >
         <ArrowForwardIosOutlinedIcon
-          style={{ color: "#000000", fontSize: 35 }}
+          style={{ color: "#208b16", fontSize: 35 }}
         />
       </div>
     </div>

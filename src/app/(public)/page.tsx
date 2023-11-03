@@ -18,7 +18,8 @@ const Home = () => {
       <div
         style={{
           // border: "1px solid blue",
-          maxWidth: "95%",
+          maxWidth: "80%",
+          // maxWidth: "95%",
           margin: "auto",
           height: "100%",
         }}
