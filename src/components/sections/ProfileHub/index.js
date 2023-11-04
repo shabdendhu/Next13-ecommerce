@@ -1,102 +1,249 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./profile.module.scss";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import InventoryIcon from '@mui/icons-material/Inventory';
+import InventoryIcon from "@mui/icons-material/Inventory";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import FolderSharedIcon from "@mui/icons-material/FolderShared";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+
 const Profile = () => {
+  const [name, setName] = React.useState("");
+
   return (
     <div className={styles.profilebgcontainer}>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          gridGap: "20px",
-        }}
-      >
+      <div className={styles.profilecontainer}>
         <div className={styles.leftcontainer}>
           <div className={styles.heading}>
-            <AccountCircleRoundedIcon
-              style={{ fontSize: "50px", color: "green", marginRight: "15px" }}
-            />
+            <AccountCircleRoundedIcon className={styles.accountIcon} />
             <span className={styles.headingText}>
               <p>Hello</p>
               <b style={{ fontSize: "25px" }}>swoyamprava</b>
             </span>
           </div>
-          <div
-            style={{
-              display: "flex",
-              border: "1px solid red",
-              height: "100% ",
-              backgroundColor: "white",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                border: "1px solid blue",
-                width: "100%",
-              }}
-            >
-              <InventoryIcon
-                style={{
-                  margin: "0px 10px",
-                  fontSize: "25px", color: "green",
-                }}
-              />
+          <div className={styles.leftSubContainer}>
+            <div className={styles.smallSubContainers}>
+              <InventoryIcon className={styles.icons}/>
               <div
                 style={{
                   fontSize: "20px",
                   flex: 1,
-                  border: "1px solid red",
+                  // border: "1px solid red",
                   fontWeight: 600,
-                  color:'#878787'
+                  color: "#878787",
+                  cursor: "pointer",
                 }}
               >
                 MY ORDERS
               </div>
             </div>
+
+            <div
+              className={styles.smallSubContainers}>
+              <AccountCircleIcon  className={styles.icons}/>
+              <div
+                style={{
+                  fontSize: "20px",
+                  flex: 1,
+                  // border: "1px solid red",
+                  fontWeight: 600,
+                  color: "#878787",
+                }}
+              >
+                ACCOUNT
+              </div>
+            </div>
+
+            <div>
+              <p style={{ padding: "10px", cursor: "pointer" }}>
+                Profile Informations
+              </p>
+              <p style={{ padding: "10px", cursor: "pointer" }}>
+                Manage Address
+              </p>
+            </div>
+
+            <div className={styles.smallSubContainers}>
+              <AccountBalanceWalletIcon  className={styles.icons}/>
+              <div
+                style={{
+                  fontSize: "20px",
+                  flex: 1,
+                  // border: "1px solid red",
+                  fontWeight: 600,
+                  color: "#878787",
+                }}
+              >
+                PAYMENT METHOD
+              </div>
+            </div>
+
+            <div>
+              <p style={{ padding: "10px", cursor: "pointer" }}>Saved card</p>
+              <p style={{ padding: "10px", cursor: "pointer" }}>Saved UPI</p>
+            </div>
+
+            <div className={styles.smallSubContainers}>
+              <FolderSharedIcon  className={styles.icons}/>
+              <div
+                style={{
+                  fontSize: "20px",
+                  flex: 1,
+                  // border: "1px solid red",
+                  fontWeight: 600,
+                  color: "#878787",
+                }}
+              >
+                MY STUFF
+              </div>
+            </div>
+
+            <div
+              style={{
+                fontSize: "15px",
+              }}
+            >
+              <p style={{ padding: "10px", cursor: "pointer" }}>
+                My Ratings & My Reviews
+              </p>
+              <p style={{ padding: "10px", cursor: "pointer" }}>My Wishlist</p>
+            </div>
+
+            <div className={styles.smallSubContainers}>
+              <LogoutRoundedIcon  className={styles.icons}/>
+              <div
+                style={{
+                  fontSize: "20px",
+                  flex: 1,
+                  // border: "1px solid red",
+                  fontWeight: 600,
+                  color: "#878787",
+                }}
+              >
+                LAGOUT
+              </div>
+            </div>
           </div>
         </div>
-        <br />
+
         <div className={styles.rightbgcontainer}>
           <div className={styles.rightcontainer}>
+           
+
             <div>
-              <h1>
-                krishna
-                <span>
-                  <input style={{ border: "1px solid red" }} />
-                </span>
-              </h1>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "25ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <h1 style={{fontSize:'20px'}}>PERSONAL INFORMATION</h1>
+                <TextField
+                  id="outlined-controlled"
+                  label="Fastname"
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
+                />
+                <TextField
+                  id="outlined-uncontrolled"
+                  label="Lastname"
+                  defaultValue=""
+                  style={{ fontWeight: "600" }}
+                />
+              </Box>
             </div>
+
+            
             <div>
-              <h1>
-                krishna
-                <span>
-                  <input style={{ border: "1px solid red" }} />
-                </span>
-              </h1>
+              <FormControl>
+                <FormLabel id="demo-row-radio-buttons-group-label" style={{fontSize:'20px',fontWeight:'530',color:'black'}}>
+                  GENDER
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                 
+                </RadioGroup>
+              </FormControl>
             </div>
+
             <div>
-              <h1>
-                krishna
-                <span>
-                  <input style={{ border: "1px solid red" }} />
-                </span>
-              </h1>
+            <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "25ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <h1 style={{fontSize:'20px'}}>EMAIL ADDRESS</h1>
+                <TextField
+                  id="outlined-controlled"
+                  label="Email"
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
+                />
+              </Box>
             </div>
+
             <div>
-              <h1>
-                krishna
-                <span>
-                  <input style={{ border: "1px solid red" }} />
-                </span>
-              </h1>
+            <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "25ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                <h1 style={{fontSize:'20px'}}>MOBILE NUMBER</h1>
+                <TextField
+                  id="outlined-controlled"
+                  label="Mobile Number"
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                  }}
+                />
+              </Box>
             </div>
+
+            <div>
+              <button style={{backgroundColor:'#074a65',height:"40px",width:'30%',fontSize:'20px',color:'white',borderRadius:'4px'}}>SAVE</button>
+            </div>
+
           </div>
         </div>
       </div>

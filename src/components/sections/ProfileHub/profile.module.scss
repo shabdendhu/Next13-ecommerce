@@ -1,51 +1,89 @@
-.profilebgcontainer{
+.profilebgcontainer {
     display: flex;
     margin: auto;
-    // height: 90vh;
-    // justify-content: space-between;
-    // min-height: 40px;
     width: 90%;
-    border: 1px solid rgb(136, 23, 23);
     margin-top: 20px;
     padding: 20px 20px;
-    background-color: rgb(206, 202, 202);
-    .heading{
+    background-color: rgb(231 226 226);
+    border-radius: 5px;
+
+    .profilecontainer {
+
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        grid-gap: 20px
+    }
+
+    .heading {
         height: 23%;
-        border:1px solid red;
         display: flex;
         align-items: center;
-        // justify-content: center;
         background-color: white;
         border-radius: 5px;
         min-height: 80px;
-        .headingText{
+
+        .accountIcon {
+            font-size: 50px;
+            color: green;
+            margin-right: 15px
+        }
+
+        .headingText {
             flex: 1;
         }
     }
 }
-.leftcontainer{
-    border:1px solid blue;
+
+.leftcontainer {
+    // border:1px solid blue;
     flex-direction: column;
     width: 30%;
-    // padding:5px 5px;
-    // background-color:blue;
     grid-gap: 25px;
     display: flex;
-    // background-color: white;
+
+    .leftSubContainer {
+        display: flex;
+        // border: 1px solid red;
+        border-radius: 5px;
+        height: 100%;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+
+        .smallSubContainers {
+            display: flex;
+            // border: "1px solid blue",
+            width: 100%;
+            padding: 20px;
+
+            .icons {
+                margin: 0px 20px;
+                font-size: 30px;
+                color: green;
+
+            }
+        }
+    }
 
 }
-.rightbgcontainer{
-border:1px solid black;
-width:70%;
-display: flex;
-background-color: white;
-// flex-direction: column; 
-// align-items:center;
-// justify-content: space-around;
-}
-.rightcontainer{
+
+.rightbgcontainer {
+    // border:1px solid black;s
+    width: 70%;
     display: flex;
-    flex-direction: column; 
+    background-color: white;
+    border-radius: 5px;
+    flex-direction: column;
+    // align-items:center;
+    // justify-content: space-around;
+}
+
+.rightcontainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 30px;
     // align-items:center;
     justify-content: space-around;
 }
