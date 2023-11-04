@@ -5,9 +5,9 @@ const QuickCategory = () => {
     <div className={styles.component}>
       {Array(10)
         .fill("")
-        .map((e) => (
-          <div className={styles.item}>
-            {/* <img src="https://www.jiomart.com/images/product/original/491586158/shree-ram-bikaneri-papad-480-g-product-images-o491586158-p491586158-0-202203170206.jpg?im=Resize=(300,300)" /> */}
+        .map((e, i) => (
+          <div className={styles.item} key={i}>
+            <img src="https://www.vkrusa.com/wp-content/uploads/2020/04/PAPAD.jpg" />
           </div>
         ))}
     </div>

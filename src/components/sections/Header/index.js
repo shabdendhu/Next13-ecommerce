@@ -36,7 +36,7 @@ const Header = () => {
               <SearchIcon className={styles.searchIcon} />
             </span>
           </div>
-          <div onclick={handleLogin}></div>
+          <div onClick={handleLogin}></div>
           <div className={styles.rightIcon}>
             <PersonIcon
               onClick={() => router.push("/login")}

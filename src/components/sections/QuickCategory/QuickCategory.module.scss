@@ -1,12 +1,16 @@
+@use "../../../styles/media.scss";
+
 .component {
-  border: 1px solid tomato;
+  // border: 1px solid tomato;
   width: 100%;
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
   height: 100px;
-  justify-content: space-around;
+  padding: 0px 10px;
+  overflow: hidden;
+  // justify-content: space-around;
   overflow: auto;
   .item {
     border: 1px solid rgb(173, 173, 216);
@@ -17,8 +21,11 @@
     border-radius: 100px;
     overflow: hidden;
     img {
-      width: 100%;
-      //   aspect-ratio: 1;
+      height: 100%;
+      aspect-ratio: 1;
     }
+  }
+  @include media.onMd() {
+    display: none;
   }
 }
