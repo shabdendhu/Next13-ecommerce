@@ -4,6 +4,9 @@
   position: sticky;
   top: 0;
   z-index: 99;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
   .headerContainer {
     background-color: rgba(14, 100, 14, 0.993);
     min-height: 80px;
@@ -48,6 +51,10 @@
           font-size: 20px;
           color: #1d5510;
           width: 100%;
+          @include media.onMdM() {
+            font-size: 12px;
+            max-height: 40px;
+          }
           // border: 1px solid black;
         }
         .searchBbar::placeholder {
@@ -72,8 +79,8 @@
         @include media.onMdM() {
           min-width: 200px;
           width: 80%;
-          border: 1px solid purple;
-          height: 40px;
+          // border: 1px solid purple;
+          height: 30px;
         }
       }
       .rightIcon {
@@ -103,7 +110,7 @@
       // border: 1px solid red;
       // width: 95%;
       // background-color: transparent;
-      height: 40px;
+      min-height: 60px;
     }
   }
   .navBar {

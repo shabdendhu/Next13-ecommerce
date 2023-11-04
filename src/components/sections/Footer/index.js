@@ -1,14 +1,27 @@
+"use client";
 import React from "react";
 import styles from "./Footer.module.scss";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import useScrollDirection from "@/hooks/useScrollDirection";
+import HomeIcon from "@mui/icons-material/Home";
+import CategoryIcon from "@mui/icons-material/Category";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PersonIcon from "@mui/icons-material/Person";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Footer = () => {
+  const scrollDirection = useScrollDirection();
   return (
-    <div className={styles.footercontainer}>
+    <div
+      className={styles.footercontainer}
+      style={{
+        bottom: scrollDirection === "down" ? -60 : 0,
+      }}
+    >
       {/* <div className={styles.footerheading}>
         <div className={styles.logo}>logo</div>
         <div className={styles.mainheader}>
@@ -31,7 +44,28 @@ const Footer = () => {
           </button>
         </div>
       </div> */}
-
+      <div className={styles.mobileFooter}>
+        <div className={styles.footerMenu}>
+          <HomeIcon className={styles.icon} />
+          <span className={styles.text}>Home</span>
+        </div>
+        <div className={styles.footerMenu}>
+          <CategoryIcon className={styles.icon} />
+          <span className={styles.text}>Category</span>
+        </div>
+        <div className={styles.footerMenu}>
+          <FavoriteIcon className={styles.icon} />
+          <span className={styles.text}>WishList</span>
+        </div>
+        <div className={styles.footerMenu}>
+          <ShoppingBasketIcon className={styles.icon} />
+          <span className={styles.text}>Basket</span>
+        </div>
+        <div className={styles.footerMenu}>
+          <PersonIcon className={styles.icon} />
+          <span className={styles.text}>Profile</span>
+        </div>
+      </div>
       <div className={styles.footerdetails}>
         <div style={{ marginRight: "30px", marginLeft: "40px" }}>
           <ul>
@@ -70,23 +104,26 @@ const Footer = () => {
         </div>
         <div style={{ marginRight: "80px" }}>
           <ul>
-            <h1 >REACH US</h1>
-            <h2 style={{fontWeight:'500'}}>
+            <h1>REACH US</h1>
+            <h2 style={{ fontWeight: "500" }}>
               EMAIL:
               <span> tripathy@gmail.com</span>
             </h2>
-            <h2 style={{fontWeight:'500'}}>
+            <h2 style={{ fontWeight: "500" }}>
               CALL:
               <span> +91 712-2779451</span>
             </h2>
-            <h2 style={{fontWeight:'500'}}>
+            <h2 style={{ fontWeight: "500" }}>
               Customer Care Timming:
               <span> 10:00AM To 6:00PM </span>
             </h2>
           </ul>
           <ul>
             <h1>PAYMENT SECURED BY</h1>
-           <img src="https://www.haldirams.com/media/wysiwyg/Footer_Image_new_desk.jpg" alt=""/>
+            <img
+              src="https://www.haldirams.com/media/wysiwyg/Footer_Image_new_desk.jpg"
+              alt=""
+            />
           </ul>
         </div>
         <div>
