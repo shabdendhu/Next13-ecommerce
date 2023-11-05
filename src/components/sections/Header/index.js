@@ -7,8 +7,10 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useRouter } from "next/navigation";
 import CategoryMenu from "@/components/base/CategoryMenu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import useScrollDirection from "@/hooks/useScrollDirection";
 const Header = () => {
   const router = useRouter();
+  const scrollDirection = useScrollDirection();
 
   const handleLogin = () => {
     console.log("eeeeeeeeeeee.....");
@@ -18,15 +20,22 @@ const Header = () => {
     router.push("/category");
   };
   const handleClickLogo = () => {
-    router.push("/products");
+    router.push("/");
   };
   return (
-    <div className={styles.component}>
+    <div
+      className={styles.component}
+      style={{
+        top: scrollDirection === "down" ? -80 : 0,
+      }}
+    >
       <div className={styles.headerContainer}>
         <div className={styles.content}>
+          {/* visible above 900px */}
           <div className={styles.logoContainer} onClick={handleClickLogo}>
             LOGO
           </div>
+
           <div className={styles.searchBarContainer}>
             <input
               placeholder="Search Here...."
@@ -36,7 +45,10 @@ const Header = () => {
               <SearchIcon className={styles.searchIcon} />
             </span>
           </div>
-          <div onclick={handleLogin}></div>
+
+          <div onClick={handleLogin}></div>
+
+          {/* visible above 900px */}
           <div className={styles.rightIcon}>
             <PersonIcon
               onClick={() => router.push("/login")}
@@ -63,6 +75,8 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {/* visible above 900px */}
       <div className={styles.navBar}>
         <div className={styles.navContent}>
           <CategoryMenu

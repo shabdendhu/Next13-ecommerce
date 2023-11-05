@@ -1,8 +1,8 @@
 @use "../../../styles/media.scss";
 
 .cardContainer {
-  border: 1px solid green;
-  border-radius: 10px;
+  // border: 1px solid green;
+  border-radius: 8px;
   min-width: 200px;
   min-height: 310px;
   max-width: 250px;
@@ -16,7 +16,10 @@
   justify-content: center;
   cursor: pointer;
   // width: 100%;
-
+  // box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   //  margin-left:15px
   @include media.onMdM() {
     min-width: 150px;

@@ -8,7 +8,7 @@ const AddButton = () => {
     e.stopPropagation();
     setItemAmt(itemAmt + 1);
   };
-  const handleRemove = () => {
+  const handleRemove = (e) => {
     e.stopPropagation();
     setItemAmt(itemAmt - 1);
   };
