@@ -8,6 +8,31 @@
   // padding: 10px 0px;
   // margin-left: 30px;
   // border:1px solid black;
+  .chip {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    padding: 10px 0px;
+    @include media.onMdM() {
+      display: none;
+    }
+  }
+  .productcardContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    .productContainer {
+      @include media.onMdM() {
+        max-width: 150px !important;
+        min-width: 150px !important;
+        min-height: 250px !important;
+        // border: 1px solid blue;
+        // gap: 10px;
+
+        display: flex;
+      }
+    }
+  }
   @include media.onLgM() {
     width: 98%;
   }

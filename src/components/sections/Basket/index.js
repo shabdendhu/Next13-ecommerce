@@ -2,21 +2,23 @@ import React from "react";
 import styles from "./Basket.module.scss";
 import AddButton from "@/components/base/AddButton";
 import ProductCard from "@/components/sections/ProductCard";
+import PageWrapper from "../PageWrapper";
 
 const BasketProduct = () => {
   return (
-    <div className={styles.basketcontainer}>
-      <div className={styles.basketheading}>
-        MY CART ELEMENT(items 1)
-        <span className={styles.basketIcon}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/5738/5738076.png"
-            alt=""
-          />
-        </span>
-      </div>
+    <PageWrapper>
+      <div className={styles.basketcontainer}>
+        <div className={styles.basketheading}>
+          MY CART ELEMENT(items 1)
+          <span className={styles.basketIcon}>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/5738/5738076.png"
+              alt=""
+            />
+          </span>
+        </div>
 
-      {/* <div className={styles.basketproduct}>
+        {/* <div className={styles.basketproduct}>
         <h2
           style={{
             display: "flex",
@@ -55,62 +57,63 @@ const BasketProduct = () => {
         </div>
       </div> */}
 
-      <div className={styles.cartItems}>
-        {Array(20)
-          .fill("")
-          .map((e, i) => (
-            <ProductCard key={i} />
-          ))}
-      </div>
-      <div className={styles.pricedetails}>
-        <h1>Price Details</h1>
-        <div className={styles.pricedistribution}>
-          <ul>
-            <li style={{ marginBottom: "10px" }}>Price(1 item)</li>
-            <li style={{ marginBottom: "10px" }}>Discount Price</li>
-            <li style={{ marginBottom: "10px" }}>Delivery Charges</li>
-            <li
-              style={{
-                marginBottom: "10px",
-                fontWeight: "500",
-                fontSize: "20px",
-              }}
-            >
-              Total Amount{" "}
-            </li>
-          </ul>
-
-          <ul>
-            <li style={{ marginBottom: "10px" }}>380</li>
-            <li style={{ marginBottom: "10px", color: "blue" }}>-181</li>
-            <li style={{ marginBottom: "10px" }}>40</li>
-            <li
-              style={{
-                marginBottom: "10px",
-                fontWeight: "500",
-                fontSize: "20px",
-              }}
-            >
-              199
-            </li>
-          </ul>
+        <div className={styles.cartItems}>
+          {Array(20)
+            .fill("")
+            .map((e, i) => (
+              <ProductCard className={styles.productCard} key={i} />
+            ))}
         </div>
-      </div>
-      <br />
+        <div className={styles.pricedetails}>
+          <h1>Price Details</h1>
+          <div className={styles.pricedistribution}>
+            <ul>
+              <li style={{ marginBottom: "10px" }}>Price(1 item)</li>
+              <li style={{ marginBottom: "10px" }}>Discount Price</li>
+              <li style={{ marginBottom: "10px" }}>Delivery Charges</li>
+              <li
+                style={{
+                  marginBottom: "10px",
+                  fontWeight: "500",
+                  fontSize: "20px",
+                }}
+              >
+                Total Amount{" "}
+              </li>
+            </ul>
 
-      <button
-        style={{
-          backgroundColor: "blue",
-          width: "20%",
-          height: "45px",
-          color: "white",
-          borderRadius: "7px",
-          fontSize: "19px",
-        }}
-      >
-        place order
-      </button>
-    </div>
+            <ul>
+              <li style={{ marginBottom: "10px" }}>380</li>
+              <li style={{ marginBottom: "10px", color: "blue" }}>-181</li>
+              <li style={{ marginBottom: "10px" }}>40</li>
+              <li
+                style={{
+                  marginBottom: "10px",
+                  fontWeight: "500",
+                  fontSize: "20px",
+                }}
+              >
+                199
+              </li>
+            </ul>
+          </div>
+        </div>
+        <br />
+
+        <button
+          style={{
+            backgroundColor: "blue",
+            width: "20%",
+            height: "45px",
+            color: "white",
+            borderRadius: "7px",
+            fontSize: "19px",
+          }}
+        >
+          place order
+        </button>
+      </div>
+    </PageWrapper>
   );
 };
 

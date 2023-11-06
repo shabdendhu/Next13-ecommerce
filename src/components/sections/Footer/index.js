@@ -11,10 +11,19 @@ import CategoryIcon from "@mui/icons-material/Category";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PersonIcon from "@mui/icons-material/Person";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Footer = () => {
   const scrollDirection = useScrollDirection();
+  const router = useRouter();
+  const pathname = usePathname();
+  console.log({ pathname });
   return (
     <div
       className={styles.footercontainer}
@@ -22,49 +31,84 @@ const Footer = () => {
         bottom: scrollDirection === "down" ? -60 : 0,
       }}
     >
-      {/* <div className={styles.footerheading}>
-        <div className={styles.logo}>logo</div>
-        <div className={styles.mainheader}>
-          <p className={styles.header}>SIGNUP FOR NEW SELLERS</p>
-          <p className={styles.paragraph}>
-            Want To Latest Updates ! Sign Up For Free
-          </p>
-        </div>
-        <div className={styles.searchbar}>
-          <input style={{ height: "32px" }} placeholder="Enter Your Email" />
-          <button
-            style={{
-              backgroundColor: "red",
-              color: "white",
-              padding: "6x 6px",
-              height: "32px",
-            }}
-          >
-            SUSCRIBE
-          </button>
-        </div>
-      </div> */}
       <div className={styles.mobileFooter}>
-        <div className={styles.footerMenu}>
-          <HomeIcon className={styles.icon} />
+        <button onClick={() => router.push("/")} className={styles.footerMenu}>
+          {pathname == "/" ? (
+            <HomeIcon
+              className={styles.icon}
+              style={{
+                color: "#0e640efd",
+              }}
+            />
+          ) : (
+            <HomeOutlinedIcon className={styles.icon} />
+          )}
           <span className={styles.text}>Home</span>
-        </div>
-        <div className={styles.footerMenu}>
-          <CategoryIcon className={styles.icon} />
+        </button>
+        <button
+          onClick={() => router.push("/category")}
+          className={styles.footerMenu}
+        >
+          {pathname === "/category" ? (
+            <CategoryIcon
+              className={styles.icon}
+              style={{
+                color: "#0e640efd",
+              }}
+            />
+          ) : (
+            <CategoryOutlinedIcon className={styles.icon} />
+          )}
           <span className={styles.text}>Category</span>
-        </div>
-        <div className={styles.footerMenu}>
-          <FavoriteIcon className={styles.icon} />
+        </button>
+        <button
+          onClick={() => router.push("/mywishlist")}
+          className={styles.footerMenu}
+        >
+          {pathname === "/mywishlist" ? (
+            <FavoriteIcon
+              className={styles.icon}
+              style={{
+                color: "#0e640efd",
+              }}
+            />
+          ) : (
+            <FavoriteBorderOutlinedIcon className={styles.icon} />
+          )}
           <span className={styles.text}>WishList</span>
-        </div>
-        <div className={styles.footerMenu}>
-          <ShoppingBasketIcon className={styles.icon} />
+        </button>
+        <button
+          onClick={() => router.push("/basket")}
+          className={styles.footerMenu}
+        >
+          {pathname === "/basket" ? (
+            <ShoppingBasketIcon
+              className={styles.icon}
+              style={{
+                color: "#0e640efd",
+              }}
+            />
+          ) : (
+            <ShoppingBasketOutlinedIcon className={styles.icon} />
+          )}
           <span className={styles.text}>Basket</span>
-        </div>
-        <div className={styles.footerMenu}>
-          <PersonIcon className={styles.icon} />
+        </button>
+        <button
+          onClick={() => router.push("/profile-hub")}
+          className={styles.footerMenu}
+        >
+          {pathname === "/profile-hub" ? (
+            <PersonIcon
+              className={styles.icon}
+              style={{
+                color: "#0e640efd",
+              }}
+            />
+          ) : (
+            <PersonOutlineOutlinedIcon className={styles.icon} />
+          )}
           <span className={styles.text}>Profile</span>
-        </div>
+        </button>
       </div>
       <div className={styles.footerdetails}>
         <div style={{ marginRight: "30px", marginLeft: "40px" }}>
