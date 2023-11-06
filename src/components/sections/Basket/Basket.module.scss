@@ -13,6 +13,9 @@
     gap: 10px;
     justify-content: space-around;
     padding: 20px 10px;
+    .productCard {
+      max-width: 160px !important;
+    }
   }
 }
 

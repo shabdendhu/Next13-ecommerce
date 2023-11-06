@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./profile.module.scss";
+import styles from "./ratingreviews.module.scss";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -16,7 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useRouter } from "next/navigation";
 
-const Profile = () => {
+const MyRatingReview = () => {
   const [name, setName] = React.useState("");
   const router = useRouter();
   const handleRedirect = () => {
@@ -183,125 +183,7 @@ const Profile = () => {
 
         <div className={styles.rightbgcontainer}>
           <div className={styles.rightcontainer}>
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <h1 style={{ fontSize: "20px" }}>PERSONAL INFORMATION</h1>
-                <TextField
-                  id="outlined-controlled"
-                  label="Fastname"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-                <TextField
-                  id="outlined-uncontrolled"
-                  label="Lastname"
-                  defaultValue=""
-                  style={{ fontWeight: "600" }}
-                />
-              </Box>
-            </div>
-
-            <div>
-              <FormControl>
-                <FormLabel
-                  id="demo-row-radio-buttons-group-label"
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: "530",
-                    color: "black",
-                  }}
-                >
-                  GENDER
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Other"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <h1 style={{ fontSize: "20px" }}>EMAIL ADDRESS</h1>
-                <TextField
-                  id="outlined-controlled"
-                  label="Email"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <h1 style={{ fontSize: "20px" }}>MOBILE NUMBER</h1>
-                <TextField
-                  id="outlined-controlled"
-                  label="Mobile Number"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-
-            <div>
-              <button
-                style={{
-                  backgroundColor: "#074a65",
-                  height: "40px",
-                  width: "30%",
-                  fontSize: "20px",
-                  color: "white",
-                  borderRadius: "4px",
-                }}
-              >
-                SAVE
-              </button>
-            </div>
+            <div>hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</div>
           </div>
         </div>
       </div>
@@ -309,4 +191,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MyRatingReview;
