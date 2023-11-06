@@ -1,3 +1,5 @@
+@use "../../../styles/media.scss";
+
 .productdetailscontainer {
   min-height: 40px;
   // width: 80%;
@@ -7,6 +9,10 @@
   padding: 20px 10px;
   // justify-content: space-between;
   //   border: 1px solid red;
+  @include media.onMdM() {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
 .productdetailsimg {
   width: 30%;
@@ -19,21 +25,38 @@
     display: flex;
     gap: 10px;
     flex-direction: column;
-    justify-content: space-around;
+
     img {
       width: 100px;
       aspect-ratio: 1;
       border-radius: 10px;
       cursor: pointer;
     }
+    @include media.onMdM() {
+      flex-direction: row;
+      width: 100%;
+      overflow: auto;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    @include media.onMd() {
+      justify-content: space-around;
+    }
   }
   .magnifier {
     flex: 1;
     border-radius: 10px;
+  }
+  @include media.onMdM() {
+    flex-direction: column-reverse;
+    width: 100%;
   }
 }
 .productdetails {
   margin-left: 40px;
   //   border: 1px solid blue;
   flex: 1;
+  @include media.onMdM() {
+    margin: 0;
+  }
 }
