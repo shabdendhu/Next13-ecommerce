@@ -34,8 +34,8 @@ const Ratting = () => {
         <div className={styles.customerReviewBgContainer}>
           {Array(10)
             .fill("")
-            .map((e) => (
-              <>
+            .map((e, i) => (
+              <div key={i}>
                 <div className={styles.customerReviewContainer}>
                   <div className={styles.customerDetails}>
                     <div className={styles.customerImg}>
@@ -89,7 +89,7 @@ const Ratting = () => {
                   </div>
                 </div>
                 <Divider />
-              </>
+              </div>
             ))}
         </div>
       </div>

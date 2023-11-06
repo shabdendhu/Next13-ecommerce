@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import styles from "./profile.module.scss";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import IosShareIcon from "@mui/icons-material/IosShare";
-import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -16,9 +14,20 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
   const [name, setName] = React.useState("");
+  const router = useRouter();
+  const handleRedirect = () => {
+    router.push("/profile-hub");
+  };
+  const handleNavigate = () => {
+    router.push("/address");
+  };
+  const handleOrder = () => {
+    router.push("/basket");
+  };
 
   return (
     <div className={styles.profilebgcontainer}>
@@ -33,7 +42,7 @@ const Profile = () => {
           </div>
           <div className={styles.leftSubContainer}>
             <div className={styles.smallSubContainers}>
-              <InventoryIcon className={styles.icons}/>
+              <InventoryIcon className={styles.icons} />
               <div
                 style={{
                   fontSize: "20px",
@@ -43,14 +52,14 @@ const Profile = () => {
                   color: "#878787",
                   cursor: "pointer",
                 }}
+                onClick={handleOrder}
               >
                 MY ORDERS
               </div>
             </div>
 
-            <div
-              className={styles.smallSubContainers}>
-              <AccountCircleIcon  className={styles.icons}/>
+            <div className={styles.smallSubContainers}>
+              <AccountCircleIcon className={styles.icons} />
               <div
                 style={{
                   fontSize: "20px",
@@ -65,16 +74,22 @@ const Profile = () => {
             </div>
 
             <div>
-              <p style={{ padding: "10px", cursor: "pointer" }}>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handleRedirect}
+              >
                 Profile Informations
               </p>
-              <p style={{ padding: "10px", cursor: "pointer" }}>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handleNavigate}
+              >
                 Manage Address
               </p>
             </div>
 
             <div className={styles.smallSubContainers}>
-              <AccountBalanceWalletIcon  className={styles.icons}/>
+              <AccountBalanceWalletIcon className={styles.icons} />
               <div
                 style={{
                   fontSize: "20px",
@@ -94,7 +109,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.smallSubContainers}>
-              <FolderSharedIcon  className={styles.icons}/>
+              <FolderSharedIcon className={styles.icons} />
               <div
                 style={{
                   fontSize: "20px",
@@ -120,7 +135,7 @@ const Profile = () => {
             </div>
 
             <div className={styles.smallSubContainers}>
-              <LogoutRoundedIcon  className={styles.icons}/>
+              <LogoutRoundedIcon className={styles.icons} />
               <div
                 style={{
                   fontSize: "20px",
@@ -138,8 +153,6 @@ const Profile = () => {
 
         <div className={styles.rightbgcontainer}>
           <div className={styles.rightcontainer}>
-           
-
             <div>
               <Box
                 component="form"
@@ -149,7 +162,7 @@ const Profile = () => {
                 noValidate
                 autoComplete="off"
               >
-                <h1 style={{fontSize:'20px'}}>PERSONAL INFORMATION</h1>
+                <h1 style={{ fontSize: "20px" }}>PERSONAL INFORMATION</h1>
                 <TextField
                   id="outlined-controlled"
                   label="Fastname"
@@ -167,10 +180,16 @@ const Profile = () => {
               </Box>
             </div>
 
-            
             <div>
               <FormControl>
-                <FormLabel id="demo-row-radio-buttons-group-label" style={{fontSize:'20px',fontWeight:'530',color:'black'}}>
+                <FormLabel
+                  id="demo-row-radio-buttons-group-label"
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "530",
+                    color: "black",
+                  }}
+                >
                   GENDER
                 </FormLabel>
                 <RadioGroup
@@ -193,13 +212,12 @@ const Profile = () => {
                     control={<Radio />}
                     label="Other"
                   />
-                 
                 </RadioGroup>
               </FormControl>
             </div>
 
             <div>
-            <Box
+              <Box
                 component="form"
                 sx={{
                   "& > :not(style)": { m: 1, width: "25ch" },
@@ -207,7 +225,7 @@ const Profile = () => {
                 noValidate
                 autoComplete="off"
               >
-                <h1 style={{fontSize:'20px'}}>EMAIL ADDRESS</h1>
+                <h1 style={{ fontSize: "20px" }}>EMAIL ADDRESS</h1>
                 <TextField
                   id="outlined-controlled"
                   label="Email"
@@ -220,7 +238,7 @@ const Profile = () => {
             </div>
 
             <div>
-            <Box
+              <Box
                 component="form"
                 sx={{
                   "& > :not(style)": { m: 1, width: "25ch" },
@@ -228,7 +246,7 @@ const Profile = () => {
                 noValidate
                 autoComplete="off"
               >
-                <h1 style={{fontSize:'20px'}}>MOBILE NUMBER</h1>
+                <h1 style={{ fontSize: "20px" }}>MOBILE NUMBER</h1>
                 <TextField
                   id="outlined-controlled"
                   label="Mobile Number"
@@ -241,9 +259,19 @@ const Profile = () => {
             </div>
 
             <div>
-              <button style={{backgroundColor:'#074a65',height:"40px",width:'30%',fontSize:'20px',color:'white',borderRadius:'4px'}}>SAVE</button>
+              <button
+                style={{
+                  backgroundColor: "#074a65",
+                  height: "40px",
+                  width: "30%",
+                  fontSize: "20px",
+                  color: "white",
+                  borderRadius: "4px",
+                }}
+              >
+                SAVE
+              </button>
             </div>
-
           </div>
         </div>
       </div>
