@@ -2,7 +2,7 @@
 .productContainer {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  // width: 80%;
   margin: auto;
   // border: 1px solid black;
 }
@@ -70,6 +70,7 @@
       overflow: auto;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
+      gap: 10px;
     }
     @include media.onMd() {
       justify-content: space-around;
