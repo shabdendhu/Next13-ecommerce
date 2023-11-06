@@ -66,6 +66,7 @@ const BasketProduct = () => {
                 style={{
                   border: "1px solid #3f0d0d7a",
                 }}
+                className={styles.productCard}
               />
             ))}
         </div>

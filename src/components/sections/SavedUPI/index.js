@@ -201,11 +201,11 @@ const SavedUPI = () => {
                   1. Why is my UPI being saved on your cart?
                 </h1>
                 <p>
-                  It's quicker. You can save the hassle of typing in the
-                  complete UPI information every time you shop at Flipkart by
-                  saving your UPI details. You can make your payment by
-                  selecting the saved UPI ID of your choice at checkout. While
-                  this is obviously faster, it is also very secure.
+                  Its quicker. You can save the hassle of typing in the complete
+                  UPI information every time you shop at Flipkart by saving your
+                  UPI details. You can make your payment by selecting the saved
+                  UPI ID of your choice at checkout. While this is obviously
+                  faster, it is also very secure.
                 </p>
               </div>
             </div>

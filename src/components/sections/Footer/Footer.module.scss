@@ -21,7 +21,7 @@
     // height: 60px;
     display: flex;
     align-items: center;
-    padding: 5px 0px;
+    padding: 3px 0px;
     // display: none;
   }
   .mobileFooter {
@@ -37,10 +37,10 @@
       justify-content: center;
       align-items: center;
       .icon {
-        font-size: 35px;
+        font-size: 30px;
       }
       .text {
-        font-size: 12px;
+        font-size: 10px;
       }
     }
     @include media.onMd() {
