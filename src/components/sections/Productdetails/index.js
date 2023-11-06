@@ -13,8 +13,8 @@ import PageWrapper from "../PageWrapper";
 const Productdetails = () => {
   const [showAllDetails, setShowAllDetails] = useState(false);
   return (
-    <div className={styles.productContainer}>
-      <PageWrapper>
+    <PageWrapper>
+      <div className={styles.productContainer}>
         <div className={styles.productdetailscontainer}>
           <div className={styles.productdetailsimg}>
             <div className={styles.imageContainer}>
@@ -176,8 +176,8 @@ const Productdetails = () => {
             background: "#f1efef ",
           }}
         />
-      </PageWrapper>
-    </div>
+      </div>
+    </PageWrapper>
   );
 };
 
