@@ -149,12 +149,28 @@ const Address = () => {
     { label: "Monty Python and the Holy Grail", year: 1975 },
   ];
   const [name, setName] = React.useState("");
+  const [showAddAddress, setShowAddAddress] = useState(false);
   const router = useRouter();
   const handleRedirect = () => {
     router.push("/profile-hub");
   };
+  const handleNavigate = () => {
+    router.push("/address");
+  };
   const handleOrder = () => {
     router.push("/basket");
+  };
+  const handlecard = () => {
+    router.push("/savedcard");
+  };
+  const handleUPI = () => {
+    router.push("/savedupi");
+  };
+  const handleRatingreviews = () => {
+    router.push("./my-rating-reviews");
+  };
+  const handleWishlist = () => {
+    router.push("./mywishlist");
   };
   return (
     <div className={styles.profilebgcontainer}>
@@ -207,7 +223,10 @@ const Address = () => {
               >
                 Profile Informations
               </p>
-              <p style={{ padding: "10px", cursor: "pointer" }}>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handleNavigate}
+              >
                 Manage Address
               </p>
             </div>
@@ -228,8 +247,18 @@ const Address = () => {
             </div>
 
             <div>
-              <p style={{ padding: "10px", cursor: "pointer" }}>Saved card</p>
-              <p style={{ padding: "10px", cursor: "pointer" }}>Saved UPI</p>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handlecard}
+              >
+                Saved card
+              </p>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handleUPI}
+              >
+                Saved UPI
+              </p>
             </div>
 
             <div className={styles.smallSubContainers}>
@@ -252,10 +281,18 @@ const Address = () => {
                 fontSize: "15px",
               }}
             >
-              <p style={{ padding: "10px", cursor: "pointer" }}>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handleRatingreviews}
+              >
                 My Ratings & My Reviews
               </p>
-              <p style={{ padding: "10px", cursor: "pointer" }}>My Wishlist</p>
+              <p
+                style={{ padding: "10px", cursor: "pointer" }}
+                onClick={handleWishlist}
+              >
+                My Wishlist
+              </p>
             </div>
 
             <div className={styles.smallSubContainers}>
@@ -277,170 +314,198 @@ const Address = () => {
 
         <div className={styles.rightbgcontainer}>
           <div className={styles.rightcontainer}>
-            <div style={{ marginBottom: "10px", padding: "10px 6px" }}>
-              <b style={{ color: "green", fontSize: "20px" }}>
-                ADD A NEW ADDRESS
-              </b>
-            </div>
-            <div>
-              <Button
-                style={{
-                  backgroundColor: "blue",
-                  color: "white",
-                  width: "40%",
-                  padding: "11px 0px",
-                  marginLeft: "7px",
-                }}
-              >
-                <MyLocationIcon />
-                Use My Location
-              </Button>
-            </div>
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <TextField
-                  id="outlined-controlled"
-                  label="Name"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-                <TextField
-                  id="outlined-controlled"
-                  label="10-digit Mobile Number"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <TextField
-                  id="outlined-controlled"
-                  label="Pin Code"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-                <TextField
-                  id="outlined-controlled"
-                  label="Locality"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-            <div>
-              <TextField
-                id="outlined-multiline-static"
-                label="Address (Area & Street)"
-                multiline
-                rows={3}
-                // defaultValue="Default Value"
-                style={{ width: "100%", padding: "0px 7px" }}
-              />
-            </div>
-            <div style={{ display: "flex" }}>
-              <TextField
-                id="outlined-controlled"
-                label="Area/Town/Distic"
-                value={name}
-                onChange={(event) => {
-                  setName(event.target.value);
-                }}
-                style={{ marginRight: "10px" }}
-              />
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={top100Films}
-                sx={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="State" />
-                )}
-              />
-            </div>
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <TextField
-                  id="outlined-controlled"
-                  label="Landmark(optional)"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-                <TextField
-                  id="outlined-controlled"
-                  label="Alternative Phone(optional)"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-            <div>
-              <FormControl>
-                <FormLabel id="demo-row-radio-buttons-group-label">
-                  Address Type
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Home"
+            {showAddAddress ? (
+              <>
+                <div style={{ marginBottom: "10px", padding: "10px 6px" }}>
+                  <b style={{ color: "green", fontSize: "20px" }}>
+                    ADD A NEW ADDRESS
+                  </b>
+                </div>
+                <div>
+                  <Button
+                    style={{
+                      backgroundColor: "blue",
+                      color: "white",
+                      width: "40%",
+                      padding: "11px 0px",
+                      marginLeft: "7px",
+                    }}
+                  >
+                    <MyLocationIcon />
+                    Use My Location
+                  </Button>
+                </div>
+                <div>
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1, width: "25ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="outlined-controlled"
+                      label="Name"
+                      value={name}
+                      onChange={(event) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="outlined-controlled"
+                      label="10-digit Mobile Number"
+                      value={name}
+                      onChange={(event) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                  </Box>
+                </div>
+                <div>
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1, width: "25ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="outlined-controlled"
+                      label="Pin Code"
+                      value={name}
+                      onChange={(event) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="outlined-controlled"
+                      label="Locality"
+                      value={name}
+                      onChange={(event) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                  </Box>
+                </div>
+                <div>
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Address (Area & Street)"
+                    multiline
+                    rows={3}
+                    // defaultValue="Default Value"
+                    style={{ width: "100%", padding: "0px 7px" }}
                   />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Work"
+                </div>
+                <div style={{ display: "flex" }}>
+                  <TextField
+                    id="outlined-controlled"
+                    label="Area/Town/Distic"
+                    value={name}
+                    onChange={(event) => {
+                      setName(event.target.value);
+                    }}
+                    style={{ marginRight: "10px" }}
                   />
-                </RadioGroup>
-              </FormControl>
-            </div>
-            <div>
-              <Stack spacing={4} direction="row">
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "blue", width: "25%" }}
-                >
-                  Saved
-                </Button>
-                <Button variant="outlined">Canceled</Button>
-              </Stack>
-            </div>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={top100Films}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => (
+                      <TextField {...params} label="State" />
+                    )}
+                  />
+                </div>
+                <div>
+                  <Box
+                    component="form"
+                    sx={{
+                      "& > :not(style)": { m: 1, width: "25ch" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      id="outlined-controlled"
+                      label="Landmark(optional)"
+                      value={name}
+                      onChange={(event) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="outlined-controlled"
+                      label="Alternative Phone(optional)"
+                      value={name}
+                      onChange={(event) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                  </Box>
+                </div>
+                <div>
+                  <FormControl>
+                    <FormLabel id="demo-row-radio-buttons-group-label">
+                      Address Type
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel
+                        value="female"
+                        control={<Radio />}
+                        label="Home"
+                      />
+                      <FormControlLabel
+                        value="male"
+                        control={<Radio />}
+                        label="Work"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+                <div>
+                  <Stack spacing={4} direction="row">
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "blue", width: "25%" }}
+                    >
+                      Saved
+                    </Button>
+                    <Button variant="outlined">Canceled</Button>
+                  </Stack>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <div className={styles.heading}>
+                    <h1>MANAGE ADDRESS</h1>
+                  </div>
+                  <div className={styles.buttonContainer}>
+                    <Button onClick={() => setShowAddAddress(true)}>
+                      <span style={{ fontSize: "27px" }}>+</span>
+                      add address
+                    </Button>
+                  </div>
+                  <div className={styles.customerContainer}>
+                    <p>Home</p>
+                    <div className={styles.customerAddress}>
+                      <h2>swoyamprava Tripathy</h2>
+                      <h2>9090720389</h2>
+                    </div>
+                    <div>
+                      <h3>nearsubernamukhitemple,bhadrak-756181</h3>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

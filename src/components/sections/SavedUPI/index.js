@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./profile.module.scss";
+import styles from "./savedupi.module.scss";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -16,7 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { useRouter } from "next/navigation";
 
-const Profile = () => {
+const SavedUPI = () => {
   const [name, setName] = React.useState("");
   const router = useRouter();
   const handleRedirect = () => {
@@ -183,124 +183,31 @@ const Profile = () => {
 
         <div className={styles.rightbgcontainer}>
           <div className={styles.rightcontainer}>
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <h1 style={{ fontSize: "20px" }}>PERSONAL INFORMATION</h1>
-                <TextField
-                  id="outlined-controlled"
-                  label="Fastname"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-                <TextField
-                  id="outlined-uncontrolled"
-                  label="Lastname"
-                  defaultValue=""
-                  style={{ fontWeight: "600" }}
-                />
-              </Box>
+            <div className={styles.contentHeading}>
+              <b>No VPAs saved to be shown</b>
             </div>
-
             <div>
-              <FormControl>
-                <FormLabel
-                  id="demo-row-radio-buttons-group-label"
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: "530",
-                    color: "black",
-                  }}
-                >
-                  GENDER
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                  <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Other"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <h1 style={{ fontSize: "20px" }}>EMAIL ADDRESS</h1>
-                <TextField
-                  id="outlined-controlled"
-                  label="Email"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-
-            <div>
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              >
-                <h1 style={{ fontSize: "20px" }}>MOBILE NUMBER</h1>
-                <TextField
-                  id="outlined-controlled"
-                  label="Mobile Number"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                  }}
-                />
-              </Box>
-            </div>
-
-            <div>
-              <button
+              <div
                 style={{
-                  backgroundColor: "#074a65",
-                  height: "40px",
-                  width: "30%",
-                  fontSize: "20px",
-                  color: "white",
-                  borderRadius: "4px",
+                  marginBottom: "20px",
+                  fontSize: "15px",
+                  fontWeight: "550",
                 }}
               >
-                SAVE
-              </button>
+                FAQS
+              </div>
+              <div>
+                <h1 style={{ marginBottom: "5px", fontWeight: "550" }}>
+                  1. Why is my UPI being saved on your cart?
+                </h1>
+                <p>
+                  It's quicker. You can save the hassle of typing in the
+                  complete UPI information every time you shop at Flipkart by
+                  saving your UPI details. You can make your payment by
+                  selecting the saved UPI ID of your choice at checkout. While
+                  this is obviously faster, it is also very secure.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -309,4 +216,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default SavedUPI;
