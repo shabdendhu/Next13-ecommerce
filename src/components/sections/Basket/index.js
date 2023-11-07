@@ -9,7 +9,7 @@ const BasketProduct = () => {
     <PageWrapper>
       <div className={styles.basketcontainer}>
         <div className={styles.basketheading}>
-          MY CART ELEMENT(items 1)
+          MY CART ELEMENT
           <span className={styles.basketIcon}>
             <img
               src="https://cdn-icons-png.flaticon.com/512/5738/5738076.png"

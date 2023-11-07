@@ -11,10 +11,10 @@
   color: green;
   font-weight: 600;
   @include media.onMdM() {
-    width: 80px;
-    height: 30px;
+    width: 70px;
+    height: 25px;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 400;
   }
 }
