@@ -97,7 +97,7 @@ const Footer = () => {
           onClick={() => router.push("/profile-hub")}
           className={styles.footerMenu}
         >
-          {pathname === "/profile-hub" ? (
+          {pathname === "/login" ? (
             <PersonIcon
               className={styles.icon}
               style={{
