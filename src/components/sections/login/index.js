@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./Login.module.scss";
 import {
   IconButton,
@@ -13,6 +13,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { blue } from "@mui/material/colors";
 import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 
 const Home = () => {
   return (
@@ -29,17 +30,17 @@ const Home = () => {
 };
 const Login = () => {
   const router = useRouter();
-
+  const { data: session } = useSession();
   const handleSubmit = (e) => {
     console.log("====================================");
     console.log(e);
     console.log("====================================");
   };
 
-  const handleRedirectToForgotpassword =() => {
+  const handleRedirectToForgotpassword = () => {
     console.log("====================================");
-    router.push("/forgotpassword"); 
-  }
+    router.push("/forgotpassword");
+  };
 
   const handleredirectToLogin = () => {
     console.log("====================================");
@@ -47,6 +48,13 @@ const Login = () => {
     console.log("====================================");
     router.push("/signup");
   };
+  const handleClickGoogleLogin = (e) => {
+    e.preventDefault();
+    signIn("google");
+  };
+  useEffect(() => {
+    console.log(session);
+  }, [session]);
   return (
     <div className={style.container}>
       {/* <Home /> */}
@@ -86,8 +94,14 @@ const Login = () => {
               </span>
             </div>
 
-            <div className={style.forgotPassword} onClick={handleRedirectToForgotpassword}>Forgot Password?</div>
+            <div
+              className={style.forgotPassword}
+              onClick={handleRedirectToForgotpassword}
+            >
+              Forgot Password?
+            </div>
 
+            <button onClick={handleClickGoogleLogin}>LOGIN WITH GOOGLE</button>
             <div>
               <button type="submit" className={style.loginButton}>
                 Login

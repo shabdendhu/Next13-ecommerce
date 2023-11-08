@@ -94,7 +94,7 @@ const Footer = () => {
           <span className={styles.text}>Basket</span>
         </button>
         <button
-          onClick={() => router.push("/profile-hub")}
+          onClick={() => router.push("/login")}
           className={styles.footerMenu}
         >
           {pathname === "/login" ? (
