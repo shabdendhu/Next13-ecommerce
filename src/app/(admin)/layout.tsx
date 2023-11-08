@@ -1,8 +1,5 @@
 // import "./globals.css";s
 import MiniDrawer from "@/components/sections/Layout";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -16,10 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-        {/* admin header */}
-        {/* header */}
-        <MiniDrawer >{children}</MiniDrawer>
-      {/* <body className={inter.className}>{children}</body> */}
+      <MiniDrawer>{children}</MiniDrawer>
     </html>
   );
 }
