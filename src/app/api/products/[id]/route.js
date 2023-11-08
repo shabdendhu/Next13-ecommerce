@@ -24,7 +24,8 @@ export async function PUT(req, { params }) {
     }
   } catch (error) {
     return NextResponse.json({
-      error: "Error updating the product",
+      message: "Error updating the product",
+      error,
       success: true,
     });
   }
@@ -53,7 +54,7 @@ export async function DELETE(req, { params }) {
       });
   } catch (error) {
     return NextResponse.json({
-      message: "error to delete product",
+      message: error,
       success: false,
     });
   }
