@@ -101,11 +101,19 @@ const Login = () => {
               Forgot Password?
             </div>
 
-            <button onClick={handleClickGoogleLogin}>LOGIN WITH GOOGLE</button>
             <div>
               <button type="submit" className={style.loginButton}>
                 Login
               </button>
+
+              <button
+                className={style.googleButton}
+                onClick={handleClickGoogleLogin}
+              >
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/011/598/471/small/google-logo-icon-illustration-free-vector.jpg" />
+                <h1>LOGIN WITH GOOGLE</h1>
+              </button>
+
               <div className={style.footerInstruction}>
                 Dont have an account?{" "}
                 <b onClick={handleredirectToLogin}>Sign up</b>

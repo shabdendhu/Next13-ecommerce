@@ -94,12 +94,12 @@ export default function ProductManager() {
         <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
-              <TableCell align="right">ACTION</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Description</TableCell>
+              <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Category</TableCell>
+              <TableCell align="right">Brand</TableCell>
+              <TableCell align="right">Stock Quantity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
