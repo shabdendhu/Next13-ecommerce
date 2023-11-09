@@ -11,6 +11,7 @@ import { Button, ButtonBase } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import ProductForm from "@/components/forms/ProductForms";
+import useWindowSize from "@/hooks/useWindowSize";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -48,6 +49,7 @@ const rows = [
 ];
 
 export default function ProductManager() {
+  const size = useWindowSize();
   return (
     <div
       style={{
@@ -84,7 +86,7 @@ export default function ProductManager() {
         component={Paper}
         sx={{
           width: "100%",
-          maxHeight: window.innerHeight - 200,
+          maxHeight: size.height - 200,
           // border: "1px solid red",
         }}
       >
