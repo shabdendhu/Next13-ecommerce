@@ -50,7 +50,7 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function ProductManager() {
+export default function CategoryManager() {
   const size = useWindowSize();
 
   return (
@@ -96,12 +96,13 @@ export default function ProductManager() {
         <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
-              <TableCell align="right">ACTION</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Description</TableCell>
+              <TableCell align="right">ParentCategory</TableCell>
+              <TableCell align="right">SubCategory</TableCell>
+              <TableCell align="right">Image</TableCell>
+              <TableCell align="right">Meta Keywords</TableCell>
+              <TableCell align="right">Is Active</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
