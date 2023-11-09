@@ -21,3 +21,15 @@ export async function POST(request) {
     return NextResponse.json({ error }, { status: 500 });
   }
 }
+
+export async function GET(req, res) {
+  try {
+    const category = await Caterory.find();
+    return NextResponse.json({
+      data: category,
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
+}

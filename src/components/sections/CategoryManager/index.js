@@ -10,7 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Button, ButtonBase } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
-import ProductForm from "@/components/forms/ProductForms";
+import ProductForm from "@/components/forms/CategoryForms";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
