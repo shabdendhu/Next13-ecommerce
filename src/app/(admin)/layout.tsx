@@ -13,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <MiniDrawer>{children}</MiniDrawer>
+      <body>
+        <MiniDrawer>{children}</MiniDrawer>
+      </body>
     </html>
   );
 }
