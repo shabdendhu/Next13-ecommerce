@@ -10,7 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Button, ButtonBase } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
-import ProductForm from "@/components/forms/CategoryForms";
+import CategoryForm from "@/components/forms/CategoryForms";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -74,10 +74,10 @@ export default function ProductManager() {
             fontWeight: 600,
           }}
         >
-          PRODUCT MANAGER
+          CATEGORY MANAGER
         </h1>
-        <TransitionsModal>
-          <ProductForm />
+        <TransitionsModal formName={"Add Category"}>
+          <CategoryForm />
         </TransitionsModal>
       </div>
       <TableContainer

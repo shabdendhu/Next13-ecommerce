@@ -21,7 +21,7 @@ const style = {
   maxWidth: "80%",
 };
 
-export default function TransitionsModal({ children }) {
+export default function TransitionsModal({ children, formName }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -66,7 +66,7 @@ export default function TransitionsModal({ children }) {
                 fontWeight: 600,
               }}
             >
-              ADD PRODUCT
+              {formName}
             </h2>
             <div style={{ padding: "10px", height: "100%", overflow: "auto" }}>
               {children}

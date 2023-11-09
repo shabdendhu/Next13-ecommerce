@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,7 +11,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Button, ButtonBase } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
-import ProductForm from "@/components/forms/ProductForms";
+import CategoryForm from "@/components/forms/CategoryForms";
+import OrderForm from "../../forms/OrderForms";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -47,7 +49,7 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function ProductManager() {
+export default function OrderManager() {
   return (
     <div
       style={{
@@ -74,17 +76,17 @@ export default function ProductManager() {
             fontWeight: 600,
           }}
         >
-          PRODUCT MANAGER
+          CATEGORY MANAGER
         </h1>
-        <TransitionsModal formName={"Add Product"}>
-          <ProductForm />
+        <TransitionsModal formName={"Add Category"}>
+          <OrderForm />
         </TransitionsModal>
       </div>
       <TableContainer
         component={Paper}
         sx={{
           width: "100%",
-          maxHeight: window.innerHeight - 200,
+          maxHeight: window?.innerHeight - 200,
           // border: "1px solid red",
         }}
       >

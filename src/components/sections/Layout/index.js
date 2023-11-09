@@ -30,9 +30,15 @@ import Person3Icon from "@mui/icons-material/Person3";
 import Badge from "@mui/material/Badge";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
-const menuData = ["Product Manager", "Users", "Category Manager"];
+const menuData = [
+  { name: "Product Manager", url: "product-manager" },
+  { name: "Users", url: "users" },
+  { name: "Category Manager", url: "category-manager" },
+  { name: "Order Manager", url: "order-manager" },
+];
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -100,6 +106,7 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer({ children }) {
   const theme = useTheme();
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -262,7 +269,7 @@ export default function MiniDrawer({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Admin Penal
           </Typography>
           {/* <div className={styles.searchBar}>
             <input
@@ -354,8 +361,15 @@ export default function MiniDrawer({ children }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {menuData.map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {menuData.map((item, index) => (
+            <ListItem
+              key={item.name}
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => {
+                router.push(item.url);
+              }}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -372,7 +386,10 @@ export default function MiniDrawer({ children }) {
                 >
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={item.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
