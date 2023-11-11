@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import CategoryForm from "@/components/forms/CategoryForms";
 import useWindowSize from "@/hooks/useWindowSize";
+import axios from "axios";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -51,8 +53,18 @@ const rows = [
 ];
 
 export default function CategoryManager() {
+  const [category, setCategory] = useState([]);
   const size = useWindowSize();
 
+  const getAllCategory = async () => {
+    const categoryRes = await axios.get("http://localhost:3000/api/category");
+    console.log(categoryRes.data);
+    setCategory(categoryRes.data);
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
   return (
     <div
       style={{

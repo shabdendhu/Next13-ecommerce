@@ -22,6 +22,6 @@ const categorySchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now },
 });
 
-const Category = mongoose.model("Category", categorySchema);
+const Category = mongoose.model("categories", categorySchema);
 
 module.exports = Category;
