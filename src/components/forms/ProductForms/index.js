@@ -14,44 +14,7 @@ import {
 } from "@mui/material";
 import ImageUpload from "@/components/base/ImageUpload";
 
-const ProductForm = () => {
-  const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    category_ids: [],
-    brand: "",
-    stock_quantity: 0,
-    images: [],
-    attributes: [],
-    ratings: {
-      average: 0,
-      count: 0,
-    },
-    reviews: [],
-    created_at: new Date(),
-    updated_at: new Date(),
-    sku: "",
-    weight: 0,
-    dimensions: {
-      length: 0,
-      width: 0,
-      height: 0,
-    },
-    tags: [],
-    availability: "",
-    shipping_info: {
-      free_shipping: false,
-      estimated_delivery: "",
-    },
-    related_products: [],
-    warranty: {
-      type: "",
-      duration: 0,
-      details: "",
-    },
-  });
-
+const ProductForm = ({ product, setProduct, handleSubmit }) => {
   const handleChange = (field, value) => {
     setProduct({ ...product, [field]: value });
   };
@@ -70,11 +33,6 @@ const ProductForm = () => {
     const updatedReviews = [...product.reviews];
     updatedReviews[index] = { ...updatedReviews[index], [field]: value };
     setProduct({ ...product, reviews: updatedReviews });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, e.g., send the data to the server
   };
 
   return (
