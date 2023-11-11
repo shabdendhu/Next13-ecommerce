@@ -18,8 +18,20 @@ const ProductCard = ({ data, className, ...props }) => {
       className={cx(styles.cardContainer, className)}
       {...props}
     >
+      <div
+        style={{
+          border: "1px solid green",
+          width: "40%",
+          backgroundColor: "green",
+          borderRadius: "5px",
+          color: "white",
+          marginBottom: "5px",
+        }}
+      >
+        40% off
+      </div>
       <div className={styles.cardimg}>
-        <img src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg" />
+        <img src="https://m.media-amazon.com/images/I/71I2hS1e-1L._AC_UF1000,1000_QL80_.jpg" />
       </div>
 
       <div className={styles.cardinfo}>

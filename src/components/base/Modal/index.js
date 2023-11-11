@@ -21,26 +21,19 @@ const style = {
   maxWidth: "80%",
 };
 
-export default function TransitionsModal({ children, formName }) {
-  const [open, setOpen] = React.useState(false);
+export default function TransitionsModal({
+  children,
+  formName,
+  openButton,
+  open,
+  setOpen,
+}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        style={{
-          background: "blue",
-          color: "white",
-
-          //   position: "relative",
-          //   float: "right",
-          //   zIndex: 9999,
-        }}
-      >
-        ADD
-      </Button>
+      {openButton}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

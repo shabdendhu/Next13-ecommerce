@@ -35,9 +35,10 @@ import { useRouter } from "next/navigation";
 const drawerWidth = 240;
 const menuData = [
   { name: "Product Manager", url: "product-manager" },
-  { name: "Users", url: "users" },
+  // { name: "Users", url: "users" },
   { name: "Category Manager", url: "category-manager" },
   { name: "Order Manager", url: "order-manager" },
+  { name: "User Manager", url: "user-manager" },
 ];
 const openedMixin = (theme) => ({
   width: drawerWidth,

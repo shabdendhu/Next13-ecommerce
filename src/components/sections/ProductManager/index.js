@@ -119,6 +119,7 @@ export default function ProductManager() {
   const size = useWindowSize();
   const [product, setProduct] = useState(emptyProduct);
   const [products, setProducts] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const getAllProduct = async () => {
     const productRes = await apiGet("/api/products");
@@ -130,9 +131,15 @@ export default function ProductManager() {
     console.log(product);
     const addRes = apiPost("/api/products", product);
     console.log(addRes);
+    setProduct(emptyProduct);
     setProducts([...products, product]);
 
     // Handle form submission, e.g., send the data to the server
+  };
+  const handleDelete = (id) => {
+    const deleteRes = apiDelete("/api/products", id);
+    console.log(deleteRes);
+    getAllProduct();
   };
   useEffect(() => {
     getAllProduct();
@@ -166,7 +173,26 @@ export default function ProductManager() {
         >
           PRODUCT MANAGER
         </h1>
-        <TransitionsModal formName={"Add Product"}>
+        <TransitionsModal
+          formName={"Add Product"}
+          openButton={
+            <Button
+              onClick={() => setOpen(!open)}
+              style={{
+                background: "blue",
+                color: "white",
+
+                //   position: "relative",
+                //   float: "right",
+                //   zIndex: 9999,
+              }}
+            >
+              ADD
+            </Button>
+          }
+          open={open}
+          setOpen={(e) => setOpen(e)}
+        >
           <ProductForm
             product={product}
             setProduct={setProduct}
@@ -294,6 +320,7 @@ export default function ProductManager() {
                       padding: "5px 10px",
                       borderRadius: 10,
                     }}
+                    onClick={() => setOpen(true)}
                   >
                     <EditIcon />
                   </ButtonBase>
@@ -303,6 +330,7 @@ export default function ProductManager() {
                       padding: "5px 10px",
                       borderRadius: 10,
                     }}
+                    onClick={handleDelete}
                   >
                     <DeleteIcon />
                   </ButtonBase>
