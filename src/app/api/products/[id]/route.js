@@ -6,6 +6,21 @@ import Product from "@/models/productModel";
 
 connect();
 
+export async function GET(req, { params }) {
+  const { id } = params;
+  try {
+    const product = await Product.findById(id);
+    console.log({ product });
+    return NextResponse.json({ data: product, success: true });
+  } catch (error) {
+    return NextResponse.json({
+      message: "Error finding the product",
+      error,
+      success: true,
+    });
+  }
+}
+
 export async function PUT(req, { params }) {
   const { id } = params;
 
