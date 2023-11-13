@@ -40,7 +40,11 @@ export const apiDelete = async (url, id) => {
 };
 export const apiGetById = async (url, id) => {
   try {
-  } catch (error) {}
+    const response = await axiosInstance.get(url + "/" + id);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
 };
 // Add more methods for other HTTP verbs (PUT, DELETE, etc.) if needed
 

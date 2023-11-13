@@ -415,7 +415,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
       </Grid>
       <Button variant="contained" color="primary" type="submit">
-        Save
+        {product._id ? "Update" : "Save"}
       </Button>
     </form>
   );

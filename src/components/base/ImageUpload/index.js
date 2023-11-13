@@ -12,7 +12,7 @@ const ImageUpload = ({ images, setImages }) => {
 
   return (
     <div>
-      <Typography variant="h6">Upload Images</Typography>
+      <span style={{}}>Upload Images</span>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <input
