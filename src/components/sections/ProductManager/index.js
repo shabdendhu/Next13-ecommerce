@@ -205,6 +205,7 @@ export default function ProductManager() {
         sx={{
           width: "100%",
           maxHeight: size.height - 200,
+          maxWeight: size.width - 200,
           // border: '1px solid red',
         }}
       >
