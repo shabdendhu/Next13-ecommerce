@@ -9,14 +9,14 @@ import {
 } from "@mui/material";
 
 const SuggestionForm = () => {
-  const [category, setCategory] = useState({
+  const [suggestion, setSuggestion] = useState({
     productIds: "",
     screenName: "",
     sequence: "",
   });
 
   const handleChange = (field, value) => {
-    setCategory({ ...category, [field]: value });
+    setSuggestion({ ...suggestion, [field]: value });
   };
 
   const handleSubmit = (e) => {
@@ -27,41 +27,41 @@ const SuggestionForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
-            label="productIds"
+            label="product Ids"
             fullWidth
-            value={category.name}
+            value={suggestion.productIds}
             onChange={(e) => handleChange("productIds", e.target.value)}
           />
         </Grid>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <TextField
             label="screenName"
             fullWidth
-            value={category.description}
+            value={suggestion.screenName}
             onChange={(e) => handleChange("screenName", e.target.value)}
           />
-        </Grid>
-        <Grid item xs={6}>
+        </Grid> */}
+        <Grid item xs={12}>
           <FormControl fullWidth>
-            <InputLabel>Parent Category</InputLabel>
+            <InputLabel> Screen Name</InputLabel>
             <Select
-              value={category.sequence}
-              onChange={(e) => handleChange("parent_category", e.target.value)}
+              value={suggestion.screenName}
+              onChange={(e) => handleChange("screenName", e.target.value)}
             >
               {/* Render parent category options here */}
             </Select>
           </FormControl>
         </Grid>
-        {/* <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
-            label="Subcategories"
+            label="sequence"
             fullWidth
-            value={category.subcategories}
-            onChange={(e) => handleChange("subcategories", e.target.value)}
+            value={suggestion.sequence}
+            onChange={(e) => handleChange("sequence", e.target.value)}
           />
-        </Grid> */}
+        </Grid>
         {/* <Grid item xs={6}>
           <TextField
             label="Image URL"
@@ -90,7 +90,12 @@ const SuggestionForm = () => {
           />
         </Grid> */}
       </Grid>
-      <Button variant="contained" color="primary" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        style={{ marginTop: "10px", border: "2px solid blue", color: "green" }}
+      >
         Save
       </Button>
     </form>
