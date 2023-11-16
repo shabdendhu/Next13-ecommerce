@@ -1,14 +1,111 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { apiGet } from "@/helpers/api";
+import User from "@/models/userModel";
+import jwt from "jsonwebtoken";
+
+import bcryptjs from "bcryptjs";
+import { connect } from "@/dbConfig/connection";
+import { NextRequest, NextResponse } from "next/server";
 
 const handler = NextAuth({
   providers: [
+    CredentialsProvider({
+      id: "password",
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials: any, req: any) {
+        connect();
+        const { email, password } = credentials;
+        console.log(req);
+
+        //check if user exists
+        const user = await User.findOne({ email });
+        console.log("====================================");
+        console.log({ user });
+        console.log("====================================");
+        if (!user) {
+          throw new Error(`This user does not exist.`);
+        }
+
+        //check if password is correct
+        console.log("user exists", password, user);
+        const validPassword = await bcryptjs.compare(password, user.password);
+        console.log("user exists", validPassword);
+        if (!validPassword) {
+          throw new Error("Wrong credentials. Try again.");
+        }
+
+        return {
+          id: user._id,
+          email: user.email,
+          name: user.username,
+          role: user.role,
+        };
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
   secret: process.env.JWT_SECRET,
+  jwt: {
+    secret: process.env.JWT_SECRET,
+
+    encode: async ({ secret, token }) => {
+      const jwtClaims = {
+        userId: token?.id,
+        userRole: token?.role,
+        name: token?.name,
+        email: token?.email,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
+      };
+      const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: "HS256" });
+
+      return encodedToken;
+    },
+    decode: ({ secret, token }: any): any => {
+      return jwt.verify(token, secret, { algorithms: ["HS256"] });
+    },
+  },
+  callbacks: {
+    async jwt({ token, user }: any) {
+      if (user) {
+        token.id = user?.id;
+        token.role = user?.role;
+      }
+
+      return token;
+    },
+    async session({ session, token }: any) {
+      const encodedToken = jwt.sign(token, process.env.JWT_SECRET || "", {
+        algorithm: "HS256",
+      });
+      session.accessToken = encodedToken;
+      if (token.userId) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+      }
+
+      return session;
+    },
+    // async signIn(params) {
+    //   return {
+
+    //   }
+    // },
+    // async redirect({ url, baseUrl }) {
+    //   // if (url.startsWith("/")) return `${baseUrl}${url}`;
+    //   // else if (new URL(url).origin === baseUrl) return url;
+    //   return url;
+    // },
+  },
 });
 
 export { handler as GET, handler as POST };

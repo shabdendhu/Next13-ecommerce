@@ -7,7 +7,12 @@ export function middleware(request: NextRequest) {
   const isPublicPath =
     path === "/login" || path === "/signup" || path === "/verifyemail";
 
-  const token = request.cookies.get("token")?.value || "";
+  // const token = request.cookies.get("token")?.value;
+  const token =
+    process.env.NODE_ENV === "development"
+      ? request.cookies.get("next-auth.session-token")
+      : request.cookies.get("__Secure-next-auth.session-token") ||
+        request.cookies.get("next-auth.session-token");
 
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
@@ -20,5 +25,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [],
+  matcher: ["/"],
 };
