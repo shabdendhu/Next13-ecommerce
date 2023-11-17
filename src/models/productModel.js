@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
     average: Number,
     count: Number,
   },
-  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductReview" }],
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "productreview" }],
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
   sku: String,

@@ -22,7 +22,7 @@ export async function POST(request) {
 
 export async function GET(req, res) {
   try {
-    const products = await Product.find().populate("reviews"); // Populate the reviews
+    const products = await Product.find(); // Populate the reviews
     return NextResponse.json({
       data: products,
       success: true,
