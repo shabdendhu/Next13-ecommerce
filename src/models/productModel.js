@@ -18,13 +18,7 @@ const productSchema = new mongoose.Schema({
     average: Number,
     count: Number,
   },
-  reviews: [
-    {
-      user: String,
-      rating: Number,
-      comment: String,
-    },
-  ],
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "ProductReview" }],
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
   sku: String,
@@ -46,22 +40,6 @@ const productSchema = new mongoose.Schema({
     duration: Number,
     details: String,
   },
-});
-
-productSchema.pre("save", async function () {
-  try {
-    const Product = this.constructor;
-    const ProductExists = await Product.find({
-      name: this.get("name"),
-    })
-      .lean()
-      .exec();
-    if (ProductExists.length > 0) {
-      throw new Error("REGISTER_USERNAME_EXISTS");
-    }
-  } catch (err) {
-    throw new Error("REGISTER_USERNAME_EXISTS");
-  }
 });
 
 module.exports =
