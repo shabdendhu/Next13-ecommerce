@@ -30,6 +30,15 @@ export const apiPost = async (url, data = {}) => {
   }
 };
 
+export const apiPut = async (url, data = {}) => {
+  try {
+    const response = await axiosInstance.put(url, data);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 export const apiDelete = async (url, id) => {
   try {
     const response = await axiosInstance.delete(`${url}/${id}`);
