@@ -15,40 +15,15 @@ import TransitionsModal from "@/components/base/Modal";
 import SuggestionForm from "@/components/forms/SuggestionForms";
 import useWindowSize from "@/hooks/useWindowSize";
 import axios from "axios";
+import { apiGet, apiPost, apiPut, apiGetById } from "@/helpers/api";
 
 function createData(productIds, screenName, sequence) {
   return { productIds, screenName, sequence };
 }
-const emptyProduct = {
-  name: "",
-  description: "",
-  price: 0,
-  category_ids: [],
-  brand: "",
-  stock_quantity: 0,
-  images: [],
-  attributes: [],
-  ratings: {
-    average: 0,
-    count: 0,
-  },
-  reviews: [],
-  created_at: new Date(),
-  updated_at: new Date(),
-  sku: "",
-  weight: 0,
-  dimensions: {
-    length: 0,
-    width: 0,
-    height: 0,
-  },
-  tags: [],
-  availability: "",
-  shipping_info: {
-    free_shipping: false,
-    estimated_delivery: "",
-  },
-  related_products: [],
+const emptySuggestion = {
+  productIds: [],
+  screenName: "",
+  sequence: 0,
 };
 const rows = [
   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
@@ -65,46 +40,47 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
   createData("Gingerbread", 356, 16.0, 49, 3.9),
   createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
 export default function CategoryManager() {
   // const [category, setCategory] = useState([]);
   const size = useWindowSize();
-  const [suggestion, setSuggestion] = useState(emptyProduct);
+  const [newSuggestion, setNewsuggestion] = useState(emptySuggestion);
   const [suggestions, setSuggestions] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const handleViewProduct = async (id) => {
+    setOpen(true);
+    const getSuggestionById = await apiGetById("/api/productsuggestion", id);
+    setNewsuggestion(getSuggestionById.data);
+    console.log(getSuggestionById.data);
+  };
 
   const getAllSuggestion = async () => {
     const suggestionRes = await apiGet("/api/productsuggestion");
     setSuggestions(suggestionRes.data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(suggestion);
-    const addRes = apiPost("/api/productsuggestion", suggestion);
-    console.log(addRes);
-    setSuggestion(emptyProduct);
-    setSuggestions([...suggestions, suggestion]);
+    console.log(newSuggestion);
+    if (newSuggestion._id) {
+      const editRes = await apiPut(
+        "/api/productsuggestion/" + id,
+        newSuggestion
+      );
+      // edit
+    } else {
+      const addRes = await apiPost("/api/productsuggestion", newSuggestion);
+      // add
+    }
+    handleCloseModal();
+    getAllSuggestion();
   };
+
   const handleCloseModal = () => {
     setOpen(false);
-    setSuggestion(emptyProduct);
+    setNewsuggestion(emptySuggestion);
   };
 
   useEffect(() => {
@@ -156,8 +132,8 @@ export default function CategoryManager() {
           setOpen={(e) => setOpen(e)}
         >
           <SuggestionForm
-            suggestion={suggestion}
-            setSuggestion={setSuggestion}
+            suggestion={newSuggestion}
+            setSuggestion={setNewsuggestion}
             handleSubmit={handleSubmit}
           />
         </TransitionsModal>
@@ -183,7 +159,7 @@ export default function CategoryManager() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {suggestions.map((row) => (
               <TableRow
                 key={row.name}
                 onClick={() => console.log("slkdjddsj")}
@@ -206,6 +182,7 @@ export default function CategoryManager() {
                       padding: "5px 10px",
                       borderRadius: 10,
                     }}
+                    onClick={handleViewProduct}
                   >
                     <EditIcon />
                   </ButtonBase>

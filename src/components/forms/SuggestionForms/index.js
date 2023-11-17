@@ -1,105 +1,100 @@
-import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-} from "@mui/material";
+// Install Material-UI components
+// npm install @mui/material @emotion/react @emotion/styled
+"use client";
+import React, { useState, useEffect } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import { apiGet } from "@/helpers/api";
 
-const SuggestionForm = () => {
-  const [suggestion, setSuggestion] = useState({
-    productIds: "",
-    screenName: "",
-    sequence: "",
-  });
-
-  const handleChange = (field, value) => {
-    setSuggestion({ ...suggestion, [field]: value });
+const ProductSuggestionForm = ({
+  suggestions,
+  setSuggestions,
+  handleSubmit,
+}) => {
+  const [products, setProducts] = useState([]);
+  const getAllProducts = async () => {
+    const productRes = await apiGet("/api/products");
+    setProducts(productRes.data);
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSuggestions((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, e.g., send the data to the server
+  const handleProductIdsChange = (event) => {
+    setSuggestions((prevData) => ({
+      ...prevData,
+      productIds: event.target.value,
+    }));
   };
 
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            label="product Ids"
-            fullWidth
-            value={suggestion.productIds}
-            onChange={(e) => handleChange("productIds", e.target.value)}
-          />
-        </Grid>
-        {/* <Grid item xs={6}>
-          <TextField
-            label="screenName"
-            fullWidth
-            value={suggestion.screenName}
-            onChange={(e) => handleChange("screenName", e.target.value)}
-          />
-        </Grid> */}
-        <Grid item xs={12}>
-          <FormControl fullWidth>
-            <InputLabel> Screen Name</InputLabel>
-            <Select
-              value={suggestion.screenName}
-              onChange={(e) => handleChange("screenName", e.target.value)}
-            >
-              {/* Render parent category options here */}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="sequence"
-            fullWidth
-            value={suggestion.sequence}
-            onChange={(e) => handleChange("sequence", e.target.value)}
-          />
-        </Grid>
-        {/* <Grid item xs={6}>
-          <TextField
-            label="Image URL"
-            fullWidth
-            value={category.image}
-            onChange={(e) => handleChange("image", e.target.value)}
-          />
-        </Grid> */}
-        {/* <Grid item xs={6}>
-          <TextField
-            label="Meta Keywords"
-            fullWidth
-            value={category.meta_keywords}
-            onChange={(e) => handleChange("meta_keywords", e.target.value)}
-          />
-        </Grid> */}
-        {/* <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={category.is_active}
-                onChange={(e) => handleChange("is_active", e.target.checked)}
-              />
-            }
-            label="Is Active"
-          />
-        </Grid> */}
-      </Grid>
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        style={{ marginTop: "10px", border: "2px solid blue", color: "green" }}
-      >
-        Save
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="screenName-label">Screen Name</InputLabel>
+        <Select
+          labelId="screenName-label"
+          id="screenName"
+          name="screenName"
+          value={suggestions.screenName} //ethi suggestion kahiki lekhithilu
+          onChange={handleChange}
+          fullWidth
+          variant="outlined"
+          required
+        >
+          {/* Replace the items with your actual screen name options */}
+          <MenuItem value="screenName1">Screen Name 1</MenuItem>
+          <MenuItem value="screenName2">Screen Name 2</MenuItem>
+          <MenuItem value="screenName3">Screen Name 3</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="productIds-label">Product IDs</InputLabel>
+        <Select
+          labelId="productIds-label"
+          id="productIds"
+          name="productIds"
+          multiple
+          value={suggestions.productIds}
+          onChange={handleProductIdsChange}
+          fullWidth
+          variant="outlined"
+        >
+          {/* Replace the items with your actual product options */}
+          {products.map((e, i) => (
+            <MenuItem key={e.name} value={e._id}>
+              {e.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <TextField
+        label="Sequence"
+        name="sequence"
+        type="number"
+        value={suggestions.sequence}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        variant="outlined"
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Submit
       </Button>
     </form>
   );
 };
 
-export default SuggestionForm;
+export default ProductSuggestionForm;

@@ -8,7 +8,8 @@ export async function POST(request) {
   try {
     const reqBody = await request.json();
     console.log(reqBody);
-    const savedProductsuggestion = await ProductSuggestion.save();
+    const suggestion = new ProductSuggestion(reqBody);
+    const savedProductsuggestion = await suggestion.save();
     return NextResponse.json({
       data: savedProductsuggestion,
       success: true,
