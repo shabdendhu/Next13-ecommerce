@@ -27,6 +27,7 @@ const emptyProduct = {
   stock_quantity: 0,
   images: [],
   attributes: [],
+  discount: 0,
   ratings: {
     average: 0,
     count: 0,

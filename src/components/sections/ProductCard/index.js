@@ -18,19 +18,20 @@ const ProductCard = ({ data, className, ...props }) => {
       className={cx(styles.cardContainer, className)}
       {...props}
     >
-      <div className={styles.discountLabel}>40% off</div>
+      <div className={styles.discountLabel}>{data.discount}% off</div>
       <div className={styles.cardimg}>
-        <img src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg" />
+        <img src={data.images[0]} />
       </div>
 
       <div className={styles.cardinfo}>
-        <div className={styles.productName}>ACHAR{data}</div>
+        <div className={styles.productName}>{data.name}</div>
 
         <div className={styles.details}>
           <div className={styles.priceInfo}>
-            <del> $50/kg</del> <span>$40/kg</span>
+            <del> {Math.round(data.price / (1 - data.discount / 100))}/kg</del>{" "}
+            <span>{data.price}</span>
           </div>
-          <div className={styles.price}>$30</div>
+          <div className={styles.price}>₹{data.price}</div>
         </div>
 
         <div className={styles.cardlower}>

@@ -52,8 +52,9 @@ const Home = () => {
         <BestSeller />
         {sections.map((e: any) => (
           <ProductsHomeSection
+            key={e?._id}
             products={e?.productIds || []}
-            headerText="OFFERS"
+            headerText={e?.name}
             style={{
               // background: "rgb(180,173,58)",
               background:

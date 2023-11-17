@@ -8,6 +8,11 @@ const productSchema = new mongoose.Schema({
   brand: String,
   stock_quantity: Number,
   images: [String],
+  discount: Number,
+  unitQuantity: {
+    value: Number,
+    unit: String,
+  },
   attributes: [
     {
       name: String,
@@ -34,7 +39,7 @@ const productSchema = new mongoose.Schema({
     free_shipping: Boolean,
     estimated_delivery: String,
   },
-  related_products: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
+  related_products: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
   warranty: {
     type: String,
     duration: Number,

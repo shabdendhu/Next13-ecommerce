@@ -72,6 +72,15 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            label="Discount"
+            type="number"
+            fullWidth
+            value={product.discount}
+            onChange={(e) => handleChange("discount", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
             label="Brand"
             fullWidth
             value={product.brand}

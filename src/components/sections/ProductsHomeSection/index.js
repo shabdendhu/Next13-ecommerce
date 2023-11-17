@@ -31,7 +31,7 @@ const ProductsHomeSection = ({ headerText = "HEADER", products, ...props }) => {
           {products.map((e, i) => (
             <ProductCard
               key={i}
-              data={i}
+              data={e}
               className={cx(styles.scrollItem)}
               style={{
                 backgroundColor: "#FFFFFF",
