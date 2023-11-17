@@ -4,23 +4,40 @@
   // border: 1px solid green;
   border-radius: 8px;
   min-width: 200px;
-  min-height: 351px;
+  min-height: 310px;
   max-width: 250px;
   margin-bottom: 10px;
   box-sizing: border-box;
   overflow: hidden;
-  padding: 0px 10px;
+  padding: 10px;
   aspect-ratio: 2/2.7;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
   cursor: pointer;
   // width: 100%;
   // box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-
+  .discountLabel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 185, 0);
+    width: 50%;
+    align-self: center;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 10px 0px 30px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    @include media.onMdM() {
+      font-size: 12px !important;
+    }
+  }
   //  margin-left:15px
   @include media.onMdM() {
     min-width: 150px !important;
@@ -32,8 +49,8 @@
 
 .cardimg {
   width: 90%;
-  max-width: 50%;
-  // align-items: center;
+  max-width: 200px;
+  align-items: center;
   margin: auto;
   border-radius: 5px;
   overflow: hidden;

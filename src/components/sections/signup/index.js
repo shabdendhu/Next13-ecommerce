@@ -4,6 +4,9 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import style from "./Signup.module.scss";
 import EmailIcon from "@mui/icons-material/Email";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { apiPost } from "@/helpers/api";
 
 const Home = () => {
   return (
@@ -20,13 +23,35 @@ const Home = () => {
 };
 const Signup = () => {
   const router = useRouter();
-  const handleSubmit = (e) => {
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const signUpRes = await apiPost("/api/user/", {
+        username: userInfo.name,
+        email: userInfo.email,
+        password: userInfo.password,
+      });
+      console.log({ signUpRes });
+      if (signUpRes?.success) {
+        router.push("/login");
+      }
+    } catch (error) {
+      toast.error("Someting went wrong");
+    }
     console.log("====================================");
-    console.log(e);
+    console.log(userInfo);
     console.log("====================================");
   };
   const handleredirectToLogin = () => {
     router.push("/login");
+  };
+  const handleChangeFiled = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
   return (
     <div className={style.container}>
@@ -45,7 +70,12 @@ const Signup = () => {
                   }}
                 />
               </span>
-              <input placeholder="Full Name" />
+              <input
+                name="name"
+                value={userInfo.name}
+                onChange={handleChangeFiled}
+                placeholder="Full Name"
+              />
             </div>
             <br />
             <div className={style.inputContainer}>
@@ -56,7 +86,13 @@ const Signup = () => {
                   }}
                 />
               </span>
-              <input placeholder="Full Name" />
+              <input
+                name="email"
+                value={userInfo.email}
+                type="email"
+                onChange={handleChangeFiled}
+                placeholder="Email"
+              />
             </div>
             <br />
             <div className={style.inputContainer}>
@@ -67,7 +103,13 @@ const Signup = () => {
                   }}
                 />
               </span>
-              <input placeholder="Password" />
+              <input
+                name="password"
+                // type="password"
+                value={userInfo.email}
+                onChange={handleChangeFiled}
+                placeholder="Password"
+              />
               <span>
                 <VisibilityOffIcon
                   style={{

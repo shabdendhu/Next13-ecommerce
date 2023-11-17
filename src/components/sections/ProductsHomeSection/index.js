@@ -6,7 +6,7 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import cx from "classnames";
 
-const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
+const ProductsHomeSection = ({ headerText = "HEADER", products, ...props }) => {
   const scrollContainerRef = useRef(null);
   const handleScroll = (direction) => {
     const scrollContainer = scrollContainerRef.current;
@@ -28,18 +28,16 @@ const ProductsHomeSection = ({ headerText = "HEADER", ...props }) => {
           className={styles.arrowLeft}
         />
         <div className={styles.cardContainer} ref={scrollContainerRef}>
-          {Array(20)
-            .fill(1)
-            .map((e, i) => (
-              <ProductCard
-                key={i}
-                data={i}
-                className={cx(styles.scrollItem)}
-                style={{
-                  backgroundColor: "#FFFFFF",
-                }}
-              />
-            ))}
+          {products.map((e, i) => (
+            <ProductCard
+              key={i}
+              data={i}
+              className={cx(styles.scrollItem)}
+              style={{
+                backgroundColor: "#FFFFFF",
+              }}
+            />
+          ))}
         </div>
         <ArrowForwardIosOutlinedIcon
           onClick={() => handleScroll("right")}

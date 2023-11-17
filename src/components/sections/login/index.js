@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Login.module.scss";
 import {
   IconButton,
@@ -12,8 +12,11 @@ import Checkbox from "@mui/material/Checkbox";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { blue } from "@mui/material/colors";
+import EmailIcon from "@mui/icons-material/Email";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
+import { apiPost } from "@/helpers/api";
+import toast from "react-hot-toast";
 
 const Home = () => {
   return (
@@ -31,10 +34,36 @@ const Home = () => {
 const Login = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const handleSubmit = (e) => {
-    console.log("====================================");
-    console.log(e);
-    console.log("====================================");
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // const loginRes = await apiPost("/api/user/login", {
+      //   email: userInfo.email,
+      //   password: userInfo.password,
+      // });
+      signIn("password", {
+        email: userInfo.email,
+        password: userInfo.password,
+        redirect: false,
+      })
+        .then(({ ok }) => {
+          if (ok) router.push("/");
+          else toast.error("something went wrong");
+          console.log("====================================");
+          console.log({ loginRes: ok });
+          console.log("====================================");
+        })
+        .catch((e) => toast.error("something went wrong"));
+      // if (loginRes.success) {
+      //   router.push("/");
+      // }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleRedirectToForgotpassword = () => {
@@ -52,9 +81,12 @@ const Login = () => {
     e.preventDefault();
     signIn("google");
   };
+  const handelChangeFields = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
   useEffect(() => {
-    console.log(session);
-  }, [session]);
+    console.log(userInfo);
+  }, [userInfo]);
   return (
     <div className={style.container}>
       {/* <Home /> */}
@@ -67,13 +99,18 @@ const Login = () => {
           <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.inputContainer}>
               <span>
-                <PersonIcon
+                <EmailIcon
                   style={{
                     color: "#0d4b0d",
                   }}
                 />
               </span>
-              <input placeholder="Full Name" />
+              <input
+                name="email"
+                value={userInfo.email}
+                onChange={handelChangeFields}
+                placeholder="Email"
+              />
             </div>
             <br />
             <div className={style.inputContainer}>
@@ -84,7 +121,12 @@ const Login = () => {
                   }}
                 />
               </span>
-              <input placeholder="Password" />
+              <input
+                name="password"
+                value={userInfo.password}
+                onChange={handelChangeFields}
+                placeholder="Password"
+              />
               <span>
                 <VisibilityOffIcon
                   style={{

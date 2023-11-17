@@ -18,14 +18,22 @@ export async function POST(request) {
     return NextResponse.json({ error }, { status: 500 });
   }
 }
-export async function GET(req, res) {
+
+export async function GET(request) {
   try {
-    const productSuggestion = await ProductSuggestion.find();
-    return NextResponse.json({
-      data: productSuggestion,
-      success: true,
-    });
+    const searchParams = request.nextUrl.searchParams;
+    const screenName = searchParams.get("screenName");
+    const sequence = searchParams.get("sequence");
+
+    const query = {};
+
+    if (screenName) query.screenName = screenName;
+    if (sequence) query.sequence = sequence;
+    const productSuggestions = await ProductSuggestion.find(query).populate(
+      "productIds"
+    );
+    return NextResponse.json({ data: productSuggestions, success: true });
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json({ error }, { status: 500 });
   }
 }

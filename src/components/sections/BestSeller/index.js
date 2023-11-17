@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
 import styles from "./BestSeller.module.scss";
+import { useSession } from "next-auth/react";
 
 const BestSeller = () => {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <div className={styles.component}>
       {[

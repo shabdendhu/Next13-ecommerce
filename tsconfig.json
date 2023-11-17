@@ -31,7 +31,8 @@
     "src/app/api/auth/[...nextauth]/route.ts",
     "src/app/api/product/[product]/route.js",
     "src/app/api/category/[id]/route.js",
-    "src/helpers/api.js"
+    "src/helpers/api.js",
+    "src/app/api/user/[id]/route.js"
   ],
   "exclude": ["node_modules"]
 }
