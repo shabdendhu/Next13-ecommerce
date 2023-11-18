@@ -24,24 +24,8 @@ const emptySuggestion = {
   productIds: [],
   screenName: "",
   sequence: 0,
+  name: "",
 };
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 export default function CategoryManager() {
   // const [category, setCategory] = useState([]);
   const size = useWindowSize();
@@ -58,6 +42,7 @@ export default function CategoryManager() {
 
   const getAllSuggestion = async () => {
     const suggestionRes = await apiGet("/api/productsuggestion");
+    console.log({ suggestionRes });
     setSuggestions(suggestionRes.data);
   };
 
@@ -132,8 +117,8 @@ export default function CategoryManager() {
           setOpen={(e) => setOpen(e)}
         >
           <SuggestionForm
-            suggestion={newSuggestion}
-            setSuggestion={setNewsuggestion}
+            suggestions={newSuggestion}
+            setSuggestions={setNewsuggestion}
             handleSubmit={handleSubmit}
           />
         </TransitionsModal>
@@ -149,9 +134,10 @@ export default function CategoryManager() {
         <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>productIds</TableCell>
-              <TableCell align="right">screenName</TableCell>
-              <TableCell align="right">sequence</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Products</TableCell>
+              <TableCell align="right">ScreenName</TableCell>
+              <TableCell align="right">Sequence</TableCell>
               {/* <TableCell align="right">SubCategory</TableCell>
               <TableCell align="right">Image</TableCell>
               <TableCell align="right">Meta Keywords</TableCell>
@@ -168,13 +154,16 @@ export default function CategoryManager() {
                   cursor: "pointer",
                 }}
               >
+                <TableCell align="left">{row.name}</TableCell>
                 <TableCell component="th" scope="row">
-                  {row.productIds}
+                  {row.productIds.map((e) => (
+                    <>
+                      {e.name} <b>|</b>{" "}
+                    </>
+                  ))}
                 </TableCell>
                 <TableCell align="right">{row.screenName}</TableCell>
                 <TableCell align="right">{row.sequence}</TableCell>
-                {/* <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell> */}
                 <TableCell align="right">
                   <ButtonBase
                     style={{

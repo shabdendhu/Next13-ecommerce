@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { apiGet } from "@/helpers/api";
+import screenUrls from "@/static/screens";
 
 const ProductSuggestionForm = ({
   suggestions,
@@ -40,22 +41,33 @@ const ProductSuggestionForm = ({
   }, []);
   return (
     <form onSubmit={handleSubmit}>
+      <TextField
+        label="Name"
+        name="name"
+        value={suggestions?.name}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        variant="outlined"
+      />
       <FormControl fullWidth margin="normal">
         <InputLabel id="screenName-label">Screen Name</InputLabel>
         <Select
           labelId="screenName-label"
           id="screenName"
           name="screenName"
-          value={suggestions.screenName} //ethi suggestion kahiki lekhithilu
+          value={suggestions?.screenName} //ethi suggestion kahiki lekhithilu
           onChange={handleChange}
           fullWidth
           variant="outlined"
           required
         >
           {/* Replace the items with your actual screen name options */}
-          <MenuItem value="screenName1">Screen Name 1</MenuItem>
-          <MenuItem value="screenName2">Screen Name 2</MenuItem>
-          <MenuItem value="screenName3">Screen Name 3</MenuItem>
+          {screenUrls.map((e) => (
+            <MenuItem key={e} value={e}>
+              {e}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
@@ -66,7 +78,7 @@ const ProductSuggestionForm = ({
           id="productIds"
           name="productIds"
           multiple
-          value={suggestions.productIds}
+          value={suggestions?.productIds}
           onChange={handleProductIdsChange}
           fullWidth
           variant="outlined"
@@ -84,7 +96,7 @@ const ProductSuggestionForm = ({
         label="Sequence"
         name="sequence"
         type="number"
-        value={suggestions.sequence}
+        value={suggestions?.sequence}
         onChange={handleChange}
         fullWidth
         margin="normal"

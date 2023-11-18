@@ -14,9 +14,7 @@ const Home = () => {
   const [sections, setSection] = useState([]);
   const getAllSections = async () => {
     try {
-      const sections = await apiGet(
-        "/api/productsuggestion?screenName=screen1"
-      );
+      const sections = await apiGet("/api/productsuggestion?screenName=/");
       setSection(sections.data);
       console.log(sections.data);
     } catch (error) {
@@ -50,7 +48,7 @@ const Home = () => {
         </div>
 
         <BestSeller />
-        {sections.map((e: any) => (
+        {sections.map((e: any, i) => (
           <ProductsHomeSection
             key={e?._id}
             products={e?.productIds || []}
@@ -58,7 +56,9 @@ const Home = () => {
             style={{
               // background: "rgb(180,173,58)",
               background:
-                "linear-gradient(180deg, #fff00087 0%, rgba(255,235,0,0) 100%)",
+                i % 2 == 0
+                  ? "linear-gradient(180deg, #fff00087 0%, rgba(255,235,0,0) 100%)"
+                  : "linear-gradient(180deg, #00ff306b 0%, rgba(255,235,0,0) 100%)",
             }}
           />
         ))}

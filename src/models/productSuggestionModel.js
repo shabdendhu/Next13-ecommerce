@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const productSuggestion = new mongoose.Schema({
-  productIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }], //select
+  productIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }], //select
   screenName: { type: String, required: true }, //input
   sequence: { type: Number }, //number
   name: String,

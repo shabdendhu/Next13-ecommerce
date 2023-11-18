@@ -1,8 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import ProductSuggestion from "@/models/productSuggestionModel";
+import mongoose from "mongoose";
 
 connect();
+const MONGODB_URI = process.env.MONGODB_URI;
+var db1 = mongoose.createConnection(MONGODB_URI);
 
 export async function POST(request) {
   try {
@@ -29,9 +32,10 @@ export async function GET(request) {
 
     if (screenName) query.screenName = screenName;
     if (sequence) query.sequence = sequence;
-    const productSuggestions = await ProductSuggestion.find(query).populate(
-      "productIds"
-    );
+    const productSuggestions = await ProductSuggestion.find(query).populate({
+      path: "productIds",
+      model: "product",
+    });
     return NextResponse.json({ data: productSuggestions, success: true });
   } catch (error) {
     console.error(error);
