@@ -75,7 +75,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
             label="Discount"
             type="number"
             fullWidth
-            value={product.discount}
+            value={product?.discount}
             onChange={(e) => handleChange("discount", e.target.value)}
           />
         </Grid>

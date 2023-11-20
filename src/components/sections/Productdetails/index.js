@@ -86,7 +86,7 @@ const Productdetails = () => {
                 <span>
                   ₹{" "}
                   {Math.round(
-                    productDetails.price / (1 - productDetails.discount / 100)
+                    productDetails?.price / (1 - productDetails?.discount / 100)
                   )}
                 </span>
               </del>
@@ -144,14 +144,14 @@ const Productdetails = () => {
                   {productDetails?.attributes
                     ?.map((e) => e.name)
                     ?.map((i) => (
-                      <li>{i}:</li>
+                      <li key={i}>{i}:</li>
                     ))}
                 </ul>
                 <ul style={{ marginLeft: "15px" }}>
                   {productDetails?.attributes
                     ?.map((e) => e.value)
                     ?.map((i) => (
-                      <li>{i}</li>
+                      <li key={i}>{i}</li>
                     ))}
                 </ul>
               </div>
