@@ -34,7 +34,7 @@ const Home = () => {
         </div>
 
         <BestSeller />
-        <ProductsHomeSection
+        {/* <ProductsHomeSection
           headerText="OFFERS"
           style={{ backgroundColor: "#fcff8a" }}
         />
@@ -42,7 +42,7 @@ const Home = () => {
         <ProductsHomeSection
           style={{ backgroundColor: "#fcff8a" }}
           headerText="BEST SELLERS"
-        />
+        /> */}
 
         {/* <Footer/> */}
       </div>

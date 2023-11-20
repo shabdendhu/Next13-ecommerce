@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const ProductCard = ({ data, className, ...props }) => {
   const router = useRouter();
   const handleRedirect = () => {
-    router.push("/product-details");
+    router.push("/product-details/" + data._id);
   };
 
   return (

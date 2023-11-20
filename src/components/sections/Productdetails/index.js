@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Productdetails.module.scss";
 import StarIcon from "@mui/icons-material/Star";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
@@ -9,44 +9,52 @@ import ProductCard from "../ProductCard";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ProductsHomeSection from "../ProductsHomeSection";
 import PageWrapper from "../PageWrapper";
+import MultipleProductsHomeSection from "../ProductsHomeSection";
+import { useParams } from "next/navigation";
+import { apiGet } from "@/helpers/api";
+import { Rating } from "@mui/material";
 
 const Productdetails = () => {
+  const [productDetails, setProductDetails] = useState({ images: [] });
+  const [selectedImage, setSelectedImage] = useState("");
+  const { id } = useParams();
+  const getProductById = async () => {
+    console.log(id);
+    const productRes = await apiGet("/api/products/" + id);
+    setSelectedImage(productRes.data.images[0]);
+    setProductDetails(productRes.data);
+    console.log({ productRes });
+  };
   const [showAllDetails, setShowAllDetails] = useState(false);
+  useEffect(() => {
+    getProductById();
+  }, []);
+
   return (
     <PageWrapper>
       <div className={styles.productContainer}>
         <div className={styles.productdetailscontainer}>
           <div className={styles.productdetailsimg}>
             <div className={styles.imageContainer}>
-              <img
-                src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
-                alt=""
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
-                alt=""
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
-                alt=""
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
-                alt=""
-              />
+              {productDetails.images.map((e, i) => (
+                <img
+                  onClick={() => setSelectedImage(e)}
+                  key={i}
+                  src={e}
+                  alt="image"
+                />
+              ))}
             </div>
             <Magnifier
               className={styles.magnifier}
-              imageSrc="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
-              magnifiedSrc="https://m.media-amazon.com/images/I/81W7r1x6GYL.jpg"
+              imageSrc={selectedImage}
+              magnifiedSrc={selectedImage}
             />
           </div>
 
           <div className={styles.productdetails}>
             <div>
-              <b style={{ fontSize: "20px" }}>
-                Mother&apos;s Recipe Mixed Pickle (Roi) Jar, 1000 g
-              </b>
+              <b style={{ fontSize: "20px" }}>{productDetails.name}</b>
               <p
                 style={{
                   fontSize: "15px",
@@ -55,28 +63,38 @@ const Productdetails = () => {
                   marginBottom: "10px",
                 }}
               >
-                by mother&apos;s recipy
+                {productDetails.brand}
               </p>
             </div>
             <div style={{ marginBottom: "15px" }}>
-              <StarIcon style={{ color: "#eb910c" }} />
-              <StarIcon style={{ color: "#eb910c" }} />
-              <StarIcon style={{ color: "#eb910c" }} />
-              <StarIcon style={{ color: "#eb910c" }} />
-              <StarIcon style={{ color: "#eb910c" }} />
+              {console.log(productDetails?.ratings?.average)}
+              <Rating
+                precision={0.5}
+                value={productDetails?.ratings?.average}
+                onChange={(e) => console.log(e.target.value)}
+              />
               <span>
-                <u>286 Rating & 30 Reviews</u>
+                <u>
+                  {productDetails?.ratings?.count} Rating &{" "}
+                  {productDetails?.reviews?.length} Reviews
+                </u>
               </span>
             </div>
             <div>
               <del style={{ color: "#16101087" }}>
-                MRP:<span>₹223</span>
+                MRP:
+                <span>
+                  ₹{" "}
+                  {Math.round(
+                    productDetails.price / (1 - productDetails.discount / 100)
+                  )}
+                </span>
               </del>
               <p style={{ fontSize: "20px", fontWeight: "500" }}>
-                Price: <span>₹195</span>
+                Price: <span>₹{productDetails?.price}</span>
               </p>
               <h2 style={{ color: "#0f5d0f", fontWeight: "500" }}>
-                You Save :<span>35% off</span>
+                You Save :<span>{productDetails?.discount}% off</span>
               </h2>
               <h3 style={{ color: "rgb(22 16 16 / 74%)" }}>
                 (inclusive all taxes)
@@ -120,62 +138,28 @@ const Productdetails = () => {
             </div>
 
             <div className="productdetails">
-              <u style={{ fontSize: "20px", fontWeight: 400 }}>Details</u>
+              <div style={{ fontSize: "20px", fontWeight: 400 }}>Details</div>
               <div style={{ display: "flex", color: "rgb(22 16 16 / 74%)" }}>
                 <ul>
-                  <li>Brand:</li>
-                  <li>Modaal Name:</li>
-                  <li>Type:</li>
-                  {showAllDetails && (
-                    <>
-                      <li>Base Ingrient:</li>
-                      <li>Quantity:</li>
-                      <li>Container Type:</li>
-                      <li>Tasty:</li>
-                      <li>Ingreent:</li>
-                      <li>Maximum Safe Life:</li>
-                    </>
-                  )}
+                  {productDetails?.attributes
+                    ?.map((e) => e.name)
+                    ?.map((i) => (
+                      <li>{i}:</li>
+                    ))}
                 </ul>
                 <ul style={{ marginLeft: "15px" }}>
-                  <li>Top&apos;s Brand</li>
-                  <li> NA</li>
-                  <li>Pickle</li>
-                  {showAllDetails && (
-                    <>
-                      <li>Mixed</li>
-                      <li>900g</li>
-                      <li>Plastic</li>
-                      <li>Spice</li>
-                      <li>
-                        Mixed Vegetables, lodised Salt, Mustard Oil, Fenugreek,
-                        Acidity Regulator, Aniseed, Red Chilli Powder, Lime
-                        Juice, Preservative, Spices & Condiments, Turmeric
-                        Powder.
-                      </li>
-                      <li>18 Months</li>
-                    </>
-                  )}
+                  {productDetails?.attributes
+                    ?.map((e) => e.value)
+                    ?.map((i) => (
+                      <li>{i}</li>
+                    ))}
                 </ul>
               </div>
             </div>
-            <u
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                setShowAllDetails(!showAllDetails);
-              }}
-            >
-              Show {showAllDetails ? "Less" : "More.."}
-            </u>
           </div>
         </div>
 
-        <ProductsHomeSection
-          headerText={"SIMILAR PRODUCTS"}
-          style={{
-            background: "#f1efef ",
-          }}
-        />
+        <MultipleProductsHomeSection />
       </div>
     </PageWrapper>
   );

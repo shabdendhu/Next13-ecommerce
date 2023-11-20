@@ -15,7 +15,7 @@ import TransitionsModal from "@/components/base/Modal";
 import SuggestionForm from "@/components/forms/SuggestionForms";
 import useWindowSize from "@/hooks/useWindowSize";
 import axios from "axios";
-import { apiGet, apiPost, apiPut, apiGetById } from "@/helpers/api";
+import { apiGet, apiPost, apiPut, apiGetById, apiDelete } from "@/helpers/api";
 
 function createData(productIds, screenName, sequence) {
   return { productIds, screenName, sequence };
@@ -39,7 +39,16 @@ export default function CategoryManager() {
     setNewsuggestion(getSuggestionById.data);
     console.log(getSuggestionById.data);
   };
-
+  const handleDeleteSuggestion = async (id) => {
+    try {
+      const delRes = await apiDelete("/api/productsuggestion", id);
+      console.log({ delRes });
+      handleCloseModal();
+      getAllSuggestion();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const getAllSuggestion = async () => {
     const suggestionRes = await apiGet("/api/productsuggestion");
     console.log({ suggestionRes });
@@ -51,7 +60,7 @@ export default function CategoryManager() {
     console.log(newSuggestion);
     if (newSuggestion._id) {
       const editRes = await apiPut(
-        "/api/productsuggestion/" + id,
+        "/api/productsuggestion/" + newSuggestion._id,
         newSuggestion
       );
       // edit
@@ -171,11 +180,12 @@ export default function CategoryManager() {
                       padding: "5px 10px",
                       borderRadius: 10,
                     }}
-                    onClick={handleViewProduct}
+                    onClick={() => handleViewProduct(row._id)}
                   >
                     <EditIcon />
                   </ButtonBase>
                   <ButtonBase
+                    onClick={() => handleDeleteSuggestion(row._id)}
                     style={{
                       marginRight: 10,
                       padding: "5px 10px",

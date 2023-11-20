@@ -49,3 +49,31 @@ export async function PUT(req, { params }) {
     });
   }
 }
+
+export async function DELETE(req, { params }) {
+  const { id } = params;
+  try {
+    if (!id)
+      return NextResponse.json({
+        message: "please provide suggestion id",
+        success: false,
+      });
+    const deletedSuggestion = await ProductSuggestion.findByIdAndRemove(id);
+    console.log(deletedSuggestion);
+    if (deletedSuggestion)
+      return NextResponse.json({
+        message: "suggestion deleted successfully",
+        success: true,
+      });
+    else
+      return NextResponse.json({
+        message: "Failed to delete suggestion",
+        success: false,
+      });
+  } catch (error) {
+    return NextResponse.json({
+      message: "error to delete suggestion",
+      success: false,
+    });
+  }
+}

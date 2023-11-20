@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import ProductSuggestion from "@/models/productSuggestionModel";
+import Product from "@/models/productModel";
 import mongoose from "mongoose";
 
 connect();
@@ -24,6 +25,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
+    const products = await Product.findOne({}); // Populate the reviews
     const searchParams = request.nextUrl.searchParams;
     const screenName = searchParams.get("screenName");
     const sequence = searchParams.get("sequence");
@@ -32,10 +34,12 @@ export async function GET(request) {
 
     if (screenName) query.screenName = screenName;
     if (sequence) query.sequence = sequence;
-    const productSuggestions = await ProductSuggestion.find(query).populate({
-      path: "productIds",
-      model: "product",
-    });
+    const productSuggestions = await ProductSuggestion.find(query)
+      .sort({ sequence: 1 })
+      .populate({
+        path: "productIds",
+        model: "product",
+      });
     return NextResponse.json({ data: productSuggestions, success: true });
   } catch (error) {
     console.error(error);

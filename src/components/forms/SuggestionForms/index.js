@@ -17,12 +17,22 @@ const ProductSuggestionForm = ({
   handleSubmit,
 }) => {
   const [products, setProducts] = useState([]);
+  const [screen, setScreen] = useState(screenUrls);
   const getAllProducts = async () => {
     const productRes = await apiGet("/api/products");
     setProducts(productRes.data);
+    console.log(productRes.data);
+    setScreen((e) => [
+      ...e,
+      ...productRes.data.map((i) => ({
+        name: i.name,
+        value: "/product-details/" + i._id,
+      })),
+    ]);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log({ name, value });
     setSuggestions((prevData) => ({
       ...prevData,
       [name]: value,
@@ -30,6 +40,7 @@ const ProductSuggestionForm = ({
   };
 
   const handleProductIdsChange = (event) => {
+    console.log(event.target.value);
     setSuggestions((prevData) => ({
       ...prevData,
       productIds: event.target.value,
@@ -39,6 +50,10 @@ const ProductSuggestionForm = ({
   useEffect(() => {
     getAllProducts();
   }, []);
+  useEffect(() => {
+    console.log(screen);
+  }, [screen]);
+
   return (
     <form onSubmit={handleSubmit}>
       <TextField
@@ -63,9 +78,9 @@ const ProductSuggestionForm = ({
           required
         >
           {/* Replace the items with your actual screen name options */}
-          {screenUrls.map((e) => (
-            <MenuItem key={e} value={e}>
-              {e}
+          {screen.map((e) => (
+            <MenuItem key={e.value} value={e.value}>
+              {e.name}
             </MenuItem>
           ))}
         </Select>
@@ -73,6 +88,7 @@ const ProductSuggestionForm = ({
 
       <FormControl fullWidth margin="normal">
         <InputLabel id="productIds-label">Product IDs</InputLabel>
+        {console.log(suggestions?.productIds)}
         <Select
           labelId="productIds-label"
           id="productIds"
