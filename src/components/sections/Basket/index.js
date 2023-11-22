@@ -1,10 +1,45 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import styles from "./Basket.module.scss";
 import AddButton from "@/components/base/AddButton";
 import ProductCard from "@/components/sections/ProductCard";
 import PageWrapper from "../PageWrapper";
+import { apiGet } from "@/helpers/api";
+import { useSession } from "next-auth/react";
+function calculateTotalPriceAndDiscount(basketData) {
+  let totalItemPrice = 0;
+  let totalDiscountPrice = 0;
 
+  // Loop through each item in the basket
+  basketData.items.forEach((item) => {
+    // Calculate the total price for one item
+    totalItemPrice += item.price * item.quantity;
+
+    // Calculate the discounted price for one item
+    const discountedPrice =
+      item.price - (item.price * item.product.discount) / 100;
+    totalDiscountPrice += discountedPrice * item.quantity;
+  });
+
+  // Return the calculated values
+  return {
+    totalItemPrice: totalItemPrice.toFixed(2),
+    totalDiscountPrice: totalDiscountPrice.toFixed(2),
+  };
+}
 const BasketProduct = () => {
+  const [basketdata, setBasketData] = useState({ items: [] });
+  const { data: session } = useSession();
+  let deliverycharge = 40;
+  console.log(session);
+  const getBasketByUser = async () => {
+    const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
+    setBasketData(basketRes.data);
+    console.log(basketRes);
+  };
+  useEffect(() => {
+    if (session) getBasketByUser();
+  }, [session]);
   return (
     <PageWrapper>
       <div className={styles.basketcontainer}>
@@ -58,17 +93,17 @@ const BasketProduct = () => {
       </div> */}
 
         <div className={styles.cartItems}>
-          {Array(20)
-            .fill("")
-            .map((e, i) => (
-              <ProductCard
-                key={i}
-                style={{
-                  border: "1px solid #3f0d0d7a",
-                }}
-                className={styles.productCard}
-              />
-            ))}
+          {basketdata.items.map((e, i) => (
+            <ProductCard
+              key={i}
+              quantity={e?.quantity}
+              data={e?.product}
+              style={{
+                border: "1px solid #3f0d0d7a",
+              }}
+              className={styles.productCard}
+            />
+          ))}
         </div>
         <div className={styles.pricedetails}>
           <h1>Price Details</h1>
@@ -89,9 +124,13 @@ const BasketProduct = () => {
             </ul>
 
             <ul>
-              <li style={{ marginBottom: "10px" }}>380</li>
-              <li style={{ marginBottom: "10px", color: "blue" }}>-181</li>
-              <li style={{ marginBottom: "10px" }}>40</li>
+              <li style={{ marginBottom: "10px" }}>
+                {calculateTotalPriceAndDiscount(basketdata).totalItemPrice}
+              </li>
+              <li style={{ marginBottom: "10px", color: "blue" }}>
+                {calculateTotalPriceAndDiscount(basketdata).totalDiscountPrice}
+              </li>
+              <li style={{ marginBottom: "10px" }}>{deliverycharge}</li>
               <li
                 style={{
                   marginBottom: "10px",
@@ -99,7 +138,9 @@ const BasketProduct = () => {
                   fontSize: "20px",
                 }}
               >
-                199
+                {parseInt(
+                  calculateTotalPriceAndDiscount(basketdata).totalItemPrice
+                ) + deliverycharge}
               </li>
             </ul>
           </div>

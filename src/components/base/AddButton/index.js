@@ -1,20 +1,29 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./AddButton.module.scss";
-
-const AddButton = () => {
-  const [itemAmt, setItemAmt] = useState(0);
-  const handleAdd = (e) => {
+import { apiGet, apiPost } from "@/helpers/api";
+import { useSession } from "next-auth/react";
+import tokenDecoded from "@/helpers/tokenDecoded";
+const AddButton = ({ product, setproductQuantity, productQuantity }) => {
+  const { data: session } = useSession();
+  // console.log(product);
+  const handleAdd = async (e) => {
     e.stopPropagation();
-    setItemAmt(itemAmt + 1);
+    const addRes = await apiPost("/api/basket", {
+      userId: session.user.id,
+      productId: product._id,
+      quantity: 1,
+    });
+    tokenDecoded(session.accessToken);
+    setproductQuantity(productQuantity + 1);
   };
   const handleRemove = (e) => {
     e.stopPropagation();
-    setItemAmt(itemAmt - 1);
+    setproductQuantity(productQuantity - 1);
   };
   return (
     <>
-      {itemAmt === 0 ? (
+      {productQuantity === 0 ? (
         <button className={styles.addButton} onClick={handleAdd}>
           ADD
         </button>
@@ -23,7 +32,7 @@ const AddButton = () => {
           <div className={styles.decrement} onClick={handleRemove}>
             -
           </div>
-          <div className={styles.itemamt}>{itemAmt}</div>
+          <div className={styles.itemamt}>{productQuantity}</div>
           <div className={styles.increment} onClick={handleAdd}>
             +
           </div>

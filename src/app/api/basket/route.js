@@ -56,6 +56,7 @@ export async function POST(req) {
       success: true,
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({
       error: "Error adding item to the basket",
       success: false,
@@ -65,8 +66,9 @@ export async function POST(req) {
 
 export async function GET(req) {
   try {
-    const { userId } = req.query;
-
+    const searchParams = req.nextUrl.searchParams;
+    const userId = searchParams.get("user");
+    const products = await Product.findOne({}); // Populate the reviews
     const basket = await Basket.findOne({ user: userId }).populate(
       "items.product"
     );
@@ -80,6 +82,7 @@ export async function GET(req) {
       success: true,
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({
       error: "Error getting basket items",
       success: false,
@@ -125,6 +128,49 @@ export async function DELETE(req) {
   } catch (error) {
     return NextResponse.json({
       error: "Error removing item from the basket",
+      success: false,
+    });
+  }
+}
+
+export async function PUT(req) {
+  try {
+    const { userId, itemId, quantity } = req.body;
+
+    const basket = await Basket.findOne({ user: userId });
+
+    if (!basket) {
+      return NextResponse.json({ error: "Basket not found", success: false });
+    }
+
+    // Check if the item to update exists in the basket
+    const itemToUpdate = basket.items.find((item) => item._id.equals(itemId));
+    if (!itemToUpdate) {
+      return NextResponse.json({
+        error: "Item not found in the basket",
+        success: false,
+      });
+    }
+
+    // Update the quantity of the item
+    itemToUpdate.quantity = quantity;
+
+    // Update the total price
+    basket.total = basket.items.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+
+    // Save the updated basket
+    await basket.save();
+
+    return NextResponse.json({
+      data: basket,
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      error: "Error updating item quantity in the basket",
       success: false,
     });
   }
