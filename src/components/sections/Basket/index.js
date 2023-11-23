@@ -6,6 +6,7 @@ import ProductCard from "@/components/sections/ProductCard";
 import PageWrapper from "../PageWrapper";
 import { apiGet } from "@/helpers/api";
 import { useSession } from "next-auth/react";
+import { Grid } from "@mui/material";
 function calculateTotalPriceAndDiscount(basketData) {
   let totalItemPrice = 0;
   let totalDiscountPrice = 0;
@@ -93,17 +94,28 @@ const BasketProduct = () => {
       </div> */}
 
         <div className={styles.cartItems}>
-          {basketdata.items.map((e, i) => (
-            <ProductCard
-              key={i}
-              quantity={e?.quantity}
-              data={e?.product}
-              style={{
-                border: "1px solid #3f0d0d7a",
-              }}
-              className={styles.productCard}
-            />
-          ))}
+          <Grid container gap={1}>
+            {[
+              ...basketdata.items,
+              ...basketdata.items,
+              ...basketdata.items,
+              ...basketdata.items,
+              ...basketdata.items,
+              ...basketdata.items,
+            ].map((e, i) => (
+              <Grid item>
+                <ProductCard
+                  key={i}
+                  quantity={e?.quantity}
+                  data={e?.product}
+                  style={{
+                    border: "1px solid #3f0d0d7a",
+                  }}
+                  className={styles.productCard}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </div>
         <div className={styles.pricedetails}>
           <h1>Price Details</h1>

@@ -71,7 +71,7 @@ const Login = () => {
   };
   const handleClickGoogleLogin = (e) => {
     e.preventDefault();
-    signIn("google");
+    signIn("google", { callbackUrl: "/" });
   };
   const handelChangeFields = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });

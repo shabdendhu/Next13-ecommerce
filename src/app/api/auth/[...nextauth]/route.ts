@@ -20,25 +20,17 @@ const handler = NextAuth({
       async authorize(credentials: any, req: any) {
         connect();
         const { email, password } = credentials;
-        console.log(req);
-
         //check if user exists
         const user = await User.findOne({ email });
-        console.log("====================================");
-        console.log({ user });
-        console.log("====================================");
         if (!user) {
           throw new Error(`This user does not exist.`);
         }
 
         //check if password is correct
-        // console.log("user exists", password, user);
         const validPassword = await bcryptjs.compare(password, user.password);
-        // console.log("user exists", validPassword);
         if (!validPassword) {
           throw new Error("Wrong credentials. Try again.");
         }
-        // console.log(user);
         user.id = JSON.stringify(user._id);
         return user;
       },
@@ -52,9 +44,8 @@ const handler = NextAuth({
 
   callbacks: {
     async jwt({ token, user, session }: any) {
-      console.log({ token, user, session }, "jwt");
       if (user) {
-        token.id = user?._id;
+        token.id = user?._id || user?.id;
         token.role = user?.role;
         token.username = user?.username;
         token.orders = user?.orders;
@@ -77,25 +68,34 @@ const handler = NextAuth({
       // }
       const newsessionObj = { ...session.user, ...token };
       session.user = newsessionObj;
-      console.log({ session, token, user }, "session");
       return session;
     },
-    // async signIn(params) {
-    //   return {
+    async signIn({ user, profile }: any) {
+      connect();
+      const { email } = profile;
 
-    //   }
-    // },
-    // async redirect({ url, baseUrl }) {
-    //   // if (url.startsWith("/")) return `${baseUrl}${url}`;
-    //   // else if (new URL(url).origin === baseUrl) return url;
-    //   return url;
-    // },
+      //check if user exists
+      const userRes = await User.findOne({ email });
+      if (!userRes) {
+        const newUser: any = await User.create({
+          email: profile.email,
+          username: profile.given_name,
+          profile: {
+            name: profile.name,
+            avatar: profile.picture,
+          },
+        });
+        user.id = newUser._id;
+      } else {
+        user.id = userRes._id;
+      }
+      return true;
+    },
   },
   jwt: {
     secret: process.env.JWT_SECRET,
 
     encode: async ({ secret, token }) => {
-      console.log(token, "token");
       const jwtClaims = {
         id: token?.id,
         userRole: token?.role,
@@ -109,7 +109,6 @@ const handler = NextAuth({
       return encodedToken;
     },
     decode: ({ secret, token }: any): any => {
-      console.log(token, "decode");
       return jwt.verify(token, secret, { algorithms: ["HS256"] });
     },
   },

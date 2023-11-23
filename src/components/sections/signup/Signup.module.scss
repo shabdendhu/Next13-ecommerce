@@ -52,6 +52,25 @@
         padding: 50px 0px;
         flex: 1;
         position: relative;
+        .googleButton {
+          position: absolute;
+          bottom: 37px;
+          // background-color: red;
+          width: 100%;
+          height: 40px;
+          font-weight: 600;
+          overflow: hidden;
+          border: 1px solid #3051c9;
+          border-radius: 14px;
+          color: #3051c9;
+          display: flex;
+          align-items: center;
+
+          img {
+            font-size: 20px;
+            height: 40px;
+          }
+        }
         .inputContainer {
           background-color: #5b5b5b4d;
           // border: 1px solid green;
@@ -79,7 +98,7 @@
         }
         .loginButton {
           position: absolute;
-          bottom: 60px;
+          bottom: 100px;
           background-color: #0a3514;
           color: white;
           border-radius: 15px;
