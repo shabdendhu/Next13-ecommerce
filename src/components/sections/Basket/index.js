@@ -95,17 +95,9 @@ const BasketProduct = () => {
 
         <div className={styles.cartItems}>
           <Grid container gap={1}>
-            {[
-              ...basketdata.items,
-              ...basketdata.items,
-              ...basketdata.items,
-              ...basketdata.items,
-              ...basketdata.items,
-              ...basketdata.items,
-            ].map((e, i) => (
-              <Grid item>
+            {basketdata.items.map((e, i) => (
+              <Grid item key={i}>
                 <ProductCard
-                  key={i}
                   quantity={e?.quantity}
                   data={e?.product}
                   style={{
