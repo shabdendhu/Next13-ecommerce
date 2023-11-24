@@ -86,7 +86,7 @@ const Login = () => {
 
       <div className={style.bluryBackground}>
         <div className={style.loginbackground}>
-          <h1 className={style.header}>Welcom Back</h1>
+          <h1 className={style.header}>Welcome Back</h1>
           <p className={style.subheader}>Login To Your Account</p>
           <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.inputContainer}>

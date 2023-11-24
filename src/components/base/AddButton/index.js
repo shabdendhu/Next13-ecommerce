@@ -4,17 +4,20 @@ import styles from "./AddButton.module.scss";
 import { apiGet, apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import tokenDecoded from "@/helpers/tokenDecoded";
+import { useRouter } from "next/router";
 const AddButton = ({ product, setproductQuantity, productQuantity }) => {
   const { data: session } = useSession();
+  const router = useRouter();
   // console.log(product);
   const handleAdd = async (e) => {
     e.stopPropagation();
+    if (!session) router.push("/login");
     const addRes = await apiPost("/api/basket", {
       userId: session.user.id,
       productId: product._id,
       quantity: 1,
     });
-    tokenDecoded(session.accessToken);
+    // tokenDecoded(session.accessToken);
     setproductQuantity(productQuantity + 1);
   };
   const handleRemove = (e) => {

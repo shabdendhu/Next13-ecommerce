@@ -18,7 +18,6 @@ const imageurl = [
 const Banner = () => {
   const [index, setIndex] = useState(0);
   const handleChangeIndex = (index) => {
-    console.log({ index });
     setIndex(index);
   };
 
