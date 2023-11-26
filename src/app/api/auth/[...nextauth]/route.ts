@@ -72,23 +72,25 @@ const handler = NextAuth({
     },
     async signIn({ user, profile }: any) {
       connect();
-      const { email } = profile;
+      console.log({ user, profile });
+      if (profile?.email) {
+        const userRes = await User.findOne({ email: profile?.email });
+        if (!userRes) {
+          const newUser: any = await User.create({
+            email: profile?.email,
+            username: profile?.given_name,
+            profile: {
+              name: profile?.name,
+              avatar: profile?.picture,
+            },
+          });
+          user.id = newUser?._id;
+        } else {
+          user.id = userRes?._id;
+        }
+      }
 
       //check if user exists
-      const userRes = await User.findOne({ email });
-      if (!userRes) {
-        const newUser: any = await User.create({
-          email: profile.email,
-          username: profile.given_name,
-          profile: {
-            name: profile.name,
-            avatar: profile.picture,
-          },
-        });
-        user.id = newUser._id;
-      } else {
-        user.id = userRes._id;
-      }
       return true;
     },
   },
