@@ -33,7 +33,7 @@ export async function GET(req) {
       success: true,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return NextResponse.json({
       error: "Error searching for products",
       success: false,
