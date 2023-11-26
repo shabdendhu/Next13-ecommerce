@@ -12,8 +12,7 @@ import { NextRequest, NextResponse } from "next/server";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      id: "password",
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "" },
         password: { label: "Password", type: "password" },
@@ -21,31 +20,19 @@ const handler = NextAuth({
       async authorize(credentials: any, req: any) {
         connect();
         const { email, password } = credentials;
-        console.log(req);
-
         //check if user exists
         const user = await User.findOne({ email });
-        console.log("====================================");
-        console.log({ user });
-        console.log("====================================");
         if (!user) {
           throw new Error(`This user does not exist.`);
         }
 
         //check if password is correct
-        console.log("user exists", password, user);
         const validPassword = await bcryptjs.compare(password, user.password);
-        console.log("user exists", validPassword);
         if (!validPassword) {
           throw new Error("Wrong credentials. Try again.");
         }
-
-        return {
-          id: user._id,
-          email: user.email,
-          name: user.username,
-          role: user.role,
-        };
+        user.id = JSON.stringify(user._id);
+        return user;
       },
     }),
     GoogleProvider({
@@ -54,12 +41,63 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.JWT_SECRET,
+
+  callbacks: {
+    async jwt({ token, user, session }: any) {
+      if (user) {
+        token.id = user?._id || user?.id;
+        token.role = user?.role;
+        token.username = user?.username;
+        token.orders = user?.orders;
+        token.favorites = user?.favorites;
+      }
+
+      return token;
+    },
+    async session({ session, token, user }: any) {
+      const encodedToken = jwt.sign(token, process.env.JWT_SECRET || "", {
+        algorithm: "HS256",
+      });
+      session.accessToken = encodedToken;
+      // if (token.id) {
+      // session.user.id = token.id;
+      // session.user.username = token.username;
+      // session.user.role = token.role;
+      // session.user.favorites = token.favorites;
+      // session.user.orders = token.orders;
+      // }
+      const newsessionObj = { ...session.user, ...token };
+      session.user = newsessionObj;
+      return session;
+    },
+    async signIn({ user, profile }: any) {
+      connect();
+      const { email } = profile;
+
+      //check if user exists
+      const userRes = await User.findOne({ email });
+      if (!userRes) {
+        const newUser: any = await User.create({
+          email: profile.email,
+          username: profile.given_name,
+          profile: {
+            name: profile.name,
+            avatar: profile.picture,
+          },
+        });
+        user.id = newUser._id;
+      } else {
+        user.id = userRes._id;
+      }
+      return true;
+    },
+  },
   jwt: {
     secret: process.env.JWT_SECRET,
 
     encode: async ({ secret, token }) => {
       const jwtClaims = {
-        userId: token?.id,
+        id: token?.id,
         userRole: token?.role,
         name: token?.name,
         email: token?.email,
@@ -74,38 +112,10 @@ const handler = NextAuth({
       return jwt.verify(token, secret, { algorithms: ["HS256"] });
     },
   },
-  callbacks: {
-    async jwt({ token, user }: any) {
-      if (user) {
-        token.id = user?.id;
-        token.role = user?.role;
-      }
-
-      return token;
-    },
-    async session({ session, token }: any) {
-      const encodedToken = jwt.sign(token, process.env.JWT_SECRET || "", {
-        algorithm: "HS256",
-      });
-      session.accessToken = encodedToken;
-      if (token.userId) {
-        session.user.id = token.id;
-        session.user.role = token.role;
-      }
-
-      return session;
-    },
-    // async signIn(params) {
-    //   return {
-
-    //   }
-    // },
-    // async redirect({ url, baseUrl }) {
-    //   // if (url.startsWith("/")) return `${baseUrl}${url}`;
-    //   // else if (new URL(url).origin === baseUrl) return url;
-    //   return url;
-    // },
+  session: {
+    strategy: "jwt",
   },
+  debug: process.env.NODE_ENV === "development",
 });
 
 export { handler as GET, handler as POST };

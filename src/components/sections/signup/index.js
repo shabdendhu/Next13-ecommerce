@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { apiPost } from "@/helpers/api";
+import { signIn } from "next-auth/react";
 
 const Home = () => {
   return (
@@ -52,6 +53,10 @@ const Signup = () => {
   };
   const handleChangeFiled = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
+  const handleClickGoogleLogin = (e) => {
+    e.preventDefault();
+    signIn("google").then((e) => console.log(e));
   };
   return (
     <div className={style.container}>
@@ -118,7 +123,13 @@ const Signup = () => {
                 />
               </span>
             </div>
-
+            <button
+              className={style.googleButton}
+              onClick={handleClickGoogleLogin}
+            >
+              <img src="https://static.vecteezy.com/system/resources/thumbnails/011/598/471/small/google-logo-icon-illustration-free-vector.jpg" />
+              <h1>LOGIN WITH GOOGLE</h1>
+            </button>
             <div className={style.forgotPassword}>Forgot Password?</div>
 
             <button type="submit" className={style.loginButton}>

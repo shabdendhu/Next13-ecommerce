@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 const basketSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model (assuming you have a User model)
+    ref: "user", // Reference to the User model (assuming you have a User model)
     required: false,
   },
   items: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product", // Reference to the Product model
+        ref: "product", // Reference to the Product model
         required: true,
       },
       quantity: {
@@ -36,3 +36,6 @@ const basketSchema = new mongoose.Schema({
 });
 // post add to basket
 // remove from basket
+const Basket = mongoose.models.basket || mongoose.model("basket", basketSchema);
+
+module.exports = Basket;

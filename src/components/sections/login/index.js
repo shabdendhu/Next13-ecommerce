@@ -45,19 +45,11 @@ const Login = () => {
       //   email: userInfo.email,
       //   password: userInfo.password,
       // });
-      signIn("password", {
+      signIn("credentials", {
         email: userInfo.email,
         password: userInfo.password,
-        redirect: false,
-      })
-        .then(({ ok }) => {
-          if (ok) router.push("/");
-          else toast.error("something went wrong");
-          console.log("====================================");
-          console.log({ loginRes: ok });
-          console.log("====================================");
-        })
-        .catch((e) => toast.error("something went wrong"));
+        callbackUrl: "/",
+      }).catch((e) => toast.error("something went wrong"));
       // if (loginRes.success) {
       //   router.push("/");
       // }
@@ -79,7 +71,7 @@ const Login = () => {
   };
   const handleClickGoogleLogin = (e) => {
     e.preventDefault();
-    signIn("google");
+    signIn("google", { callbackUrl: "/" });
   };
   const handelChangeFields = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });

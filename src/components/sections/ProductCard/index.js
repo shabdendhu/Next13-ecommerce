@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ProductCard.module.scss";
 import Productdetails from "@/components/sections/Productdetails";
 import cx from "classnames";
@@ -53,12 +53,18 @@ const dummydata = {
   __v: 0,
   discount: 10,
 };
-const ProductCard = ({ data = dummydata, className, ...props }) => {
+const ProductCard = ({
+  data = dummydata,
+  className,
+  quantity = 0,
+  ...props
+}) => {
+  const [productQuantity, setproductQuantity] = useState(quantity);
   const router = useRouter();
   const handleRedirect = () => {
     router.push("/product-details/" + data._id);
   };
-
+  console.log(data);
   return (
     <div
       onClick={handleRedirect}
@@ -67,7 +73,7 @@ const ProductCard = ({ data = dummydata, className, ...props }) => {
     >
       <div className={styles.discountLabel}>{data?.discount}% off</div>
       <div className={styles.cardimg}>
-        <img src={data.images[0]} />
+        <img src={data?.images[0] || ""} />
       </div>
 
       <div className={styles.cardinfo}>
@@ -86,7 +92,11 @@ const ProductCard = ({ data = dummydata, className, ...props }) => {
 
         <div className={styles.cardlower}>
           <div style={{ fontSize: "13px", fontWeight: "100px" }}>1kg</div>
-          <AddButton />
+          <AddButton
+            productQuantity={productQuantity}
+            setproductQuantity={setproductQuantity}
+            product={data}
+          />
         </div>
       </div>
     </div>

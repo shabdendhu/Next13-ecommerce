@@ -5,18 +5,16 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true,
     lowercase: true,
     trim: true,
+    require: true,
   },
   password: {
     type: String,
-    required: true,
   },
   role: {
     type: String,
@@ -24,8 +22,7 @@ const userSchema = new mongoose.Schema({
     default: "customer",
   },
   profile: {
-    firstName: String,
-    lastName: String,
+    name: String,
     avatar: String,
     address: {
       addressLine1: String,
