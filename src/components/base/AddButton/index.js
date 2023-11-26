@@ -4,7 +4,7 @@ import styles from "./AddButton.module.scss";
 import { apiGet, apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import tokenDecoded from "@/helpers/tokenDecoded";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 const AddButton = ({ product, setproductQuantity, productQuantity }) => {
   const { data: session } = useSession();
   const router = useRouter();
