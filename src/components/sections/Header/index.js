@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import CategoryMenu from "@/components/base/CategoryMenu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useScrollDirection from "@/hooks/useScrollDirection";
-import { apiGet } from "@/helpers/api";
+import { apiGet, apiPost } from "@/helpers/api";
 import { Divider } from "@mui/material";
 const Header = () => {
   const router = useRouter();
@@ -32,7 +32,9 @@ const Header = () => {
     router.push("/product-details/" + id);
   };
   const handleSearchProduct = async () => {
-    const searchRes = await apiGet("/api/products/search?query=" + searchText);
+    const searchRes = await apiPost("/api/products/search", {
+      query: searchText,
+    });
     setSearchProducts(searchRes.data);
     console.log({ searchRes });
   };

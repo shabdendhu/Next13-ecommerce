@@ -5,10 +5,9 @@ import Product from "@/models/productModel";
 
 connect();
 
-export async function GET(req) {
+export async function POST(req) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const query = searchParams.get("query");
+    const { query } = await req.json();
 
     if (!query) {
       return NextResponse.json({
