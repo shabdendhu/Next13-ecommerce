@@ -16,11 +16,11 @@ const bannerSchema = new mongoose.Schema({
     required: true,
   },
   startDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   endDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   isActive: {
@@ -34,6 +34,6 @@ const bannerSchema = new mongoose.Schema({
 });
 
 // Create the Banner model
-const Banner = mongoose.model("Banner", bannerSchema);
+const Banner = mongoose.model.banner || mongoose.model("banner", bannerSchema);
 
 module.exports = Banner;
