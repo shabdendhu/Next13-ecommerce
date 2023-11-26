@@ -25,5 +25,15 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [],
+  matcher: [
+    "/account",
+    "/address",
+    "/my-ratings-reviews",
+    "/mywishlist",
+    "/profile-hub",
+    "/rating-reviews",
+    "/savedcard",
+    "/saveupi",
+    "/basket",
+  ],
 };
