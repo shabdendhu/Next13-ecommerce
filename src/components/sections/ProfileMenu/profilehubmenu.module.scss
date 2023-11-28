@@ -1,0 +1,13 @@
+@use "../../../styles/media.scss";
+
+.component {
+  width: 20%;
+  background-color: yellow;
+  .profileContainer {
+    background-color: rgb(68, 6, 6);
+    height: 150px;
+  }
+  @include media.onMdM() {
+    width: 100%;
+  }
+}

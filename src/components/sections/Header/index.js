@@ -16,7 +16,6 @@ const Header = () => {
   const [searchText, setSearchText] = useState("");
   const [searchProducts, setSearchProducts] = useState([]);
   const handleLogin = () => {
-    console.log("eeeeeeeeeeee.....");
     router.push("/login");
   };
   const handleClickCategory = () => {
@@ -87,7 +86,7 @@ const Header = () => {
           {/* visible above 900px */}
           <div className={styles.rightIcon}>
             <PersonIcon
-              onClick={() => router.push("/login")}
+              onClick={() => router.push("/profile-hub")}
               style={{
                 fontSize: "44px",
                 color: "#FFFFFF",
@@ -102,7 +101,7 @@ const Header = () => {
                 cursor: "pointer",
                 marginRight: 10,
               }}
-              onClick={() => router.push("/rating&reviews")}
+              onClick={() => router.push("/my-wishlist")}
             />
             <ShoppingBasketIcon
               style={{ fontSize: "44px", color: "#FFFFFF", cursor: "pointer" }}
