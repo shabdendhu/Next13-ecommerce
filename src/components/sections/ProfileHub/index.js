@@ -3,6 +3,7 @@ import PageWrapper from "../PageWrapper";
 import ProfileMenu from "@/components/sections/ProfileMenu";
 import ProfileContent from "@/components/sections/ProfileContent";
 import styles from "./profile.module.scss";
+import MultipleProductsHomeSection from "../ProductsHomeSection";
 
 const Profile = () => {
   return (
@@ -13,6 +14,7 @@ const Profile = () => {
           <ProfileContent />
         </div>
       </div>
+      <MultipleProductsHomeSection />
     </PageWrapper>
   );
 };
