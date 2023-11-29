@@ -21,11 +21,15 @@ export const MyAddresses = () => {
 const ContentWrapper = ({ children }) => {
   return children;
 };
-const ProfileContent = () => {
+const ProfileContent = ({ url }) => {
+  console.log({ url });
   return (
     <div className={styles.component}>
       <ContentWrapper>
-        <MyOrders />
+        {url === "order" && <MyOrders />}
+        {url === "payment" && <MyPayments />}
+        {url === "review" && <MyRatingsAndReviews />}
+        {url === "address" && <MyAddresses />}
       </ContentWrapper>
     </div>
   );

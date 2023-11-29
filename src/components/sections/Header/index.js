@@ -86,7 +86,7 @@ const Header = () => {
           {/* visible above 900px */}
           <div className={styles.rightIcon}>
             <PersonIcon
-              onClick={() => router.push("/profile-hub")}
+              onClick={() => router.push("/profile")}
               style={{
                 fontSize: "44px",
                 color: "#FFFFFF",

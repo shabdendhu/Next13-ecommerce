@@ -8,8 +8,16 @@ import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";
 import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
-
+import { useRouter } from "next/navigation";
+import {} from "next-auth";
 const ProfileMenu = () => {
+  const router = useRouter();
+  const hanleClick = (url) => {
+    router.push(url);
+  };
+  const hanleClickLogout = () => {
+    Logout();
+  };
   return (
     <div className={styles.component}>
       <div className={styles.profileContainer}>
@@ -36,30 +44,42 @@ const ProfileMenu = () => {
           <button>Change</button>
         </div>
       </div>
-      <div className={styles.menuItems}>
+      <button
+        className={styles.menuItems}
+        onClick={() => hanleClick("/profile/order")}
+      >
         <UpdateOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>My Orders</div>
-      </div>
+      </button>
       <Divider />
-      <div className={styles.menuItems}>
+      <button
+        className={styles.menuItems}
+        onClick={() => hanleClick("/profile/payment")}
+      >
         <PaymentOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>My Payments</div>
-      </div>
+      </button>
       <Divider />
-      <div className={styles.menuItems}>
+      <button
+        className={styles.menuItems}
+        onClick={() => hanleClick("/profile/review")}
+      >
         <ReviewsOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>My Reviews & Ratings</div>
-      </div>
+      </button>
       <Divider />
-      <div className={styles.menuItems}>
+      <button
+        className={styles.menuItems}
+        onClick={() => hanleClick("/profile/address")}
+      >
         <LocationOnOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>My Addresses</div>
-      </div>
+      </button>
       <Divider />
-      <div className={styles.menuItems}>
+      <button className={styles.menuItems} onClick={hanleClickLogout}>
         <PowerSettingsNewOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>Log Out</div>
-      </div>
+      </button>
       <Divider />
     </div>
   );

@@ -94,10 +94,10 @@ const Footer = () => {
           <span className={styles.text}>Basket</span>
         </button>
         <button
-          onClick={() => router.push("/profile-hub")}
+          onClick={() => router.push("/profile")}
           className={styles.footerMenu}
         >
-          {pathname === "/profile-hub" ? (
+          {pathname === "/profile" ? (
             <PersonIcon
               className={styles.icon}
               style={{

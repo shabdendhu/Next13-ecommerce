@@ -20,7 +20,7 @@ const SavedCard = () => {
   const [name, setName] = React.useState("");
   const router = useRouter();
   const handleRedirect = () => {
-    router.push("/profile-hub");
+    router.push("/profile");
   };
   const handleNavigate = () => {
     router.push("/address");
