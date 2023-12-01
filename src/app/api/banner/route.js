@@ -6,7 +6,8 @@ connect();
 
 export async function POST(request) {
   try {
-    const reqBody = request.json();
+    const reqBody = await request.json();
+    console.log(reqBody);
     const banner = new Banner(reqBody);
     const savedBanner = await banner.save();
     return NextResponse.json({
@@ -14,6 +15,7 @@ export async function POST(request) {
       success: true,
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: error }, { satus: 500 });
   }
 }
@@ -26,6 +28,7 @@ export async function GET(req) {
       success: true,
     });
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error(error);
+    return NextResponse.json({ error: error }, { status: 500 });
   }
 }

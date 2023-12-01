@@ -40,6 +40,7 @@ const menuData = [
   { name: "Order Manager", url: "order-manager" },
   { name: "User Manager", url: "user-manager" },
   { name: "ProductSuggestion Manager", url: "product-suggestion-manager" },
+  { name: "Banner Manager", url: "banner-manager" },
 ];
 const openedMixin = (theme) => ({
   width: drawerWidth,
