@@ -1,0 +1,64 @@
+@use "../../../styles/media.scss";
+
+.component {
+  width: 25%;
+  // background-color: yellow;
+  .profileContainer {
+    background-color: rgb(68, 6, 6);
+    // height: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    .uderDetailContainer {
+      padding: 10px;
+      border: 1px solid white;
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
+      .userDetails {
+        color: #ffffff;
+      }
+    }
+    .addressContainer {
+      display: flex;
+      flex-direction: row;
+      color: #2c0505;
+      align-items: center;
+      padding: 0px 5px;
+      background-color: #ffffff;
+      .address {
+        flex: 1;
+      }
+      button {
+        border: 1px solid #3a0707;
+        padding: 2px 5px;
+        border-radius: 5px;
+      }
+    }
+  }
+  .menuItems {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    color: gray;
+    // border: 1px solid red;
+    width: 100%;
+    .lable {
+      padding: 5px;
+      font-size: 20px;
+    }
+    .icon {
+      font-size: 30px;
+      color: gray;
+    }
+    &:hover {
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.25s ease-in-out;
+    }
+  }
+  @include media.onMdM() {
+    width: 100%;
+  }
+}

@@ -1,1 +1,4 @@
-export default [{ name: "Home", value: "/" }];
+export default [
+  { name: "Home", value: "/" },
+  { name: "User Profile", value: "/profile" },
+];

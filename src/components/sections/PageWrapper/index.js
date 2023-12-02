@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./PageWrapper.module.scss";
-
-const PageWrapper = ({ children }) => {
-  return <div className={styles.component}>{children}</div>;
+import cx from "classnames";
+const PageWrapper = ({ children, classNames = "" }) => {
+  return <div className={cx(styles.component, classNames)}>{children}</div>;
 };
 
 export default PageWrapper;

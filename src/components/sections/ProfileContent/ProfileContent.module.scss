@@ -1,0 +1,9 @@
+@use "../../../styles//media.scss";
+.component {
+  // border: 1px solid red;
+  // background-color: green;
+  // width: 100%;
+  @include media.onMdM() {
+    width: 100%;
+  }
+}

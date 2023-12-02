@@ -1,86 +1,24 @@
-.profilebgcontainer {
-  display: flex;
-  margin: auto;
-  // width: 90%;
-  margin-top: 20px;
-  padding: 20px 20px;
-  background-color: rgb(231 226 226);
-  border-radius: 5px;
+@use "../../../styles/media.scss";
 
-  .profilecontainer {
-    width: 100%;
+.pageWrapper {
+  width: 100%;
+  .pageContainer {
     display: flex;
     flex-direction: row;
-    grid-gap: 20px;
-  }
-
-  .heading {
-    height: 23%;
-    display: flex;
-    align-items: center;
-    background-color: white;
+    border: 1px solid gray;
     border-radius: 5px;
-    min-height: 80px;
+    width: 100%;
 
-    .accountIcon {
-      font-size: 50px;
-      color: green;
-      margin-right: 15px;
-    }
-
-    .headingText {
-      flex: 1;
-    }
-  }
-}
-
-.leftcontainer {
-  // border:1px solid blue;
-  flex-direction: column;
-  width: 30%;
-  grid-gap: 25px;
-  display: flex;
-
-  .leftSubContainer {
-    display: flex;
-    // border: 1px solid red;
-    border-radius: 5px;
-    height: 100%;
-    background-color: white;
-    flex-direction: column;
-    align-items: center;
-
-    .smallSubContainers {
-      display: flex;
-      // border: "1px solid blue",
-      width: 100%;
-      padding: 20px;
-
-      .icons {
-        margin: 0px 20px;
-        font-size: 30px;
-        color: green;
+    .content {
+      // border: 1px solid green;
+      border-left: 1px solid gray;
+      width: 75%;
+      @include media.onMdM() {
+        display: none;
       }
     }
+    @include media.onMdM() {
+      height: 92%;
+    }
   }
-}
-
-.rightbgcontainer {
-  // border:1px solid black;s
-  width: 70%;
-  display: flex;
-  background-color: white;
-  border-radius: 5px;
-  flex-direction: column;
-  // align-items:center;
-  // justify-content: space-around;
-}
-
-.rightcontainer {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 30px;
-  // align-items:center;
-  justify-content: space-around;
 }
