@@ -11,25 +11,25 @@ export const MyPayments = () => {
 };
 
 export const MyRatingsAndReviews = () => {
-  return "MYPAYMENTS";
+  return "MyRatingsAndReviews";
 };
 
 export const MyAddresses = () => {
-  return "MYPAYMENTS";
+  return "MYPAYMEMyAddressesNTS";
 };
 
 const ContentWrapper = ({ children }) => {
   return children;
 };
-const ProfileContent = ({ url }) => {
-  console.log({ url });
+const ProfileContent = ({ activeTab }) => {
+  console.log({ url: activeTab });
   return (
     <div className={styles.component}>
       <ContentWrapper>
-        {url === "order" && <MyOrders />}
-        {url === "payment" && <MyPayments />}
-        {url === "review" && <MyRatingsAndReviews />}
-        {url === "address" && <MyAddresses />}
+        {activeTab === "/profile/order" && <MyOrders />}
+        {activeTab === "/profile/payment" && <MyPayments />}
+        {activeTab === "/profile/review" && <MyRatingsAndReviews />}
+        {activeTab === "/profile/address" && <MyAddresses />}
       </ContentWrapper>
     </div>
   );

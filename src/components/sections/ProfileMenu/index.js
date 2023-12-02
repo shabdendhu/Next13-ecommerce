@@ -9,11 +9,12 @@ import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";
 import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
 import { useRouter } from "next/navigation";
-import {} from "next-auth";
-const ProfileMenu = () => {
+import { signOut } from "next-auth/react";
+const ProfileMenu = ({ activeTab, setActiveTab }) => {
   const router = useRouter();
   const hanleClick = (url) => {
-    router.push(url);
+    if (window.innerWidth > 900) setActiveTab(url);
+    else router.push(url);
   };
   const hanleClickLogout = () => {
     Logout();
@@ -76,7 +77,7 @@ const ProfileMenu = () => {
         <div className={styles.lable}>My Addresses</div>
       </button>
       <Divider />
-      <button className={styles.menuItems} onClick={hanleClickLogout}>
+      <button className={styles.menuItems} onClick={() => signOut()}>
         <PowerSettingsNewOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>Log Out</div>
       </button>
