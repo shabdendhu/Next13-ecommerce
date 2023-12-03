@@ -73,7 +73,7 @@ const ProductCard = ({
     >
       <div className={styles.discountLabel}>{data?.discount}% off</div>
       <div className={styles.cardimg}>
-        <img src={data?.images[0] || ""} />
+        <img src={data?.images?.length ? data?.images[0] : ""} />
       </div>
 
       <div className={styles.cardinfo}>

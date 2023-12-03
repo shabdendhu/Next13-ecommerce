@@ -24,7 +24,9 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams;
     const userId = searchParams.get("user");
     // const products = await Product.findOne({}); // Populate the reviews
-    const orders = await Order.find({ user: userId });
+    const orders = await Order.find({ user: userId }).populate(
+      "products.product"
+    );
     return NextResponse.json({
       data: orders,
       success: true,
