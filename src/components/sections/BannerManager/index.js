@@ -14,7 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import BannerForm from "@/components/forms/Banner";
 import useWindowSize from "@/hooks/useWindowSize";
-import { apiGet, apiPost } from "@/helpers/api";
+import { apiGet, apiPost, apiGetById, apiDelete } from "@/helpers/api";
 import axios from "axios";
 
 function createData(name, calories, fat, carbs, protein) {
@@ -86,10 +86,23 @@ const emptyBanner = {
 };
 
 export default function CategoryManager() {
-  const [banner, setBanner] = useState([]);
-  const [banners, setBanners] = useState(emptyBanner);
+  const [banner, setBanner] = useState(emptyBanner);
+  const [banners, setBanners] = useState([]);
   const [open, setOpen] = useState(false);
   const size = useWindowSize();
+
+  const handleViewBanner = async (id) => {
+    setOpen(true);
+    const getBannerById = await apiGetById("/api/banner", id);
+    setBanner(getBannerById.data);
+    console.log(getBannerById.data);
+  };
+
+  const handleDelete = (id) => {
+    const deleteRes = apiDelete("/api/banner", id);
+    console.log(deleteRes);
+    getAllBanner();
+  };
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -189,7 +202,7 @@ export default function CategoryManager() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {banners.map((row) => (
               <TableRow
                 key={row.name}
                 onClick={() => console.log("slkdjddsj")}
@@ -212,6 +225,7 @@ export default function CategoryManager() {
                       padding: "5px 10px",
                       borderRadius: 10,
                     }}
+                    onClick={() => handleViewBanner(row._id)}
                   >
                     <EditIcon />
                   </ButtonBase>
@@ -221,6 +235,7 @@ export default function CategoryManager() {
                       padding: "5px 10px",
                       borderRadius: 10,
                     }}
+                    onClick={() => handleDelete(row._id)}
                   >
                     <DeleteIcon />
                   </ButtonBase>
