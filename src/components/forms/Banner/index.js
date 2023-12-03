@@ -46,9 +46,11 @@ const BannerForm = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <ImageUpload
-            imageUrl={banner.imageUrl}
-            setImageUrl={handleImageChange}
+          <TextField
+            label="Image Url"
+            fullWidth
+            value={banner.imageUrl}
+            onChange={(e) => handleChange("imageUrl", e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
