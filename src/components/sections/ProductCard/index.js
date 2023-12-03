@@ -5,6 +5,8 @@ import Productdetails from "@/components/sections/Productdetails";
 import cx from "classnames";
 import AddButton from "@/components/base/AddButton";
 import { useRouter } from "next/navigation";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 const dummydata = {
   ratings: {
     average: 4.5,
@@ -57,6 +59,7 @@ const ProductCard = ({
   data = dummydata,
   className,
   quantity = 0,
+  addToWishList,
   ...props
 }) => {
   const [productQuantity, setproductQuantity] = useState(quantity);
@@ -72,6 +75,10 @@ const ProductCard = ({
       {...props}
     >
       <div className={styles.discountLabel}>{data?.discount}% off</div>
+      <div className={styles.wishIcon}>
+        <FavoriteBorderIcon />
+        {/* <FavoriteIcon /> */}
+      </div>
       <div className={styles.cardimg}>
         <img src={data?.images?.length ? data?.images[0] : ""} />
       </div>
@@ -81,10 +88,7 @@ const ProductCard = ({
 
         <div className={styles.details}>
           <div className={styles.priceInfo}>
-            <del>
-              {" "}
-              {Math.round(data?.price / (1 - data?.discount / 100))}/kg
-            </del>{" "}
+            <del>{Math.round(data?.price / (1 - data?.discount / 100))}/kg</del>
             <span>{data.price}</span>
           </div>
           <div className={styles.price}>₹{data.price}</div>

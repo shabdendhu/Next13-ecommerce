@@ -1,8 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import MyOrders from "@/components/sections/MyOrders";
-import AddressComponent from "@/components/sections/MyAddress";
-import styles from "./ProfileContent.module.scss";
+// src/AddressComponent.js
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -18,35 +15,35 @@ import {
   Switch,
 } from "@mui/material";
 
-export const MyPayments = () => {
-  return "MYPAYMENTS";
-};
-
-export const MyRatingsAndReviews = () => {
-  return "MyRatingsAndReviews";
-};
-
-export const MyAddresses = () => {
+const AddressComponent = () => {
   const [addresses, setAddresses] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
   const [isDefault, setIsDefault] = useState(false);
 
-  // Fetch addresses from API on component mount
+  // Mock addresses for testing
   useEffect(() => {
-    // Make an API call to get addresses and update the state
-    // Example: fetchAddressesFromAPI().then((data) => setAddresses(data));
+    setAddresses([
+      {
+        id: 1,
+        street: "123 Main St",
+        city: "Sample City",
+        country: "Sample Country",
+        isDefault: true,
+      },
+      {
+        id: 2,
+        street: "456 Side St",
+        city: "Test City",
+        country: "Test Country",
+        isDefault: false,
+      },
+    ]);
   }, []);
 
   const handleAddAddress = () => {
     setSelectedAddress({});
     setIsDefault(false);
-    setOpenDialog(true);
-  };
-
-  const handleEditAddress = (address) => {
-    setSelectedAddress(address);
-    setIsDefault(address.isDefault || false);
     setOpenDialog(true);
   };
 
@@ -81,11 +78,11 @@ export const MyAddresses = () => {
       <List>
         {addresses.map((address) => (
           <ListItem key={address.id}>
-            <ListItemText primary={address.street} secondary={address.city} />
+            <ListItemText
+              primary={address.street}
+              secondary={`${address.city}, ${address.country}`}
+            />
             <ListItemSecondaryAction>
-              <IconButton edge="end" onClick={() => handleEditAddress(address)}>
-                Edit
-              </IconButton>
               <IconButton
                 edge="end"
                 onClick={() => handleRemoveAddress(address.id)}
@@ -96,9 +93,6 @@ export const MyAddresses = () => {
                 edge="end"
                 onChange={() => handleMakeDefault(address.id)}
                 checked={address.isDefault || false}
-                inputProps={{
-                  "aria-labelledby": "switch-list-label-bluetooth",
-                }}
               />
             </ListItemSecondaryAction>
           </ListItem>
@@ -119,6 +113,28 @@ export const MyAddresses = () => {
             }
           />
           <TextField
+            label="House/Building No."
+            fullWidth
+            value={selectedAddress.houseNumber || ""}
+            onChange={(e) =>
+              setSelectedAddress({
+                ...selectedAddress,
+                houseNumber: e.target.value,
+              })
+            }
+          />
+          <TextField
+            label="Pin Code"
+            fullWidth
+            value={selectedAddress.pinCode || ""}
+            onChange={(e) =>
+              setSelectedAddress({
+                ...selectedAddress,
+                pinCode: e.target.value,
+              })
+            }
+          />
+          <TextField
             label="City"
             fullWidth
             value={selectedAddress.city || ""}
@@ -126,11 +142,27 @@ export const MyAddresses = () => {
               setSelectedAddress({ ...selectedAddress, city: e.target.value })
             }
           />
-          {/* Add more fields as needed */}
-          <Switch
-            label="Default Address"
-            checked={isDefault}
-            onChange={() => setIsDefault(!isDefault)}
+          <TextField
+            label="Country"
+            fullWidth
+            value={selectedAddress.country || ""}
+            onChange={(e) =>
+              setSelectedAddress({
+                ...selectedAddress,
+                country: e.target.value,
+              })
+            }
+          />
+          <TextField
+            label="Map Location (Latitude, Longitude)"
+            fullWidth
+            value={selectedAddress.mapLocation || ""}
+            onChange={(e) =>
+              setSelectedAddress({
+                ...selectedAddress,
+                mapLocation: e.target.value,
+              })
+            }
           />
         </DialogContent>
         <DialogActions>
@@ -144,21 +176,4 @@ export const MyAddresses = () => {
   );
 };
 
-const ContentWrapper = ({ children }) => {
-  return children;
-};
-const ProfileContent = ({ activeTab }) => {
-  console.log({ url: activeTab == "/profile/order" });
-  return (
-    <div className={styles.component}>
-      <ContentWrapper>
-        {activeTab == "/profile/order" ? <MyOrders /> : <></>}
-        {activeTab == "/profile/payment" && <MyPayments />}
-        {activeTab == "/profile/review" && <MyRatingsAndReviews />}
-        {activeTab == "/profile/address" && <AddressComponent />}
-      </ContentWrapper>
-    </div>
-  );
-};
-
-export default ProfileContent;
+export default AddressComponent;

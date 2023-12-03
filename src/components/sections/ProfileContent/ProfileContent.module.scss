@@ -7,39 +7,3 @@
     width: 100%;
   }
 }
-
-.orderComponent {
-  // border: 1px solid red;
-  max-height: 80vh;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(206, 206, 206);
-
-  .orderContainer {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    background-color: #ffffff;
-    width: 98%;
-    margin: auto;
-    margin-top: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    .orderStatus {
-      font-size: 25px;
-      font-weight: 500;
-      text-transform: uppercase;
-      color: orange;
-    }
-    .orders {
-      display: flex;
-      flex-direction: row;
-      .product {
-        box-shadow: none !important;
-        border: 1px solid green;
-        margin-left: 5px;
-      }
-    }
-  }
-}
