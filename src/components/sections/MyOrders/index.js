@@ -1,31 +1,35 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { apiGet } from "@/helpers/api";
 import ProductCard from "../ProductCard";
+import ReviewManagement from "@/components/sections/ReviewManagement"; // Import the new component
 import styles from "./MyOrder.module.scss";
 
 const MyOrders = () => {
   const { data: session } = useSession();
-  const [order, setOrder] = useState([]);
-  const getAllorder = async () => {
+  const [orders, setOrders] = useState([]);
+
+  const getAllOrders = async () => {
     try {
       const orderRes = await apiGet("/api/order?user=" + session?.user?.id);
-      setOrder(orderRes.data);
+      setOrders(orderRes.data);
     } catch (error) {
       console.error(error);
     }
   };
+
   useEffect(() => {
-    if (session) getAllorder();
+    if (session) getAllOrders();
   }, [session]);
+
   return (
     <div className={styles.orderComponent}>
-      {order?.map((e) => (
-        <div className={styles.orderContainer} key={e._id}>
-          <div className={styles.orderStatus}>{e.status}</div>
+      {orders?.map((order) => (
+        <div className={styles.orderContainer} key={order._id}>
+          <div className={styles.orderStatus}>{order.status}</div>
           <div className={styles.orders}>
-            {e.products.map((item) => (
+            {order.products.map((item) => (
               <ProductCard
                 className={styles.product}
                 data={item.product}
@@ -33,9 +37,13 @@ const MyOrders = () => {
               />
             ))}
           </div>
+          {order.status !== "Delivered" && (
+            <ReviewManagement orderId={order._id} />
+          )}
         </div>
       ))}
     </div>
   );
 };
+
 export default MyOrders;

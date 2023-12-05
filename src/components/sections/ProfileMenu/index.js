@@ -8,7 +8,9 @@ import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
 import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";
 import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
-import { useRouter } from "next/navigation";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import cx from "classnames";
+import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 const ProfileMenu = ({ activeTab, setActiveTab }) => {
   const router = useRouter();
@@ -33,9 +35,9 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
             <p>tshabdendhu@gmail.com</p>
             <p>98861177199</p>
           </div>
-          <div>
+          <button onClick={() => hanleClick("/profile/editprofile")}>
             <CreateOutlinedIcon style={{ color: "#ffffff" }} />
-          </div>
+          </button>
         </div>
         <div className={styles.addressContainer}>
           <LocationOnOutlinedIcon />
@@ -46,7 +48,21 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
       <button
-        className={styles.menuItems}
+        className={cx(
+          styles.menuItems,
+          activeTab == "/profile/wishlist" && styles.selectedItem
+        )}
+        onClick={() => hanleClick("/profile/wishlist")}
+      >
+        <FavoriteBorderIcon className={styles.icon} />
+        <div className={styles.lable}>My WishList</div>
+      </button>
+      <Divider />
+      <button
+        className={cx(
+          styles.menuItems,
+          activeTab == "/profile/order" && styles.selectedItem
+        )}
         onClick={() => hanleClick("/profile/order")}
       >
         <UpdateOutlinedIcon className={styles.icon} />
@@ -54,7 +70,10 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
       </button>
       <Divider />
       <button
-        className={styles.menuItems}
+        className={cx(
+          styles.menuItems,
+          activeTab == "/profile/payment" && styles.selectedItem
+        )}
         onClick={() => hanleClick("/profile/payment")}
       >
         <PaymentOutlinedIcon className={styles.icon} />
@@ -62,7 +81,10 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
       </button>
       <Divider />
       <button
-        className={styles.menuItems}
+        className={cx(
+          styles.menuItems,
+          activeTab == "/profile/review" && styles.selectedItem
+        )}
         onClick={() => hanleClick("/profile/review")}
       >
         <ReviewsOutlinedIcon className={styles.icon} />
@@ -70,7 +92,10 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
       </button>
       <Divider />
       <button
-        className={styles.menuItems}
+        className={cx(
+          styles.menuItems,
+          activeTab == "/profile/address" && styles.selectedItem
+        )}
         onClick={() => hanleClick("/profile/address")}
       >
         <LocationOnOutlinedIcon className={styles.icon} />

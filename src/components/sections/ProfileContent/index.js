@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import MyOrders from "@/components/sections/MyOrders";
 import AddressComponent from "@/components/sections/MyAddress";
+import MyWishList from "@/components/sections/MyWishList";
+import MyPayments from "@/components/sections/MyPayments";
+import MyRatingsAndReviews from "@/components/sections/MyRatingAndReview";
+import EditProfile from "@/components/sections/EditProfile";
 import styles from "./ProfileContent.module.scss";
 import {
   Button,
@@ -17,14 +21,6 @@ import {
   IconButton,
   Switch,
 } from "@mui/material";
-
-export const MyPayments = () => {
-  return "MYPAYMENTS";
-};
-
-export const MyRatingsAndReviews = () => {
-  return "MyRatingsAndReviews";
-};
 
 export const MyAddresses = () => {
   const [addresses, setAddresses] = useState([]);
@@ -152,10 +148,12 @@ const ProfileContent = ({ activeTab }) => {
   return (
     <div className={styles.component}>
       <ContentWrapper>
-        {activeTab == "/profile/order" ? <MyOrders /> : <></>}
+        {activeTab == "/profile/order" && <MyOrders />}
+        {activeTab == "/profile/wishlist" && <MyWishList />}
         {activeTab == "/profile/payment" && <MyPayments />}
         {activeTab == "/profile/review" && <MyRatingsAndReviews />}
         {activeTab == "/profile/address" && <AddressComponent />}
+        {activeTab == "/profile/editprofile" && <EditProfile />}
       </ContentWrapper>
     </div>
   );

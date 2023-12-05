@@ -14,7 +14,7 @@ export async function GET(req, { params }) {
     return NextResponse.json({ data: product, success: true });
   } catch (error) {
     return NextResponse.json({
-      message: "Error finding the product",
+      message: "Error finding the user",
       error,
       success: true,
     });

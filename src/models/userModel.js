@@ -1,5 +1,13 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+
+const addressSchema = new mongoose.Schema({
+  addressLine1: String,
+  addressLine2: String,
+  city: String,
+  state: String,
+  postalCode: String,
+  country: String,
+});
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -11,7 +19,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    require: true,
+    required: true,
   },
   password: {
     type: String,
@@ -24,27 +32,25 @@ const userSchema = new mongoose.Schema({
   profile: {
     name: String,
     avatar: String,
-    address: {
-      addressLine1: String,
-      addressLine2: String,
-      city: String,
-      state: String,
-      postalCode: String,
-      country: String,
-    },
+    addresses: [addressSchema],
     phone: String,
     dateOfBirth: Date,
   },
+  defaultAddress: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "address",
+  },
+
   orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
+      ref: "order",
     },
   ],
   favorites: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      ref: "product",
     },
   ],
   createdAt: {

@@ -7,6 +7,8 @@ import AddButton from "@/components/base/AddButton";
 import { useRouter } from "next/navigation";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { apiPost } from "@/helpers/api";
+import { useSession } from "next-auth/react";
 const dummydata = {
   ratings: {
     average: 4.5,
@@ -59,15 +61,25 @@ const ProductCard = ({
   data = dummydata,
   className,
   quantity = 0,
-  addToWishList,
+  wishlist = false,
   ...props
 }) => {
+  const { data: session } = useSession();
   const [productQuantity, setproductQuantity] = useState(quantity);
+  const [isInWishList, setIsInWishList] = useState(wishlist);
   const router = useRouter();
   const handleRedirect = () => {
     router.push("/product-details/" + data._id);
   };
-  console.log(data);
+  const addToWishList = async (e) => {
+    e.stopPropagation();
+    setIsInWishList(!isInWishList);
+    const addres = await apiPost("/api/wishlist", {
+      user: session?.user?.id,
+      product: data?._id,
+    });
+    console.log({ addres });
+  };
   return (
     <div
       onClick={handleRedirect}
@@ -75,9 +87,8 @@ const ProductCard = ({
       {...props}
     >
       <div className={styles.discountLabel}>{data?.discount}% off</div>
-      <div className={styles.wishIcon}>
-        <FavoriteBorderIcon />
-        {/* <FavoriteIcon /> */}
+      <div className={styles.wishIcon} onClick={addToWishList}>
+        {!isInWishList ? <FavoriteBorderIcon /> : <FavoriteIcon />}
       </div>
       <div className={styles.cardimg}>
         <img src={data?.images?.length ? data?.images[0] : ""} />

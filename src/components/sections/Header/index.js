@@ -101,7 +101,7 @@ const Header = () => {
                 cursor: "pointer",
                 marginRight: 10,
               }}
-              onClick={() => router.push("/my-wishlist")}
+              onClick={() => router.push("/profile?tab=wishlist")}
             />
             <ShoppingBasketIcon
               style={{ fontSize: "44px", color: "#FFFFFF", cursor: "pointer" }}

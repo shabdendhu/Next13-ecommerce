@@ -1,0 +1,14 @@
+.component {
+  padding: 10px;
+  .addButton {
+    position: relative;
+    float: right;
+  }
+  .listItemButton {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+  }
+}
