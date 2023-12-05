@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./profilehubmenu.module.scss";
 import { Avatar, Divider } from "@mui/material";
@@ -11,9 +11,13 @@ import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOu
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import cx from "classnames";
 import { usePathname, useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
-const ProfileMenu = ({ activeTab, setActiveTab }) => {
+import { signOut, useSession } from "next-auth/react";
+const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
   const router = useRouter();
+  const { data: session } = useSession();
+  const [defaultAddress, setDefaultAddress] = useState("");
+  console.log({ activeTab });
+
   const hanleClick = (url) => {
     if (window.innerWidth > 900) setActiveTab(url);
     else router.push(url);
@@ -21,19 +25,35 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
   const hanleClickLogout = () => {
     Logout();
   };
+  const object1 = {
+    a: "somestring",
+    b: 42,
+    c: false,
+  };
+
+  useEffect(() => {
+    const { _id, ...address } = userDetails?.profile?.addresses.find(
+      (e) => e._id == userDetails?.defaultAddress
+    ) || { _id: "" };
+    setDefaultAddress(Object.values(address).toString());
+    console.log({ address });
+  }, [userDetails]);
+  useEffect(() => {
+    console.log(defaultAddress, "ppppppppppppppppppppppppi");
+  }, [defaultAddress]);
   return (
     <div className={styles.component}>
       <div className={styles.profileContainer}>
         <div className={styles.uderDetailContainer}>
           <Avatar
             alt="Remy Sharp"
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            src={userDetails?.profile?.avatar}
             sx={{ width: 70, height: 70 }}
           />
           <div className={styles.userDetails}>
-            <p>Shabdendhu</p>
-            <p>tshabdendhu@gmail.com</p>
-            <p>98861177199</p>
+            <p>{session?.user?.name}</p>
+            <p>{session?.user?.email}</p>
+            <p>{session?.user?.phone}</p>
           </div>
           <button onClick={() => hanleClick("/profile/editprofile")}>
             <CreateOutlinedIcon style={{ color: "#ffffff" }} />
@@ -41,10 +61,8 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
         </div>
         <div className={styles.addressContainer}>
           <LocationOnOutlinedIcon />
-          <div className={styles.address}>
-            107, galexy tower, chandaka, bhubuneswar, 756100
-          </div>
-          <button>Change</button>
+          <div className={styles.address}>{defaultAddress}</div>
+          <button onClick={() => hanleClick("/profile/address")}>Change</button>
         </div>
       </div>
       <button
@@ -102,7 +120,10 @@ const ProfileMenu = ({ activeTab, setActiveTab }) => {
         <div className={styles.lable}>My Addresses</div>
       </button>
       <Divider />
-      <button className={styles.menuItems} onClick={() => signOut()}>
+      <button
+        className={styles.menuItems}
+        onClick={() => signOut({ callbackUrl: "/" })}
+      >
         <PowerSettingsNewOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>Log Out</div>
       </button>

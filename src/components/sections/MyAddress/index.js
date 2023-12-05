@@ -20,7 +20,7 @@ import styles from "./MyAddress.module.scss";
 import { apiDelete, apiGet, apiPost, apiPut } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 
-const AddressComponent = () => {
+const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const [addresses, setAddresses] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -60,6 +60,7 @@ const AddressComponent = () => {
         }
       );
       console.log({ editRes });
+      reloadUserDetails();
       // Make an API call to edit the existing address
       // Example: editAddressInAPI(selectedAddress);
     } else {
@@ -75,6 +76,7 @@ const AddressComponent = () => {
         },
       });
       console.log({ addRes });
+      reloadUserDetails();
       // Make an API call to add a new address
       // Example: addAddressToAPI(selectedAddress);
     }
@@ -101,6 +103,7 @@ const AddressComponent = () => {
       addressId,
     });
     console.log(res);
+    reloadUserDetails();
     // Make an API call to set the default address
     // Example: makeDefaultAddressInAPI(addressId);
   };
@@ -119,24 +122,38 @@ const AddressComponent = () => {
       <List style={{ marginTop: 40 }}>
         {addresses.map((address) => (
           <ListItem key={address._id}>
+            {console.log(address?._id, userDetails?.defaultAddress)}
             <ListItemText
               primary={`${address.addressLine1} | ${address.addressLine2}`}
               secondary={`${address.city}, ${address.country}, ${address.postalCode}, ${address.state}`}
             />
             <div className={styles.listItemButton}>
-              <EditIcon
-                style={{ fontSize: 30, color: "green", cursor: "pointer" }}
-                onClick={() => handleEditAddress(address)}
-              />
-              <DeleteIcon
-                style={{ fontSize: 30, color: "red", cursor: "pointer" }}
+              <IconButton onClick={() => handleEditAddress(address)}>
+                <EditIcon
+                  style={{ fontSize: 30, color: "green", cursor: "pointer" }}
+                />
+              </IconButton>
+              <IconButton
+                disabled={address?._id == userDetails?.defaultAddress}
                 onClick={() => handleRemoveAddress(address._id)}
-              />
-              <Switch
-                edge="end"
-                onChange={() => handleMakeDefault(address._id)}
-                checked={address.isDefault || false}
-              />
+              >
+                <DeleteIcon
+                  style={{
+                    fontSize: 30,
+                    color:
+                      address?._id == userDetails?.defaultAddress
+                        ? "gray"
+                        : "red",
+                    cursor: "pointer",
+                  }}
+                />
+              </IconButton>
+              <IconButton onChange={() => handleMakeDefault(address._id)}>
+                <Switch
+                  edge="end"
+                  checked={address?._id == userDetails?.defaultAddress}
+                />
+              </IconButton>
             </div>
           </ListItem>
         ))}

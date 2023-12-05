@@ -143,7 +143,11 @@ export const MyAddresses = () => {
 const ContentWrapper = ({ children }) => {
   return children;
 };
-const ProfileContent = ({ activeTab }) => {
+const ProfileContent = ({
+  activeTab,
+  reloadUserDetails = () => {},
+  userDetails = {},
+}) => {
   console.log({ url: activeTab == "/profile/order" });
   return (
     <div className={styles.component}>
@@ -152,8 +156,18 @@ const ProfileContent = ({ activeTab }) => {
         {activeTab == "/profile/wishlist" && <MyWishList />}
         {activeTab == "/profile/payment" && <MyPayments />}
         {activeTab == "/profile/review" && <MyRatingsAndReviews />}
-        {activeTab == "/profile/address" && <AddressComponent />}
-        {activeTab == "/profile/editprofile" && <EditProfile />}
+        {activeTab == "/profile/address" && (
+          <AddressComponent
+            userDetails={userDetails}
+            reloadUserDetails={reloadUserDetails}
+          />
+        )}
+        {activeTab == "/profile/editprofile" && (
+          <EditProfile
+            userDetails={userDetails}
+            reloadUserDetails={reloadUserDetails}
+          />
+        )}
       </ContentWrapper>
     </div>
   );

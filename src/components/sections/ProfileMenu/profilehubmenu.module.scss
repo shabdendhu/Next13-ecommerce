@@ -27,8 +27,12 @@
       align-items: center;
       padding: 0px 5px;
       background-color: #ffffff;
+      min-height: 40px;
       .address {
         flex: 1;
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       button {
         border: 1px solid #3a0707;
@@ -59,8 +63,13 @@
       transition: opacity 0.25s ease-in-out;
     }
   }
-  .electedItem {
+  .selectedItem {
     color: #2c0505;
+    font-weight: 600;
+    text-transform: uppercase;
+    .icon {
+      color: #2c0505 !important;
+    }
   }
   @include media.onMdM() {
     width: 100%;

@@ -30,7 +30,7 @@ export const config = {
     "/address",
     "/my-ratings-reviews",
     "/mywishlist",
-    // "/profile",
+    "/profile",
     "/rating-reviews",
     "/savedcard",
     "/saveupi",
