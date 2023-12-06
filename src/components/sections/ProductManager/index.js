@@ -13,7 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import ProductForm from "@/components/forms/ProductForms";
 import useWindowSize from "@/hooks/useWindowSize";
-import { apiGet, apiPost, apiGetById } from "@/helpers/api";
+import { apiGet, apiPost, apiGetById, apiPut } from "@/helpers/api";
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -70,13 +70,16 @@ export default function ProductManager() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(product);
-    const addRes = apiPost("/api/products", product);
-    console.log(addRes);
+    if (product._id) {
+      const updateRes = apiPut("/api/products/" + product._id, product);
+      console.log(updateRes);
+    } else {
+      const addRes = apiPost("/api/products", product);
+      console.log(addRes);
+    }
     setProduct(emptyProduct);
-    setProducts([...products, product]);
-
-    // Handle form submission, e.g., send the data to the server
+    getAllProduct();
+    handleCloseModal();
   };
   const handleDelete = (id) => {
     const deleteRes = apiDelete("/api/products", id);
