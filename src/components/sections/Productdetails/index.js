@@ -1,23 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./Productdetails.module.scss";
-import StarIcon from "@mui/icons-material/Star";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import Magnifier from "@/components/base/Mgnifier";
-import ProductCard from "../ProductCard";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import ProductsHomeSection from "../ProductsHomeSection";
 import PageWrapper from "../PageWrapper";
 import MultipleProductsHomeSection from "../ProductsHomeSection";
-import { useParams } from "next/navigation";
-import { apiGet } from "@/helpers/api";
+import { useParams, useRouter } from "next/navigation";
+import { apiGet, apiPost } from "@/helpers/api";
 import { Rating } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 const Productdetails = () => {
-  const [productDetails, setProductDetails] = useState({ images: [] });
-  const [selectedImage, setSelectedImage] = useState("");
   const { id } = useParams();
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [productDetails, setProductDetails] = useState({
+    images: [],
+    ratings: { average: 0 },
+  });
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [isInWishList, setIsInWishList] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
   const getProductById = async () => {
     console.log(id);
     const productRes = await apiGet("/api/products/" + id);
@@ -26,6 +30,26 @@ const Productdetails = () => {
     console.log({ productRes });
   };
   const [showAllDetails, setShowAllDetails] = useState(false);
+  const handleAddToCart = async (e) => {
+    e.stopPropagation();
+    if (!session) router.push("/login");
+    const addRes = await apiPost("/api/basket", {
+      userId: session.user.id,
+      productId: productDetails._id,
+      quantity: 1,
+    });
+    // tokenDecoded(session.accessToken);
+    setAddedToCart(true);
+  };
+  const addToWishList = async (e) => {
+    e.stopPropagation();
+    setIsInWishList(!isInWishList);
+    const addres = await apiPost("/api/wishlist", {
+      user: session?.user?.id,
+      product: productDetails?._id,
+    });
+    console.log({ addres });
+  };
   useEffect(() => {
     getProductById();
   }, []);
@@ -66,12 +90,19 @@ const Productdetails = () => {
                 {productDetails.brand}
               </p>
             </div>
-            <div style={{ marginBottom: "15px" }}>
-              {console.log(productDetails?.ratings?.average)}
+            <div
+              style={{
+                marginBottom: "15px",
+                alignItems: "center",
+                display: "flex",
+                gap: "10px",
+              }}
+            >
               <Rating
+                name="read-only"
                 precision={0.5}
+                readOnly
                 value={productDetails?.ratings?.average}
-                onChange={(e) => console.log(e.target.value)}
               />
               <span>
                 <u>
@@ -104,8 +135,9 @@ const Productdetails = () => {
 
             <div style={{ display: "flex", flexDirection: "row" }}>
               <button
+                onClick={handleAddToCart}
                 style={{
-                  backgroundColor: "#306f37",
+                  backgroundColor: addedToCart ? "red" : "#306f37",
                   marginRight: "10px",
                   borderRadius: "3px",
                   padding: "5px 5px",
@@ -115,9 +147,10 @@ const Productdetails = () => {
                   borderRadius: 10,
                 }}
               >
-                ADD TO BASKET
+                {addedToCart ? "ADDED TO CART" : " ADD TO BASKET"}
               </button>
-              <h5
+              <button
+                onClick={addToWishList}
                 style={{
                   border: "2px solid black",
                   display: "flex",
@@ -128,8 +161,8 @@ const Productdetails = () => {
                 }}
               >
                 <BookmarkBorderOutlinedIcon />
-                <p>Save For Later</p>
-              </h5>
+                <p>{isInWishList ? "Saved" : "Save For Later"}</p>
+              </button>
             </div>
             <br />
             <div style={{ display: "flex", color: "rgb(22 16 16 / 74%)" }}>

@@ -22,14 +22,17 @@ export async function POST(request) {
   }
 }
 
-export async function GET(req, res) {
+export async function GET(req) {
   try {
-    const category = await Caterory.find();
+    const category = await Caterory.find()
+      .populate("subcategories")
+      .populate("parent_category");
     return NextResponse.json({
       data: category,
       success: true,
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: error }, { status: 500 });
   }
 }

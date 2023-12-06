@@ -56,3 +56,28 @@ export async function DELETE(req, { params }) {
     });
   }
 }
+
+export async function GET(req, { params }) {
+  const { id } = params;
+
+  try {
+    const category = await Category.findById(id);
+
+    if (!category) {
+      return NextResponse.json({
+        message: "Category not found",
+        success: false,
+      });
+    }
+
+    return NextResponse.json({
+      data: category,
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      error: "Error getting Category by ID",
+      success: false,
+    });
+  }
+}

@@ -15,56 +15,63 @@ import TransitionsModal from "@/components/base/Modal";
 import CategoryForm from "@/components/forms/CategoryForms";
 import useWindowSize from "@/hooks/useWindowSize";
 import axios from "axios";
+import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
+const emptyCategory = {
+  name: "",
+  description: "",
+  subcategories: [],
+  image: "",
+  meta_keywords: [],
+  is_active: false,
+};
 export default function CategoryManager() {
-  const [category, setCategory] = useState([]);
+  const [categories, setCategorys] = useState([]);
+  const [newCategory, setNewCategory] = useState(emptyCategory);
   const size = useWindowSize();
-
-  const getAllCategory = async () => {
-    const categoryRes = await axios.get("http://localhost:3000/api/category");
-    console.log(categoryRes.data);
-    setCategory(categoryRes.data);
+  const [open, setOpen] = useState(false);
+  const handleViewCategory = async (id) => {
+    setOpen(true);
+    const getCategoryById = await apiGetById("/api/category", id);
+    setNewCategory(getCategoryById?.data);
+    console.log(getCategoryById.data);
   };
-
+  const getAllCategory = async () => {
+    const categoryRes = await apiGet("/api/category");
+    console.log(categoryRes.data);
+    setCategorys(categoryRes.data);
+  };
+  const handleCloseModal = () => {
+    setOpen(false);
+    setNewCategory(emptyCategory);
+  };
   useEffect(() => {
     getAllCategory();
   }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!newCategory?._id) {
+      const addres = await apiPost("/api/category", newCategory);
+      console.log(addres.data);
+    } else {
+      const editRes = await apiPut(
+        "/api/category/" + newCategory._id,
+        newCategory
+      );
+      console.log(editRes.data);
+    }
+    getAllCategory();
+    setNewCategory(emptyCategory);
+    handleCloseModal();
+  };
+  const handleDelete = async (id) => {
+    const deleteRes = await apiDelete("/api/category", id);
+    console.log(deleteRes);
+    getAllCategory();
+  };
   return (
     <div
       style={{
@@ -93,8 +100,28 @@ export default function CategoryManager() {
         >
           CATEGORY MANAGER
         </h1>
-        <TransitionsModal formName={"Add Category"}>
-          <CategoryForm />
+        <TransitionsModal
+          formName={"Add Category"}
+          handleClose={handleCloseModal}
+          openButton={
+            <Button
+              onClick={() => setOpen(!open)}
+              style={{
+                background: "blue",
+                color: "white",
+              }}
+            >
+              ADD
+            </Button>
+          }
+          open={open}
+          setOpen={(e) => setOpen(e)}
+        >
+          <CategoryForm
+            newCategory={newCategory}
+            setNewCategory={setNewCategory}
+            handleSubmit={handleSubmit}
+          />
         </TransitionsModal>
       </div>
       <TableContainer
@@ -110,32 +137,53 @@ export default function CategoryManager() {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell align="right">Description</TableCell>
-              <TableCell align="right">ParentCategory</TableCell>
-              <TableCell align="right">SubCategory</TableCell>
+              <TableCell align="right">Parent Category</TableCell>
+              <TableCell align="right">Sub Categories</TableCell>
               <TableCell align="right">Image</TableCell>
               <TableCell align="right">Meta Keywords</TableCell>
               <TableCell align="right">Is Active</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {categories.map((category) => (
               <TableRow
-                key={row.name}
-                onClick={() => console.log("slkdjddsj")}
+                key={category._id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   cursor: "pointer",
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {category.name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{category.description}</TableCell>
+                <TableCell align="right">
+                  {category.parent_category
+                    ? category.parent_category.name
+                    : ""}
+                </TableCell>
+                <TableCell align="right">
+                  {category.subcategories
+                    .map((subcat) => subcat.name)
+                    .join(", ")}
+                </TableCell>
+                <TableCell align="right">
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </TableCell>
+                <TableCell align="right">
+                  {category.meta_keywords.join(", ")}
+                </TableCell>
+                <TableCell align="right">
+                  {category.is_active ? "active" : "disabled"}
+                </TableCell>
                 <TableCell align="right">
                   <ButtonBase
+                    onClick={() => handleViewCategory(category?._id)}
                     style={{
                       marginRight: 10,
                       padding: "5px 10px",
@@ -145,6 +193,7 @@ export default function CategoryManager() {
                     <EditIcon />
                   </ButtonBase>
                   <ButtonBase
+                    onClick={() => handleDelete(category._id)}
                     style={{
                       marginRight: 10,
                       padding: "5px 10px",

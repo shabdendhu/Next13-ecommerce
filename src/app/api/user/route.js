@@ -38,9 +38,9 @@ export async function POST(request) {
   }
 }
 
-export async function GET(req, res) {
+export async function GET(req) {
   try {
-    const user = await User.find();
+    const user = await User.find().select("-password");
     return NextResponse.json({
       data: user,
       success: true,

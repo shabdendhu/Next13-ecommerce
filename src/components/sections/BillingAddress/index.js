@@ -8,7 +8,6 @@ const BillingAddressForm = ({ address, setAddress }) => {
 
   return (
     <div>
-      <Typography variant="h6">Billing Address</Typography>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField

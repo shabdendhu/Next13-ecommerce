@@ -6,13 +6,13 @@ const categorySchema = new mongoose.Schema({
   parent_category: {
     // Reference to the parent category (if applicable)
     type: mongoose.Schema.Types.ObjectId,
-    ref: "category",
+    ref: "categories",
   },
   subcategories: [
     {
       // Subcategories within this category
       type: mongoose.Schema.Types.ObjectId,
-      ref: "category",
+      ref: "categories",
     },
   ],
   image: String, // URL to an image representing the category
@@ -22,6 +22,7 @@ const categorySchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now },
 });
 
-const Category = mongoose.model("categories", categorySchema);
+const Category =
+  mongoose.models.categories || mongoose.model("categories", categorySchema);
 
 module.exports = Category;

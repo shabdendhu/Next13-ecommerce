@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -11,27 +11,31 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { apiGet } from "@/helpers/api";
 
-const CategoryForm = () => {
-  const [category, setCategory] = useState({
-    name: "",
-    description: "",
-    parent_category: "",
-    subcategories: [],
-    image: "",
-    meta_keywords: [],
-    is_active: false,
-  });
-
+const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
+  const [categoryOptions, setCategoryptions] = useState([]);
   const handleChange = (field, value) => {
-    setCategory({ ...category, [field]: value });
+    setNewCategory({ ...newCategory, [field]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, e.g., send the data to the server
+  const getAllCategories = async () => {
+    const categoryRes = await apiGet("/api/category");
+    console.log(categoryRes.data);
+    setCategoryptions((e) => [
+      ...e,
+      ...categoryRes.data.map((i) => ({
+        name: i.name || "un named",
+        value: i._id,
+      })),
+    ]);
   };
-
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+  useEffect(() => {
+    console.log({ categoryOptions });
+  }, [categoryOptions]);
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
@@ -39,7 +43,8 @@ const CategoryForm = () => {
           <TextField
             label="Name"
             fullWidth
-            value={category.name}
+            required
+            value={newCategory.name}
             onChange={(e) => handleChange("name", e.target.value)}
           />
         </Grid>
@@ -47,7 +52,7 @@ const CategoryForm = () => {
           <TextField
             label="Description"
             fullWidth
-            value={category.description}
+            value={newCategory.description}
             onChange={(e) => handleChange("description", e.target.value)}
           />
         </Grid>
@@ -55,26 +60,53 @@ const CategoryForm = () => {
           <FormControl fullWidth>
             <InputLabel>Parent Category</InputLabel>
             <Select
-              value={category.parent_category}
+              labelId="productIds-label"
+              id="parent_category"
+              name="parent_category"
+              value={newCategory.parent_category}
               onChange={(e) => handleChange("parent_category", e.target.value)}
+              fullWidth
+              variant="outlined"
             >
-              {/* Render parent category options here */}
+              {/* Replace the items with your actual product options */}
+              {categoryOptions.map((e, i) => (
+                <MenuItem key={e.name} value={e.value}>
+                  {e.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <TextField
+          {/* <TextField
             label="Subcategories"
             fullWidth
-            value={category.subcategories}
+            value={newCategory.subcategories}
             onChange={(e) => handleChange("subcategories", e.target.value)}
-          />
+          /> */}
+          <Select
+            labelId="productIds-label"
+            id="subcategories"
+            name="subcategories"
+            multiple
+            value={newCategory.subcategories}
+            onChange={(e) => handleChange("subcategories", e.target.value)}
+            fullWidth
+            variant="outlined"
+          >
+            {/* Replace the items with your actual product options */}
+            {categoryOptions.map((e, i) => (
+              <MenuItem key={e.name} value={e.value}>
+                {e.name}
+              </MenuItem>
+            ))}
+          </Select>
         </Grid>
         <Grid item xs={6}>
           <TextField
             label="Image URL"
             fullWidth
-            value={category.image}
+            value={newCategory.image}
             onChange={(e) => handleChange("image", e.target.value)}
           />
         </Grid>
@@ -82,7 +114,7 @@ const CategoryForm = () => {
           <TextField
             label="Meta Keywords"
             fullWidth
-            value={category.meta_keywords}
+            value={newCategory.meta_keywords}
             onChange={(e) => handleChange("meta_keywords", e.target.value)}
           />
         </Grid>
@@ -90,7 +122,7 @@ const CategoryForm = () => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={category.is_active}
+                checked={newCategory.is_active}
                 onChange={(e) => handleChange("is_active", e.target.checked)}
               />
             }
