@@ -38,37 +38,46 @@ const Banner = () => {
 
   return (
     <div className={styles.component}>
-      <div
-        className={styles.laftArrowContainer}
-        onClick={() => {
-          if (index != 0) handleChangeIndex(index - 1);
-        }}
-      >
-        <ArrowBackIosNewOutlinedIcon
-          style={{ color: "#208b16", fontSize: 35 }}
-        />
-      </div>
-      <AutoPlaySwipeableViews index={index} onChangeIndex={handleChangeIndex}>
-        {banners.map((e, i) => (
-          <img
-            style={{
-              height: "100%",
+      {banners.length ? (
+        <>
+          <div
+            className={styles.laftArrowContainer}
+            onClick={() => {
+              if (index != 0) handleChangeIndex(index - 1);
             }}
-            key={i}
-            src={e.imageUrl}
-          />
-        ))}
-      </AutoPlaySwipeableViews>
-      <div
-        onClick={() => {
-          if (index != banners.length - 1) handleChangeIndex(index + 1);
-        }}
-        className={styles.rightArrowContainer}
-      >
-        <ArrowForwardIosOutlinedIcon
-          style={{ color: "#208b16", fontSize: 35 }}
-        />
-      </div>
+          >
+            <ArrowBackIosNewOutlinedIcon
+              style={{ color: "#208b16", fontSize: 35 }}
+            />
+          </div>
+          <AutoPlaySwipeableViews
+            index={index}
+            onChangeIndex={handleChangeIndex}
+          >
+            {banners.map((e, i) => (
+              <img
+                style={{
+                  height: "100%",
+                }}
+                key={i}
+                src={e.imageUrl}
+              />
+            ))}
+          </AutoPlaySwipeableViews>
+          <div
+            onClick={() => {
+              if (index != banners.length - 1) handleChangeIndex(index + 1);
+            }}
+            className={styles.rightArrowContainer}
+          >
+            <ArrowForwardIosOutlinedIcon
+              style={{ color: "#208b16", fontSize: 35 }}
+            />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
