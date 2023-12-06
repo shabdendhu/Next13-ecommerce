@@ -18,7 +18,7 @@ export async function POST(request) {
   }
 }
 
-export async function GET(req, res) {
+export async function GET(req) {
   try {
     const productReviews = await ProductReview.find();
     return NextResponse.json({

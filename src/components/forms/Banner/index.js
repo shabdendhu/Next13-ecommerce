@@ -6,20 +6,14 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import ImageUpload from "@/components/base/ImageUpload";
 // Custom component for uploading an image
+import screenUrls from "@/static/screens";
 
-const BannerForm = () => {
-  const [banner, setBanner] = useState({
-    title: "",
-    imageUrl: "",
-    targetURL: "",
-    startDate: new Date(),
-    endDate: new Date(),
-    isActive: true,
-  });
-
+const BannerForm = ({ banner, setBanner, handleSubmit }) => {
   const handleChange = (field, value) => {
     setBanner({ ...banner, [field]: value });
   };
@@ -28,14 +22,8 @@ const BannerForm = () => {
     setBanner({ ...banner, imageUrl });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission, e.g., send the data to the server
-  };
-
   return (
     <form onSubmit={handleSubmit}>
-      <Typography variant="h5">Banner Information</Typography>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
@@ -54,12 +42,22 @@ const BannerForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="Target URL"
-            fullWidth
+          <Select
+            labelId="screenName-label"
+            id="targetURL"
             value={banner.targetURL}
             onChange={(e) => handleChange("targetURL", e.target.value)}
-          />
+            fullWidth
+            variant="outlined"
+            required
+          >
+            {/* Replace the items with your actual screen name options */}
+            {screenUrls.map((e) => (
+              <MenuItem key={e.value} value={e.value}>
+                {e.name}
+              </MenuItem>
+            ))}
+          </Select>
         </Grid>
         <Grid item xs={6}>
           <TextField

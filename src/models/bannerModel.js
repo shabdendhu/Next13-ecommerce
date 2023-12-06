@@ -34,6 +34,6 @@ const bannerSchema = new mongoose.Schema({
 });
 
 // Create the Banner model
-const Banner = mongoose.model.banner || mongoose.model("banner", bannerSchema);
+const Banner = mongoose.models.banner || mongoose.model("banner", bannerSchema);
 
 module.exports = Banner;

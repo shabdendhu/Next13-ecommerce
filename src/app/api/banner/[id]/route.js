@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+// pages/api/banners/update.js
+import { NextResponse } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import Banner from "@/models/bannerModel";
 
@@ -8,49 +9,68 @@ export async function PUT(req, { params }) {
   const { id } = params;
 
   const reqBody = await req.json();
-
-  console.log(reqBody, id);
   try {
     const updatedBanner = await Banner.findByIdAndUpdate(id, reqBody, {
       new: true,
     });
+
     if (!updatedBanner) {
-      return NextResponse.json({ error: "banner not found", success: false });
-    } else {
-      return NextResponse.json({ data: updatedBanner, success: true });
+      return NextResponse.json({ error: "Banner not found", success: false });
     }
-  } catch (error) {
-    console.error(error);
+
     return NextResponse.json({
-      error,
+      data: updatedBanner,
       success: true,
     });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Error updating banner", success: false },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(req, { params }) {
   const { id } = params;
   try {
-    if (!id)
-      return NextResponse.json({
-        message: "please provide category id",
-        success: false,
-      });
     const deletedBanner = await Banner.findByIdAndRemove(id);
-    console.log(deletedBanner);
-    if (deletedBanner)
+
+    if (!deletedBanner) {
+      return NextResponse.json({ error: "Banner not found", success: false });
+    }
+
+    return NextResponse.json({
+      message: "Banner deleted successfully",
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Error deleting banner", success: false },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(req, { params }) {
+  const { id } = params;
+
+  try {
+    const banner = await Banner.findById(id);
+
+    if (!banner) {
       return NextResponse.json({
-        message: "banner deleted successfully",
-        success: true,
-      });
-    else
-      return NextResponse.json({
-        message: "failed to delete banner",
+        message: "Banner not found",
         success: false,
       });
+    }
+
+    return NextResponse.json({
+      data: banner,
+      success: true,
+    });
   } catch (error) {
     return NextResponse.json({
-      message: "error to delete banner",
+      error: "Error getting banner by ID",
       success: false,
     });
   }

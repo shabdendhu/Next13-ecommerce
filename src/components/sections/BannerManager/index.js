@@ -9,80 +9,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase } from "@mui/material";
+import { Button, ButtonBase, Switch } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import BannerForm from "@/components/forms/Banner";
 import useWindowSize from "@/hooks/useWindowSize";
-import { apiGet, apiPost, apiGetById, apiDelete } from "@/helpers/api";
-import axios from "axios";
+import { apiGet, apiPost, apiGetById, apiDelete, apiPut } from "@/helpers/api";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 const emptyBanner = {
-  name: "",
-  description: "",
-  price: 0,
-  category_ids: [],
-  brand: "",
-  stock_quantity: 0,
-  images: [],
-  attributes: [],
-  discount: 0,
-  ratings: {
-    average: 0,
-    count: 0,
-  },
-  reviews: [],
-  created_at: new Date(),
-  updated_at: new Date(),
-  sku: "",
-  weight: 0,
-  dimensions: {
-    length: 0,
-    width: 0,
-    height: 0,
-  },
-  tags: [],
-  availability: "",
-  shipping_info: {
-    free_shipping: false,
-    estimated_delivery: "",
-  },
-  related_products: [],
+  title: "",
+  imageUrl: "",
+  targetURL: "",
+  startDate: "",
+  endDate: "",
+  isActive: false,
 };
 
 export default function CategoryManager() {
@@ -116,11 +60,17 @@ export default function CategoryManager() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(product);
-    const addRes = apiPost("/api/banner", banner);
-    console.log(addRes);
+    if (!banner?._id) {
+      const addRes = apiPost("/api/banner", banner);
+
+      console.log(addRes);
+    } else {
+      const editRes = apiPut("/api/banner/" + banner._id, banner);
+      console.log(editRes);
+    }
     setBanner(emptyBanner);
-    setBanners([...banners, banner]);
+    getAllBanner();
+    handleCloseModal();
   };
 
   useEffect(() => {
@@ -155,7 +105,7 @@ export default function CategoryManager() {
           BANNER MANAGER
         </h1>
         <TransitionsModal
-          formName={"Add Product"}
+          formName={banner._id ? "Edit Banner" : "Add Banner"}
           handleClose={handleCloseModal}
           openButton={
             <Button
@@ -199,6 +149,7 @@ export default function CategoryManager() {
               <TableCell align="right">Start Date</TableCell>
               <TableCell align="right">End Date</TableCell>
               <TableCell align="right">Is Active</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -212,12 +163,25 @@ export default function CategoryManager() {
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.title}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                {console.log(row)}
+                <TableCell align="right">
+                  <img
+                    src={row.imageUrl}
+                    alt="Image"
+                    style={{ width: "50px", height: "auto" }}
+                  />
+                </TableCell>
+                <TableCell align="right">{row.targetURL}</TableCell>
+                <TableCell align="right">{row.startDate}</TableCell>
+                <TableCell align="right">{row.endDate}</TableCell>
+                <TableCell align="right">
+                  <Switch
+                    checked={row.isActive}
+                    onChange={(e) => console.log(e.target.checked)}
+                  />
+                </TableCell>
                 <TableCell align="right">
                   <ButtonBase
                     style={{
