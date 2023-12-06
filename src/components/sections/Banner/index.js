@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Banner.module.scss";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
+import { apiGet, apiPost } from "@/helpers/api";
+import { usePathname } from "next/navigation";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -16,10 +18,23 @@ const imageurl = [
   "https://www.haldirams.com/media/wysiwyg/HDFC-Banner_1_1_1_.jpg",
 ];
 const Banner = () => {
+  const pathname = usePathname();
+  const [banners, setBanners] = useState([]);
   const [index, setIndex] = useState(0);
   const handleChangeIndex = (index) => {
     setIndex(index);
   };
+  const getBanners = async () => {
+    const bannersRes = await apiPost("/api/banner/banner-by-query", {
+      targetURL: pathname,
+    });
+    setBanners(bannersRes?.data);
+    console.log(bannersRes);
+  };
+
+  useEffect(() => {
+    getBanners();
+  }, []);
 
   return (
     <div className={styles.component}>
@@ -34,13 +49,19 @@ const Banner = () => {
         />
       </div>
       <AutoPlaySwipeableViews index={index} onChangeIndex={handleChangeIndex}>
-        {imageurl.map((e, i) => (
-          <img key={i} src={e} />
+        {banners.map((e, i) => (
+          <img
+            style={{
+              height: "100%",
+            }}
+            key={i}
+            src={e.imageUrl}
+          />
         ))}
       </AutoPlaySwipeableViews>
       <div
         onClick={() => {
-          if (index != imageurl.length - 1) handleChangeIndex(index + 1);
+          if (index != banners.length - 1) handleChangeIndex(index + 1);
         }}
         className={styles.rightArrowContainer}
       >

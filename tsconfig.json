@@ -33,7 +33,8 @@
     "src/app/api/category/[id]/route.js",
     "src/helpers/api.js",
     "src/app/api/user/[id]/route.js",
-    "src/app/api/products/search/route.js"
+    "src/app/api/products/search/route.js",
+    "src/app/api/banner/banner-by-query/route.js"
   ],
   "exclude": ["node_modules"]
 }
