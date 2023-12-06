@@ -1,7 +1,11 @@
+"use client";
 import React, { useState } from "react";
 import { TextField, Button, Typography, Grid } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { apiPut } from "@/helpers/api";
 
-const EditProfile = ({ userDetails, onSave }) => {
+const EditProfile = ({ userDetails, reloadUserDetails }) => {
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     username: userDetails?.username || "",
     email: userDetails?.email || "",
@@ -15,8 +19,19 @@ const EditProfile = ({ userDetails, onSave }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    onSave(formData);
+  const handleSave = async () => {
+    const addRes = await apiPut("/api/user/" + session?.user?.id, {
+      profile: {
+        name: formData?.name,
+        avatar: formData?.avatar,
+        phone: formData?.phone,
+        dateOfBirth: formData?.dateOfBirth,
+      },
+      email: formData?.email,
+      username: formData?.username,
+    });
+    console.log({ addRes });
+    reloadUserDetails();
   };
 
   return (

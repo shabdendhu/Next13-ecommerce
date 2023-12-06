@@ -29,3 +29,37 @@ export async function GET(req, { params }) {
     });
   }
 }
+
+export async function PUT(req, { params }) {
+  const { id } = params;
+
+  const reqBody = await req.json();
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
+      return NextResponse.json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    // Update the user's profile, including email and username
+    user.profile = { ...user.profile, ...reqBody.profile };
+    user.email = reqBody.email || user.email;
+    user.username = reqBody.username || user.username;
+
+    await user.save();
+
+    return NextResponse.json({
+      user,
+      message: "Profile updated successfully",
+      success: true,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      error: "Error updating profile",
+      success: false,
+    });
+  }
+}
