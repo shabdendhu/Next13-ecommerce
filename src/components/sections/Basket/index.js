@@ -14,11 +14,11 @@ function calculateTotalPriceAndDiscount(basketData) {
   // Loop through each item in the basket
   basketData.items.forEach((item) => {
     // Calculate the total price for one item
-    totalItemPrice += item.price * item.quantity;
+    totalItemPrice += item.product.price * item.quantity;
 
     // Calculate the discounted price for one item
     const discountedPrice =
-      item.price - (item.price * item.product.discount) / 100;
+      item.product.price - (item.product.price * item.product.discount) / 100;
     totalDiscountPrice += discountedPrice * item.quantity;
   });
 
@@ -143,7 +143,7 @@ const BasketProduct = () => {
                 }}
               >
                 {parseInt(
-                  calculateTotalPriceAndDiscount(basketdata).totalItemPrice
+                  calculateTotalPriceAndDiscount(basketdata).totalDiscountPrice
                 ) + deliverycharge}
               </li>
             </ul>

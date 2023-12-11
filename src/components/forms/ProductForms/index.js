@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -13,8 +13,11 @@ import {
   Box,
 } from "@mui/material";
 import ImageUpload from "@/components/base/ImageUpload";
+import { apiGet } from "@/helpers/api";
 
 const ProductForm = ({ product, setProduct, handleSubmit }) => {
+  const [categoryOptions, setCategoryptions] = useState([]);
+
   const handleChange = (field, value) => {
     setProduct({ ...product, [field]: value });
   };
@@ -34,7 +37,20 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
     updatedReviews[index] = { ...updatedReviews[index], [field]: value };
     setProduct({ ...product, reviews: updatedReviews });
   };
-
+  const getAllCategories = async () => {
+    const categoryRes = await apiGet("/api/category");
+    console.log(categoryRes.data);
+    setCategoryptions((e) => [
+      ...e,
+      ...categoryRes.data.map((i) => ({
+        name: i.name || "un named",
+        value: i._id,
+      })),
+    ]);
+  };
+  useEffect(() => {
+    getAllCategories();
+  }, []);
   return (
     <form onSubmit={handleSubmit}>
       <Grid
@@ -175,12 +191,20 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
           <FormControl fullWidth>
             <InputLabel>Categories</InputLabel>
             <Select
-              multiple
+              labelId="productIds-label"
               value={product.category_ids}
+              // renderValue={(selected) => selected.join(",")}
               onChange={(e) => handleChange("category_ids", e.target.value)}
-              renderValue={(selected) => selected.join(",")}
+              fullWidth
+              multiple
+              variant="outlined"
             >
-              {/* Render the category options here */}
+              {/* Replace the items with your actual product options */}
+              {categoryOptions.map((e, i) => (
+                <MenuItem key={e.name} value={e.value}>
+                  {e.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
