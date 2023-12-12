@@ -12,6 +12,7 @@ export async function POST(req) {
     if (!query) {
       return NextResponse.json({
         error: "Please provide a search query",
+        data: [],
         success: false,
       });
     }
