@@ -1,36 +1,71 @@
 import React from "react";
 import { Menu, MenuItem } from "@mui/material";
 import { useRouter } from "next/navigation";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
-const CategoryMenu = ({ icon }) => {
+const CategoryMenu = ({ category, icon }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+  const handleClick = (event, id, haveChild) => {
+    if (haveChild) return setAnchorEl(event.currentTarget);
+    else router.push("/category?id=" + id);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleClickSubmenu = (id) => {
+    router.push("/category?id=" + id);
+  };
+  const renderSubcategories = (subcategories) => {
+    return subcategories.map((subcategory) => (
+      <CategoryMenu
+        key={subcategory._id}
+        category={subcategory}
+        icon={
+          <MenuItem onClick={() => handleClickSubmenu(subcategory._id)}>
+            {subcategory.name}
+          </MenuItem>
+        }
+      />
+    ));
+  };
+
   return (
     <>
-      <div onClick={handleClick}>{icon}</div>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
+      <div
+        onClick={(e) =>
+          handleClick(e, category?._id, category?.subcategories?.length > 0)
+        }
+        style={{
+          display: "flex",
+          cursor: "pointer",
         }}
       >
-        <MenuItem onClick={() => router.push("/category?id=achara")}>
-          Achara
-        </MenuItem>
-        <MenuItem onClick={() => router.push("/category?id=pampada")}>
-          Pampada
-        </MenuItem>
-      </Menu>
+        {icon}
+        {category?.subcategories?.length ? (
+          <KeyboardDoubleArrowRightIcon />
+        ) : (
+          <></>
+        )}
+      </div>
+      {category?.subcategories?.length ? (
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          {renderSubcategories(category.subcategories)}
+        </Menu>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

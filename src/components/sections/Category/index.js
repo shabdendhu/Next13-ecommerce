@@ -1,11 +1,26 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Chip from "@/components/base/Chip";
 import ProductCard from "@/components/sections/ProductCard";
 import styles from "./Category.module.scss";
 import { Grid } from "@mui/material";
 import PageWrapper from "../PageWrapper";
+import { apiPost } from "@/helpers/api";
+import { useSearchParams } from "next/navigation";
 
 function Category() {
+  const search = useSearchParams();
+  console.log(search.get("id"));
+  const [products, setProducts] = useState([]);
+  const getProductbyCategory = async (query = "") => {
+    const res = await apiPost("/api/products/search", {
+      query,
+    });
+    setProducts(res.data);
+  };
+  React.useEffect(() => {
+    getProductbyCategory(search.get("id") || "");
+  }, []);
   return (
     <PageWrapper>
       <div className={styles.component}>
@@ -20,13 +35,19 @@ function Category() {
 
         {/* <Grid container justifyContent={"center"} gap={3}> */}
         <div className={styles.productcardContainer}>
-          {Array(20)
-            .fill("k")
-            .map((e, i) => (
-              // <Grid item key={i} xl={2} lg={3} md={4} sm={6} xs={12}>
-              <ProductCard key={i} className={styles.productContainer} />
-              // </Grid>
+          <Grid container gap={3} padding={3}>
+            {products.map((e) => (
+              <Grid item key={e._id}>
+                <ProductCard
+                  className={styles.productContainer}
+                  data={e}
+                  key={e._id}
+                  length
+                  // wishlist={true}
+                />
+              </Grid>
             ))}
+          </Grid>
         </div>
         {/* </Grid> */}
       </div>

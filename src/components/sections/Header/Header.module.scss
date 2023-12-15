@@ -8,7 +8,8 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
   .headerContainer {
-    background-color: rgba(14, 100, 14, 0.993);
+    // background-color: rgba(14, 100, 14, 0.993);
+    background-color: rgba(35, 52, 97, 0.993);
     min-height: 80px;
     display: flex;
     align-items: center;
@@ -64,7 +65,8 @@
           aspect-ratio: 1;
           height: 100%;
           // border: 1px solid yellow;
-          background-color: #5ae741;
+          // background-color: #5ae741;
+          background-color: rgb(52, 189, 199);
           display: flex;
           align-items: center;
           justify-content: center;

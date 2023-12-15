@@ -28,6 +28,7 @@
   justify-content: space-around;
   width: 100px;
   height: 40px;
+
   @include media.onMdM() {
     width: 80px;
     height: 30px;
@@ -44,9 +45,13 @@
   font-weight: 600;
   color: rgb(240, 247, 242);
   font-size: 24px;
+  display: flex;
+  align-items: center;
 }
 .decrement {
   font-weight: 600;
   color: rgb(240, 247, 242);
   font-size: 33px;
+  display: flex;
+  align-items: center;
 }

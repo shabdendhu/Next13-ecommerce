@@ -14,6 +14,7 @@ const Header = () => {
   const router = useRouter();
   const scrollDirection = useScrollDirection();
   const [searchText, setSearchText] = useState("");
+  const [category, setCategory] = useState([]);
   const [searchProducts, setSearchProducts] = useState([]);
   const handleLogin = () => {
     router.push("/login");
@@ -37,10 +38,18 @@ const Header = () => {
     setSearchProducts(searchRes.data);
     console.log({ searchRes });
   };
+  const getAllCategory = async () => {
+    const categoryRes = await apiGet("/api/category");
+    setCategory(categoryRes?.data);
+    console.log({ categoryRes });
+  };
+  useEffect(() => {
+    if (searchText) handleSearchProduct();
+  }, [searchText]);
 
   useEffect(() => {
-    handleSearchProduct();
-  }, [searchText]);
+    getAllCategory();
+  }, []);
   return (
     <div
       className={styles.component}
@@ -114,35 +123,13 @@ const Header = () => {
       {/* visible above 900px */}
       <div className={styles.navBar}>
         <div className={styles.navContent}>
-          <CategoryMenu
-            icon={
-              <div
-                className={styles.navItem}
-                // onClick={() => router.push("/category")}
-              >
-                Achara & Pampada
-              </div>
-            }
-          />
-
-          <div
-            className={styles.navItem}
-            onClick={() => router.push("/brands")}
-          >
-            Brand ( Filter)
-          </div>
-          <div
-            className={styles.navItem}
-            onClick={() => router.push("/offers")}
-          >
-            Offers
-          </div>
-          <div
-            className={styles.navItem}
-            onClick={() => router.push("/new-lunches")}
-          >
-            New Launch
-          </div>
+          {category.map((category) => (
+            <CategoryMenu
+              key={category._id}
+              category={category}
+              icon={<div className={styles.navItem}>{category.name}</div>}
+            />
+          ))}
         </div>
       </div>
     </div>
