@@ -50,21 +50,19 @@ export async function POST(request) {
     }
 
     // Check if the product is already in the wishlist
-    const isProductInWishlist = myWishList.products.some(
+    const productIndex = myWishList.products.findIndex(
       (wishlistProduct) => wishlistProduct.product.toString() === product
     );
 
-    if (isProductInWishlist) {
-      return NextResponse.json({
-        error: "Product already in the wishlist",
-        success: false,
-      });
+    if (productIndex !== -1) {
+      // If the product is already in the wishlist, remove it
+      myWishList.products.splice(productIndex, 1);
+    } else {
+      // If the product is not in the wishlist, add it
+      myWishList.products.push({ product });
     }
 
-    // Add the product to the wishlist
-    myWishList.products.push({ product });
-
-    // Save the wishlist
+    // Save the updated wishlist
     const savedMyWishList = await myWishList.save();
 
     return NextResponse.json({
@@ -73,11 +71,12 @@ export async function POST(request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error adding to wishlist" },
+      { error: "Error updating wishlist" },
       { status: 500 }
     );
   }
 }
+
 export async function GET(req) {
   try {
     const searchParams = req.nextUrl.searchParams;

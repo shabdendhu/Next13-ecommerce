@@ -106,3 +106,69 @@ export async function GET(req) {
     });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    // Get the user and product information from the request body
+    const reqBody = await request.json();
+    const { user, product } = reqBody;
+    console.log(reqBody);
+    // Check if the user and product are provided
+    // if (!user || !product) {
+    //   return NextResponse.json({
+    //     error: "User and product information are required",
+    //     success: false,
+    //   });
+    // }
+
+    // // Check if the product exists
+    // const existingProduct = await Product.findById(product);
+    // if (!existingProduct) {
+    //   return NextResponse.json({
+    //     error: "Product not found",
+    //     success: false,
+    //   });
+    // }
+
+    // // Find the user's wishlist
+    // let myWishList = await WishList.findOne({ user });
+
+    // // If wishlist doesn't exist, return an error
+    // if (!myWishList) {
+    //   return NextResponse.json({
+    //     error: "Wishlist not found",
+    //     success: false,
+    //   });
+    // }
+
+    // // Check if the product is in the wishlist
+    // const productIndex = myWishList.products.findIndex(
+    //   (wishlistProduct) => wishlistProduct.product.toString() === product
+    // );
+
+    // // If the product is not in the wishlist, return an error
+    // if (productIndex === -1) {
+    //   return NextResponse.json({
+    //     error: "Product not found in the wishlist",
+    //     success: false,
+    //   });
+    // }
+
+    // // Remove the product from the wishlist
+    // myWishList.products.splice(productIndex, 1);
+
+    // // Save the updated wishlist
+    // const updatedWishList = await myWishList.save();
+
+    return NextResponse.json({
+      data: "updatedWishList",
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Error removing product from wishlist" },
+      { status: 500 }
+    );
+  }
+}

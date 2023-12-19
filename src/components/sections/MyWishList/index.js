@@ -15,7 +15,7 @@ const MyWishList = () => {
     setWishList(wishListRes?.data?.products || []);
   };
   useEffect(() => {
-    getWishLists();
+    if (session) getWishLists();
   }, [session]);
   return (
     <Grid container gap={3} padding={3}>

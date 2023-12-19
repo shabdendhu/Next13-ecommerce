@@ -20,7 +20,7 @@ function Category() {
   };
   React.useEffect(() => {
     getProductbyCategory(search.get("id") || "");
-  }, []);
+  }, [search.get("id")]);
   return (
     <PageWrapper>
       <div className={styles.component}>
