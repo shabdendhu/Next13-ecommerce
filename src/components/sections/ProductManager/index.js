@@ -223,26 +223,26 @@ export default function ProductManager() {
                 <TableCell align="right">
                   {row.attributes.map((attribute, index) => (
                     <div key={index}>
-                      <strong>{attribute.name}:</strong> {attribute.value}
+                      <strong>{attribute?.name}:</strong> {attribute?.value}
                     </div>
                   ))}
                 </TableCell>
                 <TableCell align="right">
-                  {`${row.ratings.average} (${row.ratings.count} reviews)`}
+                  {`${row?.ratings?.average} (${row?.ratings?.count} reviews)`}
                 </TableCell>
                 {/* Display reviews */}
                 <TableCell align="right">
                   {row.reviews.map((review, index) => (
                     <div key={index}>
                       <strong>{review.user}:</strong>{" "}
-                      {`${review.rating} stars - ${review.comment}`}
+                      {`${review?.rating} stars - ${review?.comment}`}
                     </div>
                   ))}
                 </TableCell>
-                <TableCell align="right">{row.sku}</TableCell>
-                <TableCell align="right">{row.weight}</TableCell>
+                <TableCell align="right">{row?.sku}</TableCell>
+                <TableCell align="right">{row?.weight}</TableCell>
                 <TableCell align="right">
-                  {`${row.dimensions.length} x ${row.dimensions.width} x ${row.dimensions.height}`}
+                  {`${row?.dimensions?.length} x ${row?.dimensions?.width} x ${row?.dimensions?.height}`}
                 </TableCell>
                 {/* Display tags */}
                 <TableCell align="right">
@@ -254,13 +254,13 @@ export default function ProductManager() {
                   ))} */}
                   {row.tags}
                 </TableCell>
-                <TableCell align="right">{row.availability}</TableCell>
+                <TableCell align="right">{row?.availability}</TableCell>
                 {/* Display free shipping and estimated delivery */}
                 <TableCell align="right">
-                  {row.shipping_info.free_shipping ? "Yes" : "No"}
+                  {row?.shipping_info?.free_shipping ? "Yes" : "No"}
                 </TableCell>
                 <TableCell align="right">
-                  {row.shipping_info.estimated_delivery}
+                  {row?.shipping_info?.estimated_delivery}
                 </TableCell>
                 {/* Display warranty details */}
                 <TableCell align="right">{`${row?.warranty?.type} - ${row?.warranty?.duration} months: ${row?.warranty?.details}`}</TableCell>
