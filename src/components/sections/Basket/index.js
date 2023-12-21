@@ -14,7 +14,7 @@ function calculateTotalPriceAndDiscount(basketData) {
   let totalDiscountPrice = 0;
   console.log({ basketData });
   // Loop through each item in the basket
-  basketData.forEach((item) => {
+  basketData.items.forEach((item) => {
     // Calculate the total price for one item
     totalItemPrice += item.product.price * item.quantity;
 
@@ -39,9 +39,9 @@ const BasketProduct = () => {
   console.log(session);
   const getBasketByUser = async () => {
     const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
+    console.log(basketRes);
     setBasketData(basketRes.data);
     dispatch(loadUsersBasket(basketRes.data));
-    console.log(basketRes);
   };
   useEffect(() => {
     if (session) getBasketByUser();
