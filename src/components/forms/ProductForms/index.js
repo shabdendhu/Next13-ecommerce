@@ -57,7 +57,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         container
         spacing={2}
         style={{
-          border: "1px solid red",
+          // border: "1px solid red",
           maxHeight: "100%",
         }}
       >
@@ -447,7 +447,14 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
           </Button>
         </Grid>
       </Grid>
-      <Button variant="contained" color="primary" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        style={{
+          backgroundColor: "blue",
+        }}
+      >
         {product._id ? "Update" : "Save"}
       </Button>
     </form>

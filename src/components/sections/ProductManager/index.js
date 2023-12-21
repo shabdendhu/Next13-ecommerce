@@ -123,13 +123,13 @@ export default function ProductManager() {
           PRODUCT MANAGER
         </h1>
         <TransitionsModal
-          formName={"Add Product"}
+          formName={(product?._id ? "Edit" : "Add") + " Product"}
           handleClose={handleCloseModal}
           openButton={
             <Button
               onClick={() => setOpen(!open)}
               style={{
-                background: "blue",
+                backgroundColor: "blue",
                 color: "white",
 
                 //   position: "relative",
@@ -163,23 +163,23 @@ export default function ProductManager() {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell align="right">Description</TableCell>
+              {/* <TableCell align="right">Description</TableCell> */}
               <TableCell align="right">Price</TableCell>
               <TableCell align="right">Category</TableCell>
               <TableCell align="right">Brand</TableCell>
               <TableCell align="right">Stock Quantity</TableCell>
               <TableCell align="right">Images</TableCell>
-              <TableCell align="right">Attributes</TableCell>
+              {/* <TableCell align="right">Attributes</TableCell> */}
               <TableCell align="right">Ratings</TableCell>
               <TableCell align="right">Reviews</TableCell>
-              <TableCell align="right">SKU</TableCell>
+              {/* <TableCell align="right">SKU</TableCell> */}
               <TableCell align="right">Weight</TableCell>
               <TableCell align="right">Dimensions</TableCell>
               <TableCell align="right">Tags</TableCell>
-              <TableCell align="right">Availability</TableCell>
-              <TableCell align="right">Free Shipping</TableCell>
-              <TableCell align="right">Estimated Delivery</TableCell>
-              <TableCell align="right">Warranty</TableCell>
+              {/* <TableCell align="right">Availability</TableCell> */}
+              {/* <TableCell align="right">Free Shipping</TableCell> */}
+              {/* <TableCell align="right">Estimated Delivery</TableCell> */}
+              {/* <TableCell align="right">Warranty</TableCell> */}
               <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -196,7 +196,7 @@ export default function ProductManager() {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.description}</TableCell>
+                {/* <TableCell align="right">{row.description}</TableCell> */}
                 <TableCell align="right">{row.price}</TableCell>
                 {/* Display category names */}
                 <TableCell align="right">
@@ -220,13 +220,13 @@ export default function ProductManager() {
                   ))}
                 </TableCell>
                 {/* Display attributes */}
-                <TableCell align="right">
+                {/* <TableCell align="right">
                   {row.attributes.map((attribute, index) => (
                     <div key={index}>
                       <strong>{attribute?.name}:</strong> {attribute?.value}
                     </div>
                   ))}
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="right">
                   {`${row?.ratings?.average} (${row?.ratings?.count} reviews)`}
                 </TableCell>
@@ -239,7 +239,7 @@ export default function ProductManager() {
                     </div>
                   ))}
                 </TableCell>
-                <TableCell align="right">{row?.sku}</TableCell>
+                {/* <TableCell align="right">{row?.sku}</TableCell> */}
                 <TableCell align="right">{row?.weight}</TableCell>
                 <TableCell align="right">
                   {`${row?.dimensions?.length} x ${row?.dimensions?.width} x ${row?.dimensions?.height}`}
@@ -254,16 +254,16 @@ export default function ProductManager() {
                   ))} */}
                   {row.tags}
                 </TableCell>
-                <TableCell align="right">{row?.availability}</TableCell>
+                {/* <TableCell align="right">{row?.availability}</TableCell> */}
                 {/* Display free shipping and estimated delivery */}
-                <TableCell align="right">
+                {/* <TableCell align="right">
                   {row?.shipping_info?.free_shipping ? "Yes" : "No"}
                 </TableCell>
                 <TableCell align="right">
                   {row?.shipping_info?.estimated_delivery}
-                </TableCell>
+                </TableCell> */}
                 {/* Display warranty details */}
-                <TableCell align="right">{`${row?.warranty?.type} - ${row?.warranty?.duration} months: ${row?.warranty?.details}`}</TableCell>
+                {/* <TableCell align="right">{`${row?.warranty?.type} - ${row?.warranty?.duration} months: ${row?.warranty?.details}`}</TableCell> */}
                 <TableCell align="right">
                   <ButtonBase
                     style={{

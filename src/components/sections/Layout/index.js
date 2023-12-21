@@ -352,7 +352,7 @@ export default function MiniDrawer({ children }) {
           <h3
             style={{ marginRight: "50px", fontWeight: 400, fontSize: "22px" }}
           >
-            Header
+            LOGO
           </h3>
           <IconButton onClick={handleDrawerClose} style={{ color: "white" }}>
             {theme.direction === "rtl" ? (

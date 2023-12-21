@@ -9,7 +9,13 @@ import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import { Diversity3 } from "@mui/icons-material";
-const AddButton = ({ product, setproductQuantity, productQuantity }) => {
+const AddButton = ({
+  product,
+  setproductQuantity,
+  productQuantity,
+  onAdd,
+  onRemove,
+}) => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -31,18 +37,33 @@ const AddButton = ({ product, setproductQuantity, productQuantity }) => {
     });
     if (res.success) setLoading(false);
   };
+  // const handleAdd = async (e) => {
+  //   e.stopPropagation();
+  //   if (!session) return router.push("/login");
+  //   addRemoveApi(1);
+  //   // tokenDecoded(session.accessToken);
+  //   setproductQuantity(productQuantity + 1);
+  // };
+  // const handleRemove = (e) => {
+  //   e.stopPropagation();
+  //   setproductQuantity(productQuantity - 1);
+  //   if (!session) return router.push("/login");
+  //   if (productQuantity == 1) return deleteproduceFromCart();
+  //   addRemoveApi(-1);
+  // };
+
   const handleAdd = async (e) => {
     e.stopPropagation();
     if (!session) return router.push("/login");
-    addRemoveApi(1);
-    // tokenDecoded(session.accessToken);
+    onAdd(); // Call the provided callback
     setproductQuantity(productQuantity + 1);
   };
+
   const handleRemove = (e) => {
     e.stopPropagation();
     setproductQuantity(productQuantity - 1);
     if (!session) return router.push("/login");
-    if (productQuantity == 1) return deleteproduceFromCart();
+    if (productQuantity === 1) return onRemove(); // Call the provided callback
     addRemoveApi(-1);
   };
   return (

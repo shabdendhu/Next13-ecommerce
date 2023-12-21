@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Banner from "@/components/sections/Banner";
 import BestSeller from "@/components/sections/BestSeller";
 import Footer from "@/components/sections/Footer";
-import QuickCategory from "@/components/sections/QuickCategory";
+// import QuickCategory from "@/components/sections/QuickCategory";
 import PageWrapper from "@/components/sections/PageWrapper";
 import axios from "axios";
 import { apiGet } from "@/helpers/api";
@@ -20,7 +20,7 @@ const Home = () => {
       }}
     >
       <PageWrapper>
-        <QuickCategory />
+        {/* <QuickCategory /> */}
         <div
           style={{
             margin: "20px 0px",

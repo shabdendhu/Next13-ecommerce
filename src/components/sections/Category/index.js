@@ -24,13 +24,13 @@ function Category() {
   return (
     <PageWrapper>
       <div className={styles.component}>
-        <div className={styles.chip}>
+        {/* <div className={styles.chip}>
           <Chip text="All" />
           <Chip text="green" />
           <Chip text="organic" />
           <Chip text="sports" />
           <Chip text="ftr" />
-        </div>
+        </div> */}
         {/* products */}
 
         {/* <Grid container justifyContent={"center"} gap={3}> */}

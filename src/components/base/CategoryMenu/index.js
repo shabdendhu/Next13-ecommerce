@@ -20,6 +20,7 @@ const CategoryMenu = ({ category, icon }) => {
     router.push("/category?id=" + id);
   };
   const renderSubcategories = (subcategories) => {
+    console.log(subcategories);
     return subcategories.map((subcategory) => (
       <CategoryMenu
         key={subcategory._id}
@@ -51,7 +52,8 @@ const CategoryMenu = ({ category, icon }) => {
           <></>
         )}
       </div>
-      {category?.subcategories?.length ? (
+
+      {category?.subcategories?.length && !category?.parent_category?._id ? (
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}

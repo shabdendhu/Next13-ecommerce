@@ -9,6 +9,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { addToBasket, removeFromBasket } from "@/redux/basket/addUpdateBasket";
 const dummydata = {
   ratings: {
     average: 4.5,
@@ -67,6 +69,7 @@ const ProductCard = ({
   const { data: session } = useSession();
   const [productQuantity, setproductQuantity] = useState(quantity);
   const [isInWishList, setIsInWishList] = useState(wishlist);
+  const dispatch = useDispatch();
   const router = useRouter();
   const handleRedirect = () => {
     router.push("/product-details/" + data._id);
@@ -79,6 +82,13 @@ const ProductCard = ({
       product: data?._id,
     });
     console.log({ addres });
+  };
+  const handleAddToBasket = () => {
+    dispatch(addToBasket(data)); // Assuming data contains the product information
+  };
+
+  const handleRemoveFromBasket = () => {
+    dispatch(removeFromBasket(data));
   };
   return (
     <div
@@ -111,6 +121,8 @@ const ProductCard = ({
             productQuantity={productQuantity}
             setproductQuantity={setproductQuantity}
             product={data}
+            onAdd={handleAddToBasket}
+            onRemove={handleRemoveFromBasket}
           />
         </div>
       </div>

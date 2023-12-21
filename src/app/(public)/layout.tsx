@@ -2,6 +2,7 @@
 
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
+import OtpLoginModal from "@/components/sections/OtpLoginModal";
 
 export const metadata = {
   title: "Create Next App",
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          {/* <OtpLoginModal /> */}
         </div>
       </body>
     </html>

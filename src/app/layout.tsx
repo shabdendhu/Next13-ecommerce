@@ -1,5 +1,8 @@
 import "./globals.css";
 import Providers from "@/providers";
+// import { MyProvider } from "@/providers/Context";
+// import store from "@/store";
+// import { Provider as ReduxProvider } from "react-redux";
 // import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* <ReduxProvider store={store}> */}
+        {/* <MyProvider> */}
         <Providers>{children}</Providers>
+        {/* </MyProvider> */}
+        {/* </ReduxProvider> */}
         {/* <SpeedInsights /> */}
       </body>
     </html>
