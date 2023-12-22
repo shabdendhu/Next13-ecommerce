@@ -35,7 +35,7 @@ function Category() {
 
         {/* <Grid container justifyContent={"center"} gap={3}> */}
         <div className={styles.productcardContainer}>
-          <Grid container gap={3} padding={3}>
+          <Grid container gap={3}>
             {products.map((e) => (
               <Grid item key={e._id}>
                 <ProductCard

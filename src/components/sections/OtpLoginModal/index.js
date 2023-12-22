@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button, TextField, Modal, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { closeOtpModal, openOtpModal } from "@/redux/auth/auth";
+import { signIn } from "next-auth/react";
 
 const OtpLoginModal = () => {
   const [open, setOpen] = useState(true);
@@ -27,7 +28,10 @@ const OtpLoginModal = () => {
     console.log("User data:", { phone }); // Log user data on successful verification
     handleClose();
   };
-
+  const handleClickGoogleLogin = (e) => {
+    e.preventDefault();
+    signIn("google", { callbackUrl: "/" });
+  };
   useEffect(() => {
     let interval;
     if (timer > 0) {
@@ -51,6 +55,8 @@ const OtpLoginModal = () => {
           marginTop: "100px",
         }}
       >
+        <h2 className="text-center text-2xl  mb-4">LOGIN / SIGNUP</h2>
+
         {timer > 0 ? (
           <div
             style={{
@@ -58,7 +64,7 @@ const OtpLoginModal = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              height: "300px",
+              height: "200px",
               gap: "10px", // Add a gap between the OTP input and the button
             }}
           >
@@ -90,7 +96,7 @@ const OtpLoginModal = () => {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              height: "300px",
+              height: "200px",
               gap: "10px", // Add a gap between the OTP input and the button
             }}
           >
@@ -113,6 +119,40 @@ const OtpLoginModal = () => {
             </Button>
           </div>
         )}
+        <h1
+          style={{
+            textAlign: "center",
+            padding: 20,
+          }}
+        >
+          OR
+        </h1>
+        <button
+          style={{
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            padding: "10px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            cursor: "pointer",
+            marginTop: "20px",
+            marginBottom: "20px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+            margin: "0 auto",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: "100%",
+            textAlign: "center",
+            outline: "none",
+            maxHeight: "80px",
+            maxWidth: "80px",
+          }}
+          onClick={handleClickGoogleLogin}
+        >
+          <img src="https://static.vecteezy.com/system/resources/thumbnails/011/598/471/small/google-logo-icon-illustration-free-vector.jpg" />
+        </button>
       </div>
     </Modal>
   );

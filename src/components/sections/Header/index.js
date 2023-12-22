@@ -14,6 +14,7 @@ import QuickCategory from "../QuickCategory";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
+import { openOtpModal } from "@/redux/auth/auth";
 const Header = () => {
   const router = useRouter();
   const basketCount = useSelector((state) => state.basket?.items);
@@ -62,6 +63,10 @@ const Header = () => {
     console.log(basketRes);
     // setBasketData(basketRes.data);
     dispatch(loadUsersBasket(basketRes.data));
+  };
+  const handleClivkMenuItem = (path) => {
+    if (!session) return dispatch(openOtpModal());
+    router.push(path);
   };
   useEffect(() => {
     if (session) getBasketByUser();
@@ -115,7 +120,7 @@ const Header = () => {
             {/* visible above 900px */}
             <div className={styles.rightIcon}>
               <PersonIcon
-                onClick={() => router.push("/profile")}
+                onClick={() => handleClivkMenuItem("/profile")}
                 style={{
                   fontSize: "44px",
                   color: "#FFFFFF",
@@ -130,7 +135,7 @@ const Header = () => {
                   cursor: "pointer",
                   marginRight: 10,
                 }}
-                onClick={() => router.push("/profile?tab=wishlist")}
+                onClick={() => handleClivkMenuItem("/profile?tab=wishlist")}
               />
               <ShoppingBasketIcon
                 style={{
@@ -138,7 +143,7 @@ const Header = () => {
                   color: "#FFFFFF",
                   cursor: "pointer",
                 }}
-                onClick={() => router.push("/basket")}
+                onClick={() => handleClivkMenuItem("/basket")}
               />
               {basketCount?.length}
             </div>
