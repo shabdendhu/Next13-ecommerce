@@ -11,11 +11,15 @@ import useScrollDirection from "@/hooks/useScrollDirection";
 import { apiGet, apiPost } from "@/helpers/api";
 import { Divider } from "@mui/material";
 import QuickCategory from "../QuickCategory";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
+import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 const Header = () => {
   const router = useRouter();
   const basketCount = useSelector((state) => state.basket?.items);
+  const dispatch = useDispatch();
   const scrollDirection = useScrollDirection();
+  const { data: session } = useSession();
   const [searchText, setSearchText] = useState("");
   const [category, setCategory] = useState([]);
   const [searchProducts, setSearchProducts] = useState([]);
@@ -53,7 +57,15 @@ const Header = () => {
   useEffect(() => {
     getAllCategory();
   }, []);
-
+  const getBasketByUser = async () => {
+    const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
+    console.log(basketRes);
+    // setBasketData(basketRes.data);
+    dispatch(loadUsersBasket(basketRes.data));
+  };
+  useEffect(() => {
+    if (session) getBasketByUser();
+  }, [session]);
   return (
     <>
       <div

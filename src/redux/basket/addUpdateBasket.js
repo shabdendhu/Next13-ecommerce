@@ -1,40 +1,68 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const addUpdateBasket = createSlice({
+export const basketSlice = createSlice({
   name: "basket",
   initialState: {
     items: [],
-    // total: 0,
   },
   reducers: {
     loadUsersBasket: (state, action) => {
-      const usersBasket = action.payload;
-      state.items = usersBasket.items;
+      const { items } = action.payload;
+      state.items = items;
     },
     addToBasket: (state, action) => {
       const newItem = action.payload;
-      state.items.push(newItem);
-      // state.total += newItem.price;
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.product._id === newItem.product._id
+      );
+
+      if (existingItemIndex !== -1) {
+        // If item already exists, update quantity
+        state.items[existingItemIndex].quantity += newItem.quantity;
+      } else {
+        // If item doesn't exist, add it to the basket
+        state.items.push(newItem);
+      }
     },
     removeFromBasket: (state, action) => {
-      const itemToRemove = action.payload;
-      const index = state.items.findIndex(
-        (item) => item.id === itemToRemove.id
+      const itemIdToRemove = action.payload;
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.product._id === itemIdToRemove
       );
-      if (index !== -1) {
-        // state.total -= state.items[index].price;
-        state.items.splice(index, 1);
+
+      if (existingItemIndex !== -1) {
+        // If item exists, decrease the quantity
+        if (state.items[existingItemIndex].quantity > 1) {
+          state.items[existingItemIndex].quantity -= 1;
+        } else {
+          // If quantity is 1, remove the item from the basket
+          state.items.splice(existingItemIndex, 1);
+        }
       }
+    },
+    deleteItemFromBasket: (state, action) => {
+      const itemIdToRemove = action.payload;
+      console.log(
+        itemIdToRemove,
+        state.items.filter((item) => item.product._id !== itemIdToRemove)
+      );
+      state.items = state.items.filter(
+        (item) => item.product._id !== itemIdToRemove
+      );
     },
     clearBasket: (state) => {
       state.items = [];
-      // state.total = 0;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToBasket, removeFromBasket, clearBasket, loadUsersBasket } =
-  addUpdateBasket.actions;
+export const {
+  addToBasket,
+  removeFromBasket,
+  clearBasket,
+  loadUsersBasket,
+  deleteItemFromBasket,
+} = basketSlice.actions;
 
-export default addUpdateBasket.reducer;
+export default basketSlice.reducer;

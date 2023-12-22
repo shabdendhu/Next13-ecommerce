@@ -10,7 +10,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
-import { addToBasket, removeFromBasket } from "@/redux/basket/addUpdateBasket";
+import {
+  addToBasket,
+  removeFromBasket,
+  deleteItemFromBasket,
+} from "@/redux/basket/addUpdateBasket";
 const dummydata = {
   ratings: {
     average: 4.5,
@@ -84,11 +88,14 @@ const ProductCard = ({
     console.log({ addres });
   };
   const handleAddToBasket = () => {
-    dispatch(addToBasket(data)); // Assuming data contains the product information
+    dispatch(addToBasket({ product: data, quantity: 1 })); // Assuming data contains the product information
   };
 
   const handleRemoveFromBasket = () => {
-    dispatch(removeFromBasket(data));
+    dispatch(removeFromBasket(data._id));
+  };
+  const deleteFromBasket = () => {
+    dispatch(deleteItemFromBasket(data._id));
   };
   return (
     <div
@@ -122,6 +129,7 @@ const ProductCard = ({
             setproductQuantity={setproductQuantity}
             product={data}
             onAdd={handleAddToBasket}
+            deleteFromBasket={deleteFromBasket}
             onRemove={handleRemoveFromBasket}
           />
         </div>

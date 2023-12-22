@@ -37,15 +37,7 @@ const BasketProduct = () => {
   const { data: session } = useSession();
   let deliverycharge = 40;
   console.log(session);
-  const getBasketByUser = async () => {
-    const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
-    console.log(basketRes);
-    setBasketData(basketRes.data);
-    dispatch(loadUsersBasket(basketRes.data));
-  };
-  useEffect(() => {
-    if (session) getBasketByUser();
-  }, [session]);
+
   useEffect(() => {
     console.log(basket);
   }, [basket]);
@@ -197,9 +189,10 @@ const BasketProduct = () => {
           }}
         >
           {/* create an product map bellow from basketdata */}
-          {basketdata.items.map((e, i) => (
+          {basket.items.map((e, i) => (
             <Grid item key={i}>
               <ProductCard
+                key={e?._id}
                 quantity={e?.quantity}
                 data={e?.product}
                 style={{

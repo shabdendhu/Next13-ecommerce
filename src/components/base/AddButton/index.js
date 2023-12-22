@@ -15,6 +15,7 @@ const AddButton = ({
   productQuantity,
   onAdd,
   onRemove,
+  deleteFromBasket,
 }) => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
@@ -55,15 +56,20 @@ const AddButton = ({
   const handleAdd = async (e) => {
     e.stopPropagation();
     if (!session) return router.push("/login");
-    onAdd(); // Call the provided callback
     setproductQuantity(productQuantity + 1);
+    addRemoveApi(1);
+    onAdd(); // Call the provided callback
   };
 
   const handleRemove = (e) => {
     e.stopPropagation();
-    setproductQuantity(productQuantity - 1);
     if (!session) return router.push("/login");
-    if (productQuantity === 1) return onRemove(); // Call the provided callback
+    setproductQuantity(productQuantity - 1);
+    onRemove(); // Call the provided callback
+    if (productQuantity == 1) {
+      deleteproduceFromCart();
+      deleteFromBasket();
+    }
     addRemoveApi(-1);
   };
   return (
