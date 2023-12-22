@@ -27,7 +27,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
-          {/* <OtpLoginModal /> */}
+          <OtpLoginModal />
         </div>
       </body>
     </html>

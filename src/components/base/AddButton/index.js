@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import styles from "./AddButton.module.scss";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { apiDelete, apiGet, apiPost } from "@/helpers/api";
+import { apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
-import tokenDecoded from "@/helpers/tokenDecoded";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
-import { Diversity3 } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { openOtpModal } from "@/redux/auth/auth";
 const AddButton = ({
   product,
   setproductQuantity,
@@ -20,6 +20,8 @@ const AddButton = ({
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
+
   // console.log(product);
   const addRemoveApi = async (count) => {
     setLoading(true);
@@ -55,7 +57,7 @@ const AddButton = ({
 
   const handleAdd = async (e) => {
     e.stopPropagation();
-    if (!session) return router.push("/login");
+    if (!session) return dispatch(openOtpModal());
     setproductQuantity(productQuantity + 1);
     addRemoveApi(1);
     onAdd(); // Call the provided callback
@@ -63,7 +65,7 @@ const AddButton = ({
 
   const handleRemove = (e) => {
     e.stopPropagation();
-    if (!session) return router.push("/login");
+    if (!session) return dispatch(openOtpModal());
     setproductQuantity(productQuantity - 1);
     onRemove(); // Call the provided callback
     if (productQuantity == 1) {
