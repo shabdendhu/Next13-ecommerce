@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { apiPost } from "@/helpers/api";
 import toast from "react-hot-toast";
+import { LoginContent } from "../OtpLoginModal";
 
 const Home = () => {
   return (
@@ -85,7 +86,7 @@ const Login = () => {
       <div className={style.logoHeader}>-:ACHARA:-</div>
 
       <div className={style.bluryBackground}>
-        <div className={style.loginbackground}>
+        {/* <div className={style.loginbackground}>
           <h1 className={style.header}>Welcome Back</h1>
           <p className={style.subheader}>Login To Your Account</p>
           <form onSubmit={handleSubmit} className={style.form}>
@@ -154,7 +155,8 @@ const Login = () => {
               </div>
             </div>
           </form>
-        </div>
+        </div> */}
+        <LoginContent />
       </div>
     </div>
   );
