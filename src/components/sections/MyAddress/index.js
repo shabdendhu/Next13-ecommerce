@@ -28,9 +28,7 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const { data: session } = useSession();
   // Mock addresses for testing
   const getAllAddressByUserId = async () => {
-    const addressRes = await apiGet(
-      "/api/address/" + "655f1eef08e2627ece694b9c"
-    );
+    const addressRes = await apiGet("/api/address/" + session?.user?.id);
     setAddresses(addressRes?.data);
   };
   useEffect(() => {

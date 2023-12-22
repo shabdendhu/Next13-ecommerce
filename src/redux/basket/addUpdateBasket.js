@@ -9,6 +9,7 @@ export const basketSlice = createSlice({
     loadUsersBasket: (state, action) => {
       const { items } = action.payload;
       state.items = items;
+      console.log({ basketRes: items });
     },
     addToBasket: (state, action) => {
       const newItem = action.payload;

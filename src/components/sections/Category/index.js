@@ -13,8 +13,8 @@ function Category() {
   console.log(search.get("id"));
   const [products, setProducts] = useState([]);
   const getProductbyCategory = async (query = "") => {
-    const res = await apiPost("/api/products/search", {
-      query,
+    const res = await apiPost("/api/products/getByCategory", {
+      categoryIds: [query],
     });
     setProducts(res.data);
   };

@@ -17,7 +17,7 @@ import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import { openOtpModal } from "@/redux/auth/auth";
 const Header = () => {
   const router = useRouter();
-  const basketCount = useSelector((state) => state.basket?.items);
+  const basketCount = useSelector((state) => state.basket);
   const dispatch = useDispatch();
   const scrollDirection = useScrollDirection();
   const { data: session } = useSession();
@@ -62,6 +62,8 @@ const Header = () => {
     const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
     console.log(basketRes);
     // setBasketData(basketRes.data);
+    console.log({ basketRes });
+    if (!basketRes?.data?.items?.length) return;
     dispatch(loadUsersBasket(basketRes.data));
   };
   const handleClivkMenuItem = (path) => {
@@ -145,7 +147,8 @@ const Header = () => {
                 }}
                 onClick={() => handleClivkMenuItem("/basket")}
               />
-              {basketCount?.length}
+              {basketCount?.items?.length}
+              {console.log(basketCount)}
             </div>
           </div>
         </div>
