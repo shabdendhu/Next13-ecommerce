@@ -72,11 +72,9 @@ export async function GET(req) {
     const basket = await Basket.findOne({ user: userId }).populate(
       "items.product"
     );
-    console.log(basket.total);
     basket.total = basket.items
       .map((item) => item.product.price)
       .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    console.log(basket.total);
 
     if (!basket) {
       return NextResponse.json({ error: "Basket not found", success: false });

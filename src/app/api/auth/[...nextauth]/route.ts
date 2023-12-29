@@ -72,7 +72,6 @@ const handler = NextAuth({
     },
     async signIn({ user, profile }: any) {
       connect();
-      console.log({ user, profile });
       if (profile?.email) {
         const userRes = await User.findOne({ email: profile?.email });
         if (!userRes) {

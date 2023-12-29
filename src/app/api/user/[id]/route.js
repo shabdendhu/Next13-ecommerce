@@ -8,7 +8,6 @@ connect();
 
 export async function GET(req, { params }) {
   const { id } = params;
-  console.log(id);
   try {
     const user = await User.findById(id).select("-password"); // Populate the default address
     if (!user) {

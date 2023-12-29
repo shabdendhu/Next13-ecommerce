@@ -37,27 +37,21 @@ export default function CategoryManager() {
     setOpen(true);
     const getSuggestionById = await apiGetById("/api/productsuggestion", id);
     setNewsuggestion(getSuggestionById.data);
-    console.log(getSuggestionById.data);
   };
   const handleDeleteSuggestion = async (id) => {
     try {
       const delRes = await apiDelete("/api/productsuggestion", id);
-      console.log({ delRes });
       handleCloseModal();
       getAllSuggestion();
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
   const getAllSuggestion = async () => {
     const suggestionRes = await apiGet("/api/productsuggestion");
-    console.log({ suggestionRes });
     setSuggestions(suggestionRes.data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(newSuggestion);
     if (newSuggestion._id) {
       const editRes = await apiPut(
         "/api/productsuggestion/" + newSuggestion._id,
@@ -157,7 +151,6 @@ export default function CategoryManager() {
             {suggestions.map((row) => (
               <TableRow
                 key={row.name}
-                onClick={() => console.log("slkdjddsj")}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   cursor: "pointer",

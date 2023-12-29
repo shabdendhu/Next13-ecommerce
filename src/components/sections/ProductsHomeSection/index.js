@@ -63,14 +63,12 @@ const MultipleProductsHomeSection = () => {
         "/api/productsuggestion?screenName=" + pathname
       );
       setSection(sections.data);
-      console.log(sections.data);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
     getAllSections();
-    console.log(pathname);
   }, []);
 
   return (

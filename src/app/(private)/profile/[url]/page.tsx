@@ -12,7 +12,6 @@ const Detail = ({ params }: { params: { url: string } }) => {
 
   const getUserDetails = async () => {
     const user = await apiGet("/api/user/" + session?.user?.id);
-    console.log({ user });
     setUserDetails(user?.data);
   };
   useEffect(() => {

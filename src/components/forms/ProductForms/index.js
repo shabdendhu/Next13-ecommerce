@@ -39,7 +39,6 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
   };
   const getAllCategories = async () => {
     const categoryRes = await apiGet("/api/category");
-    console.log(categoryRes.data);
     setCategoryptions((e) => [
       ...e,
       ...categoryRes.data.map((i) => ({

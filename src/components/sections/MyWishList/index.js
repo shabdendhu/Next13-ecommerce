@@ -13,7 +13,6 @@ const MyWishList = () => {
   const [wishList, setWishList] = useState([]);
   const getWishLists = async () => {
     const wishListRes = await apiGet("/api/wishlist?user=" + session?.user?.id);
-    console.log({ wishListRes });
     setWishList(wishListRes?.data?.products || []);
   };
   useEffect(() => {

@@ -9,7 +9,6 @@ export async function POST(request) {
   try {
     const reqBody = await request.json();
     // const {token} = reqBody
-    console.log(reqBody);
 
     const category = new Caterory(reqBody);
     const savedCategory = await category.save();

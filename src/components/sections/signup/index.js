@@ -37,16 +37,12 @@ const Signup = () => {
         email: userInfo.email,
         password: userInfo.password,
       });
-      console.log({ signUpRes });
       if (signUpRes?.success) {
         router.push("/login");
       }
     } catch (error) {
       toast.error("Someting went wrong");
     }
-    console.log("====================================");
-    console.log(userInfo);
-    console.log("====================================");
   };
   const handleredirectToLogin = () => {
     router.push("/login");

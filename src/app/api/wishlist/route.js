@@ -8,7 +8,6 @@ connect();
 // export async function POST(request) {
 //   try {
 //     const reqBody = await request.json();
-//     console.log(reqBody);
 //     const wishList = new WishList(reqBody);
 //     const savedMyWishList = await wishList.save();
 //     return NextResponse.json({

@@ -171,7 +171,6 @@ export default function OrderManager() {
             {orders.map((order) => (
               <TableRow
                 key={order._id}
-                onClick={() => console.log(`Clicked on order ${order._id}`)}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   cursor: "pointer",

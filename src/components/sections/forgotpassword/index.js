@@ -38,7 +38,6 @@ const Forgotpassword = () => {
   const router = useRouter();
 
   const handleSubmit = () => {
-    console.log("====================================");
     router.push("/login");
     toggleOtp();
   };

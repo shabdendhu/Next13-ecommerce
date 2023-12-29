@@ -57,7 +57,6 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
           country: selectedAddress?.country,
         }
       );
-      console.log({ editRes });
       reloadUserDetails();
       // Make an API call to edit the existing address
       // Example: editAddressInAPI(selectedAddress);
@@ -73,7 +72,6 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
           country: selectedAddress?.country,
         },
       });
-      console.log({ addRes });
       reloadUserDetails();
       // Make an API call to add a new address
       // Example: addAddressToAPI(selectedAddress);
@@ -84,12 +82,10 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   };
 
   const handleRemoveAddress = async (addressId) => {
-    console.log(addressId);
     const deleteRes = await apiDelete(
       "/api/address/" + session?.user?.id,
       addressId
     );
-    console.log({ deleteRes });
     getAllAddressByUserId();
     // Make an API call to remove the address
     // Example: removeAddressFromAPI(addressId);
@@ -100,7 +96,6 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
       userId: session?.user?.id,
       addressId,
     });
-    console.log(res);
     reloadUserDetails();
     // Make an API call to set the default address
     // Example: makeDefaultAddressInAPI(addressId);
@@ -120,7 +115,6 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
       <List style={{ marginTop: 40 }}>
         {addresses.map((address) => (
           <ListItem key={address._id}>
-            {console.log(address?._id, userDetails?.defaultAddress)}
             <ListItemText
               primary={`${address.addressLine1} | ${address.addressLine2}`}
               secondary={`${address.city}, ${address.country}, ${address.postalCode}, ${address.state}`}

@@ -22,7 +22,6 @@ const AddButton = ({
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // console.log(product);
   const addRemoveApi = async (count) => {
     setLoading(true);
     const res = await apiPost("/api/basket", {

@@ -9,7 +9,6 @@ export const basketSlice = createSlice({
     loadUsersBasket: (state, action) => {
       const { items } = action.payload;
       state.items = items;
-      console.log({ basketRes: items });
     },
     addToBasket: (state, action) => {
       const newItem = action.payload;
@@ -43,10 +42,6 @@ export const basketSlice = createSlice({
     },
     deleteItemFromBasket: (state, action) => {
       const itemIdToRemove = action.payload;
-      console.log(
-        itemIdToRemove,
-        state.items.filter((item) => item.product._id !== itemIdToRemove)
-      );
       state.items = state.items.filter(
         (item) => item.product._id !== itemIdToRemove
       );

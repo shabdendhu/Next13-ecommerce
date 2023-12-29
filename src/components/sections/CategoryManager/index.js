@@ -37,11 +37,9 @@ export default function CategoryManager() {
     setOpen(true);
     const getCategoryById = await apiGetById("/api/category", id);
     setNewCategory(getCategoryById?.data);
-    console.log(getCategoryById.data);
   };
   const getAllCategory = async () => {
     const categoryRes = await apiGet("/api/category");
-    console.log(categoryRes.data);
     setCategorys(categoryRes.data);
   };
   const handleCloseModal = () => {
@@ -55,13 +53,11 @@ export default function CategoryManager() {
     e.preventDefault();
     if (!newCategory?._id) {
       const addres = await apiPost("/api/category", newCategory);
-      console.log(addres.data);
     } else {
       const editRes = await apiPut(
         "/api/category/" + newCategory._id,
         newCategory
       );
-      console.log(editRes.data);
     }
     getAllCategory();
     setNewCategory(emptyCategory);
@@ -69,7 +65,6 @@ export default function CategoryManager() {
   };
   const handleDelete = async (id) => {
     const deleteRes = await apiDelete("/api/category", id);
-    console.log(deleteRes);
     getAllCategory();
   };
   return (

@@ -60,7 +60,6 @@ export default function ProductManager() {
     setOpen(true);
     const getProductById = await apiGetById("/api/products", id);
     setProduct(getProductById.data);
-    console.log(getProductById.data);
   };
 
   const getAllProduct = async () => {
@@ -72,10 +71,8 @@ export default function ProductManager() {
     e.preventDefault();
     if (product._id) {
       const updateRes = apiPut("/api/products/" + product._id, product);
-      console.log(updateRes);
     } else {
       const addRes = apiPost("/api/products", product);
-      console.log(addRes);
     }
     setProduct(emptyProduct);
     getAllProduct();
@@ -83,7 +80,6 @@ export default function ProductManager() {
   };
   const handleDelete = (id) => {
     const deleteRes = apiDelete("/api/products", id);
-    console.log(deleteRes);
     getAllProduct();
   };
   const handleCloseModal = () => {
@@ -187,7 +183,6 @@ export default function ProductManager() {
             {products.map((row) => (
               <TableRow
                 key={row.name}
-                onClick={() => console.log("slkdjddsj")}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   cursor: "pointer",

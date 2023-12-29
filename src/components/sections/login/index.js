@@ -60,14 +60,10 @@ const Login = () => {
   };
 
   const handleRedirectToForgotpassword = () => {
-    console.log("====================================");
     router.push("/forgotpassword");
   };
 
   const handleredirectToLogin = () => {
-    console.log("====================================");
-
-    console.log("====================================");
     router.push("/signup");
   };
   const handleClickGoogleLogin = (e) => {
@@ -77,9 +73,7 @@ const Login = () => {
   const handelChangeFields = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
+  useEffect(() => {}, [userInfo]);
   return (
     <div className={style.container}>
       {/* <Home /> */}

@@ -30,7 +30,6 @@ const EditProfile = ({ userDetails, reloadUserDetails }) => {
       email: formData?.email,
       username: formData?.username,
     });
-    console.log({ addRes });
     reloadUserDetails();
   };
 

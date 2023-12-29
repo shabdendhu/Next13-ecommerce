@@ -148,7 +148,6 @@ const ProfileContent = ({
   reloadUserDetails = () => {},
   userDetails = {},
 }) => {
-  console.log({ url: activeTab == "/profile/order" });
   return (
     <div className={styles.component}>
       <ContentWrapper>

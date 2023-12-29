@@ -26,12 +26,9 @@ const Home = () => {
   );
 };
 const Newpassword = () => {
-  
-
   const router = useRouter();
 
   const handleSubmit = () => {
-    console.log("====================================");
     router.push("/login");
     toggleOtp();
   };
@@ -45,26 +42,6 @@ const Newpassword = () => {
           <p className={style.subheader}>Create New Password</p>
 
           <form className={style.form} onSubmit={handleSubmit}>
-           
-          <div className={style.inputContainer}>
-              <span>
-                <LockIcon
-                  style={{
-                    color: "#0d4b0d",
-                  }}
-                />
-              </span>
-              <input placeholder="Password" />
-              <span>
-                <VisibilityOffIcon
-                  style={{
-                    color: "#0d4b0d",
-                  }}
-                />
-              </span>
-            </div>
-
-            <br/>
             <div className={style.inputContainer}>
               <span>
                 <LockIcon
@@ -82,7 +59,25 @@ const Newpassword = () => {
                 />
               </span>
             </div>
-            
+
+            <br />
+            <div className={style.inputContainer}>
+              <span>
+                <LockIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+              <input placeholder="Password" />
+              <span>
+                <VisibilityOffIcon
+                  style={{
+                    color: "#0d4b0d",
+                  }}
+                />
+              </span>
+            </div>
 
             <div>
               <button type="submit" className={style.loginButton}>
@@ -97,4 +92,3 @@ const Newpassword = () => {
 };
 
 export default Newpassword;
-

@@ -11,7 +11,6 @@ var db1 = mongoose.createConnection(MONGODB_URI);
 export async function POST(request) {
   try {
     const reqBody = await request.json();
-    console.log(reqBody);
     const suggestion = new ProductSuggestion(reqBody);
     const savedProductsuggestion = await suggestion.save();
     return NextResponse.json({

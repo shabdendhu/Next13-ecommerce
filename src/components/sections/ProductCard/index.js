@@ -85,7 +85,6 @@ const ProductCard = ({
       user: session?.user?.id,
       product: data?._id,
     });
-    console.log({ addres });
   };
   const handleAddToBasket = () => {
     dispatch(addToBasket({ product: data, quantity: 1 })); // Assuming data contains the product information

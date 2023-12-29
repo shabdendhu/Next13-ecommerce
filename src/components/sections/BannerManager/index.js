@@ -39,12 +39,10 @@ export default function CategoryManager() {
     setOpen(true);
     const getBannerById = await apiGetById("/api/banner", id);
     setBanner(getBannerById.data);
-    console.log(getBannerById.data);
   };
 
   const handleDelete = (id) => {
     const deleteRes = apiDelete("/api/banner", id);
-    console.log(deleteRes);
     getAllBanner();
   };
 
@@ -62,11 +60,8 @@ export default function CategoryManager() {
     e.preventDefault();
     if (!banner?._id) {
       const addRes = apiPost("/api/banner", banner);
-
-      console.log(addRes);
     } else {
       const editRes = apiPut("/api/banner/" + banner._id, banner);
-      console.log(editRes);
     }
     setBanner(emptyBanner);
     getAllBanner();
@@ -156,7 +151,6 @@ export default function CategoryManager() {
             {banners.map((row) => (
               <TableRow
                 key={row.name}
-                onClick={() => console.log("slkdjddsj")}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   cursor: "pointer",
@@ -165,7 +159,6 @@ export default function CategoryManager() {
                 <TableCell component="th" scope="row">
                   {row.title}
                 </TableCell>
-                {console.log(row)}
                 <TableCell align="right">
                   <img
                     src={row.imageUrl}
@@ -177,10 +170,7 @@ export default function CategoryManager() {
                 <TableCell align="right">{row.startDate}</TableCell>
                 <TableCell align="right">{row.endDate}</TableCell>
                 <TableCell align="right">
-                  <Switch
-                    checked={row.isActive}
-                    onChange={(e) => console.log(e.target.checked)}
-                  />
+                  <Switch checked={row.isActive} />
                 </TableCell>
                 <TableCell align="right">
                   <ButtonBase

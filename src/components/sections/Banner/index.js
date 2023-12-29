@@ -29,7 +29,6 @@ const Banner = () => {
       targetURL: pathname,
     });
     setBanners(bannersRes?.data);
-    console.log(bannersRes);
   };
 
   useEffect(() => {

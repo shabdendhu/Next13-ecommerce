@@ -23,7 +23,6 @@ const Footer = () => {
   const scrollDirection = useScrollDirection();
   const router = useRouter();
   const pathname = usePathname();
-  console.log({ pathname });
   return (
     <div
       className={styles.footercontainer}

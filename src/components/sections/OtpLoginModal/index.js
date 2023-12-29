@@ -19,7 +19,6 @@ export const LoginContent = ({ dispatch }) => {
   const handleOtpSubmit = () => {
     // Call your backend API to verify the OTP
     // For simplicity, we'll assume the OTP verification is successful
-    console.log("User data:", { phone }); // Log user data on successful verification
     handleClose();
   };
   const handleClickGoogleLogin = (e) => {

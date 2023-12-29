@@ -17,7 +17,6 @@ const Profile = () => {
   const [userDetails, setUserDetails] = useState({});
   const getUserDetails = async () => {
     const user = await apiGet("/api/user/" + session?.user?.id);
-    console.log({ user });
     setUserDetails(user?.data);
   };
   useEffect(() => {

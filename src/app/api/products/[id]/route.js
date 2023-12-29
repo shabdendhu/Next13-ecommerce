@@ -10,7 +10,6 @@ export async function GET(req, { params }) {
   const { id } = params;
   try {
     const product = await Product.findById(id);
-    console.log({ product });
     return NextResponse.json({ data: product, success: true });
   } catch (error) {
     return NextResponse.json({
@@ -25,13 +24,10 @@ export async function PUT(req, { params }) {
   const { id } = params;
 
   const reqBody = await req.json();
-  // const {token} = reqBody
-  console.log(reqBody, id);
   try {
     const updatedProduct = await Product.findByIdAndUpdate(id, reqBody, {
       new: true,
     });
-    console.log(updatedProduct);
     if (!updatedProduct) {
       return NextResponse.json({ error: "Product not found", success: false });
     } else {
@@ -47,7 +43,6 @@ export async function PUT(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
-  console.log(params);
   const { id } = params;
   try {
     if (!id)
@@ -56,7 +51,6 @@ export async function DELETE(req, { params }) {
         success: false,
       });
     const deletedProduct = await Product.findByIdAndRemove(id);
-    console.log(deletedProduct);
     if (deletedProduct)
       return NextResponse.json({
         message: "product deleted successfully",

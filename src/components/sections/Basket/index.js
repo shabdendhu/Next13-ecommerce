@@ -4,44 +4,40 @@ import styles from "./Basket.module.scss";
 import AddButton from "@/components/base/AddButton";
 import ProductCard from "@/components/sections/ProductCard";
 import PageWrapper from "../PageWrapper";
-import { apiGet } from "@/helpers/api";
+import { apiGet, apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import { Button, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import EmptyBasket from "@/components/sections/EmptyBasket";
-function calculateTotalPriceAndDiscount(basketData) {
-  let totalItemPrice = 0;
-  let totalDiscountPrice = 0;
-  console.log({ basketData });
-  // Loop through each item in the basket
-  basketData.items.forEach((item) => {
-    // Calculate the total price for one item
-    totalItemPrice += item.product.price * item.quantity;
-
-    // Calculate the discounted price for one item
-    const discountedPrice =
-      item.product.price - (item.product.price * item.product.discount) / 100;
-    totalDiscountPrice += discountedPrice * item.quantity;
-  });
-
-  // Return the calculated values
-  return {
-    totalItemPrice: totalItemPrice.toFixed(2),
-    totalDiscountPrice: totalDiscountPrice.toFixed(2),
-  };
-}
+import { Route } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
 const BasketProduct = () => {
   const [basketdata, setBasketData] = useState({ items: [] });
   const dispatch = useDispatch();
+  const router = useRouter();
   const basket = useSelector((state) => state.basket);
   const { data: session } = useSession();
   let deliverycharge = 40;
-  console.log(session);
+  const handleClickConfirmOrder = async () => {
+    // const orderRes = await apiPost("/api/order", {
+    //   user: session?.user?.id,
+    //   products: basket.items.map((e) => ({
+    //     product: e.product._id,
+    //     quantity: e.quantity,
+    //     price: e.product.price,
+    //   })),
+    //   totalAmount:
+    //     parseInt(calculateTotalPriceAndDiscount(basket).totalDiscountPrice) +
+    //     deliverycharge,
+    //   status: "pending",
+    //   paymentStatus: "pending",
+    // });
+    // if (orderRes.success)
+    router.push(`/checkout`);
+  };
 
-  useEffect(() => {
-    console.log(basket);
-  }, [basket]);
   if (basket.items.length === 0) return <EmptyBasket />;
   return (
     <PageWrapper>
@@ -119,6 +115,7 @@ const BasketProduct = () => {
           </h1>
           {/* create a button for confirm order and checkout */}
           <Button
+            onClick={handleClickConfirmOrder}
             style={{
               backgroundColor: "blue",
               width: "100%",
@@ -128,7 +125,7 @@ const BasketProduct = () => {
               fontSize: "19px",
             }}
           >
-            Confirm
+            Proceed To Checkout
           </Button>
         </Grid>
       </Grid>

@@ -16,7 +16,6 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
   const router = useRouter();
   const { data: session } = useSession();
   const [defaultAddress, setDefaultAddress] = useState("");
-  console.log({ activeTab });
 
   const hanleClick = (url) => {
     if (window.innerWidth > 900) setActiveTab(url);
@@ -36,11 +35,8 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
       (e) => e._id == userDetails?.defaultAddress
     ) || { _id: "" };
     setDefaultAddress(Object.values(address).toString());
-    console.log({ address });
   }, [userDetails]);
-  useEffect(() => {
-    console.log(defaultAddress, "ppppppppppppppppppppppppi");
-  }, [defaultAddress]);
+  useEffect(() => {}, [defaultAddress]);
   return (
     <div className={styles.component}>
       <div className={styles.profileContainer}>

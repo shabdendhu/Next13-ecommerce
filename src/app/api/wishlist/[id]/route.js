@@ -8,7 +8,6 @@ connect();
 // export async function POST(request) {
 //   try {
 //     const reqBody = await request.json();
-//     console.log(reqBody);
 //     const wishList = new WishList(reqBody);
 //     const savedMyWishList = await wishList.save();
 //     return NextResponse.json({
@@ -112,7 +111,6 @@ export async function DELETE(request) {
     // Get the user and product information from the request body
     const reqBody = await request.json();
     const { user, product } = reqBody;
-    console.log(reqBody);
     // Check if the user and product are provided
     // if (!user || !product) {
     //   return NextResponse.json({

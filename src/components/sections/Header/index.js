@@ -44,12 +44,10 @@ const Header = () => {
       query: searchText,
     });
     setSearchProducts(searchRes.data);
-    console.log({ searchRes });
   };
   const getAllCategory = async () => {
     const categoryRes = await apiGet("/api/category");
     setCategory(categoryRes?.data);
-    console.log({ categoryRes });
   };
   useEffect(() => {
     if (searchText) handleSearchProduct();
@@ -60,9 +58,7 @@ const Header = () => {
   }, []);
   const getBasketByUser = async () => {
     const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
-    console.log(basketRes);
     // setBasketData(basketRes.data);
-    console.log({ basketRes });
     if (!basketRes?.data?.items?.length) return;
     dispatch(loadUsersBasket(basketRes.data));
   };
@@ -148,7 +144,6 @@ const Header = () => {
                 onClick={() => handleClivkMenuItem("/basket")}
               />
               {basketCount?.items?.length}
-              {console.log(basketCount)}
             </div>
           </div>
         </div>

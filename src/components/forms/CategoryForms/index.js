@@ -21,7 +21,6 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
 
   const getAllCategories = async () => {
     const categoryRes = await apiGet("/api/category");
-    console.log(categoryRes.data);
     setCategoryptions((e) => [
       ...e,
       ...categoryRes.data.map((i) => ({
@@ -33,9 +32,6 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
   useEffect(() => {
     getAllCategories();
   }, []);
-  useEffect(() => {
-    console.log({ categoryOptions });
-  }, [categoryOptions]);
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>

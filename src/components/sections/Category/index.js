@@ -10,7 +10,6 @@ import { useSearchParams } from "next/navigation";
 
 function Category() {
   const search = useSearchParams();
-  console.log(search.get("id"));
   const [products, setProducts] = useState([]);
   const getProductbyCategory = async (query = "") => {
     const res = await apiPost("/api/products/getByCategory", {

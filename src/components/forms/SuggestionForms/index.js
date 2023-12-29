@@ -21,7 +21,6 @@ const ProductSuggestionForm = ({
   const getAllProducts = async () => {
     const productRes = await apiGet("/api/products");
     setProducts(productRes.data);
-    console.log(productRes.data);
     setScreen((e) => [
       ...e,
       ...productRes.data.map((i) => ({
@@ -32,7 +31,6 @@ const ProductSuggestionForm = ({
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log({ name, value });
     setSuggestions((prevData) => ({
       ...prevData,
       [name]: value,
@@ -40,7 +38,6 @@ const ProductSuggestionForm = ({
   };
 
   const handleProductIdsChange = (event) => {
-    console.log(event.target.value);
     setSuggestions((prevData) => ({
       ...prevData,
       productIds: event.target.value,
@@ -50,9 +47,6 @@ const ProductSuggestionForm = ({
   useEffect(() => {
     getAllProducts();
   }, []);
-  useEffect(() => {
-    console.log(screen);
-  }, [screen]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -88,7 +82,6 @@ const ProductSuggestionForm = ({
 
       <FormControl fullWidth margin="normal">
         <InputLabel id="productIds-label">Product IDs</InputLabel>
-        {console.log(suggestions?.productIds)}
         <Select
           labelId="productIds-label"
           id="productIds"

@@ -10,8 +10,6 @@ export async function PUT(req, { params }) {
   const { id } = params;
 
   const reqBody = await req.json();
-  // const {token} = reqBody
-  console.log(reqBody, id);
   try {
     const updatedCategory = await Category.findByIdAndUpdate(id, reqBody, {
       new: true,
@@ -38,7 +36,6 @@ export async function DELETE(req, { params }) {
         success: false,
       });
     const deletedCategory = await Category.findByIdAndRemove(id);
-    console.log(deletedCategory);
     if (deletedCategory)
       return NextResponse.json({
         message: "category deleted successfully",

@@ -23,11 +23,9 @@ const Productdetails = () => {
   const [isInWishList, setIsInWishList] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const getProductById = async () => {
-    console.log(id);
     const productRes = await apiGet("/api/products/" + id);
     setSelectedImage(productRes.data.images[0]);
     setProductDetails(productRes.data);
-    console.log({ productRes });
   };
   const [showAllDetails, setShowAllDetails] = useState(false);
   const handleAddToCart = async (e) => {
@@ -48,7 +46,6 @@ const Productdetails = () => {
       user: session?.user?.id,
       product: productDetails?._id,
     });
-    console.log({ addres });
   };
   useEffect(() => {
     getProductById();

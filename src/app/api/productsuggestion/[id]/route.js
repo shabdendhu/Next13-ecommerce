@@ -8,7 +8,6 @@ export async function GET(req, { params }) {
   const { id } = params;
   try {
     const suggestion = await ProductSuggestion.findById(id);
-    console.log({ suggestion });
     return NextResponse.json({ data: suggestion, success: true });
   } catch (error) {
     return NextResponse.json({
@@ -23,7 +22,6 @@ export async function PUT(req, { params }) {
   const { id } = params;
 
   const reqBody = await req.json();
-  console.log(reqBody, id);
   try {
     const updatedSuggestion = await ProductSuggestion.findByIdAndUpdate(
       id,
@@ -32,7 +30,6 @@ export async function PUT(req, { params }) {
         new: true,
       }
     );
-    console.log(updatedSuggestion);
     if (!updatedSuggestion) {
       return NextResponse.json({ error: "product not found", success: false });
     } else {
@@ -59,7 +56,6 @@ export async function DELETE(req, { params }) {
         success: false,
       });
     const deletedSuggestion = await ProductSuggestion.findByIdAndRemove(id);
-    console.log(deletedSuggestion);
     if (deletedSuggestion)
       return NextResponse.json({
         message: "suggestion deleted successfully",
