@@ -11,9 +11,11 @@ import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { apiPost } from "@/helpers/api";
 import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
+import axios from "axios";
 const buttontxt = {
-  1: "Confirm",
-  2: "Proceed to Payment",
+  1: "Confirm Address",
+  2: "Confirm Order",
+  3: "Proceed To Payment",
 };
 const CheckoutComponent = () => {
   const [step, setStep] = useState(1);
@@ -50,7 +52,8 @@ const CheckoutComponent = () => {
     // Handle logic to proceed to the next step
     if (!selectedAddress) return alert("Please select an address");
 
-    if (step > 1) return confirmOrder();
+    if (step == 2) return confirmOrder();
+
     setStep(step + 1);
   };
   const handleBack = () => {
@@ -76,6 +79,7 @@ const CheckoutComponent = () => {
       router.push("/confirmOrder?orderId=" + orderRes.data._id);
     }
   };
+
   return (
     <PageWrapper>
       {step === 1 && (

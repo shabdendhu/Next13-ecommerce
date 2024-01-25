@@ -1,5 +1,6 @@
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
+import Script from "next/script";
 
 export const metadata = {
   title: "Create Next App",
@@ -21,6 +22,7 @@ export default function RootLayout({
             flexDirection: "column",
           }}
         >
+          <Script src="https://checkout.razorpay.com/v1/checkout.js" />
           <Header />
           {children}
           <Footer />

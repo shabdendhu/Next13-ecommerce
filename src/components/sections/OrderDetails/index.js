@@ -1,4 +1,4 @@
-// OrderDetails.js
+"use client";
 import React, { useEffect } from "react";
 import {
   Container,
@@ -10,7 +10,9 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Button,
 } from "@mui/material";
+import axios from "axios";
 
 const OrderDetails = ({ order }) => {
   const {
@@ -20,10 +22,71 @@ const OrderDetails = ({ order }) => {
     paymentStatus,
     createdAt,
     updatedAt,
+    _id,
   } = order;
   useEffect(() => {
     console.log(order);
   }, [order]);
+
+  const makePayment = async ({ productId = null }) => {
+    // "use server";
+    const key = process.env.RAZORPAY_KEY_ID;
+    console.log(key);
+    // Make API call to the serverless API
+    const data = await axios.post("/api/razorpay/payment", {
+      orderId: _id,
+    });
+    const rezOrder = data.data.data;
+    // const { order } = await data.json();
+    console.log(data.data.data, "........................");
+    const options = {
+      key: key,
+      name: "kishan",
+      currency: rezOrder.currency,
+      amount: rezOrder.amount,
+      order_id: rezOrder.id,
+      description: "Understanding RazorPay Integration",
+      // image: logoBase64,
+      handler: async function (response) {
+        // if (response.length==0) return <Loading/>;
+        console.log(response);
+        const data = await axios.post("/api/razorpay/paymentverify", {
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_signature: response.razorpay_signature,
+        });
+
+        const res = await data.json();
+
+        console.log("response verify==", res);
+
+        if (res?.message == "success") {
+          console.log("redirected.......");
+          router.push(
+            "/paymentsuccess?paymentid=" + response.razorpay_payment_id
+          );
+        }
+
+        // Validate payment at server - using webhooks is a better idea.
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+      },
+      prefill: {
+        name: "mmantratech",
+        email: "mmantratech@gmail.com",
+        contact: "9354536067",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+    paymentObject.on("payment.failed", function (response) {
+      console.log(response, "ooooooooooooooooooooooo");
+      alert("Payment failed. Please try again. Contact support for help");
+    });
+  };
 
   return (
     <Container maxWidth="md">
@@ -63,6 +126,15 @@ const OrderDetails = ({ order }) => {
             </ListItem>
           ))}
         </List>
+        <Button
+          onClick={makePayment}
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+          }}
+        >
+          PAY NOW TO FINISH ORDER
+        </Button>
       </Paper>
     </Container>
   );
