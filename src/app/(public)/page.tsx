@@ -32,7 +32,7 @@ const Home = () => {
         >
           <Banner />
         </div>
-        <BestSeller />
+        {/* <BestSeller /> */}
         <MultipleProductsHomeSection />
         {/* <Footer/> */}
       </PageWrapper>

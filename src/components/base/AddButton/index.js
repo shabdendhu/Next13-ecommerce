@@ -16,6 +16,7 @@ const AddButton = ({
   onAdd,
   onRemove,
   deleteFromBasket,
+  disableAddButton,
 }) => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
@@ -76,12 +77,20 @@ const AddButton = ({
   return (
     <>
       {productQuantity === 0 ? (
-        <button className={styles.addButton} onClick={handleAdd}>
+        <button
+          disabled={disableAddButton}
+          className={styles.addButton}
+          onClick={handleAdd}
+        >
           ADD
         </button>
       ) : (
         <div className={styles.addRemoveButton}>
-          <button className={styles.decrement} onClick={handleRemove}>
+          <button
+            disabled={disableAddButton}
+            className={styles.decrement}
+            onClick={handleRemove}
+          >
             <RemoveIcon />
           </button>
           {loading ? (
@@ -89,7 +98,11 @@ const AddButton = ({
           ) : (
             <div className={styles.itemamt}>{productQuantity}</div>
           )}
-          <button className={styles.increment} onClick={handleAdd}>
+          <button
+            disabled={disableAddButton}
+            className={styles.increment}
+            onClick={handleAdd}
+          >
             <AddIcon />
           </button>
         </div>

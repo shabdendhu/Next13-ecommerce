@@ -68,6 +68,7 @@ const ProductCard = ({
   className,
   quantity = 0,
   wishlist = false,
+  disableAddButton = false,
   ...props
 }) => {
   const { data: session } = useSession();
@@ -124,6 +125,7 @@ const ProductCard = ({
         <div className={styles.cardlower}>
           <div style={{ fontSize: "13px", fontWeight: "100px" }}>1kg</div>
           <AddButton
+            disableAddButton={disableAddButton}
             productQuantity={productQuantity}
             setproductQuantity={setproductQuantity}
             product={data}

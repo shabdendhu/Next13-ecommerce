@@ -57,6 +57,8 @@ const orderSchema = new mongoose.Schema({
     enum: ["pending", "completed"],
     default: "pending",
   },
+  transactionId: String,
+  paidAmount: String,
   createdAt: {
     type: Date,
     default: Date.now,

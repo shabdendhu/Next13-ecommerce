@@ -10,7 +10,7 @@ import { Button, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import EmptyBasket from "@/components/sections/EmptyBasket";
-import { Route } from "@mui/icons-material";
+import { CheckBox, Route } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
 const BasketProduct = () => {
@@ -67,6 +67,18 @@ const BasketProduct = () => {
           {/* create an product map bellow from basketdata */}
           {basket.items.map((e, i) => (
             <Grid item key={i}>
+              <div
+                style={{
+                  borderTop: "1px solid gray",
+                  borderLeft: "1px solid gray",
+                  borderRight: "1px solid gray",
+                  width: "fit-content",
+                  borderRadius: "4px 4px 0px 0px",
+                  marginLeft: "10px",
+                }}
+              >
+                <CheckBox />
+              </div>
               <ProductCard
                 key={e?._id}
                 quantity={e?.quantity}

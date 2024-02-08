@@ -34,6 +34,8 @@ const MyOrders = () => {
                 className={styles.product}
                 data={item.product}
                 key={item.product._id}
+                quantity={item.quantity}
+                disableAddButton={true}
               />
             ))}
           </div>

@@ -1,5 +1,4 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Container,
   Typography,
@@ -13,8 +12,13 @@ import {
   Button,
 } from "@mui/material";
 import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import sha256 from "crypto-js/sha256";
+import { v4 as uuidv4 } from "uuid";
 
 const OrderDetails = ({ order }) => {
+  const router = useRouter();
+  const query = useSearchParams();
   const {
     products = [],
     totalAmount,
@@ -24,70 +28,61 @@ const OrderDetails = ({ order }) => {
     updatedAt,
     _id,
   } = order;
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
 
-  const makePayment = async ({ productId = null }) => {
-    // "use server";
-    const key = process.env.RAZORPAY_KEY_ID;
-    console.log(key);
-    // Make API call to the serverless API
-    const data = await axios.post("/api/razorpay/payment", {
-      orderId: _id,
-    });
-    const rezOrder = data.data.data;
-    // const { order } = await data.json();
-    console.log(data.data.data, "........................");
-    const options = {
-      key: key,
-      name: "kishan",
-      currency: rezOrder.currency,
-      amount: rezOrder.amount,
-      order_id: rezOrder.id,
-      description: "Understanding RazorPay Integration",
-      // image: logoBase64,
-      handler: async function (response) {
-        // if (response.length==0) return <Loading/>;
-        console.log(response);
-        const data = await axios.post("/api/razorpay/paymentverify", {
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_signature: response.razorpay_signature,
-        });
+  const makePayment = async (e) => {
+    e.preventDefault();
+    const transactionid = "Tr-" + uuidv4().toString(36).slice(-6);
 
-        const res = await data.json();
-
-        console.log("response verify==", res);
-
-        if (res?.message == "success") {
-          console.log("redirected.......");
-          router.push(
-            "/paymentsuccess?paymentid=" + response.razorpay_payment_id
-          );
-        }
-
-        // Validate payment at server - using webhooks is a better idea.
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature);
-      },
-      prefill: {
-        name: "mmantratech",
-        email: "mmantratech@gmail.com",
-        contact: "9354536067",
+    const payload = {
+      merchantId: process.env.NEXT_PUBLIC_MERCHANT_ID,
+      merchantTransactionId: transactionid,
+      merchantUserId: "MUID-" + uuidv4().toString(36).slice(-6),
+      amount: totalAmount * 100,
+      redirectUrl: `http://localhost:3000/api/phonepay/${_id}`,
+      redirectMode: "POST",
+      callbackUrl: `http://localhost:3000/api/phonepay/${_id}`,
+      mobileNumber: "9999999999",
+      paymentInstrument: {
+        type: "PAY_PAGE",
       },
     };
 
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+    const dataPayload = JSON.stringify(payload);
+    console.log(dataPayload);
 
-    paymentObject.on("payment.failed", function (response) {
-      console.log(response, "ooooooooooooooooooooooo");
-      alert("Payment failed. Please try again. Contact support for help");
-    });
+    const dataBase64 = Buffer.from(dataPayload).toString("base64");
+    console.log(dataBase64);
+
+    const fullURL =
+      dataBase64 + "/pg/v1/pay" + process.env.NEXT_PUBLIC_SALT_KEY;
+    const dataSha256 = sha256(fullURL);
+
+    const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
+    console.log("c====", checksum);
+
+    const UAT_PAY_API_URL =
+      "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
+
+    const response = await axios.post(
+      UAT_PAY_API_URL,
+      {
+        request: dataBase64,
+      },
+      {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          "X-VERIFY": checksum,
+        },
+      }
+    );
+
+    const redirect = response.data.data.instrumentResponse.redirectInfo.url;
+    router.push(redirect);
   };
-
+  const handleClickTrackOrder = () => {
+    router.push(`/track-order/${_id}`);
+  };
   return (
     <Container maxWidth="md">
       <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
@@ -126,15 +121,19 @@ const OrderDetails = ({ order }) => {
             </ListItem>
           ))}
         </List>
-        <Button
-          onClick={makePayment}
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-          }}
-        >
-          PAY NOW TO FINISH ORDER
-        </Button>
+        {paymentStatus == "pending" ? (
+          <Button
+            onClick={makePayment}
+            style={{
+              backgroundColor: "blue",
+              color: "white",
+            }}
+          >
+            PAY NOW TO FINISH ORDER
+          </Button>
+        ) : (
+          <Button onClick={handleClickTrackOrder}>Track Order</Button>
+        )}
       </Paper>
     </Container>
   );

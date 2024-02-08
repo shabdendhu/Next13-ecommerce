@@ -10,6 +10,8 @@ export async function POST(req) {
     const reqBody = await req.json();
     const newOrder = new Order(reqBody);
     const savedOrder = await newOrder.save();
+    //on confirm remove the product from basket
+
     return NextResponse.json({
       data: savedOrder,
       success: true,
