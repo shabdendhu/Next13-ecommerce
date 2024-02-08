@@ -2,7 +2,6 @@
 import { NextResponse } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import Order from "@/models/orderModel";
-import Basket from "@/models/basket";
 connect();
 
 export async function POST(req) {
