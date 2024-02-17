@@ -6,15 +6,16 @@ import ProductCard from "@/components/sections/ProductCard";
 import PageWrapper from "../PageWrapper";
 import { apiGet, apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Checkbox } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import EmptyBasket from "@/components/sections/EmptyBasket";
-import { CheckBox, Route } from "@mui/icons-material";
+import { Route } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
 const BasketProduct = () => {
   const [basketdata, setBasketData] = useState({ items: [] });
+  const [checkoutItems, setCheckoutItems] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
   const basket = useSelector((state) => state.basket);
@@ -35,9 +36,18 @@ const BasketProduct = () => {
     //   paymentStatus: "pending",
     // });
     // if (orderRes.success)
-    router.push(`/checkout`);
+    router.push(`/checkout?checkoutItems=${checkoutItems}`);
   };
-
+  const handleSelectItem = (e, item) => {
+    console.log(e.target.checked);
+    if (!checkoutItems.includes(item.product._id)) {
+      setCheckoutItems((e) => [...e, item?.product?._id]);
+    } else {
+      //remove from checkoutItems from item .product.id
+      setCheckoutItems((e) => e.filter((x) => x != item.product._id));
+    }
+  };
+  console.log(checkoutItems);
   if (basket.items.length === 0) return <EmptyBasket />;
   return (
     <PageWrapper>
@@ -65,7 +75,7 @@ const BasketProduct = () => {
           }}
         >
           {/* create an product map bellow from basketdata */}
-          {basket.items.map((e, i) => (
+          {basket.items.map((item, i) => (
             <Grid item key={i}>
               <div
                 style={{
@@ -74,15 +84,18 @@ const BasketProduct = () => {
                   borderRight: "1px solid gray",
                   width: "fit-content",
                   borderRadius: "4px 4px 0px 0px",
-                  marginLeft: "10px",
+                  marginLeft: "5px",
                 }}
               >
-                <CheckBox />
+                <Checkbox
+                  checked={checkoutItems.includes(item?.product?._id)}
+                  onChange={(e) => handleSelectItem(e, item)}
+                />
               </div>
               <ProductCard
-                key={e?._id}
-                quantity={e?.quantity}
-                data={e?.product}
+                key={item?._id}
+                quantity={item?.quantity}
+                data={item?.product}
                 style={{
                   border: "1px solid #3f0d0d7a",
                 }}
@@ -108,11 +121,21 @@ const BasketProduct = () => {
           {/* calculate total price witout discount and show then discounted amount,then total price then gst then a button to confirm order and checkout */}
           <h1>
             Total Price:{" "}
-            <b>{calculateTotalPriceAndDiscount(basket).totalItemPrice}</b>
+            <b>
+              {
+                calculateTotalPriceAndDiscount(basket.items, checkoutItems)
+                  .totalItemPrice
+              }
+            </b>
           </h1>
           <h1>
             Total Discount:{" "}
-            <b>{calculateTotalPriceAndDiscount(basket).totalDiscountPrice}</b>
+            <b>
+              {
+                calculateTotalPriceAndDiscount(basket.items, checkoutItems)
+                  .totalDiscountPrice
+              }
+            </b>
           </h1>
           <h1>
             Delivery Charge: <b>{deliverycharge}</b>
@@ -121,7 +144,8 @@ const BasketProduct = () => {
             Total Amount:{" "}
             <b>
               {parseInt(
-                calculateTotalPriceAndDiscount(basket).totalDiscountPrice
+                calculateTotalPriceAndDiscount(basket.items, checkoutItems)
+                  .totalDiscountPrice
               ) + deliverycharge}
             </b>
           </h1>

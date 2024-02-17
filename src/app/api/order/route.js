@@ -2,18 +2,78 @@
 import { NextResponse } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import Order from "@/models/orderModel";
+import Product from "@/models/productModel";
+import Basket from "@/models/basketModel";
 connect();
 
 export async function POST(req) {
   try {
     const reqBody = await req.json();
-    const newOrder = new Order(reqBody);
-    const savedOrder = await newOrder.save();
-    //on confirm remove the product from basket
+    const { user, productIds } = reqBody;
+
+    // Step 1: Retrieve the user's basket
+    const userBasket = await Basket.findOne({ user: user }).populate(
+      "items.product"
+    );
+
+    // Step 2: Validate if the user exists and has a basket
+    if (!userBasket) {
+      throw new Error("User basket not found.");
+    }
+
+    // Step 3: Retrieve the products from the productId array
+    const products = await Product.find({ _id: { $in: productIds } });
+
+    // Step 4: Check if each product exists and is available in the user's basket
+    const orderedItems = [];
+    let totalPrice = 0;
+    products.forEach((product) => {
+      const itemInBasket = userBasket.items.find((item) =>
+        item.product._id.equals(product._id)
+      );
+      if (!itemInBasket || itemInBasket.quantity <= 0) {
+        throw new Error(
+          `Product with ID ${product._id} not found in the basket or quantity is zero.`
+        );
+      }
+      orderedItems.push({
+        product: product._id,
+        quantity: itemInBasket.quantity,
+        price: itemInBasket.price,
+      });
+      totalPrice += itemInBasket.price * itemInBasket.quantity;
+    });
+
+    // Step 6: Create an order object
+    const order = new Order({
+      user: user,
+      products: orderedItems,
+      totalAmount: totalPrice,
+      status: "pending", // Assuming the default status is "pending"
+    });
+
+    // Step 7: Save the order to your database
+    await order.save();
+
+    // Step 8: Clear the user's basket
+    // Step 8: Remove the ordered products from the user's basket
+    userBasket.items = userBasket.items.filter((item) => {
+      // Check if the item's product ID is not in the ordered product IDs
+      return !productIds.includes(item.product._id.toString());
+    });
+
+    // Recalculate the total price of the remaining items in the basket
+    userBasket.total = userBasket.items.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+
+    // Save the updated basket
+    await userBasket.save();
 
     return NextResponse.json({
-      data: savedOrder,
+      data: order,
       success: true,
+      message: "Order placed successfully.",
     });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

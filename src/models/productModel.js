@@ -38,6 +38,7 @@ const productSchema = new mongoose.Schema({
   shipping_info: {
     free_shipping: Boolean,
     estimated_delivery: String,
+    shipping_cost: Number,
   },
   related_products: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
   warranty: {

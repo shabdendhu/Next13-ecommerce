@@ -15,6 +15,7 @@ const OrderSummaryComponent = ({
   address,
   onQuantityChange,
   onNextStep,
+  selectedItems,
   basket,
 }) => {
   const handleQuantityChange = (productId, newQuantity) => {
@@ -26,7 +27,10 @@ const OrderSummaryComponent = ({
     // Handle removing product logic
     // Example: removeProductFromOrder(productId);
   };
-
+  const orderdItems = basket.items.filter((e) =>
+    selectedItems.includes(e.product._id)
+  );
+  console.log(orderdItems);
   return (
     <div>
       <Typography variant={"h4"} textAlign={"center"} marginTop={"10px"}>
@@ -40,7 +44,7 @@ const OrderSummaryComponent = ({
           gap: "10px",
         }}
       >
-        {basket.items.map((e) => (
+        {orderdItems.map((e) => (
           // <ListItem key={product.product._id}>
           //   <Avatar
           //     alt={product.product.name}
@@ -78,6 +82,7 @@ const OrderSummaryComponent = ({
             key={e?._id}
             quantity={e?.quantity}
             data={e?.product}
+            disableAddButton={true}
             style={{
               border: "1px solid #3f0d0d7a",
             }}

@@ -17,6 +17,14 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import {
+  Phone,
+  Email,
+  Info,
+  Instagram,
+  Facebook,
+  YouTube,
+} from "@mui/icons-material";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Footer = () => {
@@ -109,88 +117,68 @@ const Footer = () => {
           <span className={styles.text}>Profile</span>
         </button>
       </div>
+
       <div className={styles.footerdetails}>
-        <div style={{ marginRight: "30px", marginLeft: "40px" }}>
-          <ul>
-            <h1>QUICK LINKS</h1>
-            <li>About Us</li>
-            <li>Our Process</li>
-            <li>CSR Activities</li>
-            <li>Recipes</li>
-            <li>Offices</li>
-            <li>Retail Store & Restaurants</li>
-          </ul>
-        </div>
-        <div style={{ marginRight: "80px" }}>
-          <ul>
-            <h1>OUR SERVICES</h1>
-            <li>Bulk Order</li>
-            <li>Careers</li>
-            <li>Contact Us</li>
-          </ul>
-
-          <ul>
-            <h1>VIDEOS</h1>
-            <li>Brand Videos</li>
-            <li>Recipe Vedios</li>
-          </ul>
-        </div>
-        <div style={{ marginRight: "80px" }}>
-          <ul>
-            <h1>OUR POLICES</h1>
-            <li>Cancellation &Refund</li>
-            <li>Shipping</li>
-            <li>Payments</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
-          </ul>
-        </div>
-        <div style={{ marginRight: "80px" }}>
-          <ul>
-            <h1>REACH US</h1>
-            <h2 style={{ fontWeight: "500" }}>
-              EMAIL:
-              <span> tripathy@gmail.com</span>
-            </h2>
-            <h2 style={{ fontWeight: "500" }}>
-              CALL:
-              <span> +91 712-2779451</span>
-            </h2>
-            <h2 style={{ fontWeight: "500" }}>
-              Customer Care Timming:
-              <span> 10:00AM To 6:00PM </span>
-            </h2>
-          </ul>
-          <ul>
-            <h1>PAYMENT SECURED BY</h1>
-            <img
-              src="https://www.haldirams.com/media/wysiwyg/Footer_Image_new_desk.jpg"
-              alt=""
-            />
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <h1>FOLLOW US</h1>
-            <div>
-              <FacebookIcon style={{ color: "blue" }} />
-              <span>FACEBOOK</span>
-            </div>
-
-            <div>
-              <TwitterIcon style={{ color: "blue" }} />
-              <span>TWITTER</span>
-            </div>
-            <div>
-              <InstagramIcon style={{ color: "red" }} />
-              <span>INSTAGRAM</span>
-            </div>
-            <div>
-              <YouTubeIcon style={{ color: "red" }} />
-              <span>YOUTUBE</span>
-            </div>
-          </ul>
-        </div>
+        <a
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          href="tel:+1234567890"
+          aria-label="Call us"
+        >
+          <Phone fontSize="small" style={{ color: "blue" }} /> Call Us
+        </a>
+        <a
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          href="mailto:info@example.com"
+          aria-label="Email us"
+        >
+          <Email fontSize="small" style={{ color: "red" }} /> Email
+        </a>
+        <a
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          href="/about"
+          aria-label="Learn more about us"
+        >
+          <Info fontSize="small" /> About Us
+        </a>
+        <a
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          href="https://www.instagram.com/username"
+          aria-label="Follow us on Instagram"
+        >
+          <Instagram fontSize="small" style={{ color: "#ff00a0" }} /> Instagram
+        </a>
+        <a
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          href="https://www.facebook.com/username"
+          aria-label="Follow us on Facebook"
+        >
+          <Facebook fontSize="small" style={{ color: "blue" }} /> Facebook
+        </a>
+        <a
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+          href="https://www.youtube.com/channel/channelID"
+          aria-label="Subscribe to our Youtube channel"
+        >
+          <YouTube fontSize="small" style={{ color: "red" }} /> Youtube
+        </a>
       </div>
     </div>
   );

@@ -41,7 +41,16 @@ const BannerForm = ({ banner, setBanner, handleSubmit }) => {
             onChange={(e) => handleChange("imageUrl", e.target.value)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
+          <TextField
+            label="pathURL"
+            fullWidth
+            type="url"
+            value={banner.pathURL}
+            onChange={(e) => handleChange("pathURL", e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={6}>
           <Select
             labelId="screenName-label"
             id="targetURL"

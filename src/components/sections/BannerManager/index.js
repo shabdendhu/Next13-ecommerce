@@ -25,6 +25,7 @@ const emptyBanner = {
   imageUrl: "",
   targetURL: "",
   startDate: "",
+  pathURL: "",
   endDate: "",
   isActive: false,
 };
@@ -56,12 +57,12 @@ export default function CategoryManager() {
     setBanners(bannerRes.data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!banner?._id) {
-      const addRes = apiPost("/api/banner", banner);
+      const addRes = await apiPost("/api/banner", banner);
     } else {
-      const editRes = apiPut("/api/banner/" + banner._id, banner);
+      const editRes = await apiPut("/api/banner/" + banner._id, banner);
     }
     setBanner(emptyBanner);
     getAllBanner();

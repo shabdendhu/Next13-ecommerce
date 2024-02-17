@@ -6,7 +6,7 @@ import { LoginContent } from "../OtpLoginModal";
 import PageWrapper from "../PageWrapper";
 import { Button } from "@mui/material";
 import { set } from "mongoose";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { apiPost } from "@/helpers/api";
@@ -19,6 +19,8 @@ const buttontxt = {
 };
 const CheckoutComponent = () => {
   const [step, setStep] = useState(1);
+  const query = useSearchParams();
+  console.log(query.get("checkoutItems"));
   const { data: session } = useSession();
   const router = useRouter();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -63,16 +65,19 @@ const CheckoutComponent = () => {
   const confirmOrder = async () => {
     const orderRes = await apiPost("/api/order", {
       user: session?.user?.id,
-      products: basket.items.map((e) => ({
-        product: e.product._id,
-        quantity: e.quantity,
-        price: e.product.price,
-      })),
-      totalAmount:
-        parseInt(calculateTotalPriceAndDiscount(basket).totalDiscountPrice) +
-        40,
-      status: "pending",
-      paymentStatus: "pending",
+      // product: basket.items.map((e) => ({
+      //   product: e.product._id,
+      //   quantity: e.quantity,
+      //   price: e.product.price,
+      // })),
+      // totalAmount:
+      //   parseInt(
+      //     calculateTotalPriceAndDiscount(basket.items, query.get(checkoutItems))
+      //       .totalDiscountPrice
+      //   ) + 40,
+      // status: "pending",
+      // paymentStatus: "pending",
+      productIds: query.get("checkoutItems").split(","),
     });
 
     if (orderRes.success) {
@@ -89,6 +94,7 @@ const CheckoutComponent = () => {
         <OrderSummaryComponent
           basket={basket}
           address={selectedAddress}
+          selectedItems={query.get("checkoutItems")}
           onQuantityChange={handleQuantityChange}
           onNextStep={handleNextStep}
         />

@@ -6,7 +6,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { apiGet, apiPost } from "@/helpers/api";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -19,6 +19,7 @@ const imageurl = [
 ];
 const Banner = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [banners, setBanners] = useState([]);
   const [index, setIndex] = useState(0);
   const handleChangeIndex = (index) => {
@@ -54,13 +55,14 @@ const Banner = () => {
             onChangeIndex={handleChangeIndex}
           >
             {banners.map((e, i) => (
-              <img
-                style={{
-                  height: "100%",
-                }}
-                key={i}
-                src={e.imageUrl}
-              />
+              <a href={e?.pathURL} key={i}>
+                <img
+                  style={{
+                    height: "100%",
+                  }}
+                  src={e.imageUrl}
+                />
+              </a>
             ))}
           </AutoPlaySwipeableViews>
           <div

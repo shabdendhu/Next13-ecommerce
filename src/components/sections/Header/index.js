@@ -81,7 +81,7 @@ const Header = () => {
           <div className={styles.content}>
             {/* visible above 900px */}
             <div className={styles.logoContainer} onClick={handleClickLogo}>
-              LOGO
+              <img src="logo.png" alt="logo" />
             </div>
 
             <div className={styles.searchBarContainer}>

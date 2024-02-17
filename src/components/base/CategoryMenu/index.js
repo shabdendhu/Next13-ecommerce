@@ -32,25 +32,29 @@ const CategoryMenu = ({ category, icon }) => {
       />
     ));
   };
-
+  console.log(category?.parent_category?._id);
   return (
     <>
-      <div
-        onClick={(e) =>
-          handleClick(e, category?._id, category?.subcategories?.length > 0)
-        }
-        style={{
-          display: "flex",
-          cursor: "pointer",
-        }}
-      >
-        {icon}
-        {category?.subcategories?.length ? (
-          <KeyboardDoubleArrowRightIcon />
-        ) : (
-          <></>
-        )}
-      </div>
+      {!category?.parent_category?._id ? (
+        <div
+          onClick={(e) =>
+            handleClick(e, category?._id, category?.subcategories?.length > 0)
+          }
+          style={{
+            display: "flex",
+            cursor: "pointer",
+          }}
+        >
+          {icon}
+          {category?.subcategories?.length ? (
+            <KeyboardDoubleArrowRightIcon />
+          ) : (
+            <></>
+          )}
+        </div>
+      ) : (
+        <></>
+      )}
 
       {category?.subcategories?.length && !category?.parent_category?._id ? (
         <Menu

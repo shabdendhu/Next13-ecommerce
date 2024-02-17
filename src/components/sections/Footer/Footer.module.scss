@@ -2,8 +2,8 @@
 
 .footercontainer {
   // border: 1px solid black;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  // margin-bottom: 30px;
+  // margin-top: 30px;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -89,9 +89,10 @@
 .footerdetails {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
   @include media.onMdM() {
     display: none;
   }

@@ -15,6 +15,10 @@ const bannerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pathURL: {
+    type: String,
+    required: true,
+  },
   startDate: {
     type: String,
     required: true,

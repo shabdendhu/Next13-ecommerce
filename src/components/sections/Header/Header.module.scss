@@ -28,6 +28,10 @@
         color: #ffffff;
         font-size: 40px;
         font-weight: 600;
+        img {
+          height: 50px;
+          border-radius: 10px;
+        }
         @include media.onMdM() {
           display: none;
         }
