@@ -84,7 +84,7 @@ const OrderDetails = ({ order }) => {
     router.push(`/track-order/${_id}`);
   };
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" style={{ minHeight: "100vh" }}>
       <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
         <Typography variant="h5" gutterBottom>
           Order Details
@@ -111,9 +111,9 @@ const OrderDetails = ({ order }) => {
         <List>
           {products.map((item) => (
             <ListItem key={item._id}>
-              <ListItemAvatar>
+              {/* <ListItemAvatar>
                 <Avatar alt={item.product.name} src={item.product.images[0]} />
-              </ListItemAvatar>
+              </ListItemAvatar> */}
               <ListItemText
                 primary={item.product.name}
                 secondary={`Quantity: ${item.quantity}, Price: $${item.price}`}
