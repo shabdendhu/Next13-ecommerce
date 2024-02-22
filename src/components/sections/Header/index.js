@@ -161,7 +161,11 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <QuickCategory category={category} />
+      {window.location.pathname != "/category" ? (
+        <QuickCategory category={category} />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

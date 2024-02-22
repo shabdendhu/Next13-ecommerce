@@ -33,7 +33,11 @@
           border-radius: 10px;
         }
         @include media.onMdM() {
-          display: none;
+          // display: none;
+          img {
+            height: 30px;
+            border-radius: 5px;
+          }
         }
       }
       .searchBarContainer {

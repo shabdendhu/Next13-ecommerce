@@ -11,7 +11,9 @@ const Home = () => {
       style={{
         // height: "1000px",
         // border: "10px solid blue"
+
         background: "#ffffff",
+        minHeight: "100vh",
       }}
     >
       <div
