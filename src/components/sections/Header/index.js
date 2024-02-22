@@ -4,7 +4,7 @@ import styles from "./Header.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import CategoryMenu from "@/components/base/CategoryMenu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useScrollDirection from "@/hooks/useScrollDirection";
@@ -17,6 +17,7 @@ import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import { openOtpModal } from "@/redux/auth/auth";
 const Header = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const basketCount = useSelector((state) => state.basket);
   const dispatch = useDispatch();
   const scrollDirection = useScrollDirection();
@@ -161,11 +162,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      {window.location.pathname != "/category" ? (
-        <QuickCategory category={category} />
-      ) : (
-        <></>
-      )}
+      {pathname != "/category" ? <QuickCategory category={category} /> : <></>}
     </>
   );
 };
