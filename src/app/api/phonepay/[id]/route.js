@@ -49,11 +49,11 @@ export async function POST(req, { params }) {
         }
       );
       console.log(updatedOrder, "updatedOrder");
-      return NextResponse.redirect("http://localhost:3000/payment/success", {
+      return NextResponse.redirect(process.env.base_url + "/payment/success", {
         status: 301,
       });
     } else
-      return NextResponse.redirect("http://localhost:3000/payment/failure", {
+      return NextResponse.redirect(process.env.base_url + "/payment/failure", {
         // a 301 status is required to redirect from a POST to a GET route
         status: 301,
       });
