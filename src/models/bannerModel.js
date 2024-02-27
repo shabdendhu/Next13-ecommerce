@@ -38,6 +38,8 @@ const bannerSchema = new mongoose.Schema({
 });
 
 // Create the Banner model
-const Banner = mongoose.models.banner || mongoose.model("banner", bannerSchema);
+const Banner = mongoose.model("banner", bannerSchema, "banners", {
+  overwriteModels: true,
+});
 
 module.exports = Banner;

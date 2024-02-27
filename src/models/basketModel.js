@@ -36,6 +36,8 @@ const basketSchema = new mongoose.Schema({
 });
 // post add to basket
 // remove from basket
-const Basket = mongoose.models.basket || mongoose.model("basket", basketSchema);
+const Basket = mongoose.model("basket", basketSchema, "baskets", {
+  overwriteModels: true,
+});
 
 module.exports = Basket;

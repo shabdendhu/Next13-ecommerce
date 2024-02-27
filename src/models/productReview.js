@@ -22,8 +22,11 @@ const productReviewSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now },
 });
 
-const ProductReview =
-  mongoose.models.productreview ||
-  mongoose.model("productreview", productReviewSchema);
+const ProductReview = mongoose.model(
+  "productreview",
+  productReviewSchema,
+  "productreviews",
+  { overwriteModels: true }
+);
 
 export default ProductReview;

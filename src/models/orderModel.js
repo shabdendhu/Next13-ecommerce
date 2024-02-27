@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "products",
+        ref: "product",
         required: true,
       },
       quantity: {
@@ -59,6 +59,16 @@ const orderSchema = new mongoose.Schema({
   },
   transactionId: String,
   paidAmount: String,
+  //add expected delivery date 5days from today
+  expectedDeliveryDate: {
+    type: Date,
+    default: function () {
+      // Calculate expected delivery date 5 days from today
+      const deliveryDate = new Date();
+      deliveryDate.setDate(deliveryDate.getDate() + 5);
+      return deliveryDate;
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -68,7 +78,11 @@ const orderSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+console.log(mongoose.models);
 
-const Order = mongoose.models.order || mongoose.model("order", orderSchema);
+const Order = mongoose.model("order", orderSchema, "orders", {
+  overwriteModels: true,
+});
+console.log(mongoose.models);
 
 module.exports = Order;

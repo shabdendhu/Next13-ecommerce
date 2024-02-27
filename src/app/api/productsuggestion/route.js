@@ -2,11 +2,8 @@ import { NextResponse, NextRequest } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import ProductSuggestion from "@/models/productSuggestionModel";
 import Product from "@/models/productModel";
-import mongoose from "mongoose";
 
 connect();
-const MONGODB_URI = process.env.MONGODB_URI;
-var db1 = mongoose.createConnection(MONGODB_URI);
 
 export async function POST(request) {
   try {

@@ -7,9 +7,14 @@ const productSuggestion = new mongoose.Schema({
   name: String,
 });
 
-module.exports =
-  mongoose.models.productsuggestion ||
-  mongoose.model("productsuggestion", productSuggestion);
+module.exports = mongoose.model(
+  "productsuggestion",
+  productSuggestion,
+  "productsuggestions",
+  {
+    overwriteModels: true,
+  }
+);
 
 //   crud api in BE of this model
 // sugg.... manager page

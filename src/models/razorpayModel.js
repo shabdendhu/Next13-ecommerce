@@ -17,6 +17,9 @@ const paymentSchema = new mongoose.Schema({
 });
 
 const Banner =
-  mongoose.models.payment || mongoose.model("payment", paymentSchema);
+  mongoose.models.payment ||
+  mongoose.model("payment", paymentSchema, "payment", {
+    overwriteModels: true,
+  });
 
 module.exports = Banner;

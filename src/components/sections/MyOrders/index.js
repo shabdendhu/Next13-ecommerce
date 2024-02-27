@@ -27,7 +27,8 @@ const MyOrders = () => {
     <div className={styles.orderComponent}>
       {orders?.map((order) => (
         <div className={styles.orderContainer} key={order._id}>
-          <div className={styles.orderStatus}>{order.status}</div>
+          {/* <div className={styles.orderStatus}>OrderStatus: {order.status}</div> */}
+
           <div className={styles.orders}>
             {order.products.map((item) => (
               <ProductCard
@@ -39,7 +40,21 @@ const MyOrders = () => {
               />
             ))}
           </div>
-          {order.status !== "Delivered" && (
+          <div style={{ display: "flex" }}>
+            <b>PaymentStatus: </b>
+            <p style={{ textTransform: "uppercase" }}> {order.paymentStatus}</p>
+          </div>
+          <div style={{ display: "flex" }}>
+            <b>OrderStatus: </b>
+            <p style={{ textTransform: "uppercase" }}> {order.status}</p>
+          </div>
+          <div style={{ display: "flex" }}>
+            <b>Expected Delivery: </b>
+            <p style={{ textTransform: "uppercase" }}>
+              {formatDate(order.expectedDeliveryDate)}
+            </p>
+          </div>
+          {order.status == "Delivered" && (
             <ReviewManagement orderId={order._id} />
           )}
         </div>
@@ -49,3 +64,9 @@ const MyOrders = () => {
 };
 
 export default MyOrders;
+
+function formatDate(date) {
+  const d = new Date(date);
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  return d.toLocaleDateString("en-US", options);
+}

@@ -25,6 +25,7 @@
     .orders {
       display: flex;
       flex-direction: row;
+      overflow: auto;
       .product {
         box-shadow: none !important;
         border: 1px solid green;

@@ -40,13 +40,14 @@ const productSchema = new mongoose.Schema({
     estimated_delivery: String,
     shipping_cost: Number,
   },
-  related_products: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
+  related_products: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
   warranty: {
     type: String,
     duration: Number,
     details: String,
   },
 });
-
-module.exports =
-  mongoose.models.product || mongoose.model("product", productSchema);
+module.exports = mongoose.model("product", productSchema, "products", {
+  overwriteModels: true,
+});
+console.log(mongoose.models);
