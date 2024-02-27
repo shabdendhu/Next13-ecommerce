@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import styles from "./profilehubmenu.module.scss";
-import { Avatar, Divider } from "@mui/material";
+import { Avatar, Divider, Skeleton } from "@mui/material";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
@@ -41,13 +41,27 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
     <div className={styles.component}>
       <div className={styles.profileContainer}>
         <div className={styles.uderDetailContainer}>
-          <Avatar
-            alt="Remy Sharp"
-            src={userDetails?.profile?.avatar}
-            sx={{ width: 70, height: 70 }}
-          />
+          {!userDetails?.profile?.avatar ? (
+            <Skeleton
+              variant="circular"
+              width={70}
+              height={70}
+              animation="wave"
+              style={{ backgroundColor: "gray" }}
+            />
+          ) : (
+            <Avatar
+              alt="Remy Sharp"
+              src={userDetails?.profile?.avatar}
+              sx={{ width: 70, height: 70 }}
+            />
+          )}
           <div className={styles.userDetails}>
-            <p>{session?.user?.name}</p>
+            {session?.user?.name ? (
+              <p>{session?.user?.name}</p>
+            ) : (
+              <Skeleton variant="text" />
+            )}
             <p>{session?.user?.email}</p>
             <p>{session?.user?.phone}</p>
           </div>

@@ -7,6 +7,7 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import { apiGet, apiPost } from "@/helpers/api";
 import { usePathname, useRouter } from "next/navigation";
+import { Skeleton } from "@mui/material";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -17,19 +18,25 @@ const imageurl = [
   "https://www.haldirams.com/media/wysiwyg/haldirams_navratri_banner.png",
   "https://www.haldirams.com/media/wysiwyg/HDFC-Banner_1_1_1_.jpg",
 ];
+
 const Banner = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
+
   const handleChangeIndex = (index) => {
     setIndex(index);
   };
+
   const getBanners = async () => {
+    setLoading(true);
     const bannersRes = await apiPost("/api/banner/banner-by-query", {
       targetURL: pathname,
     });
     setBanners(bannersRes?.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -37,13 +44,15 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className={styles.component}>
-      {banners.length ? (
-        <>
+    <>
+      {loading ? (
+        <Skeleton className={styles.loading} />
+      ) : (
+        <div className={styles.component}>
           <div
             className={styles.laftArrowContainer}
             onClick={() => {
-              if (index != 0) handleChangeIndex(index - 1);
+              if (index !== 0) handleChangeIndex(index - 1);
             }}
           >
             <ArrowBackIosNewOutlinedIcon
@@ -67,7 +76,7 @@ const Banner = () => {
           </AutoPlaySwipeableViews>
           <div
             onClick={() => {
-              if (index != banners.length - 1) handleChangeIndex(index + 1);
+              if (index !== banners.length - 1) handleChangeIndex(index + 1);
             }}
             className={styles.rightArrowContainer}
           >
@@ -75,11 +84,9 @@ const Banner = () => {
               style={{ color: "#208b16", fontSize: 35 }}
             />
           </div>
-        </>
-      ) : (
-        <></>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

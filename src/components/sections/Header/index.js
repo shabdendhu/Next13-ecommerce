@@ -9,7 +9,7 @@ import CategoryMenu from "@/components/base/CategoryMenu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useScrollDirection from "@/hooks/useScrollDirection";
 import { apiGet, apiPost } from "@/helpers/api";
-import { Divider } from "@mui/material";
+import { Divider, Skeleton } from "@mui/material";
 import QuickCategory from "../QuickCategory";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
@@ -82,7 +82,7 @@ const Header = () => {
           <div className={styles.content}>
             {/* visible above 900px */}
             <div className={styles.logoContainer} onClick={handleClickLogo}>
-              <img src="logo.png" alt="logo" />
+              <img src="https://www.acharpapad.in/logo.png" alt="logo" />
             </div>
 
             <div className={styles.searchBarContainer}>
@@ -152,6 +152,24 @@ const Header = () => {
         {/* visible above 900px */}
         <div className={styles.navBar}>
           <div className={styles.navContent}>
+            {!category.length ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  width: "100%",
+                }}
+              >
+                {Array(5)
+                  .fill("")
+                  .map((e, i) => (
+                    <Skeleton key={i} variant="text" width={80} height={30} />
+                  ))}
+              </div>
+            ) : (
+              <></>
+            )}
             {category.map((category) => (
               <CategoryMenu
                 key={category._id}

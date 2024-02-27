@@ -100,3 +100,8 @@
     margin: 0;
   }
 }
+.removeFromMobile {
+  @include media.onMdM() {
+    display: none;
+  }
+}

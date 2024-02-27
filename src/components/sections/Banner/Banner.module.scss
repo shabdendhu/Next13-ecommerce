@@ -1,5 +1,12 @@
 @use "../../../styles//media.scss";
 
+.loading {
+  min-height: 300px;
+  @include media.onMdM() {
+    min-height: 120px;
+    border-radius: 10px;
+  }
+}
 .component {
   // border: 1px solid red;
   // min-height: 400px;

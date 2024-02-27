@@ -48,7 +48,7 @@ export const LoginContent = ({ dispatch }) => {
     >
       <h2 className="text-center text-2xl  mb-4">LOGIN / SIGNUP</h2>
 
-      {timer > 0 ? (
+      {/* {timer > 0 ? (
         <div
           style={{
             display: "flex",
@@ -117,7 +117,7 @@ export const LoginContent = ({ dispatch }) => {
         }}
       >
         OR
-      </h1>
+      </h1> */}
       <button
         style={{
           backgroundColor: "white",

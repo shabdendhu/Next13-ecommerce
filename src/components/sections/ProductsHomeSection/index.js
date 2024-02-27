@@ -7,6 +7,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import cx from "classnames";
 import { apiGet } from "@/helpers/api";
 import { useRouter, usePathname } from "next/navigation";
+import { Skeleton } from "@mui/material";
 
 export const ProductsHomeSection = ({
   headerText = "HEADER",
@@ -72,7 +73,93 @@ const MultipleProductsHomeSection = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ zIndex: -1 }}>
+      {sections.length == 0 &&
+        Array(3)
+          .fill(0)
+          .map((e, i) => (
+            <div
+              key={i}
+              style={{
+                background: "#0000001c",
+                // height: "00px",
+                width: "100%",
+                maxWidth: "100vw",
+                marginBottom: "20px",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                padding: "10px",
+                position: "relative",
+                zIndex: "1",
+                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
+                overflow: "hidden",
+                transition: "all 0.3s ease-in-out",
+                transform: "scale(1)",
+                transformOrigin: "top left",
+              }}
+            >
+              {Array(5)
+                .fill("")
+                .map((e, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Skeleton
+                      key={i}
+                      variant="rectangular"
+                      width={150}
+                      height={150}
+                      style={{
+                        margin: "10px",
+                        borderRadius: "10px",
+                      }}
+                    />
+                    <Skeleton
+                      variant="text"
+                      width={150}
+                      style={{ zIndex: -1 }}
+                    />
+                    <div
+                      style={{
+                        width: "150px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <Skeleton
+                          variant="text"
+                          width={80}
+                          style={{ zIndex: -1 }}
+                        />
+                        <Skeleton
+                          variant="text"
+                          width={80}
+                          style={{ zIndex: -1 }}
+                        />
+                      </div>
+                      <Skeleton
+                        variant="rectangular"
+                        width={80}
+                        height={40}
+                        style={{
+                          marginLeft: "10px",
+                          zIndex: -1,
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ))}
       {sections.map((e, i) => (
         <ProductsHomeSection
           key={e?._id}
