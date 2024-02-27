@@ -29,6 +29,7 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
+    z-index: 99;
     align-items: center;
     .footerMenu {
       display: flex;
