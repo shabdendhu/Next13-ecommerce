@@ -11,30 +11,30 @@ import { NextRequest, NextResponse } from "next/server";
 
 const handler = NextAuth({
   providers: [
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email", placeholder: "" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials: any, req: any) {
-        connect();
-        const { email, password } = credentials;
-        //check if user exists
-        const user = await User.findOne({ email });
-        if (!user) {
-          throw new Error(`This user does not exist.`);
-        }
+    // CredentialsProvider({
+    //   name: "credentials",
+    //   credentials: {
+    //     email: { label: "Email", type: "email", placeholder: "" },
+    //     password: { label: "Password", type: "password" },
+    //   },
+    //   async authorize(credentials: any, req: any) {
+    //     connect();
+    //     const { email, password } = credentials;
+    //     //check if user exists
+    //     const user = await User.findOne({ email });
+    //     if (!user) {
+    //       throw new Error(`This user does not exist.`);
+    //     }
 
-        //check if password is correct
-        const validPassword = await bcryptjs.compare(password, user.password);
-        if (!validPassword) {
-          throw new Error("Wrong credentials. Try again.");
-        }
-        user.id = JSON.stringify(user._id);
-        return user;
-      },
-    }),
+    //     //check if password is correct
+    //     const validPassword = await bcryptjs.compare(password, user.password);
+    //     if (!validPassword) {
+    //       throw new Error("Wrong credentials. Try again.");
+    //     }
+    //     user.id = JSON.stringify(user._id);
+    //     return user;
+    //   },
+    // }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",

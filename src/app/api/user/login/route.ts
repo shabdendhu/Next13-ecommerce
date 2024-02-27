@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { connect } from "@/dbConfig/connection";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
