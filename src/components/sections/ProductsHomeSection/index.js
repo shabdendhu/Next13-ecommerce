@@ -57,12 +57,15 @@ export const ProductsHomeSection = ({
 
 const MultipleProductsHomeSection = () => {
   const [sections, setSection] = useState([]);
+  const [loading, setLoading] = useState(false);
   const pathname = usePathname();
   const getAllSections = async () => {
     try {
+      setLoading(true);
       const sections = await apiGet(
         "/api/productsuggestion?screenName=" + pathname
       );
+      if (sections.success) setLoading(false);
       setSection(sections.data);
     } catch (error) {
       console.error(error);
@@ -74,7 +77,7 @@ const MultipleProductsHomeSection = () => {
 
   return (
     <div style={{ zIndex: -1 }}>
-      {sections.length == 0 &&
+      {loading &&
         Array(3)
           .fill(0)
           .map((e, i) => (
