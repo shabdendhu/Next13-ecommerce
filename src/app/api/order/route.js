@@ -4,6 +4,8 @@ import { connect } from "@/dbConfig/connection";
 import Order from "@/models/orderModel";
 import Product from "@/models/productModel";
 import Basket from "@/models/basketModel";
+import mongoose from "mongoose";
+import User from "@/models/userModel";
 connect();
 
 export async function POST(req) {
@@ -80,19 +82,116 @@ export async function POST(req) {
   }
 }
 
+// export async function GET(req) {
+//   try {
+//     const searchParams = req.nextUrl.searchParams;
+//     const userId = searchParams.get("user");
+
+//     if (!userId) {
+//       // Fetch all products if user is not available
+//       const allOrders = await Order.find({}).populate({
+//         path: "user",
+//         select: "email",
+//       });
+//       return NextResponse.json({
+//         data: allOrders,
+//         success: true,
+//       });
+//     }
+
+//     // Check if the user ID is valid
+//     if (!mongoose.Types.ObjectId.isValid(userId)) {
+//       return NextResponse.json(
+//         { error: "Invalid user ID", success: false },
+//         { status: 400 }
+//       );
+//     }
+
+//     // Check if the user exists
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return NextResponse.json(
+//         { error: "User not found", success: false },
+//         { status: 404 }
+//       );
+//     }
+
+//     // Fetch orders for the given user
+//     const orders = await Order.find({ user: userId }).populate(
+//       "products.product"
+//     );
+//     return NextResponse.json({
+//       data: orders,
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.error(error); // Log the error for debugging purposes
+//     return NextResponse.json({ error: error.message }, { status: 500 });
+//   }
+// }
 export async function GET(req) {
   try {
     const searchParams = req.nextUrl.searchParams;
     const userId = searchParams.get("user");
-    // const products = await Product.findOne({}); // Populate the reviews
-    const orders = await Order.find({ user: userId }).populate(
-      "products.product"
-    );
+    const page = parseInt(searchParams.get("page")) || 1; // Default to page 1 if not provided
+    const limit = parseInt(searchParams.get("limit")) || 10; // Default to limit 10 if not provided
+
+    if (!userId) {
+      // Fetch all orders if user is not available
+      const totalCount = await Order.countDocuments({});
+      const totalPages = Math.ceil(totalCount / limit);
+
+      const allOrders = await Order.find({})
+        .populate({
+          path: "user",
+          select: "email",
+        })
+        .skip((page - 1) * limit) // Skip documents based on pagination
+        .limit(limit); // Limit number of documents per page
+
+      return NextResponse.json({
+        data: allOrders,
+        success: true,
+        totalPages: totalPages,
+        page,
+        limit,
+      });
+    }
+
+    // Check if the user ID is valid
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return NextResponse.json(
+        { error: "Invalid user ID", success: false },
+        { status: 400 }
+      );
+    }
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found", success: false },
+        { status: 404 }
+      );
+    }
+
+    // Fetch orders for the given user with pagination
+    const totalCount = await Order.countDocuments({ user: userId });
+    const totalPages = Math.ceil(totalCount / limit);
+    const orders = await Order.find({ user: userId })
+      .populate("products.product")
+      .skip((page - 1) * limit) // Skip documents based on pagination
+      .limit(limit); // Limit number of documents per page
+
     return NextResponse.json({
       data: orders,
       success: true,
+      totalPages: totalPages,
+      page,
+      limit,
     });
   } catch (error) {
+    console.error(error); // Log the error for debugging purposes
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

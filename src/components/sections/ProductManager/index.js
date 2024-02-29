@@ -67,12 +67,12 @@ export default function ProductManager() {
     setProducts(productRes.data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (product._id) {
-      const updateRes = apiPut("/api/products/" + product._id, product);
+      const updateRes = await apiPut("/api/products/" + product._id, product);
     } else {
-      const addRes = apiPost("/api/products", product);
+      const addRes = await apiPost("/api/products", product);
     }
     setProduct(emptyProduct);
     getAllProduct();

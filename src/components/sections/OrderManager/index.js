@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,97 +8,126 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase } from "@mui/material";
+import {
+  Button,
+  ButtonBase,
+  Pagination,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import CategoryForm from "@/components/forms/CategoryForms";
 import OrderForm from "../../forms/OrderForms";
 import useWindowSize from "@/hooks/useWindowSize";
+import { apiGet, apiPut } from "@/helpers/api";
+import CopyButton from "@/components/base/CopyButton";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = { day: "2-digit", month: "short", year: "2-digit" };
+  return date.toLocaleDateString("en-US", options);
+};
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-const sampleOrders = [
-  {
-    _id: "1",
-    user: "user123",
-    totalAmount: 50.99,
-    status: "shipped",
-    paymentMethod: "credit_card",
-    paymentStatus: "completed",
-    createdAt: "2023-01-01T08:00:00Z",
-    updatedAt: "2023-01-02T10:30:00Z",
-  },
-  {
-    _id: "2",
-    user: "user456",
-    totalAmount: 35.5,
-    status: "delivered",
-    paymentMethod: "paypal",
-    paymentStatus: "completed",
-    createdAt: "2023-02-05T15:45:00Z",
-    updatedAt: "2023-02-07T09:20:00Z",
-  },
-  {
-    _id: "3",
-    user: "user789",
-    totalAmount: 75.25,
-    status: "processing",
-    paymentMethod: "cash_on_delivery",
-    paymentStatus: "pending",
-    createdAt: "2023-03-10T12:10:00Z",
-    updatedAt: "2023-03-11T14:55:00Z",
-  },
-  {
-    _id: "4",
-    user: "user101",
-    totalAmount: 20.75,
-    status: "pending",
-    paymentMethod: "credit_card",
-    paymentStatus: "pending",
-    createdAt: "2023-04-20T18:30:00Z",
-    updatedAt: "2023-04-21T09:45:00Z",
-  },
-];
+const DatePickerCell = ({ date, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(dayjs(date));
+
+  const handleDateChange = (newDate) => {
+    setSelectedDate(dayjs(newDate));
+  };
+
+  const handleOpenDialog = () => {
+    setOpen(true);
+    console.log(open);
+  };
+
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
+
+  const handleConfirmChange = () => {
+    onChange(selectedDate);
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <TableCell align="left" onClick={handleOpenDialog}>
+        {formatDate(selectedDate)}
+      </TableCell>
+      <Dialog open={open} onClose={handleCloseDialog}>
+        <DialogTitle>Select New Date</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please select a new expected delivery date:
+          </DialogContentText>
+          {/* <DatePicker
+            value={selectedDate}
+            onChange={handleDateChange}
+            renderInput={(params) => <TextField {...params} />}
+          /> */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              value={selectedDate}
+              defaultValue={date}
+              onChange={handleDateChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmChange} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
 export default function OrderManager() {
   const [open, setOpen] = React.useState(false);
-  const [orders, setOrders] = React.useState(sampleOrders);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
+  const [orders, setOrders] = React.useState([]);
   const size = useWindowSize();
   const handleCloseModal = () => {
     setOpen(false);
     // setProduct(emptyProduct);
+  };
+
+  //fetch all order from http://localhost:3000/api/order
+  const fetchOrders = async () => {
+    const res = await apiGet(`/api/order?page=${page}&limit=${10}`);
+    console.log(res);
+    setOrders(res.data);
+    setTotalPages(res.totalPages);
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, [page]);
+  const handlePageChange = (e, newPage) => {
+    console.log(newPage);
+    setPage(newPage);
+  };
+  const handleExpectedDateChange = async (e, id) => {
+    const changeRes = await apiPut("/api/order/change-delivery-date", {
+      newDeliveryDate: dayjs(e).format("YYYY-MM-DD"),
+      id,
+    });
+    if (changeRes.success) {
+      console.log("success");
+    }
   };
   return (
     <div
@@ -118,6 +147,7 @@ export default function OrderManager() {
           alignItems: "center",
           justifyContent: "space-between",
           borderRadius: 5,
+          maxWidth: "90vw",
         }}
       >
         <h1
@@ -152,19 +182,27 @@ export default function OrderManager() {
           <OrderForm />
         </TransitionsModal>
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+      <TableContainer
+        component={Paper}
+        sx={{ maxHeight: "60vh", maxWidth: "90vw" }}
+      >
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
-              <TableCell>Order ID</TableCell>
-              <TableCell align="right">User</TableCell>
-              <TableCell align="right">Total Amount</TableCell>
-              <TableCell align="right">Status</TableCell>
-              <TableCell align="right">Payment Method</TableCell>
-              <TableCell align="right">Payment Status</TableCell>
-              <TableCell align="right">Created At</TableCell>
-              <TableCell align="right">Updated At</TableCell>
-              <TableCell align="right">Action</TableCell>
+              <TableCell>Order Id</TableCell>
+              <TableCell align="left">User</TableCell>
+              <TableCell align="left">Total Amount</TableCell>
+              <TableCell align="left">Processing Status</TableCell>
+              <TableCell align="left">Payment Method</TableCell>
+              <TableCell align="left">Payment Status</TableCell>
+              <TableCell align="left">Created At</TableCell>
+              <TableCell align="left">Expected Delivery Date</TableCell>
+              <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -173,20 +211,31 @@ export default function OrderManager() {
                 key={order._id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
-                  cursor: "pointer",
+                  // cursor: "pointer",
+                  height: "20px",
                 }}
               >
-                <TableCell component="th" scope="row">
-                  {order._id}
+                <TableCell size="small">
+                  <CopyButton textToCopy={order._id} />
                 </TableCell>
-                <TableCell align="right">{order.user}</TableCell>
-                <TableCell align="right">{order.totalAmount}</TableCell>
-                <TableCell align="right">{order.status}</TableCell>
-                <TableCell align="right">{order.paymentMethod}</TableCell>
-                <TableCell align="right">{order.paymentStatus}</TableCell>
-                <TableCell align="right">{order.createdAt}</TableCell>
-                <TableCell align="right">{order.updatedAt}</TableCell>
-                <TableCell align="right">
+                <TableCell size="small" align="left">
+                  {order.user.email}
+                </TableCell>
+                <TableCell align="left">
+                  ₹{Math.round(order.totalAmount)}
+                </TableCell>
+                <TableCell align="left">{order.status}</TableCell>
+                <TableCell align="left">{order.paymentMethod}</TableCell>
+                <TableCell align="left">{order.paymentStatus}</TableCell>
+                <TableCell align="left">
+                  {formatDate(order.createdAt)}
+                </TableCell>
+                <DatePickerCell
+                  date={order.expectedDeliveryDate}
+                  onChange={(e) => handleExpectedDateChange(e, order._id)}
+                />
+
+                <TableCell align="left">
                   <ButtonBase
                     style={{
                       marginRight: 10,
@@ -211,6 +260,16 @@ export default function OrderManager() {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+        />
+      </div>
     </div>
   );
 }
