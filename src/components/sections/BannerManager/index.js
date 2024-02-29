@@ -42,8 +42,8 @@ export default function CategoryManager() {
     setBanner(getBannerById.data);
   };
 
-  const handleDelete = (id) => {
-    const deleteRes = apiDelete("/api/banner", id);
+  const handleDelete = async (id) => {
+    const deleteRes = await apiDelete("/api/banner", id);
     getAllBanner();
   };
 

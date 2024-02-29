@@ -8,15 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase } from "@mui/material";
+import { Button, ButtonBase, Pagination } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import ProductForm from "@/components/forms/ProductForms";
 import useWindowSize from "@/hooks/useWindowSize";
+import ImageGallery from "@/components/sections/ImageGallary";
 import { apiGet, apiPost, apiGetById, apiPut } from "@/helpers/api";
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
 
 const emptyProduct = {
   name: "",
@@ -50,11 +48,14 @@ const emptyProduct = {
   },
   related_products: [],
 };
+
 export default function ProductManager() {
   const size = useWindowSize();
   const [product, setProduct] = useState(emptyProduct);
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const handleViewProduct = async (id) => {
     setOpen(true);
@@ -63,8 +64,9 @@ export default function ProductManager() {
   };
 
   const getAllProduct = async () => {
-    const productRes = await apiGet("/api/products");
+    const productRes = await apiGet(`/api/products?page=${page}&limit=10`);
     setProducts(productRes.data);
+    setTotalPages(productRes.totalPages);
   };
 
   const handleSubmit = async (e) => {
@@ -78,30 +80,29 @@ export default function ProductManager() {
     getAllProduct();
     handleCloseModal();
   };
-  const handleDelete = (id) => {
-    const deleteRes = apiDelete("/api/products", id);
+
+  const handleDelete = async (id) => {
+    const deleteRes = await apiDelete("/api/products", id);
     getAllProduct();
   };
+
   const handleCloseModal = () => {
     setOpen(false);
     setProduct(emptyProduct);
   };
+
   useEffect(() => {
     getAllProduct();
-  }, []);
+  }, [page]);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
-    <div
-      style={{
-        // maxHeight: "50vh",
-        // border: "1px solid red",
-        width: "100%",
-      }}
-    >
+    <div style={{ width: "100%" }}>
       <div
         style={{
-          // position: "sticky",
-          // top: 90,
           padding: "10px",
           border: "1px solid blue",
           display: "flex",
@@ -110,28 +111,14 @@ export default function ProductManager() {
           borderRadius: 5,
         }}
       >
-        <h1
-          style={{
-            fontSize: "20px",
-            fontWeight: 600,
-          }}
-        >
-          PRODUCT MANAGER
-        </h1>
+        <h1 style={{ fontSize: "20px", fontWeight: 600 }}>PRODUCT MANAGER</h1>
         <TransitionsModal
           formName={(product?._id ? "Edit" : "Add") + " Product"}
           handleClose={handleCloseModal}
           openButton={
             <Button
               onClick={() => setOpen(!open)}
-              style={{
-                backgroundColor: "blue",
-                color: "white",
-
-                //   position: "relative",
-                //   float: "right",
-                //   zIndex: 9999,
-              }}
+              style={{ backgroundColor: "blue", color: "white" }}
             >
               ADD
             </Button>
@@ -148,12 +135,7 @@ export default function ProductManager() {
       </div>
       <TableContainer
         component={Paper}
-        sx={{
-          width: "100%",
-          maxHeight: size.height - 200,
-          maxWeight: size.width - 200,
-          // border: '1px solid red',
-        }}
+        sx={{ width: "100%", maxHeight: size.height - 200 }}
       >
         <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
           <TableHead>
@@ -205,14 +187,15 @@ export default function ProductManager() {
                 <TableCell align="right">{row.stock_quantity}</TableCell>
                 {/* Display images */}
                 <TableCell align="right">
-                  {row.images.map((image, index) => (
+                  {/* {row.images.map((image, index) => (
                     <img
                       key={index}
                       src={image}
                       alt={`Image ${index}`}
                       style={{ width: "50px", height: "auto" }}
                     />
-                  ))}
+                  ))} */}
+                  <ImageGallery images={row.images} />
                 </TableCell>
                 {/* Display attributes */}
                 {/* <TableCell align="right">
@@ -286,6 +269,16 @@ export default function ProductManager() {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+        />
+      </div>
     </div>
   );
 }

@@ -22,10 +22,23 @@ export async function POST(request) {
 
 export async function GET(req, res) {
   try {
-    const products = await Product.find(); // Populate the reviews
+    const searchParams = req.nextUrl.searchParams;
+    const page = parseInt(searchParams.get("page")) || 1; // Default to page 1 if not provided
+    const limit = parseInt(searchParams.get("limit")) || 10; // Default to limit 10 if not provided
+
+    const totalCount = await Product.countDocuments({});
+    const totalPages = Math.ceil(totalCount / limit);
+
+    const products = await Product.find({})
+      .skip((page - 1) * limit) // Skip documents based on pagination
+      .limit(limit); // Limit number of documents per page
+
     return NextResponse.json({
       data: products,
       success: true,
+      totalPages: totalPages,
+      page,
+      limit,
     });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
