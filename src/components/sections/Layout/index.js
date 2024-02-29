@@ -31,16 +31,25 @@ import Badge from "@mui/material/Badge";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useRouter } from "next/navigation";
-
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import CategoryIcon from "@mui/icons-material/Category";
+import FilterFramesIcon from "@mui/icons-material/FilterFrames";
+import PersonIcon from "@mui/icons-material/Person";
+import ChecklistIcon from "@mui/icons-material/Checklist";
+import SignpostIcon from "@mui/icons-material/Signpost";
 const drawerWidth = 240;
 const menuData = [
-  { name: "Product Manager", url: "product-manager" },
-  // { name: "Users", url: "users" },
-  { name: "Category Manager", url: "category-manager" },
-  { name: "Order Manager", url: "order-manager" },
-  { name: "User Manager", url: "user-manager" },
-  { name: "ProductSuggestion Manager", url: "product-suggestion-manager" },
-  { name: "Banner Manager", url: "banner-manager" },
+  { name: "Product Manager", url: "product-manager", icon: <FastfoodIcon /> },
+  // { name: "Users", url: "users" icon:<},
+  { name: "Category Manager", url: "category-manager", icon: <CategoryIcon /> },
+  { name: "Order Manager", url: "order-manager", icon: <FilterFramesIcon /> },
+  { name: "User Manager", url: "user-manager", icon: <PersonIcon /> },
+  {
+    name: "Suggestion Manager",
+    url: "product-suggestion-manager",
+    icon: <ChecklistIcon />,
+  },
+  { name: "Banner Manager", url: "banner-manager", icon: <SignpostIcon /> },
 ];
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -349,11 +358,16 @@ export default function MiniDrawer({ children }) {
       {renderMenu}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader style={{ backgroundColor: "#6b6bdb", color: "white" }}>
-          <h3
-            style={{ marginRight: "50px", fontWeight: 400, fontSize: "22px" }}
-          >
-            LOGO
-          </h3>
+          <img
+            src="/logo.png"
+            alt="logo"
+            style={{
+              maxHeight: "50px",
+              aspectRatio: 1,
+              borderRadius: 10,
+            }}
+          />{" "}
+          Admin
           <IconButton onClick={handleDrawerClose} style={{ color: "white" }}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -387,7 +401,7 @@ export default function MiniDrawer({ children }) {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={item.name}
