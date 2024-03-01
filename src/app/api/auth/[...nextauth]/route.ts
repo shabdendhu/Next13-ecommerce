@@ -44,6 +44,8 @@ const handler = NextAuth({
 
   callbacks: {
     async jwt({ token, user, session }: any) {
+      // console.log("jwt", token, session, user);
+
       if (user) {
         token.id = user?._id || user?.id;
         token.role = user?.role;
@@ -54,11 +56,12 @@ const handler = NextAuth({
 
       return token;
     },
-    async session({ session, token, user }: any) {
+    async session({ session, token }: any) {
       const encodedToken = jwt.sign(token, process.env.JWT_SECRET || "", {
         algorithm: "HS256",
       });
       session.accessToken = encodedToken;
+      // console.log("session", token, session);
       // if (token.id) {
       // session.user.id = token.id;
       // session.user.username = token.username;
@@ -71,9 +74,11 @@ const handler = NextAuth({
       return session;
     },
     async signIn({ user, profile }: any) {
+      // console.log("signIn", profile, user);
+
       connect();
       if (profile?.email) {
-        const userRes = await User.findOne({ email: profile?.email });
+        const userRes: any = await User.findOne({ email: profile?.email });
         if (!userRes) {
           const newUser: any = await User.create({
             email: profile?.email,
@@ -84,8 +89,10 @@ const handler = NextAuth({
             },
           });
           user.id = newUser?._id;
+          user.role = userRes?.role;
         } else {
           user.id = userRes?._id;
+          user.role = userRes?.role;
         }
       }
 
@@ -99,7 +106,7 @@ const handler = NextAuth({
     encode: async ({ secret, token }) => {
       const jwtClaims = {
         id: token?.id,
-        userRole: token?.role,
+        role: token?.role,
         name: token?.name,
         email: token?.email,
         iat: Math.floor(Date.now() / 1000),

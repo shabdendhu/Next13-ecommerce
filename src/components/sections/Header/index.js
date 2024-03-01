@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import { openOtpModal } from "@/redux/auth/auth";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -63,7 +64,7 @@ const Header = () => {
     if (!basketRes?.data?.items?.length) return;
     dispatch(loadUsersBasket(basketRes.data));
   };
-  const handleClivkMenuItem = (path) => {
+  const handleClikMenuItem = (path) => {
     if (!session) return dispatch(openOtpModal());
     router.push(path);
   };
@@ -118,8 +119,21 @@ const Header = () => {
 
             {/* visible above 900px */}
             <div className={styles.rightIcon}>
+              {session?.user?.role === "admin" ? (
+                <AdminPanelSettingsIcon
+                  onClick={() => handleClikMenuItem("/admin-dashboard")}
+                  style={{
+                    fontSize: "44px",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                    marginRight: 10,
+                  }}
+                />
+              ) : (
+                <></>
+              )}
               <PersonIcon
-                onClick={() => handleClivkMenuItem("/profile")}
+                onClick={() => handleClikMenuItem("/profile")}
                 style={{
                   fontSize: "44px",
                   color: "#FFFFFF",
@@ -134,7 +148,7 @@ const Header = () => {
                   cursor: "pointer",
                   marginRight: 10,
                 }}
-                onClick={() => handleClivkMenuItem("/profile?tab=wishlist")}
+                onClick={() => handleClikMenuItem("/profile?tab=wishlist")}
               />
               <ShoppingBasketIcon
                 style={{
@@ -142,7 +156,7 @@ const Header = () => {
                   color: "#FFFFFF",
                   cursor: "pointer",
                 }}
-                onClick={() => handleClivkMenuItem("/basket")}
+                onClick={() => handleClikMenuItem("/basket")}
               />
               {basketCount?.items?.length}
             </div>
