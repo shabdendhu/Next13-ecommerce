@@ -131,7 +131,13 @@ export const MyAddresses = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button onClick={handleSaveAddress} color="primary">
+          <Button
+            onClick={handleSaveAddress}
+            color="primary"
+            style={{
+              backgroundColor: "blue",
+            }}
+          >
             Save
           </Button>
         </DialogActions>

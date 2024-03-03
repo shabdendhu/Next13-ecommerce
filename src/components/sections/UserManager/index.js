@@ -51,21 +51,6 @@ export default function UserManager() {
 
   return (
     <div style={{ width: "100%" }}>
-      <div
-        style={{
-          padding: "10px",
-          border: "1px solid blue",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderRadius: 5,
-        }}
-      >
-        <h1 style={{ fontSize: "20px", fontWeight: 600 }}>USER MANAGER</h1>
-        <TransitionsModal formName={"Add Product"}>
-          <ProductForm />
-        </TransitionsModal>
-      </div>
       <TableContainer
         component={Paper}
         sx={{
@@ -81,30 +66,32 @@ export default function UserManager() {
         >
           <TableHead>
             <TableRow>
-              <TableCell>PROFILE</TableCell>
-              <TableCell>USERNAME</TableCell>
-              <TableCell align="right">EMAIL</TableCell>
-              <TableCell align="right">ROLE</TableCell>
-              <TableCell align="right">ACTION</TableCell>
+              <TableCell align="left">PROFILE</TableCell>
+              <TableCell align="left">USERNAME</TableCell>
+              <TableCell align="left">EMAIL</TableCell>
+              <TableCell align="left">ROLE</TableCell>
+              <TableCell align="left">Toggle Role</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((row) => (
               <TableRow key={row._id}>
-                <TableCell align="right" size="small">
+                <TableCell align="left" size="small">
                   <Avatar src={row?.profile?.avatar} />
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {row.username}
                 </TableCell>
-                <TableCell align="right">{row?.email}</TableCell>
-                <TableCell align="right">{row?.role}</TableCell>
-                <TableCell align="right">
+                <TableCell align="left">{row?.email}</TableCell>
+                <TableCell align="left">{row?.role}</TableCell>
+                <TableCell align="left">
+                  Customer
                   <Switch
                     checked={row.role === "admin"}
                     onChange={() => toggleUserRole(row._id)}
                     inputProps={{ "aria-label": "toggle user role" }}
                   />
+                  Admin
                 </TableCell>
               </TableRow>
             ))}

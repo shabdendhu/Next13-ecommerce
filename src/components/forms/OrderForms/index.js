@@ -228,7 +228,14 @@ const OrderForm = () => {
           </FormControl>
         </Grid>
       </Grid>
-      <Button variant="contained" color="primary" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        style={{
+          backgroundColor: "blue",
+        }}
+      >
         Save
       </Button>
     </form>

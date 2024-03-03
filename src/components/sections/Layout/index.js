@@ -38,7 +38,20 @@ import PersonIcon from "@mui/icons-material/Person";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import SignpostIcon from "@mui/icons-material/Signpost";
 import { Tooltip } from "@mui/material";
+import { useSession } from "next-auth/react";
 const drawerWidth = 240;
+function convertToTitleCase(str) {
+  // Remove leading slash if present
+  if (str.startsWith("/")) {
+    str = str.slice(1);
+  }
+  // Split the string by dash and capitalize each word
+  var words = str.split("-").map(function (word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  });
+  // Join the words with a space
+  return words.join(" ");
+}
 const menuData = [
   { name: "Product Manager", url: "product-manager", icon: <FastfoodIcon /> },
   // { name: "Users", url: "users" icon:<},
@@ -121,6 +134,7 @@ export default function MiniDrawer({ children }) {
   const theme = useTheme();
   const router = useRouter();
   const path = usePathname();
+  const { data: session } = useSession();
   const [open, setOpen] = React.useState(false);
   const [selectedMenu, setSelectedMenu] = React.useState("");
   React.useEffect(() => {
@@ -287,7 +301,7 @@ export default function MiniDrawer({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Admin Penal
+            {convertToTitleCase(path)}
           </Typography>
           {/* <div className={styles.searchBar}>
             <input
@@ -363,7 +377,13 @@ export default function MiniDrawer({ children }) {
       {renderMobileMenu}
       {renderMenu}
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader style={{ backgroundColor: "#6b6bdb", color: "white" }}>
+        <DrawerHeader
+          style={{
+            backgroundColor: "#6b6bdb",
+            color: "white",
+            display: "flex",
+          }}
+        >
           <img
             src="/logo.png"
             alt="logo"
@@ -371,9 +391,10 @@ export default function MiniDrawer({ children }) {
               maxHeight: "50px",
               aspectRatio: 1,
               borderRadius: 10,
+              marginRight: 10,
             }}
-          />{" "}
-          Admin
+          />
+          <p style={{ flex: 1 }}> {session?.user?.name}</p>
           <IconButton onClick={handleDrawerClose} style={{ color: "white" }}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -415,7 +436,10 @@ export default function MiniDrawer({ children }) {
                   </ListItemIcon>
                   <ListItemText
                     primary={item.name}
-                    sx={{ opacity: open ? 1 : 0 }}
+                    sx={{
+                      opacity: open ? 1 : 0,
+                      color: selectedMenu == `/${item.url}` ? "white" : "",
+                    }}
                   />
                 </ListItemButton>
               </ListItem>

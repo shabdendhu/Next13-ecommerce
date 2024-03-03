@@ -25,7 +25,12 @@ const CategoryMenu = ({ category, icon }) => {
         key={subcategory._id}
         category={subcategory}
         icon={
-          <MenuItem onClick={() => handleClickSubmenu(subcategory._id)}>
+          <MenuItem
+            sx={{
+              textTransform: "capitalize",
+            }}
+            onClick={() => handleClickSubmenu(subcategory._id)}
+          >
             {subcategory.name}
           </MenuItem>
         }

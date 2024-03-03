@@ -126,7 +126,14 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
           />
         </Grid>
       </Grid>
-      <Button variant="contained" color="primary" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        style={{
+          backgroundColor: "blue",
+        }}
+      >
         Save
       </Button>
     </form>
