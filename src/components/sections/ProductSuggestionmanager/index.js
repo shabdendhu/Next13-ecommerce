@@ -1,25 +1,22 @@
 "use client";
-import * as React from "react";
-import { useEffect, useState } from "react";
+import TransitionsModal from "@/components/base/Modal";
+import SuggestionForm from "@/components/forms/SuggestionForms";
+import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
+import useWindowSize from "@/hooks/useWindowSize";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { Button, ButtonBase, Pagination } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import TransitionsModal from "@/components/base/Modal";
-import SuggestionForm from "@/components/forms/SuggestionForms";
-import useWindowSize from "@/hooks/useWindowSize";
-import axios from "axios";
-import { apiGet, apiPost, apiPut, apiGetById, apiDelete } from "@/helpers/api";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import screenUrls from "@/static/screens";
 
-function createData(productIds, screenName, sequence) {
-  return { productIds, screenName, sequence };
-}
 const emptySuggestion = {
   productIds: [],
   screenName: "",
@@ -27,27 +24,38 @@ const emptySuggestion = {
   name: "",
 };
 export default function CategoryManager() {
-  // const [category, setCategory] = useState([]);
-  const size = useWindowSize();
-  const [newSuggestion, setNewsuggestion] = useState(emptySuggestion);
   const [suggestions, setSuggestions] = useState([]);
+  const [newSuggestion, setNewSuggestion] = useState(emptySuggestion);
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const size = useWindowSize();
+
+  const handleCloseModal = () => {
+    setOpen(false);
+    setNewSuggestion(emptySuggestion);
+  };
 
   const handleViewProduct = async (id) => {
     setOpen(true);
     const getSuggestionById = await apiGetById("/api/productsuggestion", id);
-    setNewsuggestion(getSuggestionById.data);
+    setNewSuggestion(getSuggestionById.data);
   };
+
   const handleDeleteSuggestion = async (id) => {
     try {
       const delRes = await apiDelete("/api/productsuggestion", id);
       handleCloseModal();
       getAllSuggestion();
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const getAllSuggestion = async () => {
-    const suggestionRes = await apiGet("/api/productsuggestion");
-    setSuggestions(suggestionRes.data);
+    const res = await apiGet(`/api/productsuggestion?page=${page}&limit=${10}`);
+    setSuggestions(res.data);
+    setTotalPages(res.totalPages);
   };
 
   const handleSubmit = async (e) => {
@@ -57,23 +65,21 @@ export default function CategoryManager() {
         "/api/productsuggestion/" + newSuggestion._id,
         newSuggestion
       );
-      // edit
     } else {
       const addRes = await apiPost("/api/productsuggestion", newSuggestion);
-      // add
     }
     handleCloseModal();
     getAllSuggestion();
   };
 
-  const handleCloseModal = () => {
-    setOpen(false);
-    setNewsuggestion(emptySuggestion);
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
   };
 
   useEffect(() => {
     getAllSuggestion();
-  }, []);
+  }, [page]);
+
   return (
     <div
       style={{
@@ -121,7 +127,7 @@ export default function CategoryManager() {
         >
           <SuggestionForm
             suggestions={newSuggestion}
-            setSuggestions={setNewsuggestion}
+            setSuggestions={setNewSuggestion}
             handleSubmit={handleSubmit}
           />
         </TransitionsModal>
@@ -134,7 +140,12 @@ export default function CategoryManager() {
           // border: "1px solid red",
         }}
       >
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -164,7 +175,17 @@ export default function CategoryManager() {
                     </>
                   ))}
                 </TableCell>
-                <TableCell align="right">{row.screenName}</TableCell>
+                <TableCell align="right">
+                  <Link href={row.screenName}>
+                    {
+                      (
+                        screenUrls.find(
+                          (item) => item.value === row.screenName
+                        ) || {}
+                      ).name
+                    }
+                  </Link>
+                </TableCell>
                 <TableCell align="right">{row.sequence}</TableCell>
                 <TableCell align="right">
                   <ButtonBase
@@ -193,6 +214,16 @@ export default function CategoryManager() {
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+        />
+      </div>
     </div>
   );
 }
