@@ -7,40 +7,52 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import ProductForm from "@/components/forms/ProductForms";
 import useWindowSize from "@/hooks/useWindowSize";
-import { apiGet } from "@/helpers/api";
-function createData(username, email, password, role, profile, orders) {
-  return { username, email, password, role, profile, orders };
-}
+import { apiGet, apiPut } from "@/helpers/api";
+import { Avatar, Button } from "@mui/material";
+import Switch from "@mui/material/Switch";
+import { Pagination } from "@mui/material";
 
 export default function UserManager() {
   const [users, setUsers] = React.useState([]);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
   const size = useWindowSize();
+
   const getUsers = async () => {
-    const res = await apiGet("/api/user");
+    const res = await apiGet(`/api/user?page=${page}&limit=${10}`);
     setUsers(res.data);
+    setTotalPages(res.totalPages);
   };
+
   React.useEffect(() => {
     getUsers();
-  }, []);
+  }, [page]);
+
+  const toggleUserRole = async (userId) => {
+    const updatedUsers = users.map((user) => {
+      if (user._id === userId) {
+        user.role = user.role === "customer" ? "admin" : "customer";
+      }
+      return user;
+    });
+    setUsers(updatedUsers);
+    // Send a PUT request to update user role on the server
+    await apiPut(`/api/user/${userId}`, {
+      role: updatedUsers.find((user) => user._id === userId).role,
+    });
+  };
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
-    <div
-      style={{
-        // maxHeight: "50vh",
-        // border: "1px solid red",
-        width: "100%",
-      }}
-    >
+    <div style={{ width: "100%" }}>
       <div
         style={{
-          // position: "sticky",
-          // top: 90,
           padding: "10px",
           border: "1px solid blue",
           display: "flex",
@@ -49,14 +61,7 @@ export default function UserManager() {
           borderRadius: 5,
         }}
       >
-        <h1
-          style={{
-            fontSize: "20px",
-            fontWeight: 600,
-          }}
-        >
-          USER MANAGER
-        </h1>
+        <h1 style={{ fontSize: "20px", fontWeight: 600 }}>USER MANAGER</h1>
         <TransitionsModal formName={"Add Product"}>
           <ProductForm />
         </TransitionsModal>
@@ -66,50 +71,56 @@ export default function UserManager() {
         sx={{
           width: "100%",
           maxHeight: size.height - 200,
-          // border: "1px solid red",
         }}
       >
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>PROFILE</TableCell>
               <TableCell>USERNAME</TableCell>
               <TableCell align="right">EMAIL</TableCell>
               <TableCell align="right">ROLE</TableCell>
+              <TableCell align="right">ACTION</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((row) => (
-              <TableRow
-                key={row._id}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  cursor: "pointer",
-                }}
-              >
-                <TableCell align="right">
-                  <img
-                    style={{
-                      maxHeight: "50px",
-                      borderRadius: "50%",
-                    }}
-                    src={
-                      row?.profile?.avatar ||
-                      "https://www.pngitem.com/pimgs/m/80-800373_it-benefits-per-users-default-profile-picture-green.png"
-                    }
-                  />
+              <TableRow key={row._id}>
+                <TableCell align="right" size="small">
+                  <Avatar src={row?.profile?.avatar} />
                 </TableCell>
-
                 <TableCell component="th" scope="row">
                   {row.username}
                 </TableCell>
                 <TableCell align="right">{row?.email}</TableCell>
                 <TableCell align="right">{row?.role}</TableCell>
+                <TableCell align="right">
+                  <Switch
+                    checked={row.role === "admin"}
+                    onChange={() => toggleUserRole(row._id)}
+                    inputProps={{ "aria-label": "toggle user role" }}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <div style={{ marginTop: 20, display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+        />
+      </div>
     </div>
   );
 }

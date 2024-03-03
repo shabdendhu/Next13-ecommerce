@@ -137,7 +137,12 @@ export default function ProductManager() {
         component={Paper}
         sx={{ width: "100%", maxHeight: size.height - 200 }}
       >
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>

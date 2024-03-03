@@ -47,7 +47,7 @@ export async function PUT(req, { params }) {
     user.profile = { ...user.profile, ...reqBody.profile };
     user.email = reqBody.email || user.email;
     user.username = reqBody.username || user.username;
-
+    user.role = reqBody.role || user.role;
     await user.save();
 
     return NextResponse.json({

@@ -40,7 +40,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
-  secret: process.env.JWT_SECRET,
+  // secret: process.env.JWT_SECRET,
 
   callbacks: {
     async jwt({ token, user, session }: any) {
@@ -57,7 +57,7 @@ const handler = NextAuth({
       return token;
     },
     async session({ session, token }: any) {
-      const encodedToken = jwt.sign(token, process.env.JWT_SECRET || "", {
+      const encodedToken = jwt.sign(token, process.env.NEXTAUTH_SECRET || "", {
         algorithm: "HS256",
       });
       session.accessToken = encodedToken;
@@ -101,7 +101,7 @@ const handler = NextAuth({
     },
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
+    // secret: process.env.NEXTAUTH_SECRET,
 
     encode: async ({ secret, token }) => {
       const jwtClaims = {

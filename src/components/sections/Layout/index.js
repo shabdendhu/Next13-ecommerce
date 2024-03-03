@@ -30,13 +30,14 @@ import Person3Icon from "@mui/icons-material/Person3";
 import Badge from "@mui/material/Badge";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import CategoryIcon from "@mui/icons-material/Category";
 import FilterFramesIcon from "@mui/icons-material/FilterFrames";
 import PersonIcon from "@mui/icons-material/Person";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import SignpostIcon from "@mui/icons-material/Signpost";
+import { Tooltip } from "@mui/material";
 const drawerWidth = 240;
 const menuData = [
   { name: "Product Manager", url: "product-manager", icon: <FastfoodIcon /> },
@@ -119,7 +120,12 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer({ children }) {
   const theme = useTheme();
   const router = useRouter();
+  const path = usePathname();
   const [open, setOpen] = React.useState(false);
+  const [selectedMenu, setSelectedMenu] = React.useState("");
+  React.useEffect(() => {
+    setSelectedMenu(path);
+  }, [path]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -379,36 +385,41 @@ export default function MiniDrawer({ children }) {
         <Divider />
         <List>
           {menuData.map((item, index) => (
-            <ListItem
-              key={item.name}
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => {
-                router.push(item.url);
-              }}
-            >
-              <ListItemButton
+            <Tooltip title={item.name} placement="right" key={item.name}>
+              <ListItem
+                disablePadding
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+                  display: "block",
+                  backgroundColor: selectedMenu == `/${item.url}` ? "blue" : "",
+                }}
+                onClick={() => {
+                  router.push(item.url);
                 }}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.name}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                      color: selectedMenu == `/${item.url}` ? "white" : "",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.name}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Tooltip>
           ))}
         </List>
       </Drawer>

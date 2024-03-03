@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
@@ -14,8 +13,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import CategoryForm from "@/components/forms/CategoryForms";
 import useWindowSize from "@/hooks/useWindowSize";
-import axios from "axios";
 import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
+import { Pagination } from "@mui/material";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -31,6 +30,8 @@ const emptyCategory = {
 export default function CategoryManager() {
   const [categories, setCategorys] = useState([]);
   const [newCategory, setNewCategory] = useState(emptyCategory);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const size = useWindowSize();
   const [open, setOpen] = useState(false);
   const handleViewCategory = async (id) => {
@@ -39,8 +40,9 @@ export default function CategoryManager() {
     setNewCategory(getCategoryById?.data);
   };
   const getAllCategory = async () => {
-    const categoryRes = await apiGet("/api/category");
+    const categoryRes = await apiGet(`/api/category?page=${page}&limit=${10}`);
     setCategorys(categoryRes.data);
+    setTotalPages(categoryRes.totalPages);
   };
   const handleCloseModal = () => {
     setOpen(false);
@@ -48,7 +50,7 @@ export default function CategoryManager() {
   };
   useEffect(() => {
     getAllCategory();
-  }, []);
+  }, [page]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newCategory?._id) {
@@ -67,18 +69,17 @@ export default function CategoryManager() {
     const deleteRes = await apiDelete("/api/category", id);
     getAllCategory();
   };
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
   return (
     <div
       style={{
-        // maxHeight: "50vh",
-        // border: "1px solid red",
         width: "100%",
       }}
     >
       <div
         style={{
-          // position: "sticky",
-          // top: 90,
           padding: "10px",
           border: "1px solid blue",
           display: "flex",
@@ -124,10 +125,14 @@ export default function CategoryManager() {
         sx={{
           width: "100%",
           maxHeight: size.height - 200,
-          // border: "1px solid red",
         }}
       >
-        <Table sx={{ minWidth: 650 }} stickyHeader aria-label="sticky table">
+        <Table
+          sx={{ minWidth: 650 }}
+          stickyHeader
+          aria-label="sticky table"
+          size="small"
+        >
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -203,6 +208,16 @@ export default function CategoryManager() {
           </TableBody>
         </Table>
       </TableContainer>
+      <div style={{ marginTop: 20, display: "flex", justifyContent: "center" }}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+        />
+      </div>
     </div>
   );
 }

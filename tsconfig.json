@@ -33,7 +33,8 @@
     "src/helpers/api.js",
     "src/app/api/user/[id]/route.js",
     "src/app/api/products/search/route.js",
-    "src/app/api/banner/banner-by-query/route.js"
+    "src/app/api/banner/banner-by-query/route.js",
+    "src/middleware.js"
   ],
   "exclude": ["node_modules"]
 }
