@@ -113,7 +113,7 @@ const handler = NextAuth({
         name: token?.name,
         email: token?.email,
         iat: Math.floor(Date.now() / 1000),
-        exp: Math.floor(Date.now() / 1000) + 24,
+        exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
       };
       const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: "HS256" });
 
