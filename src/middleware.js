@@ -18,9 +18,6 @@ export default withAuth(function middleware(req) {}, {
       const isAdminPath = adminpath.includes(path);
       if (!token) return false;
       const decodedJwt = jwtDecode(token);
-      //check token validity
-      const currentTime = Date.now() / 1000;
-      if (decodedJwt.exp < currentTime) return false;
       if (isAdminPath) {
         return decodedJwt?.role === "admin";
       }
@@ -52,6 +49,12 @@ export const config = {
     "/savedcard",
     "/saveupi",
     "/basket",
-    ...adminpath,
+    "/product-manager",
+    "/category-manager",
+    "/banner-manager",
+    "/admin-dashboard",
+    "/order-manager",
+    "/user-manager",
+    "/product-suggestion-manager",
   ],
 };

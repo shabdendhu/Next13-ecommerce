@@ -217,7 +217,7 @@ export default function OrderManager() {
                   <CopyButton textToCopy={order._id} />
                 </TableCell>
                 <TableCell size="small" align="left">
-                  {order.user.email}
+                  {order?.user?.email}
                 </TableCell>
                 <TableCell align="left">
                   ₹{Math.round(order.totalAmount)}
