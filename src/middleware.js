@@ -52,6 +52,6 @@ export const config = {
     "/savedcard",
     "/saveupi",
     "/basket",
-    "/product-manager",
+    ...adminpath,
   ],
 };
