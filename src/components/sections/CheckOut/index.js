@@ -1,17 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { apiPost } from "@/helpers/api";
+import Button from "@mui/material/Button";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import PageWrapper from "../PageWrapper";
 import AddressComponent from "./AddressComponentCheckout";
 import OrderSummaryComponent from "./OrderSummaryComponent";
-import { LoginContent } from "../OtpLoginModal";
-import PageWrapper from "../PageWrapper";
-import { Button } from "@mui/material";
-import { set } from "mongoose";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useSelector } from "react-redux";
-import { useSession } from "next-auth/react";
-import { apiPost } from "@/helpers/api";
-import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
-import axios from "axios";
 const buttontxt = {
   1: "Confirm Address",
   2: "Confirm Order",

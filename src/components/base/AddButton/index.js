@@ -6,7 +6,7 @@ import { apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from "next/navigation";
-import { CircularProgress } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch } from "react-redux";
 import { openOtpModal } from "@/redux/auth/auth";
 const AddButton = ({

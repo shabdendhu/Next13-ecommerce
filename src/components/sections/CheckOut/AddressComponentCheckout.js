@@ -1,23 +1,13 @@
 // AddressCheckoutComponent.js
-import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  List,
-  ListItem,
-  ListItemText,
-  IconButton,
-  Switch,
-  Typography,
-  Checkbox,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
 // import styles from "./AddressCheckoutComponent.module.scss";
-import { apiGet, apiDelete } from "@/helpers/api";
+import { apiGet } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 

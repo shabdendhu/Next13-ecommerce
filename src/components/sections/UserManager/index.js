@@ -1,19 +1,17 @@
 "use client";
-import * as React from "react";
+import { apiGet, apiPut } from "@/helpers/api";
+import useWindowSize from "@/hooks/useWindowSize";
+import Avatar from "@mui/material/Avatar";
+import Pagination from "@mui/material/Pagination";
+import Paper from "@mui/material/Paper";
+import Switch from "@mui/material/Switch";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TransitionsModal from "@/components/base/Modal";
-import ProductForm from "@/components/forms/ProductForms";
-import useWindowSize from "@/hooks/useWindowSize";
-import { apiGet, apiPut } from "@/helpers/api";
-import { Avatar, Button } from "@mui/material";
-import Switch from "@mui/material/Switch";
-import { Pagination } from "@mui/material";
+import * as React from "react";
 
 export default function UserManager() {
   const [users, setUsers] = React.useState([]);

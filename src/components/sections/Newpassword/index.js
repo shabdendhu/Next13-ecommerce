@@ -1,16 +1,7 @@
-import React from "react";
-import style from "./Newpassword.module.scss";
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { blue } from "@mui/material/colors";
 import { useRouter } from "next/navigation";
+import style from "./Newpassword.module.scss";
 
 const Home = () => {
   return (

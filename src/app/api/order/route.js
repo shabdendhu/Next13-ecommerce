@@ -29,7 +29,7 @@ export async function POST(req) {
     // Step 4: Check if each product exists and is available in the user's basket
     const orderedItems = [];
     let totalPrice = 0;
-    products.forEach((product) => {
+    for (const product of products) {
       const itemInBasket = userBasket.items.find((item) =>
         item.product._id.equals(product._id)
       );
@@ -38,13 +38,21 @@ export async function POST(req) {
           `Product with ID ${product._id} not found in the basket or quantity is zero.`
         );
       }
+
+      // Check if the ordered quantity exceeds the available stock
+      if (itemInBasket.quantity > product.stock_quantity) {
+        throw new Error(
+          `Ordered quantity of product with ID ${product._id} exceeds available stock.`
+        );
+      }
+
       orderedItems.push({
         product: product._id,
         quantity: itemInBasket.quantity,
         price: itemInBasket.price,
       });
       totalPrice += itemInBasket.price * itemInBasket.quantity;
-    });
+    }
 
     // Step 6: Create an order object
     const order = new Order({

@@ -1,17 +1,16 @@
+import Autocomplete from "@mui/material/Autocomplete";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+
+import { useEffect, useState } from "react";
 import BillingAddressForm from "../../sections/BillingAddress";
 import ShippingAddressForm from "../../sections/ShippingAddress";
-import React, { useState, useEffect } from "react";
-import {
-  TextField,
-  Button,
-  Grid,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Autocomplete,
-} from "@mui/material";
 
 const OrderForm = () => {
   const [shippingAddress, setShippingAddress] = useState({

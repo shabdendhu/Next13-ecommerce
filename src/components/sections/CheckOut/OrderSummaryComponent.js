@@ -1,14 +1,6 @@
-import React from "react";
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  Avatar,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 import ProductCard from "../ProductCard";
 
 const OrderSummaryComponent = ({

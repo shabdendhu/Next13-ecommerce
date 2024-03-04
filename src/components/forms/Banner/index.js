@@ -1,15 +1,11 @@
-import React from "react";
-import {
-  TextField,
-  Button,
-  Grid,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import ImageUpload from "@/components/base/ImageUpload";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+
 // Custom component for uploading an image
 import screenUrls from "@/static/screens";
 

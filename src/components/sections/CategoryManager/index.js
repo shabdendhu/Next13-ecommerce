@@ -8,13 +8,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase } from "@mui/material";
+import Button from "@mui/material/Button";
+import ButtonBase from "@mui/material/ButtonBase";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TransitionsModal from "@/components/base/Modal";
 import CategoryForm from "@/components/forms/CategoryForms";
 import useWindowSize from "@/hooks/useWindowSize";
 import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
-import { Pagination } from "@mui/material";
+import Pagination from "@mui/material/Pagination";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };

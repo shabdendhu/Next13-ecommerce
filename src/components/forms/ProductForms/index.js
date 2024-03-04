@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import {
-  TextField,
-  Button,
-  Grid,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Checkbox,
-  FormControlLabel,
-  Box,
-} from "@mui/material";
 import ImageUpload from "@/components/base/ImageUpload";
 import { apiGet } from "@/helpers/api";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
 
 const ProductForm = ({ product, setProduct, handleSubmit }) => {
   const [categoryOptions, setCategoryptions] = useState([]);

@@ -1,5 +1,8 @@
-import React from "react";
-import { Card, CardContent, Typography, Container, Grid } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
 const dummyPayments = [
   { id: 1, date: "2023-01-01", amount: 50.0, status: "Completed" },

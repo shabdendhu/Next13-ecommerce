@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import styles from "./profilehubmenu.module.scss";
-import { Avatar, Divider, Skeleton } from "@mui/material";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
-import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
-import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";
-import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
+import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
+import ReviewsOutlinedIcon from "@mui/icons-material/ReviewsOutlined";
+import UpdateOutlinedIcon from "@mui/icons-material/UpdateOutlined";
+import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+import Skeleton from "@mui/material/Skeleton";
 import cx from "classnames";
-import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import styles from "./profilehubmenu.module.scss";
 const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
   const router = useRouter();
   const { data: session } = useSession();

@@ -1,24 +1,21 @@
 // src/AddressComponent.js
-import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  Switch,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import styles from "./MyAddress.module.scss";
 import { apiDelete, apiGet, apiPost, apiPut } from "@/helpers/api";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Switch from "@mui/material/Switch";
+import TextField from "@mui/material/TextField";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import styles from "./MyAddress.module.scss";
 
 const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const [addresses, setAddresses] = useState([]);

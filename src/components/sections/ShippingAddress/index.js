@@ -1,5 +1,5 @@
-import React from "react";
-import { TextField, Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 const ShippingAddressForm = ({ address, setAddress }) => {
   const handleAddressChange = (field, value) => {

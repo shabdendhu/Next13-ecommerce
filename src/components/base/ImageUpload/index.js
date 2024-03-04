@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import {
-  Grid,
-  Typography,
-  Button,
-  Box,
-  TextField,
-  Switch,
-} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Switch from "@mui/material/Switch";
 
 const ImageUpload = ({ images, setImages }) => {
   const [mode, setMode] = useState("upload");

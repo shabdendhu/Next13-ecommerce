@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./QuickCategory.module.scss";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 const QuickCategory = ({ category = [] }) => {
   const router = useRouter();
   const handleClick = (id) => {
@@ -36,19 +36,19 @@ const QuickCategory = ({ category = [] }) => {
         <></>
       )}
       {category.map((e, i) => (
-        <>
+        <div key={e._id}>
           {e.subcategories.length > 0 ? (
             <></>
           ) : (
             <button
               className={styles.item}
-              key={i}
+              key={e._id}
               onClick={() => handleClick(e?._id)}
             >
               <img alt="categoryimage" src={e.image} />
             </button>
           )}
-        </>
+        </div>
       ))}
     </div>
   );

@@ -1,8 +1,10 @@
 "use client";
-import React, { useState } from "react";
-import { TextField, Button, Typography, Grid } from "@mui/material";
-import { useSession } from "next-auth/react";
 import { apiPut } from "@/helpers/api";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 const EditProfile = ({ userDetails, reloadUserDetails }) => {
   const { data: session } = useSession();

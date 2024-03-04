@@ -1,43 +1,3 @@
-// import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
-
-// export function middleware(request: NextRequest) {
-//   const path = request.nextUrl.pathname;
-
-//   const isPublicPath =
-//     path === "/login" || path === "/signup" || path === "/verifyemail";
-
-//   // const token = request.cookies.get("token")?.value;
-//   const token =
-//     process.env.NODE_ENV === "development"
-//       ? request.cookies.get("next-auth.session-token")
-//       : request.cookies.get("__Secure-next-auth.session-token") ||
-//         request.cookies.get("next-auth.session-token");
-
-//   if (isPublicPath && token) {
-//     return NextResponse.redirect(new URL("/", request.nextUrl));
-//   }
-
-//   if (!isPublicPath && !token) {
-//     return NextResponse.redirect(new URL("/login", request.nextUrl));
-//   }
-// }
-
-// // See "Matching Paths" below to learn more
-// export const config = {
-//   matcher: [
-//     "/account",
-//     "/address",
-//     "/my-ratings-reviews",
-//     "/mywishlist",
-//     "/profile",
-//     "/rating-reviews",
-//     "/savedcard",
-//     "/saveupi",
-//     "/basket",
-//   ],
-// };
-
 import { withAuth } from "next-auth/middleware";
 import { jwtDecode } from "jwt-decode";
 
@@ -51,14 +11,16 @@ const adminpath = [
   "/product-suggestion-manager",
 ];
 
-export default withAuth(function middleware(request) {}, {
+export default withAuth(function middleware(req) {}, {
   callbacks: {
     authorized: ({ req, token }) => {
       const path = req.nextUrl.pathname;
       const isAdminPath = adminpath.includes(path);
       if (!token) return false;
       const decodedJwt = jwtDecode(token);
-
+      //check token validity
+      const currentTime = Date.now() / 1000;
+      if (decodedJwt.exp < currentTime) return false;
       if (isAdminPath) {
         return decodedJwt?.role === "admin";
       }

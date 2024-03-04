@@ -3,9 +3,13 @@ import TransitionsModal from "@/components/base/Modal";
 import SuggestionForm from "@/components/forms/SuggestionForms";
 import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
 import useWindowSize from "@/hooks/useWindowSize";
+import screenUrls from "@/static/screens";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button, ButtonBase, Pagination } from "@mui/material";
+import Button from "@mui/material/Button";
+import ButtonBase from "@mui/material/ButtonBase";
+import Pagination from "@mui/material/Pagination";
+
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,7 +19,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import screenUrls from "@/static/screens";
 
 const emptySuggestion = {
   productIds: [],

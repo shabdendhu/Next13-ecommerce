@@ -1,26 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import MyOrders from "@/components/sections/MyOrders";
+import EditProfile from "@/components/sections/EditProfile";
 import AddressComponent from "@/components/sections/MyAddress";
-import MyWishList from "@/components/sections/MyWishList";
+import MyOrders from "@/components/sections/MyOrders";
 import MyPayments from "@/components/sections/MyPayments";
 import MyRatingsAndReviews from "@/components/sections/MyRatingAndReview";
-import EditProfile from "@/components/sections/EditProfile";
+import MyWishList from "@/components/sections/MyWishList";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import ListItemText from "@mui/material/ListItemText";
+import Switch from "@mui/material/Switch";
+import TextField from "@mui/material/TextField";
+import { useEffect, useState } from "react";
 import styles from "./ProfileContent.module.scss";
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  Switch,
-} from "@mui/material";
 
 export const MyAddresses = () => {
   const [addresses, setAddresses] = useState([]);

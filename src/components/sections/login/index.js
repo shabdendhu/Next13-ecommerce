@@ -1,23 +1,9 @@
-import React, { useEffect, useState } from "react";
-import style from "./Login.module.scss";
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import LockIcon from "@mui/icons-material/Lock";
-import Checkbox from "@mui/material/Checkbox";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { blue } from "@mui/material/colors";
-import EmailIcon from "@mui/icons-material/Email";
-import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { apiPost } from "@/helpers/api";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { LoginContent } from "../OtpLoginModal";
+import style from "./Login.module.scss";
 
 const Home = () => {
   return (

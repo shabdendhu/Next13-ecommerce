@@ -1,5 +1,6 @@
 import React from "react";
-import { Menu, MenuItem } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 import { useRouter } from "next/navigation";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 

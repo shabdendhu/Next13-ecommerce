@@ -61,6 +61,9 @@ const handler = NextAuth({
         algorithm: "HS256",
       });
       session.accessToken = encodedToken;
+      console.log("====================================");
+      console.log({ session, token });
+      console.log("====================================");
       // console.log("session", token, session);
       // if (token.id) {
       // session.user.id = token.id;
@@ -110,7 +113,7 @@ const handler = NextAuth({
         name: token?.name,
         email: token?.email,
         iat: Math.floor(Date.now() / 1000),
-        exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
+        exp: Math.floor(Date.now() / 1000) + 24,
       };
       const encodedToken = jwt.sign(jwtClaims, secret, { algorithm: "HS256" });
 

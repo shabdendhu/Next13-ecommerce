@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import { Modal, Grid, IconButton, Divider, Box } from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
+import { useState } from "react";
 // import ChevronRightIcon from "@mui/ico";
 import styles from "./ImageGallery.module.scss"; // Import SCSS file for styling
 const style = {

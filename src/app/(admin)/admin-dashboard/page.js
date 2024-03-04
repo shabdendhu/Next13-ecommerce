@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
 // import ProductAnalytics from "./ProductAnalytics";
 import { BarChart, LineChart, PieChart } from "@mui/x-charts";
 

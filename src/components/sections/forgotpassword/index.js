@@ -1,19 +1,8 @@
-import React, { useState } from "react";
-import style from "./forgotp.module.scss";
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  TextField,
-} from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
-import LockIcon from "@mui/icons-material/Lock";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { blue } from "@mui/material/colors";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import style from "./forgotp.module.scss";
 
 const Home = () => {
   return (

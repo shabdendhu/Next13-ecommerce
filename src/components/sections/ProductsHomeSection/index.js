@@ -7,7 +7,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import cx from "classnames";
 import { apiGet } from "@/helpers/api";
 import { useRouter, usePathname } from "next/navigation";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 export const ProductsHomeSection = ({
   headerText = "HEADER",

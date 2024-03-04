@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { Button, TextField, Modal, Typography, Dialog } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { closeOtpModal, openOtpModal } from "@/redux/auth/auth";
+import { closeOtpModal } from "@/redux/auth/auth";
+import Dialog from "@mui/material/Dialog";
 import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const LoginContent = ({ dispatch }) => {
   const [open, setOpen] = useState(true);

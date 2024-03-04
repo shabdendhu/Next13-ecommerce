@@ -1,11 +1,14 @@
 "use client";
-import { Button, Container, Grid, Typography } from "@mui/material";
-import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import ProductCard from "../ProductCard";
 import { apiGet } from "@/helpers/api";
-import styles from "./MyWishList.module.scss";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import ProductCard from "../ProductCard";
+import styles from "./MyWishList.module.scss";
 
 const MyWishList = () => {
   const { data: session } = useSession();

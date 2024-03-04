@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import styles from "./Banner.module.scss";
+import { apiPost } from "@/helpers/api";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import Skeleton from "@mui/material/Skeleton";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-import { apiGet, apiPost } from "@/helpers/api";
-import { usePathname, useRouter } from "next/navigation";
-import { Skeleton } from "@mui/material";
+import styles from "./Banner.module.scss";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 

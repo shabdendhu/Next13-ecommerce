@@ -1,15 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import styles from "./Productdetails.module.scss";
+import Magnifier from "@/components/base/Mgnifier";
+import { apiGet, apiPost } from "@/helpers/api";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import Magnifier from "@/components/base/Mgnifier";
+import Rating from "@mui/material/Rating";
+import Skeleton from "@mui/material/Skeleton";
+import { useSession } from "next-auth/react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import PageWrapper from "../PageWrapper";
 import MultipleProductsHomeSection from "../ProductsHomeSection";
-import { useParams, useRouter } from "next/navigation";
-import { apiGet, apiPost } from "@/helpers/api";
-import { Rating, Skeleton } from "@mui/material";
-import { useSession } from "next-auth/react";
+import styles from "./Productdetails.module.scss";
 
 const Productdetails = () => {
   const { id } = useParams();

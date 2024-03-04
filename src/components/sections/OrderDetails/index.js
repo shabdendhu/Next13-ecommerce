@@ -1,19 +1,13 @@
-import React from "react";
-import {
-  Container,
-  Typography,
-  Paper,
-  Grid,
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Button,
-} from "@mui/material";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
 import sha256 from "crypto-js/sha256";
+import { useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
 const OrderDetails = ({ order }) => {
