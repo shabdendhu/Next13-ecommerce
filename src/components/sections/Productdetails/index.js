@@ -1,25 +1,31 @@
 "use client";
-import Magnifier from "@/components/base/Mgnifier";
 import { apiGet, apiPost } from "@/helpers/api";
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import Rating from "@mui/material/Rating";
 import Skeleton from "@mui/material/Skeleton";
 import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import PageWrapper from "../PageWrapper";
-import MultipleProductsHomeSection from "../ProductsHomeSection";
 import styles from "./Productdetails.module.scss";
+import Image from "next/image";
+import AddButton from "@/components/base/AddButton";
+import { useDispatch } from "react-redux";
+import {
+  addToBasket,
+  deleteItemFromBasket,
+  removeFromBasket,
+} from "@/redux/basket/addUpdateBasket";
+import MultipleProductsHomeSection from "../ProductsHomeSection";
 
 const Productdetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const router = useRouter();
   const { data: session } = useSession();
   const [productDetails, setProductDetails] = useState({
     images: [],
     ratings: { average: 0 },
   });
+  const [productQuantity, setproductQuantity] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
   const [isInWishList, setIsInWishList] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
@@ -51,144 +57,84 @@ const Productdetails = () => {
   useEffect(() => {
     getProductById();
   }, []);
+  const handleAddToBasket = () => {
+    dispatch(addToBasket({ product: productDetails, quantity: 1 })); // Assuming data contains the product information
+  };
 
+  const handleRemoveFromBasket = () => {
+    dispatch(removeFromBasket(productDetails._id));
+  };
+  const deleteFromBasket = () => {
+    dispatch(deleteItemFromBasket(productDetails._id));
+  };
   return (
     <PageWrapper>
       {productDetails._id ? (
         <div className={styles.productContainer}>
-          <div className={styles.productdetailscontainer}>
-            <div className={styles.productdetailsimg}>
-              <div className={styles.imageContainer}>
-                {productDetails.images.map((e, i) => (
-                  <img
-                    onClick={() => setSelectedImage(e)}
-                    key={i}
-                    src={e}
-                    alt="image"
-                  />
-                ))}
-              </div>
-              <Magnifier
-                className={styles.magnifier}
-                imageSrc={selectedImage}
-                magnifiedSrc={selectedImage}
+          <div className={styles.productImages}>
+            <div className={styles.imageLists}>
+              {productDetails?.images.map((e) => (
+                <Image
+                  onClick={() => setSelectedImage(e)}
+                  key={e}
+                  height={100}
+                  alt="image"
+                  width={100}
+                  src={e}
+                  style={{
+                    aspectRatio: 1,
+                  }}
+                />
+              ))}
+            </div>
+            <div className={styles.fullSizeImage}>
+              <Image
+                src={selectedImage}
+                alt="image"
+                height={1000}
+                width={1000}
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  maxHeight: 513,
+                  maxWidth: 513,
+                  aspectRatio: 1,
+                }}
               />
             </div>
-
-            <div className={styles.productdetails}>
-              <div>
-                <b style={{ fontSize: "20px" }}>{productDetails.name}</b>
-                <p
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "400",
-                    fontFamily: "auto",
-                    marginBottom: "10px",
-                  }}
-                >
-                  {productDetails.brand}
-                </p>
-              </div>
-              <div
-                style={{
-                  marginBottom: "15px",
-                  alignItems: "center",
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
-                <Rating
-                  name="read-only"
-                  precision={0.5}
-                  readOnly
-                  value={productDetails?.ratings?.average}
-                />
-                <span>
-                  <u>
-                    {productDetails?.ratings?.count} Rating &{" "}
-                    {productDetails?.reviews?.length} Reviews
-                  </u>
-                </span>
-              </div>
-              <div>
-                <del style={{ color: "#16101087" }}>
-                  MRP:
-                  <span>
-                    ₹{" "}
-                    {Math.round(
-                      productDetails?.price /
-                        (1 - productDetails?.discount / 100)
-                    )}
-                  </span>
-                </del>
-                <p style={{ fontSize: "20px", fontWeight: "500" }}>
-                  Price: <span>₹{productDetails?.price}</span>
-                </p>
-                <h2 style={{ color: "#0f5d0f", fontWeight: "500" }}>
-                  You Save :<span>{productDetails?.discount}% off</span>
-                </h2>
-                <h3 style={{ color: "rgb(22 16 16 / 74%)" }}>
-                  (inclusive all taxes)
-                </h3>
-              </div>
-              <br />
-
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <button
-                  onClick={handleAddToCart}
-                  style={{
-                    backgroundColor: addedToCart ? "red" : "#306f37",
-                    marginRight: "10px",
-                    borderRadius: "3px",
-                    padding: "5px 5px",
-                    height: "55px",
-                    width: "50%",
-                    color: "#ffffff",
-                    borderRadius: 10,
-                  }}
-                >
-                  {addedToCart ? "ADDED TO CART" : " ADD TO BASKET"}
-                </button>
-                <button
-                  onClick={addToWishList}
-                  style={{
-                    border: "2px solid black",
-                    display: "flex",
-                    alignItems: "center",
-                    borderRadius: 10,
-                    padding: "0px 12px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <BookmarkBorderOutlinedIcon />
-                  <p>{isInWishList ? "Saved" : "Save For Later"}</p>
-                </button>
-              </div>
-              <br />
-              <div style={{ display: "flex", color: "rgb(22 16 16 / 74%)" }}>
-                <LocalShippingIcon style={{ padding: "0px 3px" }} />
-                <h>Standard: Get it in 1 day</h>
-              </div>
-
-              <div className="productdetails">
-                <div style={{ fontSize: "20px", fontWeight: 400 }}>Details</div>
-                <div style={{ display: "flex", color: "rgb(22 16 16 / 74%)" }}>
-                  <ul>
-                    {productDetails?.attributes
-                      ?.map((e) => e.name)
-                      ?.map((i) => (
-                        <li key={i}>{i}:</li>
-                      ))}
-                  </ul>
-                  <ul style={{ marginLeft: "15px" }}>
-                    {productDetails?.attributes
-                      ?.map((e) => e.value)
-                      ?.map((i) => (
-                        <li key={i}>{i}</li>
-                      ))}
-                  </ul>
-                </div>
-              </div>
+          </div>
+          <div className={styles.productDescriptions}>
+            <a href={productDetails?.brandUrl} className={styles.brand}>
+              {productDetails?.brand}
+            </a>
+            <br />
+            <p className={styles.productName}>
+              {productDetails?.brand} {productDetails?.name},{" "}
+              {productDetails?.weight} {productDetails?.unit || "Kg"}
+            </p>
+            <p className={styles.mrp}>
+              Mrp: <del>₹{productDetails?.price}</del>
+            </p>
+            <div className={styles.priceContainer}>
+              <p className={styles.price}>Price: ₹{productDetails?.price} </p>{" "}
+              <p className={styles.priceValue}>
+                (₹{productDetails?.price}/{productDetails?.unit || "Kg"})
+              </p>
+            </div>
+            <p className={styles.offer}>
+              You save <b>{productDetails?.discount}%</b> OFF
+            </p>
+            <p>(inclusive of all taxes) </p>
+            <div className={styles.actionSection}>
+              <AddButton
+                disableAddButton={false}
+                productQuantity={productQuantity}
+                setproductQuantity={setproductQuantity}
+                product={productDetails}
+                onAdd={handleAddToBasket}
+                deleteFromBasket={deleteFromBasket}
+                onRemove={handleRemoveFromBasket}
+              />
             </div>
           </div>
         </div>

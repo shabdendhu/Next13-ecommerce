@@ -17,6 +17,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
+import { UploadForm } from "@/components/base/Upload";
 
 const emptyProduct = {
   name: "",
@@ -276,6 +277,7 @@ export default function ProductManager() {
           </TableBody>
         </Table>
       </TableContainer>
+      <UploadForm />
       <div>
         <Pagination
           count={totalPages}

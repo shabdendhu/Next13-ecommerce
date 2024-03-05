@@ -24,21 +24,10 @@ const BasketProduct = () => {
   const { data: session } = useSession();
   let deliverycharge = 40;
   const handleClickConfirmOrder = async () => {
-    // const orderRes = await apiPost("/api/order", {
-    //   user: session?.user?.id,
-    //   products: basket.items.map((e) => ({
-    //     product: e.product._id,
-    //     quantity: e.quantity,
-    //     price: e.product.price,
-    //   })),
-    //   totalAmount:
-    //     parseInt(calculateTotalPriceAndDiscount(basket).totalDiscountPrice) +
-    //     deliverycharge,
-    //   status: "pending",
-    //   paymentStatus: "pending",
-    // });
-    // if (orderRes.success)
-    router.push(`/checkout?checkoutItems=${checkoutItems}`);
+    //minimum 1 product much be selected
+    checkoutItems.length === 0
+      ? alert("Please select atleast one product")
+      : router.push(`/checkout?checkoutItems=${checkoutItems}`);
   };
   const handleSelectItem = (e, item) => {
     console.log(e.target.checked);
