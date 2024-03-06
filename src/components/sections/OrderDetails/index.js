@@ -32,9 +32,9 @@ const OrderDetails = ({ order }) => {
       merchantTransactionId: transactionid,
       merchantUserId: "MUID-" + uuidv4().toString(36).slice(-6),
       amount: totalAmount * 100,
-      redirectUrl: `http://localhost:3000/api/phonepay/${_id}`,
+      redirectUrl: `https://acharpapad.in/api/phonepay/${_id}`,
       redirectMode: "POST",
-      callbackUrl: `http://localhost:3000/api/phonepay/${_id}`,
+      callbackUrl: `https://acharpapad.in/api/phonepay/${_id}`,
       mobileNumber: "9999999999",
       paymentInstrument: {
         type: "PAY_PAGE",

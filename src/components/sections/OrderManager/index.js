@@ -104,7 +104,7 @@ export default function OrderManager() {
     // setProduct(emptyProduct);
   };
 
-  //fetch all order from http://localhost:3000/api/order
+  //fetch all order from
   const fetchOrders = async () => {
     const res = await apiGet(`/api/order?page=${page}&limit=${10}`);
     console.log(res);

@@ -119,7 +119,12 @@ const ProductCard = ({
           }}
           alt={data?.name}
         /> */}
-        <img src={data?.images?.length ? data?.images[0] : ""} />
+        {/* <img src={data?.images?.length ? data?.images[0] : ""} /> */}
+        <Image
+          src={data?.images?.length ? data?.images[0] : ""}
+          height={1000}
+          width={1000}
+        />
       </div>
 
       <div className={styles.cardinfo}>

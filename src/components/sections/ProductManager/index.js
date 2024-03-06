@@ -17,7 +17,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
-import { UploadForm } from "@/components/base/Upload";
 
 const emptyProduct = {
   name: "",
@@ -77,16 +76,7 @@ export default function ProductManager() {
     if (product._id) {
       const updateRes = await apiPut("/api/products/" + product._id, product);
     } else {
-      console.log(product.images);
-      const data = new FormData();
-      data.set("file", product.images);
-
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: data,
-      });
-      console.log({ res });
-      // const addRes = await apiPost("/api/products", product);
+      const addRes = await apiPost("/api/products", product);
     }
     setProduct(emptyProduct);
     getAllProduct();
@@ -286,7 +276,6 @@ export default function ProductManager() {
           </TableBody>
         </Table>
       </TableContainer>
-      <UploadForm />
       <div>
         <Pagination
           count={totalPages}

@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -8,14 +9,30 @@ import TextField from "@mui/material/TextField";
 
 // Custom component for uploading an image
 import screenUrls from "@/static/screens";
+import axios from "axios";
 
 const BannerForm = ({ banner, setBanner, handleSubmit }) => {
   const handleChange = (field, value) => {
     setBanner({ ...banner, [field]: value });
   };
 
-  const handleImageChange = (imageUrl) => {
-    setBanner({ ...banner, imageUrl });
+  const handleImageChange = async (e) => {
+    try {
+      const data = new FormData();
+      data.set("file", e.target.files?.[0]);
+
+      const res = await axios.post("/api/upload", data);
+      // handle the error
+      const bannerImageUrl = `https://acharpapad.in/api/upload?id=${res.data.data._id}`;
+      if (res.status === 200) {
+        setBanner({ ...banner, imageUrl: bannerImageUrl });
+      }
+      console.log(bannerImageUrl);
+      // if (!res.ok) throw new Error(await res.text());
+    } catch (e) {
+      // Handle errors here
+      console.error(e);
+    }
   };
 
   return (
@@ -30,12 +47,7 @@ const BannerForm = ({ banner, setBanner, handleSubmit }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            label="Image Url"
-            fullWidth
-            value={banner.imageUrl}
-            onChange={(e) => handleChange("imageUrl", e.target.value)}
-          />
+          <input type="file" accept="image/*" onChange={handleImageChange} />
         </Grid>
         <Grid item xs={6}>
           <TextField
