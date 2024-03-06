@@ -140,16 +140,16 @@ const ProductCard = ({
 
         <div className={styles.cardlower}>
           <div style={{ fontSize: "13px", fontWeight: "100px" }}>1kg</div>
-          <AddButton
-            disableAddButton={disableAddButton}
-            productQuantity={productQuantity}
-            setproductQuantity={setproductQuantity}
-            product={data}
-            onAdd={handleAddToBasket}
-            deleteFromBasket={deleteFromBasket}
-            onRemove={handleRemoveFromBasket}
-          />
         </div>
+        <AddButton
+          disableAddButton={disableAddButton}
+          productQuantity={productQuantity}
+          setproductQuantity={setproductQuantity}
+          product={data}
+          onAdd={handleAddToBasket}
+          deleteFromBasket={deleteFromBasket}
+          onRemove={handleRemoveFromBasket}
+        />
       </div>
     </div>
   );
