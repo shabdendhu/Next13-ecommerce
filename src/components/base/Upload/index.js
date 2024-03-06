@@ -1,5 +1,6 @@
 "use client";
 
+import { apiPost } from "@/helpers/api";
 import { useState } from "react";
 
 export function UploadForm() {
@@ -11,13 +12,11 @@ export function UploadForm() {
 
     try {
       const data = new FormData();
-      data.set("file", file);
+      data.set("file", e.target.files?.[0]);
 
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: data,
-      });
+      const res = await apiPost("/api/upload", data);
       // handle the error
+      console.log(res);
       if (!res.ok) throw new Error(await res.text());
     } catch (e) {
       // Handle errors here

@@ -77,7 +77,16 @@ export default function ProductManager() {
     if (product._id) {
       const updateRes = await apiPut("/api/products/" + product._id, product);
     } else {
-      const addRes = await apiPost("/api/products", product);
+      console.log(product.images);
+      const data = new FormData();
+      data.set("file", product.images);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: data,
+      });
+      console.log({ res });
+      // const addRes = await apiPost("/api/products", product);
     }
     setProduct(emptyProduct);
     getAllProduct();

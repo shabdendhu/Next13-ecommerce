@@ -5,17 +5,31 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
+import { apiPost } from "@/helpers/api";
+import axios from "axios";
 
 const ImageUpload = ({ images, setImages }) => {
   const [mode, setMode] = useState("upload");
   const [link, setLink] = useState("");
+  console.log(process.env.base_url);
 
-  const handleImageChange = (e) => {
-    const files = e.target.files;
-    const imageUrls = Array.from(files).map((file) =>
-      URL.createObjectURL(file)
-    );
-    setImages(imageUrls);
+  const handleImageChange = async (e) => {
+    try {
+      const data = new FormData();
+      data.set("file", e.target.files?.[0]);
+
+      const res = await axios.post("/api/upload", data);
+      // handle the error
+      const productImageUrl = `http://localhost:3000/api/upload?id=${res.data.data._id}`;
+      if (res.status === 200) {
+        setImages([...images, productImageUrl]);
+      }
+      console.log(`http://localhost:3000/api/upload?id=${res.data.data._id}`);
+      // if (!res.ok) throw new Error(await res.text());
+    } catch (e) {
+      // Handle errors here
+      console.error(e);
+    }
   };
 
   const handleAddLink = () => {
@@ -60,7 +74,6 @@ const ImageUpload = ({ images, setImages }) => {
                 accept="image/*"
                 style={{ display: "none" }}
                 id="image-upload-button"
-                multiple
                 type="file"
                 onChange={handleImageChange}
               />
