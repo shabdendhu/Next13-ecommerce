@@ -20,11 +20,11 @@ const ImageUpload = ({ images, setImages }) => {
 
       const res = await axios.post("/api/upload", data);
       // handle the error
-      const productImageUrl = `http://localhost:3000/api/upload?id=${res.data.data._id}`;
+      const productImageUrl = `https://acharpapad.in/api/upload?id=${res.data.data._id}`;
       if (res.status === 200) {
         setImages([...images, productImageUrl]);
       }
-      console.log(`http://localhost:3000/api/upload?id=${res.data.data._id}`);
+      console.log(productImageUrl);
       // if (!res.ok) throw new Error(await res.text());
     } catch (e) {
       // Handle errors here
