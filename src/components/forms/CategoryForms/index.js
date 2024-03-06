@@ -24,7 +24,7 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
 
       const res = await axios.post("/api/upload", data);
       // handle the error
-      const imageUrl = `http://localhost:3000/api/upload?id=${res.data.data._id}`;
+      const imageUrl = `https://acharpapad.in/api/upload?id=${res.data.data._id}`;
       if (res.status === 200) {
         setNewCategory({ ...newCategory, image: imageUrl });
       }
