@@ -1,4 +1,4 @@
-import { apiGet } from "@/helpers/api";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
@@ -8,13 +8,29 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { apiGet } from "@/helpers/api";
 
 const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
   const [categoryOptions, setCategoryptions] = useState([]);
   const handleChange = (field, value) => {
     setNewCategory({ ...newCategory, [field]: value });
+  };
+
+  const handleImageChange = async (e) => {
+    try {
+      const data = new FormData();
+      data.set("file", e.target.files?.[0]);
+
+      const res = await axios.post("/api/upload", data);
+      // handle the error
+      const imageUrl = `http://localhost:3000/api/upload?id=${res.data.data._id}`;
+      if (res.status === 200) {
+        setNewCategory({ ...newCategory, image: imageUrl });
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const getAllCategories = async () => {
@@ -54,7 +70,7 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
           <FormControl fullWidth>
             <InputLabel>Parent Category</InputLabel>
             <Select
-              labelId="productIds-label"
+              labelId="parentCategory-label"
               id="parent_category"
               name="parent_category"
               value={newCategory.parent_category}
@@ -62,10 +78,9 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
               fullWidth
               variant="outlined"
             >
-              {/* Replace the items with your actual product options */}
-              {categoryOptions.map((e, i) => (
-                <MenuItem key={e.name} value={e.value}>
-                  {e.name}
+              {categoryOptions.map((category) => (
+                <MenuItem key={category.value} value={category.value}>
+                  {category.name}
                 </MenuItem>
               ))}
             </Select>
@@ -73,45 +88,28 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           {/* <TextField
-            label="Subcategories"
-            fullWidth
-            value={newCategory.subcategories}
-            onChange={(e) => handleChange("subcategories", e.target.value)}
-          /> */}
-          <Select
-            labelId="productIds-label"
-            id="subcategories"
-            name="subcategories"
-            multiple
-            value={newCategory.subcategories}
-            onChange={(e) => handleChange("subcategories", e.target.value)}
-            fullWidth
-            variant="outlined"
-          >
-            {/* Replace the items with your actual product options */}
-            {categoryOptions.map((e, i) => (
-              <MenuItem key={e.name} value={e.value}>
-                {e.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
             label="Image URL"
             fullWidth
             value={newCategory.image}
             onChange={(e) => handleChange("image", e.target.value)}
-          />
+          /> */}
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          {newCategory?.image ? (
+            <>
+              <img
+                src={newCategory.image}
+                style={{
+                  maxHeight: "100px",
+                  maxWidth: "100px",
+                }}
+              />
+              {/* <Button>Delete</Button> */}
+            </>
+          ) : (
+            <></>
+          )}
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            label="Meta Keywords"
-            fullWidth
-            value={newCategory.meta_keywords}
-            onChange={(e) => handleChange("meta_keywords", e.target.value)}
-          />
-        </Grid>
+        {/* Other form fields */}
         <Grid item xs={6}>
           <FormControlLabel
             control={
@@ -128,9 +126,7 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
         variant="contained"
         color="primary"
         type="submit"
-        style={{
-          backgroundColor: "blue",
-        }}
+        style={{ backgroundColor: "blue" }}
       >
         Save
       </Button>
