@@ -18,6 +18,10 @@ import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDisc
 const BasketProduct = () => {
   const [basketdata, setBasketData] = useState({ items: [] });
   const [checkoutItems, setCheckoutItems] = useState([]);
+  const [prices, setPrices] = useState({
+    totalItemPrice: 0,
+    totalDiscountPrice: 0,
+  });
   const dispatch = useDispatch();
   const router = useRouter();
   const basket = useSelector((state) => state.basket);
@@ -38,7 +42,41 @@ const BasketProduct = () => {
       setCheckoutItems((e) => e.filter((x) => x != item.product._id));
     }
   };
-  console.log(checkoutItems);
+  function getProductsByIds(products, productIds) {
+    const selectedArray = products.filter((product) =>
+      productIds.includes(product.product._id)
+    );
+    const data = selectedArray.map((e) => ({
+      quantity: e.quantity,
+      price: e.product.price,
+      discount: e.product.discount,
+      mrp: e.product.price / (1 - e.product.discount / 100),
+    }));
+    return data;
+  }
+  function calculatePrices(items) {
+    let totalMrp = 0;
+    let totalDiscountPrice = 0;
+
+    items.forEach((item) => {
+      totalMrp += item.quantity * item.mrp;
+      totalDiscountPrice +=
+        item.quantity * ((item.price * item.discount) / 100);
+    });
+
+    const finalPriceAfterDiscount = totalMrp - totalDiscountPrice;
+
+    return {
+      totalMrp,
+      totalDiscountPrice,
+      finalPriceAfterDiscount,
+    };
+  }
+  useEffect(() => {
+    const data = getProductsByIds(basket.items, checkoutItems);
+    const priceData = calculatePrices(data);
+    setPrices(priceData);
+  }, [basket, checkoutItems]);
   if (basket.items.length === 0) return <EmptyBasket />;
   return (
     <PageWrapper>
@@ -111,22 +149,17 @@ const BasketProduct = () => {
         >
           {/* calculate total price witout discount and show then discounted amount,then total price then gst then a button to confirm order and checkout */}
           <h1>
-            Total Price:{" "}
-            <b>
-              {
-                calculateTotalPriceAndDiscount(basket.items, checkoutItems)
-                  .totalItemPrice
-              }
-            </b>
+            Total MRP: <b>{Math.round(prices.totalMrp)}</b>
           </h1>
           <h1>
-            Total Discount:{" "}
-            <b>
-              {
-                calculateTotalPriceAndDiscount(basket.items, checkoutItems)
-                  .totalDiscountPrice
-              }
-            </b>
+            Total Discount: <b>{Math.round(prices.totalDiscountPrice)}</b>
+          </h1>
+          <h1>
+            Final Price After Discount:{" "}
+            <b>{Math.round(prices.finalPriceAfterDiscount)}</b>
+          </h1>
+          <h1>
+            GST: <b>{Math.round(prices.finalPriceAfterDiscount * 0.18)}</b>
           </h1>
           <h1>
             Delivery Charge: <b>{deliverycharge}</b>
@@ -134,10 +167,14 @@ const BasketProduct = () => {
           <h1>
             Total Amount:{" "}
             <b>
-              {parseInt(
-                calculateTotalPriceAndDiscount(basket.items, checkoutItems)
-                  .totalDiscountPrice
-              ) + deliverycharge}
+              {/* total amount calculation */}
+              <b>
+                {Math.round(
+                  Math.round(prices.finalPriceAfterDiscount) +
+                    Math.round(prices.finalPriceAfterDiscount * 0.18) +
+                    deliverycharge
+                )}
+              </b>
             </b>
           </h1>
           {/* create a button for confirm order and checkout */}

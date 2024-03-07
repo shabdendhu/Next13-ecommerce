@@ -72,6 +72,9 @@ export async function GET(req) {
     const basket = await Basket.findOne({ user: userId }).populate(
       "items.product"
     );
+    if (!basket?.items) {
+      return NextResponse.json({ error: "Empty Basket", success: false });
+    }
     basket.total = basket.items
       .map((item) => item.product.price)
       .reduce((accumulator, currentValue) => accumulator + currentValue, 0);

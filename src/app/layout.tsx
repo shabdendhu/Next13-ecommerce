@@ -16,7 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body
+        style={{
+          fontFamily: "sans-serif",
+        }}
+      >
         {/* <ReduxProvider store={store}> */}
         {/* <MyProvider> */}
         <Providers>{children}</Providers>

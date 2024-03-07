@@ -30,6 +30,7 @@ export async function GET(req, res) {
     const totalPages = Math.ceil(totalCount / limit);
 
     const products = await Product.find({})
+      .populate("category_ids")
       .skip((page - 1) * limit) // Skip documents based on pagination
       .limit(limit); // Limit number of documents per page
 

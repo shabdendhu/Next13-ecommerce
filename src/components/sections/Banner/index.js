@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import styles from "./Banner.module.scss";
+import Image from "next/image";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -35,7 +36,7 @@ const Banner = () => {
     const bannersRes = await apiPost("/api/banner/banner-by-query", {
       targetURL: pathname,
     });
-    setBanners(bannersRes?.data);
+    setBanners(bannersRes?.data || []);
     setLoading(false);
   };
 
@@ -63,11 +64,14 @@ const Banner = () => {
             index={index}
             onChangeIndex={handleChangeIndex}
           >
-            {banners.map((e, i) => (
+            {banners?.map((e, i) => (
               <a href={e?.pathURL} key={i}>
-                <img
+                <Image
+                  width={1917}
+                  height={600}
                   style={{
                     height: "100%",
+                    width: "100%",
                   }}
                   src={e.imageUrl}
                 />

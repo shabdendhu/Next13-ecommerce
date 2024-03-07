@@ -184,10 +184,8 @@ export default function ProductManager() {
                 <TableCell align="right">{row.price}</TableCell>
                 {/* Display category names */}
                 <TableCell align="right">
-                  {row.category_ids.map((categoryId, index) => (
-                    <span key={categoryId}>
-                      {index > 0 ? ", " : ""}Category Name
-                    </span>
+                  {row.category_ids.map((e, index) => (
+                    <span key={e._id}>{e.name}</span>
                   ))}
                 </TableCell>
                 <TableCell align="right">{row.brand}</TableCell>
@@ -260,7 +258,7 @@ export default function ProductManager() {
                   >
                     <EditIcon />
                   </ButtonBase>
-                  <ButtonBase
+                  {/* <ButtonBase
                     style={{
                       marginRight: 10,
                       padding: "5px 10px",
@@ -269,7 +267,7 @@ export default function ProductManager() {
                     onClick={() => handleDelete(row._id)}
                   >
                     <DeleteIcon />
-                  </ButtonBase>
+                  </ButtonBase> */}
                 </TableCell>
               </TableRow>
             ))}
