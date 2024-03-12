@@ -1,4 +1,75 @@
 @use "../../../styles/media.scss";
 
 .component {
+  max-width: 1000px;
+  margin: auto;
+  .addressForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .addressList {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    .address {
+      display: flex;
+      .addressDetails {
+        .addressLineone {
+          display: flex;
+          gap: 10px;
+          text-transform: capitalize;
+          align-items: center;
+        }
+      }
+    }
+    .addNewAddressButton {
+      align-self: flex-end;
+      background-color: blue;
+      color: white;
+    }
+  }
+  .productDetails {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    max-height: 400px;
+    overflow: auto;
+    .productCard {
+      //   border: 1px solid red;
+      width: 100%;
+      display: flex;
+      gap: 5px;
+      padding-bottom: 10px;
+      .productSummery {
+        flex: 1;
+        .attributes {
+          color: gray;
+        }
+        .productName {
+          font-size: 20px;
+        }
+        .discount {
+          color: green;
+          font-weight: bold;
+        }
+      }
+      .imageContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  }
+  .nextButton {
+    background-color: blue;
+    width: fit-content;
+    color: white;
+    align-self: flex-end;
+  }
+  .paymentDetails {
+  }
 }

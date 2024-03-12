@@ -1,12 +1,19 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
-  addressLine1: String,
-  addressLine2: String,
+  name: String,
+  locality: String,
+  mobile: String,
+  pincode: String,
   city: String,
-  state: String,
-  postalCode: String,
-  country: String,
+  landmark: String,
+  address: String,
+  alternateMobileNumber: String,
+  isDefault: Boolean,
+  locationType: {
+    type: String,
+    enum: ["home", "work"],
+  },
 });
 
 const userSchema = new mongoose.Schema({
@@ -20,6 +27,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
+  mobile: String,
   password: {
     type: String,
   },

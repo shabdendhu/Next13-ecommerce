@@ -36,6 +36,7 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
     const { _id, ...address } = userDetails?.profile?.addresses.find(
       (e) => e._id == userDetails?.defaultAddress
     ) || { _id: "" };
+    console.log(userDetails);
     setDefaultAddress(Object.values(address).toString());
   }, [userDetails]);
   useEffect(() => {}, [defaultAddress]);
@@ -99,7 +100,7 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
         <div className={styles.lable}>My Orders</div>
       </button>
       <Divider />
-      <button
+      {/* <button
         className={cx(
           styles.menuItems,
           activeTab == "/profile/payment" && styles.selectedItem
@@ -108,7 +109,7 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
       >
         <PaymentOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>My Payments</div>
-      </button>
+      </button> */}
       <Divider />
       <button
         className={cx(

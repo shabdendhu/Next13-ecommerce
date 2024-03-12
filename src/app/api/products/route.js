@@ -1,6 +1,6 @@
 // pages/api/products/create.js
 import { NextRequest, NextResponse } from "next/server";
-
+import Category from "@/models/categoryModel";
 import { connect } from "@/dbConfig/connection";
 import Product from "@/models/productModel";
 connect();
@@ -28,7 +28,7 @@ export async function GET(req, res) {
 
     const totalCount = await Product.countDocuments({});
     const totalPages = Math.ceil(totalCount / limit);
-
+    const categories = Category();
     const products = await Product.find({})
       .populate("category_ids")
       .skip((page - 1) * limit) // Skip documents based on pagination

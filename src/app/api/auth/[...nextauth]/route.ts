@@ -53,6 +53,7 @@ const handler = NextAuth({
       if (user) {
         token.id = user?._id || user?.id;
         token.role = user?.role;
+        token.mobile = user?.mobile;
         token.username = user?.username;
         token.orders = user?.orders;
         token.favorites = user?.favorites;
@@ -100,6 +101,7 @@ const handler = NextAuth({
         } else {
           user.id = userRes?._id;
           user.role = userRes?.role;
+          user.mobile = userRes?.mobile;
         }
       }
 
@@ -114,6 +116,7 @@ const handler = NextAuth({
       const jwtClaims = {
         id: token?.id,
         role: token?.role,
+        mobile: token?.mobile,
         name: token?.name,
         email: token?.email,
         iat: Math.floor(Date.now() / 1000),

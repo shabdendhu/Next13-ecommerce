@@ -20,7 +20,8 @@ export async function POST(req) {
 
     // Set the specified address as the default address
     user.defaultAddress = addressId;
-    await user.save();
+    await User.findByIdAndUpdate(userId, user);
+    //  user.save();
 
     return NextResponse.json({
       message: "Default address set successfully",

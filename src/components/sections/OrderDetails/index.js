@@ -5,23 +5,15 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import cx from "classnames";
 import axios from "axios";
 import sha256 from "crypto-js/sha256";
 import { useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 
-const OrderDetails = ({ order }) => {
+const PayNowButton = ({ order, text, className }) => {
   const router = useRouter();
-  const query = useSearchParams();
-  const {
-    products = [],
-    totalAmount,
-    status,
-    paymentStatus,
-    createdAt,
-    updatedAt,
-    _id,
-  } = order;
+  const { totalAmount, _id } = order;
 
   const makePayment = async (e) => {
     e.preventDefault();
@@ -74,63 +66,18 @@ const OrderDetails = ({ order }) => {
     const redirect = response.data.data.instrumentResponse.redirectInfo.url;
     router.push(redirect);
   };
-  const handleClickTrackOrder = () => {
-    router.push(`/track-order/${_id}`);
-  };
   return (
-    <Container maxWidth="md" style={{ minHeight: "100vh" }}>
-      <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
-        <Typography variant="h5" gutterBottom>
-          Order Details
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Total Amount: ${totalAmount}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Status: {status}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Payment Status: {paymentStatus}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Created At: {createdAt}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Updated At: {updatedAt}
-        </Typography>
-
-        <Typography variant="h6" style={{ marginTop: "20px" }}>
-          Products
-        </Typography>
-        <List>
-          {products.map((item) => (
-            <ListItem key={item._id}>
-              {/* <ListItemAvatar>
-                <Avatar alt={item.product.name} src={item.product.images[0]} />
-              </ListItemAvatar> */}
-              <ListItemText
-                primary={item.product.name}
-                secondary={`Quantity: ${item.quantity}, Price: $${item.price}`}
-              />
-            </ListItem>
-          ))}
-        </List>
-        {paymentStatus == "pending" ? (
-          <Button
-            onClick={makePayment}
-            style={{
-              backgroundColor: "blue",
-              color: "white",
-            }}
-          >
-            PAY NOW TO FINISH ORDER
-          </Button>
-        ) : (
-          <Button onClick={handleClickTrackOrder}>Track Order</Button>
-        )}
-      </Paper>
-    </Container>
+    <Button
+      className={cx(className)}
+      onClick={makePayment}
+      style={{
+        backgroundColor: "blue",
+        color: "white",
+      }}
+    >
+      {text}
+    </Button>
   );
 };
 
-export default OrderDetails;
+export default PayNowButton;
