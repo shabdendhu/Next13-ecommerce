@@ -20,7 +20,7 @@ export async function POST(req) {
 
     // Add the new address to the user's addresses
     user.profile.addresses.push(addressData);
-    await user.save();
+    await User.findByIdAndUpdate(userId, user);
 
     return NextResponse.json({
       message: "Address added successfully",

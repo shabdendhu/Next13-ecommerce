@@ -21,7 +21,7 @@ export async function PUT(req, { params }) {
     const addressIndex = user.profile.addresses.findIndex((address) =>
       address._id.equals(addressId)
     );
-
+    console.log({ userId, addressId });
     if (addressIndex === -1) {
       return NextResponse.json({
         message: "Address not found",
@@ -30,11 +30,13 @@ export async function PUT(req, { params }) {
     }
 
     // Update the address
+
     user.profile.addresses[addressIndex] = {
       ...user.profile.addresses[addressIndex],
       ...reqBody,
+      _id: addressId,
     };
-    await user.save();
+    await User.findByIdAndUpdate(userId, user);
 
     return NextResponse.json({
       message: "Address updated successfully",
@@ -65,7 +67,7 @@ export async function DELETE(req, { params }) {
       (address) => JSON.stringify(address._id) != `"${addressId}"`
     );
 
-    await user.save();
+    await User.findByIdAndUpdate(userId, user);
 
     return NextResponse.json({
       message: "Address deleted successfully",
