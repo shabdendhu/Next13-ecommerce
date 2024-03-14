@@ -1,4 +1,3 @@
-// pages/api/products/search.js
 import { NextResponse } from "next/server";
 import { connect } from "@/dbConfig/connection";
 import Product from "@/models/productModel";
@@ -27,7 +26,7 @@ export async function POST(req) {
         ],
       },
       { _id: 1, name: 1, images: 1, price: 1 }
-    );
+    ).limit(10); // Limit the results to the first 10 products
 
     return NextResponse.json({
       data: products,
