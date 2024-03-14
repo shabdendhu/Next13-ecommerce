@@ -8,12 +8,16 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import Image from "next/image";
 import { apiPost } from "@/helpers/api";
+import { useRouter } from "next/navigation";
 
 export default function CustomizedInputBase() {
+  const route = useRouter();
   const [searchText, setSearchText] = useState("");
   const [searchProducts, setSearchProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const handleClickSelectedItem = (e) => {
+    route.push(`/product-details/${e?._id}`);
+  };
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       if (searchText.trim() !== "") {
@@ -39,7 +43,7 @@ export default function CustomizedInputBase() {
   }, [searchText]);
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <Paper
         component="form"
         sx={{
@@ -48,6 +52,7 @@ export default function CustomizedInputBase() {
           alignItems: "center",
           width: "100%",
           paddingInline: "10px",
+          height: "100%",
         }}
       >
         <Autocomplete
@@ -65,13 +70,20 @@ export default function CustomizedInputBase() {
               placeholder="Search Products..."
             />
           )}
+          onChange={(e, i) => handleClickSelectedItem(i)}
           renderOption={(props, option) => (
             <Box
+              onClick={() => console.log(option)}
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              <Image width={40} height={40} src={option.images[0]} />
+              <Image
+                alt={option.name}
+                width={40}
+                height={40}
+                src={option.images[0]}
+              />
               {option.name} {option.price}₹
             </Box>
           )}
