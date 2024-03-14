@@ -26,7 +26,7 @@ export async function POST(req) {
           { tags: { $in: [query] } }, // Search for products with matching tags
         ],
       },
-      { _id: 1, name: 1, images: 1 }
+      { _id: 1, name: 1, images: 1, price: 1 }
     );
 
     return NextResponse.json({

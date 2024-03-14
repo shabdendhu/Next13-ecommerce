@@ -15,7 +15,13 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import TextField from "@mui/material/TextField";
+import CustomizedInputBase from "@/components/sections/SearchBar";
+import Autocomplete from "@mui/material/Autocomplete";
 import QuickCategory from "../QuickCategory";
+import Badge from "@mui/material/Badge";
+import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import styles from "./Header.module.scss";
 const Header = () => {
   const router = useRouter();
@@ -88,7 +94,7 @@ const Header = () => {
             </div>
 
             <div className={styles.searchBarContainer}>
-              <input
+              {/* <input
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 placeholder="Search Here...."
@@ -113,7 +119,8 @@ const Header = () => {
                     <Divider />
                   </div>
                 ))}
-              </div>
+              </div> */}
+              <CustomizedInputBase />
             </div>
 
             <div onClick={handleLogin}></div>
@@ -151,15 +158,23 @@ const Header = () => {
                 }}
                 onClick={() => handleClikMenuItem("/profile?tab=wishlist")}
               />
-              <ShoppingBasketIcon
-                style={{
-                  fontSize: "44px",
-                  color: "#FFFFFF",
-                  cursor: "pointer",
-                }}
+              <IconButton
                 onClick={() => handleClikMenuItem("/basket")}
-              />
-              {basketCount?.items?.length}
+                aria-label="cart"
+              >
+                <Badge
+                  badgeContent={basketCount?.items?.length}
+                  color="secondary"
+                >
+                  <ShoppingCartIcon
+                    style={{
+                      fontSize: "44px",
+                      color: "#FFFFFF",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Badge>
+              </IconButton>
             </div>
           </div>
         </div>
