@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import sha256 from "crypto-js/sha256";
+import { connect } from "@/dbConfig/connection";
 import axios from "axios";
 import Order from "@/models/orderModel";
+connect();
 export async function POST(req, { params }) {
   try {
     const { id } = params;
