@@ -8,12 +8,14 @@ import Typography from "@mui/material/Typography";
 import cx from "classnames";
 import axios from "axios";
 import sha256 from "crypto-js/sha256";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { useSession } from "next-auth/react";
 
 const PayNowButton = ({ order, text, className }) => {
   const router = useRouter();
+  const path = usePathname();
+  console.log(window.location.origin, "kkkkkkkkkkkkk");
   const { data: session } = useSession();
   const { totalAmount, _id } = order;
 
@@ -26,9 +28,9 @@ const PayNowButton = ({ order, text, className }) => {
       merchantTransactionId: transactionid,
       merchantUserId: "MUID-" + uuidv4().toString(36).slice(-6),
       amount: totalAmount * 100,
-      redirectUrl: `https://acharpapad.in/api/phonepay/${_id}`,
+      redirectUrl: `${window.location.origin}/api/phonepay/${_id}`,
       redirectMode: "POST",
-      callbackUrl: `https://acharpapad.in/api/phonepay/${_id}`,
+      callbackUrl: `${window.location.origin}/api/phonepay/${_id}`,
       mobileNumber: "9999999999",
       accessToken: session?.accessToken || "",
       paymentInstrument: {

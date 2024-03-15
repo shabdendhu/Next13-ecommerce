@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import sha256 from "crypto-js/sha256";
 import axios from "axios";
+import { connect } from "@/dbConfig/connection";
 import Order from "@/models/orderModel";
 connect();
 export async function POST(req, { params }) {
@@ -43,7 +44,7 @@ export async function POST(req, { params }) {
           paymentStatus: "completed",
           transactionId,
           paidAmount,
-          status: "processing",
+          status: "shipped",
         },
         {
           new: true,

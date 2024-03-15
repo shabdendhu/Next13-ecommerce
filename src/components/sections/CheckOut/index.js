@@ -24,7 +24,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageWrapper from "../PageWrapper";
 import styles from "./Checkout.module.scss";
-import PayNowButton from "@/components/sections/OrderDetails";
+import PayNowButton from "@/components/sections//PayNowButton";
 
 const initialAddress = {
   name: "",
