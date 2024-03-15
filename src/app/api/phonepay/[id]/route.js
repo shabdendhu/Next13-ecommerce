@@ -42,7 +42,7 @@ export async function POST(req, { params }) {
           paymentStatus: "completed",
           transactionId,
           paidAmount,
-          status: "processing",
+          status: "payment",
         },
         {
           new: true,
