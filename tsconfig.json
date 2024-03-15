@@ -34,7 +34,8 @@
     "src/app/api/user/[id]/route.js",
     "src/app/api/products/search/route.js",
     "src/app/api/banner/banner-by-query/route.js",
-    "src/middleware.js"
+    "src/middleware.js",
+    "src/app/api/auth/[...nextauth]/route.js"
   ],
   "exclude": ["node_modules"]
 }

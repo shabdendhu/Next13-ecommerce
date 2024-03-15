@@ -1,15 +1,9 @@
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { apiGet } from "@/helpers/api";
 import User from "@/models/userModel";
 import jwt from "jsonwebtoken";
-
-import bcryptjs from "bcryptjs";
+import GoogleProvider from "next-auth/providers/google";
 import { connect } from "@/dbConfig/connection";
-import { NextRequest, NextResponse } from "next/server";
 
-const handler = NextAuth({
+export const authOption = {
   providers: [
     // CredentialsProvider({
     //   name: "credentials",
@@ -47,7 +41,7 @@ const handler = NextAuth({
   // secret: process.env.JWT_SECRET,
 
   callbacks: {
-    async jwt({ token, user, session }: any) {
+    async jwt({ token, user, session }) {
       // console.log("jwt", token, session, user);
 
       if (user) {
@@ -61,14 +55,11 @@ const handler = NextAuth({
 
       return token;
     },
-    async session({ session, token }: any) {
+    async session({ session, token }) {
       const encodedToken = jwt.sign(token, process.env.NEXTAUTH_SECRET || "", {
         algorithm: "HS256",
       });
       session.accessToken = encodedToken;
-      console.log("====================================");
-      console.log({ session, token });
-      console.log("====================================");
       // console.log("session", token, session);
       // if (token.id) {
       // session.user.id = token.id;
@@ -81,14 +72,14 @@ const handler = NextAuth({
       session.user = newsessionObj;
       return session;
     },
-    async signIn({ user, profile }: any) {
+    async signIn({ user, profile }) {
       // console.log("signIn", profile, user);
 
       connect();
       if (profile?.email) {
-        const userRes: any = await User.findOne({ email: profile?.email });
+        const userRes = await User.findOne({ email: profile?.email });
         if (!userRes) {
-          const newUser: any = await User.create({
+          const newUser = await User.create({
             email: profile?.email,
             username: profile?.given_name,
             profile: {
@@ -126,7 +117,7 @@ const handler = NextAuth({
 
       return encodedToken;
     },
-    decode: ({ secret, token }: any): any => {
+    decode: ({ secret, token }) => {
       return jwt.verify(token, secret, { algorithms: ["HS256"] });
     },
   },
@@ -134,6 +125,4 @@ const handler = NextAuth({
     strategy: "jwt",
   },
   debug: process.env.NODE_ENV === "development",
-});
-
-export { handler as GET, handler as POST };
+};

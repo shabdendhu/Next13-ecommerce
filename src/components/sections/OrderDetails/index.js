@@ -10,9 +10,11 @@ import axios from "axios";
 import sha256 from "crypto-js/sha256";
 import { useRouter, useSearchParams } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
+import { useSession } from "next-auth/react";
 
 const PayNowButton = ({ order, text, className }) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { totalAmount, _id } = order;
 
   const makePayment = async (e) => {
@@ -28,6 +30,7 @@ const PayNowButton = ({ order, text, className }) => {
       redirectMode: "POST",
       callbackUrl: `https://acharpapad.in/api/phonepay/${_id}`,
       mobileNumber: "9999999999",
+      accessToken: session?.accessToken || "",
       paymentInstrument: {
         type: "PAY_PAGE",
       },
