@@ -4,11 +4,11 @@ import { apiPost } from "@/helpers/api";
 import PageWrapper from "@/components/sections/PageWrapper";
 import dayjs from "dayjs";
 import Image from "next/image";
+import CancelOrderButton from "@/components/sections/CancelorderButton";
 import {
   Typography,
   Card,
   CardContent,
-  Button,
   Stepper,
   Step,
   StepLabel,
@@ -100,21 +100,7 @@ export default async function TrackOrder({ params, query }) {
             ))}
           </CardContent>
         </Card>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: "10px",
-            width: "100%",
-          }}
-        >
-          <Button
-            variant="contained"
-            style={{ backgroundColor: "blue", color: "white" }}
-          >
-            Cencle Order
-          </Button>
-        </div>
+        <CancelOrderButton orderId={orderId} />
       </div>
     </PageWrapper>
   );

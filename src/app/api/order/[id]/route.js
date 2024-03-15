@@ -30,3 +30,24 @@ export async function GET(req, { params }) {
     });
   }
 }
+
+export async function PUT(req, { params }) {
+  const { id } = params;
+  try {
+    const canceledOrder = await Order.findByIdAndUpdate(
+      id,
+      { status: "canceled" },
+      { new: true }
+    );
+    if (!canceledOrder) {
+      return NextResponse.json({ error: "Order not found", success: false });
+    } else {
+      return NextResponse.json({ data: canceledOrder, success: true });
+    }
+  } catch (error) {
+    return NextResponse.json({
+      error: "Error canceling the order",
+      success: false,
+    });
+  }
+}

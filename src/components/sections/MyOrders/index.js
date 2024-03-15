@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import ReviewManagement from "@/components/sections/ReviewManagement"; // Import the new component
 import styles from "./MyOrder.module.scss";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const MyOrders = () => {
   const { data: session } = useSession();
@@ -27,7 +28,27 @@ const MyOrders = () => {
   useEffect(() => {
     if (session) getAllOrders();
   }, [session]);
-
+  if (!orders.length)
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
+          flexDirection: "column",
+        }}
+      >
+        <Image height={400} width={400} src={"/empty-order.png"} />
+        <h2>No Orders Found</h2>
+        <p>You have not placed any orders yet.</p>
+        <p>Please check back later.</p>
+        <p>Or, you can browse our products.</p>
+        <Button variant="contained" color="primary" href="/products">
+          Browse Products
+        </Button>
+      </div>
+    );
   return (
     <div className={styles.orderComponent}>
       {orders?.map((order) => (

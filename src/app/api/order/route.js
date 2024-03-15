@@ -90,53 +90,6 @@ export async function POST(req) {
   }
 }
 
-// export async function GET(req) {
-//   try {
-//     const searchParams = req.nextUrl.searchParams;
-//     const userId = searchParams.get("user");
-
-//     if (!userId) {
-//       // Fetch all products if user is not available
-//       const allOrders = await Order.find({}).populate({
-//         path: "user",
-//         select: "email",
-//       });
-//       return NextResponse.json({
-//         data: allOrders,
-//         success: true,
-//       });
-//     }
-
-//     // Check if the user ID is valid
-//     if (!mongoose.Types.ObjectId.isValid(userId)) {
-//       return NextResponse.json(
-//         { error: "Invalid user ID", success: false },
-//         { status: 400 }
-//       );
-//     }
-
-//     // Check if the user exists
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return NextResponse.json(
-//         { error: "User not found", success: false },
-//         { status: 404 }
-//       );
-//     }
-
-//     // Fetch orders for the given user
-//     const orders = await Order.find({ user: userId }).populate(
-//       "products.product"
-//     );
-//     return NextResponse.json({
-//       data: orders,
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.error(error); // Log the error for debugging purposes
-//     return NextResponse.json({ error: error.message }, { status: 500 });
-//   }
-// }
 export async function GET(req) {
   try {
     const searchParams = req.nextUrl.searchParams;
