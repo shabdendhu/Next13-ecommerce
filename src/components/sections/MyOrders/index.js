@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { apiGet } from "@/helpers/api";
 import ProductCard from "../ProductCard";
+import Button from "@mui/material/Button";
 import ReviewManagement from "@/components/sections/ReviewManagement"; // Import the new component
 import styles from "./MyOrder.module.scss";
+import { useRouter } from "next/navigation";
 
 const MyOrders = () => {
   const { data: session } = useSession();
   const [orders, setOrders] = useState([]);
-
+  const route = useRouter();
   const getAllOrders = async () => {
     try {
       const orderRes = await apiGet("/api/order?user=" + session?.user?.id);
@@ -18,7 +20,10 @@ const MyOrders = () => {
       console.error(error);
     }
   };
-
+  const handleClickTrackOrder = (o) => {
+    console.log("Track Order clicked");
+    route.push(`/trackorder?orderId=${o._id}`);
+  };
   useEffect(() => {
     if (session) getAllOrders();
   }, [session]);
@@ -54,6 +59,13 @@ const MyOrders = () => {
               {formatDate(order.expectedDeliveryDate)}
             </p>
           </div>
+          <Button
+            size="small"
+            style={{ backgroundColor: "blue", color: "white" }}
+            onClick={() => handleClickTrackOrder(order)}
+          >
+            Track Order
+          </Button>
           {order.status == "Delivered" && (
             <ReviewManagement orderId={order._id} />
           )}

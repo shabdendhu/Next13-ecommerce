@@ -1,11 +1,26 @@
-.trackOrder {
-  max-width: 600px;
+.component {
+  // border: 1px solid red;
+  max-width: 900px;
   margin: auto;
-  margin-top: 2rem;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 
-  .input {
-    margin: 1rem 0;
+  .paymentCardContainer {
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 10px;
+    .productCard {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .header {
+      font-size: 17px;
+      font-weight: bold;
+    }
+    p {
+      font-size: 13px;
+    }
   }
 }

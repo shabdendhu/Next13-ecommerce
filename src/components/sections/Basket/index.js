@@ -15,16 +15,18 @@ import EmptyBasket from "@/components/sections/EmptyBasket";
 import { Route } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
-const BasketProduct = () => {
+const BasketProduct = ({ basket }) => {
   const [basketdata, setBasketData] = useState({ items: [] });
-  const [checkoutItems, setCheckoutItems] = useState([]);
+  const [checkoutItems, setCheckoutItems] = useState(
+    basket?.items?.map((e) => e?.product?._id || [])
+  );
   const [prices, setPrices] = useState({
     totalItemPrice: 0,
     totalDiscountPrice: 0,
   });
   const dispatch = useDispatch();
   const router = useRouter();
-  const basket = useSelector((state) => state.basket);
+
   const { data: session } = useSession();
   let deliverycharge = 40;
   const handleClickConfirmOrder = async () => {

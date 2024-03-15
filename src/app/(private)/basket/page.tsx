@@ -1,9 +1,10 @@
-import React from 'react'
-import BasketProduct from '@/components/sections/Basket'
+"use client";
+import React from "react";
+import BasketProduct from "@/components/sections/Basket";
+import { useSelector } from "react-redux";
 const Basket = () => {
-  return (
-   <BasketProduct/>
-  )
-}
+  const basket = useSelector((state: any) => state.basket);
+  return <BasketProduct basket={basket} />;
+};
 
-export default Basket
+export default Basket;
