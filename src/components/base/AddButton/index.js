@@ -27,6 +27,7 @@ const AddButton = ({
 
   const addRemoveApi = async (count) => {
     setLoading(true);
+    console.log(count);
     const res = await apiPost(
       "/api/basket",
       {
@@ -36,7 +37,15 @@ const AddButton = ({
       },
       openSnackbar
     );
-    if (res.success) setLoading(false);
+    if (res.success) {
+      setLoading(false);
+      console.log(
+        res.data.items.find((e) => e.product == product._id).quantity
+      );
+      setproductQuantity(
+        res.data.items.find((e) => e.product == product._id).quantity
+      );
+    }
   };
   const deleteproduceFromCart = async () => {
     setLoading(true);
@@ -48,7 +57,10 @@ const AddButton = ({
       },
       openSnackbar
     );
-    if (res.success) setLoading(false);
+    if (res.success) {
+      setLoading(false);
+      // setproductQuantity(productQuantity - 1);
+    }
   };
   // const handleAdd = async (e) => {
   //   e.stopPropagation();
@@ -68,7 +80,7 @@ const AddButton = ({
   const handleAdd = async (e) => {
     e.stopPropagation();
     if (!session) return dispatch(openOtpModal());
-    setproductQuantity(productQuantity + 1);
+
     addRemoveApi(1);
     onAdd(); // Call the provided callback
   };
@@ -76,11 +88,12 @@ const AddButton = ({
   const handleRemove = (e) => {
     e.stopPropagation();
     if (!session) return dispatch(openOtpModal());
-    setproductQuantity(productQuantity - 1);
+
     onRemove(); // Call the provided callback
     if (productQuantity == 1) {
       deleteproduceFromCart();
       deleteFromBasket();
+      return;
     }
     addRemoveApi(-1);
   };
@@ -92,7 +105,11 @@ const AddButton = ({
           className={styles.addButton}
           onClick={handleAdd}
         >
-          ADD
+          {loading ? (
+            <CircularProgress size={25} style={{ color: "blue" }} />
+          ) : (
+            "ADD"
+          )}
         </button>
       ) : (
         <div className={styles.addRemoveButton}>
