@@ -9,6 +9,7 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import styles from "./Banner.module.scss";
 import Image from "next/image";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -26,6 +27,7 @@ const Banner = () => {
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
+  const { openSnackbar } = useSnackbar();
 
   const handleChangeIndex = (index) => {
     setIndex(index);
@@ -33,9 +35,13 @@ const Banner = () => {
 
   const getBanners = async () => {
     setLoading(true);
-    const bannersRes = await apiPost("/api/banner/banner-by-query", {
-      targetURL: pathname,
-    });
+    const bannersRes = await apiPost(
+      "/api/banner/banner-by-query",
+      {
+        targetURL: pathname,
+      },
+      openSnackbar
+    );
     setBanners(bannersRes?.data || []);
     setLoading(false);
   };

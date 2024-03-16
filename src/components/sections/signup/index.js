@@ -8,6 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { apiPost } from "@/helpers/api";
 import { signIn } from "next-auth/react";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const Home = () => {
   return (
@@ -23,6 +24,7 @@ const Home = () => {
   );
 };
 const Signup = () => {
+  const { openSnackbar } = useSnackbar();
   const router = useRouter();
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -32,11 +34,15 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const signUpRes = await apiPost("/api/user/", {
-        username: userInfo.name,
-        email: userInfo.email,
-        password: userInfo.password,
-      });
+      const signUpRes = await apiPost(
+        "/api/user/",
+        {
+          username: userInfo.name,
+          email: userInfo.email,
+          password: userInfo.password,
+        },
+        openSnackbar
+      );
       if (signUpRes?.success) {
         router.push("/login");
       }

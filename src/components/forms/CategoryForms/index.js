@@ -10,8 +10,11 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { apiGet } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
+  const { openSnackbar } = useSnackbar();
+
   const [categoryOptions, setCategoryptions] = useState([]);
   const handleChange = (field, value) => {
     setNewCategory({ ...newCategory, [field]: value });
@@ -34,7 +37,7 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
   };
 
   const getAllCategories = async () => {
-    const categoryRes = await apiGet("/api/category");
+    const categoryRes = await apiGet("/api/category", {}, openSnackbar);
     setCategoryptions((e) => [
       ...e,
       ...categoryRes.data.map((i) => ({

@@ -47,6 +47,7 @@ export const authOption = {
       if (user) {
         token.id = user?._id || user?.id;
         token.role = user?.role;
+        token.avatar = user?.avatar;
         token.mobile = user?.mobile;
         token.username = user?.username;
         token.orders = user?.orders;
@@ -88,11 +89,16 @@ export const authOption = {
             },
           });
           user.id = newUser?._id;
-          user.role = userRes?.role;
+          user.role = newUser?.role;
+          user.avatar = newUser?.profile?.avatar;
         } else {
           user.id = userRes?._id;
           user.role = userRes?.role;
+          user.avatar = userRes?.profile?.avatar;
           user.mobile = userRes?.mobile;
+          console.log("====================================");
+          console.log(userRes);
+          console.log("====================================");
         }
       }
 
@@ -107,6 +113,7 @@ export const authOption = {
       const jwtClaims = {
         id: token?.id,
         role: token?.role,
+        avatar: token?.avatar,
         mobile: token?.mobile,
         name: token?.name,
         email: token?.email,

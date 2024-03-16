@@ -120,6 +120,9 @@
       }
       .rightIcon {
         // border: 1px solid #5ae741;
+        display: flex;
+        align-items: center;
+        gap: 5px;
         @include media.onMdM() {
           display: none;
         }

@@ -1,5 +1,6 @@
 import ImageUpload from "@/components/base/ImageUpload";
 import { apiGet } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 
 const ProductForm = ({ product, setProduct, handleSubmit }) => {
   const [categoryOptions, setCategoryptions] = useState([]);
+  const { openSnackbar } = useSnackbar();
 
   const handleChange = (field, value) => {
     setProduct({ ...product, [field]: value });
@@ -35,7 +37,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
     setProduct({ ...product, reviews: updatedReviews });
   };
   const getAllCategories = async () => {
-    const categoryRes = await apiGet("/api/category");
+    const categoryRes = await apiGet("/api/category", {}, openSnackbar);
     setCategoryptions((e) => [
       ...e,
       ...categoryRes.data.map((i) => ({

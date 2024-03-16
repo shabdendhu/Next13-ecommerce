@@ -3,6 +3,7 @@ import TransitionsModal from "@/components/base/Modal";
 import ProductForm from "@/components/forms/ProductForms";
 import ImageGallery from "@/components/sections/ImageGallary";
 import { apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import useWindowSize from "@/hooks/useWindowSize";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -58,15 +59,20 @@ export default function ProductManager() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { openSnackbar } = useSnackbar();
 
   const handleViewProduct = async (id) => {
     setOpen(true);
-    const getProductById = await apiGetById("/api/products", id);
+    const getProductById = await apiGetById("/api/products", id, openSnackbar);
     setProduct(getProductById.data);
   };
 
   const getAllProduct = async () => {
-    const productRes = await apiGet(`/api/products?page=${page}&limit=10`);
+    const productRes = await apiGet(
+      `/api/products?page=${page}&limit=10`,
+      {},
+      openSnackbar
+    );
     setProducts(productRes.data);
     setTotalPages(productRes.totalPages);
   };
@@ -74,9 +80,13 @@ export default function ProductManager() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (product._id) {
-      const updateRes = await apiPut("/api/products/" + product._id, product);
+      const updateRes = await apiPut(
+        "/api/products/" + product._id,
+        product,
+        openSnackbar
+      );
     } else {
-      const addRes = await apiPost("/api/products", product);
+      const addRes = await apiPost("/api/products", product, openSnackbar);
     }
     setProduct(emptyProduct);
     getAllProduct();
@@ -84,7 +94,7 @@ export default function ProductManager() {
   };
 
   const handleDelete = async (id) => {
-    const deleteRes = await apiDelete("/api/products", id);
+    const deleteRes = await apiDelete("/api/products", id, openSnackbar);
     getAllProduct();
   };
 

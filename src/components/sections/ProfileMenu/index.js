@@ -111,7 +111,7 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
         <div className={styles.lable}>My Payments</div>
       </button> */}
       <Divider />
-      <button
+      {/* <button
         className={cx(
           styles.menuItems,
           activeTab == "/profile/review" && styles.selectedItem
@@ -120,7 +120,7 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
       >
         <ReviewsOutlinedIcon className={styles.icon} />
         <div className={styles.lable}>My Reviews & Ratings</div>
-      </button>
+      </button> */}
       <Divider />
       <button
         className={cx(

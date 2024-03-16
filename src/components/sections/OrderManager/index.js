@@ -27,6 +27,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import OrderForm from "../../forms/OrderForms";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -97,6 +98,7 @@ export default function OrderManager() {
   const [open, setOpen] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(1);
+  const { openSnackbar } = useSnackbar();
   const [orders, setOrders] = React.useState([]);
   const size = useWindowSize();
   const handleCloseModal = () => {
@@ -106,7 +108,11 @@ export default function OrderManager() {
 
   //fetch all order from
   const fetchOrders = async () => {
-    const res = await apiGet(`/api/order?page=${page}&limit=${10}`);
+    const res = await apiGet(
+      `/api/order?page=${page}&limit=${10}`,
+      {},
+      openSnackbar
+    );
     console.log(res);
     setOrders(res.data);
     setTotalPages(res.totalPages);
@@ -119,10 +125,14 @@ export default function OrderManager() {
     setPage(newPage);
   };
   const handleExpectedDateChange = async (e, id) => {
-    const changeRes = await apiPut("/api/order/change-delivery-date", {
-      newDeliveryDate: dayjs(e).format("YYYY-MM-DD"),
-      id,
-    });
+    const changeRes = await apiPut(
+      "/api/order/change-delivery-date",
+      {
+        newDeliveryDate: dayjs(e).format("YYYY-MM-DD"),
+        id,
+      },
+      openSnackbar
+    );
     if (changeRes.success) {
       console.log("success");
     }

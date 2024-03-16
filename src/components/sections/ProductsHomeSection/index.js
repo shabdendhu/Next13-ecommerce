@@ -8,6 +8,7 @@ import cx from "classnames";
 import { apiGet } from "@/helpers/api";
 import { useRouter, usePathname } from "next/navigation";
 import Skeleton from "@mui/material/Skeleton";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 export const ProductsHomeSection = ({
   headerText = "HEADER",
@@ -58,12 +59,15 @@ export const ProductsHomeSection = ({
 const MultipleProductsHomeSection = () => {
   const [sections, setSection] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { openSnackbar } = useSnackbar();
   const pathname = usePathname();
   const getAllSections = async () => {
     try {
       setLoading(true);
       const sections = await apiGet(
-        "/api/productsuggestion?screenName=" + pathname
+        "/api/productsuggestion?screenName=" + pathname,
+        {},
+        openSnackbar
       );
       if (sections.success) setLoading(false);
       setSection(sections.data);

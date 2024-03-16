@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useDispatch } from "react-redux";
 import { openOtpModal } from "@/redux/auth/auth";
+import { useSnackbar } from "@/hooks/useSnakBar";
 const AddButton = ({
   product,
   setproductQuantity,
@@ -22,22 +23,31 @@ const AddButton = ({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const { openSnackbar } = useSnackbar();
 
   const addRemoveApi = async (count) => {
     setLoading(true);
-    const res = await apiPost("/api/basket", {
-      userId: session.user.id,
-      productId: product?._id,
-      quantity: count,
-    });
+    const res = await apiPost(
+      "/api/basket",
+      {
+        userId: session.user.id,
+        productId: product?._id,
+        quantity: count,
+      },
+      openSnackbar
+    );
     if (res.success) setLoading(false);
   };
   const deleteproduceFromCart = async () => {
     setLoading(true);
-    const res = await apiPost("/api/basket/delete", {
-      userId: session.user.id,
-      itemId: product?._id,
-    });
+    const res = await apiPost(
+      "/api/basket/delete",
+      {
+        userId: session.user.id,
+        itemId: product?._id,
+      },
+      openSnackbar
+    );
     if (res.success) setLoading(false);
   };
   // const handleAdd = async (e) => {

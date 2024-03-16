@@ -16,10 +16,12 @@ const ProductSuggestionForm = ({
   setSuggestions,
   handleSubmit,
 }) => {
+  const { openSnackbar } = useSnackbar();
+
   const [products, setProducts] = useState([]);
   const [screen, setScreen] = useState(screenUrls);
   const getAllProducts = async () => {
-    const productRes = await apiGet("/api/products");
+    const productRes = await apiGet("/api/products", {}, openSnackbar);
     setProducts(productRes.data);
     setScreen((e) => [
       ...e,

@@ -10,16 +10,22 @@ import { useEffect, useState } from "react";
 import { apiGet } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const AddressCheckoutComponent = ({ onSelectAddress }) => {
   const [addresses, setAddresses] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const { openSnackbar } = useSnackbar();
   const router = useRouter();
   const [selectedAddress, setSelectedAddress] = useState({});
   const { data: session } = useSession();
 
   const getAllAddressByUserId = async () => {
-    const addressRes = await apiGet("/api/address/" + session?.user?.id);
+    const addressRes = await apiGet(
+      "/api/address/" + session?.user?.id,
+      {},
+      openSnackbar
+    );
     setAddresses(addressRes?.data);
   };
 

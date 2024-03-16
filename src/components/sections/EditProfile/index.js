@@ -1,5 +1,6 @@
 "use client";
 import { apiPut } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -7,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const EditProfile = ({ userDetails, reloadUserDetails }) => {
+  const { openSnackbar } = useSnackbar();
   const { data: session } = useSession();
   const [formData, setFormData] = useState({
     username: userDetails?.username || "",
@@ -22,16 +24,20 @@ const EditProfile = ({ userDetails, reloadUserDetails }) => {
   };
 
   const handleSave = async () => {
-    const addRes = await apiPut("/api/user/" + session?.user?.id, {
-      profile: {
-        name: formData?.name,
-        avatar: formData?.avatar,
-        phone: formData?.phone,
-        dateOfBirth: formData?.dateOfBirth,
+    const addRes = await apiPut(
+      "/api/user/" + session?.user?.id,
+      {
+        profile: {
+          name: formData?.name,
+          avatar: formData?.avatar,
+          phone: formData?.phone,
+          dateOfBirth: formData?.dateOfBirth,
+        },
+        email: formData?.email,
+        username: formData?.username,
       },
-      email: formData?.email,
-      username: formData?.username,
-    });
+      openSnackbar
+    );
     reloadUserDetails();
   };
 

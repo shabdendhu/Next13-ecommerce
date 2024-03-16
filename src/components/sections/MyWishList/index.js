@@ -13,9 +13,14 @@ import styles from "./MyWishList.module.scss";
 const MyWishList = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  const { openSnackbar } = useSnackbar();
   const [wishList, setWishList] = useState([]);
   const getWishLists = async () => {
-    const wishListRes = await apiGet("/api/wishlist?user=" + session?.user?.id);
+    const wishListRes = await apiGet(
+      "/api/wishlist?user=" + session?.user?.id,
+      {},
+      openSnackbar
+    );
     setWishList(wishListRes?.data?.products || []);
   };
   useEffect(() => {

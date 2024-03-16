@@ -14,9 +14,14 @@ const Profile = () => {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
   const { data: session } = useSession();
+  const { openSnackbar } = useSnackbar();
   const [userDetails, setUserDetails] = useState({});
   const getUserDetails = async () => {
-    const user = await apiGet("/api/user/" + session?.user?.id);
+    const user = await apiGet(
+      "/api/user/" + session?.user?.id,
+      {},
+      openSnackbar
+    );
     setUserDetails(user?.data);
   };
   useEffect(() => {

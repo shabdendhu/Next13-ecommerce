@@ -1,5 +1,6 @@
 "use client";
 import { apiGet, apiPut } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import useWindowSize from "@/hooks/useWindowSize";
 import Avatar from "@mui/material/Avatar";
 import Pagination from "@mui/material/Pagination";
@@ -18,9 +19,14 @@ export default function UserManager() {
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(1);
   const size = useWindowSize();
+  const { openSnackbar } = useSnackbar();
 
   const getUsers = async () => {
-    const res = await apiGet(`/api/user?page=${page}&limit=${10}`);
+    const res = await apiGet(
+      `/api/user?page=${page}&limit=${10}`,
+      {},
+      openSnackbar
+    );
     setUsers(res.data);
     setTotalPages(res.totalPages);
   };
@@ -38,9 +44,13 @@ export default function UserManager() {
     });
     setUsers(updatedUsers);
     // Send a PUT request to update user role on the server
-    await apiPut(`/api/user/${userId}`, {
-      role: updatedUsers.find((user) => user._id === userId).role,
-    });
+    await apiPut(
+      `/api/user/${userId}`,
+      {
+        role: updatedUsers.find((user) => user._id === userId).role,
+      },
+      openSnackbar
+    );
   };
 
   const handlePageChange = (event, value) => {

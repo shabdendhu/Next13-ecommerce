@@ -17,6 +17,7 @@ import TransitionsModal from "@/components/base/Modal";
 import BannerForm from "@/components/forms/Banner";
 import useWindowSize from "@/hooks/useWindowSize";
 import { apiGet, apiPost, apiGetById, apiDelete, apiPut } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -36,16 +37,18 @@ export default function CategoryManager() {
   const [banner, setBanner] = useState(emptyBanner);
   const [banners, setBanners] = useState([]);
   const [open, setOpen] = useState(false);
+  const { openSnackbar } = useSnackbar();
+
   const size = useWindowSize();
 
   const handleViewBanner = async (id) => {
     setOpen(true);
-    const getBannerById = await apiGetById("/api/banner", id);
+    const getBannerById = await apiGetById("/api/banner", id, openSnackbar);
     setBanner(getBannerById.data);
   };
 
   const handleDelete = async (id) => {
-    const deleteRes = await apiDelete("/api/banner", id);
+    const deleteRes = await apiDelete("/api/banner", id, openSnackbar);
     getAllBanner();
   };
 
@@ -55,16 +58,21 @@ export default function CategoryManager() {
   };
 
   const getAllBanner = async () => {
-    const bannerRes = await apiGet("/api/banner");
+    const bannerRes = await apiGet("/api/banner", {}, openSnackbar);
     setBanners(bannerRes.data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!banner?._id) {
-      const addRes = await apiPost("/api/banner", banner);
+      const addRes = await apiPost("/api/banner", banner, openSnackbar);
     } else {
-      const editRes = await apiPut("/api/banner/" + banner._id, banner);
+      const editRes = await apiPut(
+        "/api/banner/" + banner._id,
+        banner,
+        {},
+        openSnackbar
+      );
     }
     setBanner(emptyBanner);
     getAllBanner();

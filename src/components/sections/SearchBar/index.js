@@ -9,11 +9,13 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import { apiPost } from "@/helpers/api";
 import { useRouter } from "next/navigation";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 export default function CustomizedInputBase() {
   const route = useRouter();
   const [searchText, setSearchText] = useState("");
   const [searchProducts, setSearchProducts] = useState([]);
+  const { openSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const handleClickSelectedItem = (e) => {
     route.push(`/product-details/${e?._id}`);
@@ -23,9 +25,13 @@ export default function CustomizedInputBase() {
       if (searchText.trim() !== "") {
         setLoading(true);
         try {
-          const searchRes = await apiPost("/api/products/search", {
-            query: searchText,
-          });
+          const searchRes = await apiPost(
+            "/api/products/search",
+            {
+              query: searchText,
+            },
+            openSnackbar
+          );
           setSearchProducts(
             searchRes.data.map((e) => ({ label: e.name, ...e }))
           );

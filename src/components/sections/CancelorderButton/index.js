@@ -5,13 +5,15 @@ import { apiPut } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { openOtpModal } from "@/redux/auth/auth";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const CancelOrderButton = ({ orderId }) => {
   const dispatch = useDispatch();
+  const { openSnackbar } = useSnackbar();
   const { data: session } = useSession();
   const handleClickCancelOrder = async () => {
     if (!session) return dispatch(openOtpModal());
-    const res = await apiPut(`/api/order/${orderId}`);
+    const res = await apiPut(`/api/order/${orderId}`, {}, openSnackbar);
     console.log(res);
   };
   return (

@@ -23,8 +23,11 @@ import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import styles from "./Header.module.scss";
+import Avatar from "@mui/material/Avatar";
+import { useSnackbar } from "@/hooks/useSnakBar";
 const Header = () => {
   const router = useRouter();
+  const { openSnackbar } = useSnackbar();
   const pathname = usePathname();
   const basketCount = useSelector((state) => state.basket);
   const dispatch = useDispatch();
@@ -49,13 +52,17 @@ const Header = () => {
     router.push("/product-details/" + id);
   };
   const handleSearchProduct = async () => {
-    const searchRes = await apiPost("/api/products/search", {
-      query: searchText,
-    });
+    const searchRes = await apiPost(
+      "/api/products/search",
+      {
+        query: searchText,
+      },
+      openSnackbar
+    );
     setSearchProducts(searchRes.data);
   };
   const getAllCategory = async () => {
-    const categoryRes = await apiGet("/api/category");
+    const categoryRes = await apiGet("/api/category", {}, openSnackbar);
     setCategory(categoryRes?.data);
   };
   useEffect(() => {
@@ -66,7 +73,11 @@ const Header = () => {
     getAllCategory();
   }, []);
   const getBasketByUser = async () => {
-    const basketRes = await apiGet("/api/basket?user=" + session?.user?.id);
+    const basketRes = await apiGet(
+      "/api/basket?user=" + session?.user?.id,
+      {},
+      openSnackbar
+    );
     // setBasketData(basketRes.data);
     if (!basketRes?.data?.items?.length) return;
     dispatch(loadUsersBasket(basketRes.data));
@@ -134,27 +145,36 @@ const Header = () => {
                     fontSize: "44px",
                     color: "#FFFFFF",
                     cursor: "pointer",
-                    marginRight: 10,
                   }}
                 />
               ) : (
                 <></>
               )}
-              <PersonIcon
-                onClick={() => handleClikMenuItem("/profile")}
-                style={{
-                  fontSize: "44px",
-                  color: "#FFFFFF",
-                  cursor: "pointer",
-                  marginRight: 10,
-                }}
-              />
+              {console.log(session)}
+              {session?.user.avatar ? (
+                <Avatar
+                  src={session?.user?.avatar || ""}
+                  alt="image"
+                  style={{
+                    height: "40px",
+                    width: "40px",
+                  }}
+                />
+              ) : (
+                <PersonIcon
+                  onClick={() => handleClikMenuItem("/profile")}
+                  style={{
+                    fontSize: "44px",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                  }}
+                />
+              )}
               <FavoriteIcon
                 style={{
                   fontSize: "44px",
                   color: "#FFFFFF",
                   cursor: "pointer",
-                  marginRight: 10,
                 }}
                 onClick={() => handleClikMenuItem("/profile?tab=wishlist")}
               />

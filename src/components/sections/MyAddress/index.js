@@ -36,10 +36,15 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [isDefault, setIsDefault] = useState(false);
   const [address, setAddress] = useState(initialAddress);
+  const { openSnackbar } = useSnackbar();
   const { data: session } = useSession();
   // Mock addresses for testing
   const getAllAddressByUserId = async () => {
-    const addressRes = await apiGet("/api/address/" + session?.user?.id);
+    const addressRes = await apiGet(
+      "/api/address/" + session?.user?.id,
+      {},
+      openSnackbar
+    );
     setAddresses(addressRes?.data);
   };
   useEffect(() => {
@@ -108,7 +113,8 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
     if (address?._id) {
       apiPut(
         `/api/address/${session?.user?.id}/${address?._id}`,
-        addressData
+        addressData,
+        openSnackbar
       ).then((e) => {
         if (e.success) {
           reloadUserDetails();
@@ -117,10 +123,14 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
         }
       });
     } else {
-      apiPost("/api/address", {
-        userId: session?.user?.id,
-        addressData: addressData,
-      }).then((e) => {
+      apiPost(
+        "/api/address",
+        {
+          userId: session?.user?.id,
+          addressData: addressData,
+        },
+        openSnackbar
+      ).then((e) => {
         if (e.success) {
           reloadUserDetails();
           getAllAddressByUserId();
@@ -135,7 +145,8 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const handleRemoveAddress = async (addressId) => {
     const deleteRes = await apiDelete(
       "/api/address/" + session?.user?.id,
-      addressId
+      addressId,
+      openSnackbar
     );
     getAllAddressByUserId();
     // Make an API call to remove the address
@@ -145,10 +156,14 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const handleMakeDefault = async (addressId) => {
     console.log(addressId);
 
-    const res = await apiPost("/api/address/make-address-default", {
-      userId: session?.user?.id,
-      addressId,
-    });
+    const res = await apiPost(
+      "/api/address/make-address-default",
+      {
+        userId: session?.user?.id,
+        addressId,
+      },
+      openSnackbar
+    );
     reloadUserDetails();
     // Make an API call to set the default address
     // Example: makeDefaultAddressInAPI(addressId);

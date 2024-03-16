@@ -12,10 +12,15 @@ import Image from "next/image";
 const MyOrders = () => {
   const { data: session } = useSession();
   const [orders, setOrders] = useState([]);
+  const { openSnackbar } = useSnackbar();
   const route = useRouter();
   const getAllOrders = async () => {
     try {
-      const orderRes = await apiGet("/api/order?user=" + session?.user?.id);
+      const orderRes = await apiGet(
+        "/api/order?user=" + session?.user?.id,
+        {},
+        openSnackbar
+      );
       setOrders(orderRes.data);
     } catch (error) {
       console.error(error);

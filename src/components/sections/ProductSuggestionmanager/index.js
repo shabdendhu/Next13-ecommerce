@@ -2,6 +2,7 @@
 import TransitionsModal from "@/components/base/Modal";
 import SuggestionForm from "@/components/forms/SuggestionForms";
 import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import useWindowSize from "@/hooks/useWindowSize";
 import screenUrls from "@/static/screens";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -31,6 +32,7 @@ export default function CategoryManager() {
   const [newSuggestion, setNewSuggestion] = useState(emptySuggestion);
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
+  const { openSnackbar } = useSnackbar();
   const [totalPages, setTotalPages] = useState(1);
   const size = useWindowSize();
 
@@ -41,13 +43,21 @@ export default function CategoryManager() {
 
   const handleViewProduct = async (id) => {
     setOpen(true);
-    const getSuggestionById = await apiGetById("/api/productsuggestion", id);
+    const getSuggestionById = await apiGetById(
+      "/api/productsuggestion",
+      id,
+      openSnackbar
+    );
     setNewSuggestion(getSuggestionById.data);
   };
 
   const handleDeleteSuggestion = async (id) => {
     try {
-      const delRes = await apiDelete("/api/productsuggestion", id);
+      const delRes = await apiDelete(
+        "/api/productsuggestion",
+        id,
+        openSnackbar
+      );
       handleCloseModal();
       getAllSuggestion();
     } catch (error) {
@@ -56,7 +66,11 @@ export default function CategoryManager() {
   };
 
   const getAllSuggestion = async () => {
-    const res = await apiGet(`/api/productsuggestion?page=${page}&limit=${10}`);
+    const res = await apiGet(
+      `/api/productsuggestion?page=${page}&limit=${10}`,
+      {},
+      openSnackbar
+    );
     setSuggestions(res.data);
     setTotalPages(res.totalPages);
   };
@@ -66,10 +80,15 @@ export default function CategoryManager() {
     if (newSuggestion._id) {
       const editRes = await apiPut(
         "/api/productsuggestion/" + newSuggestion._id,
-        newSuggestion
+        newSuggestion,
+        openSnackbar
       );
     } else {
-      const addRes = await apiPost("/api/productsuggestion", newSuggestion);
+      const addRes = await apiPost(
+        "/api/productsuggestion",
+        newSuggestion,
+        openSnackbar
+      );
     }
     handleCloseModal();
     getAllSuggestion();

@@ -16,6 +16,7 @@ import {
   deleteItemFromBasket,
 } from "@/redux/basket/addUpdateBasket";
 import Image from "next/image";
+import { useSnackbar } from "@/hooks/useSnakBar";
 const dummydata = {
   ratings: {
     average: 4.5,
@@ -76,6 +77,7 @@ const ProductCard = ({
   const [productQuantity, setproductQuantity] = useState(quantity);
   const [isInWishList, setIsInWishList] = useState(wishlist);
   const dispatch = useDispatch();
+  const { openSnackbar } = useSnackbar();
   const router = useRouter();
   const handleRedirect = () => {
     router.push("/product-details/" + data._id);
@@ -83,10 +85,14 @@ const ProductCard = ({
   const addToWishList = async (e) => {
     e.stopPropagation();
     setIsInWishList(!isInWishList);
-    const addres = await apiPost("/api/wishlist", {
-      user: session?.user?.id,
-      product: data?._id,
-    });
+    const addres = await apiPost(
+      "/api/wishlist",
+      {
+        user: session?.user?.id,
+        product: data?._id,
+      },
+      openSnackBar
+    );
   };
   const handleAddToBasket = () => {
     dispatch(addToBasket({ product: data, quantity: 1 })); // Assuming data contains the product information

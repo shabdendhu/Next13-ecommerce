@@ -28,9 +28,10 @@ const Productdetails = () => {
   const [productQuantity, setproductQuantity] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
   const [isInWishList, setIsInWishList] = useState(false);
+  const { openSnackbar } = useSnackbar();
   const [selectedImage, setSelectedImage] = useState("");
   const getProductById = async () => {
-    const productRes = await apiGet("/api/products/" + id);
+    const productRes = await apiGet("/api/products/" + id, {}, openSnackbar);
     setSelectedImage(productRes.data.images[0]);
     setProductDetails(productRes.data);
   };
@@ -38,21 +39,29 @@ const Productdetails = () => {
   const handleAddToCart = async (e) => {
     e.stopPropagation();
     if (!session) router.push("/login");
-    const addRes = await apiPost("/api/basket", {
-      userId: session.user.id,
-      productId: productDetails._id,
-      quantity: 1,
-    });
+    const addRes = await apiPost(
+      "/api/basket",
+      {
+        userId: session.user.id,
+        productId: productDetails._id,
+        quantity: 1,
+      },
+      openSnackbar
+    );
     // tokenDecoded(session.accessToken);
     setAddedToCart(true);
   };
   const addToWishList = async (e) => {
     e.stopPropagation();
     setIsInWishList(!isInWishList);
-    const addres = await apiPost("/api/wishlist", {
-      user: session?.user?.id,
-      product: productDetails?._id,
-    });
+    const addres = await apiPost(
+      "/api/wishlist",
+      {
+        user: session?.user?.id,
+        product: productDetails?._id,
+      },
+      openSnackbar
+    );
   };
   useEffect(() => {
     getProductById();

@@ -16,6 +16,7 @@ import CategoryForm from "@/components/forms/CategoryForms";
 import useWindowSize from "@/hooks/useWindowSize";
 import { apiDelete, apiGet, apiGetById, apiPost, apiPut } from "@/helpers/api";
 import Pagination from "@mui/material/Pagination";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -31,17 +32,22 @@ const emptyCategory = {
 export default function CategoryManager() {
   const [categories, setCategorys] = useState([]);
   const [newCategory, setNewCategory] = useState(emptyCategory);
+  const { openSnackbar } = useSnackbar();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const size = useWindowSize();
   const [open, setOpen] = useState(false);
   const handleViewCategory = async (id) => {
     setOpen(true);
-    const getCategoryById = await apiGetById("/api/category", id);
+    const getCategoryById = await apiGetById("/api/category", id, openSnackbar);
     setNewCategory(getCategoryById?.data);
   };
   const getAllCategory = async () => {
-    const categoryRes = await apiGet(`/api/category?page=${page}&limit=${10}`);
+    const categoryRes = await apiGet(
+      `/api/category?page=${page}&limit=${10}`,
+      {},
+      openSnackbar
+    );
     setCategorys(categoryRes.data);
     setTotalPages(categoryRes.totalPages);
   };
@@ -55,7 +61,7 @@ export default function CategoryManager() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newCategory?._id) {
-      const addres = await apiPost("/api/category", newCategory);
+      const addres = await apiPost("/api/category", newCategory, openSnackbar);
     } else {
       const editRes = await apiPut(
         "/api/category/" + newCategory._id,
@@ -67,7 +73,7 @@ export default function CategoryManager() {
     handleCloseModal();
   };
   const handleDelete = async (id) => {
-    const deleteRes = await apiDelete("/api/category", id);
+    const deleteRes = await apiDelete("/api/category", id, openSnackbar);
     getAllCategory();
   };
   const handlePageChange = (event, value) => {

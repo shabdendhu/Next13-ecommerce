@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PageWrapper from "../PageWrapper";
 import styles from "./Checkout.module.scss";
 import PayNowButton from "@/components/sections//PayNowButton";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const initialAddress = {
   name: "",
@@ -65,6 +66,7 @@ const CheckoutComponent = () => {
   const [addresses, setAddresses] = useState([]);
   const [userDetails, setUserDetails] = useState({ mobile: "" });
   const [address, setAddress] = useState(initialAddress);
+  const { openSnackbar } = useSnackbar();
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
@@ -86,10 +88,14 @@ const CheckoutComponent = () => {
   };
   const handleSaveAddress = () => {
     try {
-      apiPost("/api/address", {
-        userId: session?.user?.id,
-        addressData: address,
-      }).then((e) => {
+      apiPost(
+        "/api/address",
+        {
+          userId: session?.user?.id,
+          addressData: address,
+        },
+        openSnackbar
+      ).then((e) => {
         if (e.success) {
           getUserDetailsById();
           setOpenAddressForm(false);
@@ -113,7 +119,7 @@ const CheckoutComponent = () => {
   };
 
   const getUserDetailsById = () => {
-    apiGet("/api/user/" + session?.user?.id).then((res) => {
+    apiGet("/api/user/" + session?.user?.id, {}, openSnackbar).then((res) => {
       if (res.success) {
         if (!res?.data?.mobile?.length) setShowVarifyMobileCard(true);
         setUserDetails(res.data);
@@ -130,9 +136,13 @@ const CheckoutComponent = () => {
       return alert("Please provide a valid 10-digit mobile number");
 
     // If mobile number is valid, make API call
-    apiPut("/api/user/" + session?.user?.id, {
-      mobile: userDetails.mobile,
-    }).then((res) => {
+    apiPut(
+      "/api/user/" + session?.user?.id,
+      {
+        mobile: userDetails.mobile,
+      },
+      openSnackbar
+    ).then((res) => {
       if (res.success) {
         setShowVarifyMobileCard(false);
         getUserDetailsById();
@@ -141,10 +151,14 @@ const CheckoutComponent = () => {
   };
   const confirmOrder = async () => {
     try {
-      apiPost("/api/order", {
-        user: session?.user?.id,
-        productIds: searchParams.get("checkoutItems").split(","),
-      }).then((e) => {
+      apiPost(
+        "/api/order",
+        {
+          user: session?.user?.id,
+          productIds: searchParams.get("checkoutItems").split(","),
+        },
+        openSnackbar
+      ).then((e) => {
         if (e.success) nextStep();
         setorderDetails(e.data);
       });

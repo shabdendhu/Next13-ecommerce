@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 const ReviewManagement = ({ orderId }) => {
   const [open, setOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const { openSnackbar } = useSnackbar();
   const [editingReview, setEditingReview] = useState(null);
   const [formData, setFormData] = useState({
     user: "", // User's name
@@ -20,7 +21,11 @@ const ReviewManagement = ({ orderId }) => {
 
   const getReviews = async () => {
     try {
-      const reviewRes = await apiGet(`/api/reviews?order=${orderId}`);
+      const reviewRes = await apiGet(
+        `/api/reviews?order=${orderId}`,
+        {},
+        openSnackbar
+      );
       setReviews(reviewRes.data);
     } catch (error) {
       console.error(error);
@@ -52,10 +57,18 @@ const ReviewManagement = ({ orderId }) => {
 
       if (editingReview) {
         // Edit existing review
-        await apiPut(`/api/reviews/${editingReview._id}`, reviewData);
+        await apiPut(
+          `/api/reviews/${editingReview._id}`,
+          reviewData,
+          openSnackbar
+        );
       } else {
         // Add new review
-        await apiPost("/api/reviews", { ...reviewData, order: orderId });
+        await apiPost(
+          "/api/reviews",
+          { ...reviewData, order: orderId },
+          openSnackbar
+        );
       }
 
       getReviews();
@@ -77,7 +90,7 @@ const ReviewManagement = ({ orderId }) => {
 
   const handleDeleteReview = async (reviewId) => {
     try {
-      await apiDelete(`/api/reviews/${reviewId}`);
+      await apiDelete(`/api/reviews`, reviewId, openSnackbar);
       getReviews();
     } catch (error) {
       console.error(error);
