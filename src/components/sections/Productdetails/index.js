@@ -15,6 +15,7 @@ import {
   removeFromBasket,
 } from "@/redux/basket/addUpdateBasket";
 import MultipleProductsHomeSection from "../ProductsHomeSection";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const Productdetails = () => {
   const { id } = useParams();

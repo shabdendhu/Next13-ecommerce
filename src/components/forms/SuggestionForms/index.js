@@ -10,6 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { apiGet } from "@/helpers/api";
 import screenUrls from "@/static/screens";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const ProductSuggestionForm = ({
   suggestions,

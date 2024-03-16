@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { apiGet } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("/profile/wishlist");

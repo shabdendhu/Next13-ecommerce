@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard";
 import styles from "./MyWishList.module.scss";
+import { useSnackbar } from "@/hooks/useSnakBar";
 
 const MyWishList = () => {
   const { data: session } = useSession();
