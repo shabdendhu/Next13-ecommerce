@@ -97,6 +97,12 @@ const AddButton = ({
     }
     addRemoveApi(-1);
   };
+  if (!product.stock_quantity)
+    return (
+      <button disabled={true} className={styles.addButton}>
+        Comming Soon
+      </button>
+    );
   return (
     <>
       {productQuantity === 0 ? (
