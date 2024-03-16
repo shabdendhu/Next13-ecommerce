@@ -153,11 +153,13 @@ const Header = () => {
               {console.log(session)}
               {session?.user.avatar ? (
                 <Avatar
+                  onClick={() => handleClikMenuItem("/profile")}
                   src={session?.user?.avatar || ""}
                   alt="image"
                   style={{
                     height: "40px",
                     width: "40px",
+                    cursor: "pointer",
                   }}
                 />
               ) : (

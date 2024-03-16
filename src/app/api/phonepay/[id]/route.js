@@ -8,7 +8,7 @@ export async function POST(req, { params }) {
   try {
     const { id } = params;
     const data = await req.formData();
-    console.log(data);
+    console.log(data, "-----------------------------------");
     const status = data.get("code");
     const merchantId = data.get("merchantId");
     const transactionId = data.get("transactionId");
