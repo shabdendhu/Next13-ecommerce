@@ -26,25 +26,27 @@ const AddButton = ({
   const { openSnackbar } = useSnackbar();
 
   const addRemoveApi = async (count) => {
-    setLoading(true);
-    console.log(count);
-    const res = await apiPost(
-      "/api/basket",
-      {
-        userId: session.user.id,
-        productId: product?._id,
-        quantity: count,
-      },
-      openSnackbar
-    );
-    if (res.success) {
+    try {
+      setLoading(true);
+      console.log(count);
+      const res = await apiPost(
+        "/api/basket",
+        {
+          userId: session.user.id,
+          productId: product?._id,
+          quantity: count,
+        },
+        openSnackbar
+      );
+      if (res.success) {
+        setLoading(false);
+        setproductQuantity(
+          res.data.items.find((e) => e.product == product._id).quantity
+        );
+      }
+    } catch (error) {
+      console.error(error);
       setLoading(false);
-      console.log(
-        res.data.items.find((e) => e.product == product._id).quantity
-      );
-      setproductQuantity(
-        res.data.items.find((e) => e.product == product._id).quantity
-      );
     }
   };
   const deleteproduceFromCart = async () => {

@@ -60,6 +60,13 @@ export const apiGetById = async (url, id, openSnackbar) => {
 const handleApiError = (error, openSnackbar) => {
   // Handle API errors here, e.g., show a notification or redirect to an error page
   console.error("API Error:", error);
-  openSnackbar("info", error);
+  if (error.response && error.response.data) {
+    console.error("API Error:", error.response.data.error);
+    return openSnackbar(
+      "error",
+      error.response.data.error || "someting went wrong"
+    );
+  }
+  openSnackbar("error", error.message || "someting went wrong");
   // throw error; // Rethrow the error to propagate it to the calling code
 };

@@ -40,7 +40,7 @@ export const SnackbarProvider = ({ children }) => {
           elevation={6}
           variant="filled"
           onClose={handleSnackbarClose}
-          severity="info" // Change severity as needed
+          severity={severity} // Change severity as needed
         >
           {snackbarMessage}
         </MuiAlert>

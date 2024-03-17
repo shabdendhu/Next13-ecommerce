@@ -91,7 +91,7 @@ const ProductCard = ({
         user: session?.user?.id,
         product: data?._id,
       },
-      openSnackBar
+      openSnackbar
     );
   };
   const handleAddToBasket = () => {
