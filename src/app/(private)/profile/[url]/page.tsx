@@ -13,7 +13,11 @@ const Detail = ({ params }: { params: { url: string } }) => {
   const { data: session }: any = useSession();
 
   const getUserDetails = async () => {
-    const user = await apiGet("/api/user/" + session?.user?.id, openSnackbar);
+    const user = await apiGet(
+      "/api/user/" + session?.user?.id,
+      {},
+      openSnackbar
+    );
     setUserDetails(user?.data);
   };
   useEffect(() => {

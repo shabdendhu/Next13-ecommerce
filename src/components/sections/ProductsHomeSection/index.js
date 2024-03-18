@@ -80,15 +80,15 @@ const MultipleProductsHomeSection = () => {
   }, []);
 
   return (
-    <div style={{ zIndex: -1 }}>
+    <div style={{ zIndex: -1, margin: "10px" }}>
       {loading &&
-        Array(3)
+        Array(1)
           .fill(0)
           .map((e, i) => (
             <div
               key={i}
               style={{
-                background: "#0000001c",
+                // background: "#0000001c",
                 // height: "00px",
                 width: "100%",
                 maxWidth: "100vw",

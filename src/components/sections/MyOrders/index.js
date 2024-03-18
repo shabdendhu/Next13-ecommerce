@@ -9,6 +9,8 @@ import styles from "./MyOrder.module.scss";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSnackbar } from "@/hooks/useSnakBar";
+import { Card, CardContent, CardHeader, Divider } from "@mui/material";
+import dayjs from "dayjs";
 
 const MyOrders = () => {
   const { data: session } = useSession();
@@ -58,21 +60,55 @@ const MyOrders = () => {
   return (
     <div className={styles.orderComponent}>
       {orders?.map((order) => (
-        <div className={styles.orderContainer} key={order._id}>
-          {/* <div className={styles.orderStatus}>OrderStatus: {order.status}</div> */}
-
+        <button
+          onClick={() => handleClickTrackOrder(order)}
+          className={styles.orderContainer}
+          key={order._id}
+        >
+          <div data-status={order.status} className={styles.orderStatusBar} />
+          <div className={styles.orderHeader} data-status={order.status}>
+            <b>{dayjs(order?.createdAt).format("DD MMM YYYY")}</b>
+            <p>({order.status})</p>
+            <span>₹{order.totalAmount}</span>
+          </div>
           <div className={styles.orders}>
             {order.products.map((item) => (
-              <ProductCard
-                className={styles.product}
-                data={item.product}
-                key={item.product._id}
-                quantity={item.quantity}
-                disableAddButton={true}
-              />
+              <Card key={item._id}>
+                <CardContent className={styles.orderedProducts}>
+                  <Image
+                    src={item.product.images[0]}
+                    height={100}
+                    width={100}
+                    alt={item.product.name}
+                  />
+                  <div className={styles.productDetailsContainer}>
+                    <div className={styles.productName}>
+                      <b>{item.product.name}</b>
+                    </div>
+                    <div className={styles.quantity}>
+                      Quantity: <b>{item.quantity}</b>
+                    </div>
+                    <div className={styles.brand}>
+                      Brand: <b>{item.product.brand}</b>
+                    </div>
+
+                    {/* <p>OrderId: {order._id}</p>
+                    <p>OrderDate: {formatDate(order.createdAt)}</p>
+                    <p>PaymentMethod: {order.paymentMethod}</p>
+                    <p>PaymentStatus: {order.paymentStatus}</p>
+                    <p>OrderStatus: {order.status}</p>
+                    <p>
+                      ExpectedDelivery: {formatDate(order.expectedDeliveryDate)}
+                    </p>
+                    <p>DeliveryAddress: {order.deliveryAddress}</p>
+                    <p>DeliveryCity: {order.deliveryCity}</p>
+                    <p>DeliveryState: {order.deliveryState}</p> */}
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-          <div style={{ display: "flex" }}>
+          {/* <div style={{ display: "flex" }}>
             <b>PaymentStatus: </b>
             <p style={{ textTransform: "uppercase" }}> {order.paymentStatus}</p>
           </div>
@@ -95,8 +131,8 @@ const MyOrders = () => {
           </Button>
           {order.status == "Delivered" && (
             <ReviewManagement orderId={order._id} />
-          )}
-        </div>
+          )} */}
+        </button>
       ))}
     </div>
   );
