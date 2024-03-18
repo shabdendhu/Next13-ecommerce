@@ -74,6 +74,7 @@ const ProductCard = ({
   ...props
 }) => {
   const { data: session } = useSession();
+  const discountedPrice = data?.price - (data?.price * data?.discount) / 100;
   const [productQuantity, setproductQuantity] = useState(quantity);
   const [isInWishList, setIsInWishList] = useState(wishlist);
   const dispatch = useDispatch();
@@ -135,20 +136,19 @@ const ProductCard = ({
 
       <div className={styles.cardinfo}>
         <div className={styles.productName}>{data.name}</div>
-
+        <span style={{ fontSize: "13px" }}>{data.brand}</span>
         <div className={styles.details}>
           <div className={styles.priceInfo}>
-            <del>{data.price}/kg</del>{" "}
-            <span>{data.price * (1 - data.discount / 100)}</span>
+            <del>₹{data.price}</del>{" "}
+            <div className={styles.price}>₹{discountedPrice.toFixed(2)}</div>{" "}
           </div>
-          <div className={styles.price}>
-            ₹{data.price * (1 - data.discount / 100)}
+          <div style={{ fontSize: "13px", fontWeight: "100px" }}>
+            {data?.unitQuantity?.value}
+            {data?.unitQuantity?.unit}
           </div>
         </div>
 
-        <div className={styles.cardlower}>
-          <div style={{ fontSize: "13px", fontWeight: "100px" }}>1kg</div>
-        </div>
+        <div className={styles.cardlower}></div>
         <AddButton
           disableAddButton={disableAddButton}
           productQuantity={productQuantity}

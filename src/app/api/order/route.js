@@ -62,7 +62,7 @@ export async function POST(req) {
       user: user,
       products: orderedItems,
       totalAmount: totalPrice,
-      status: "orderd", // Assuming the default status is "pending"
+      status: "ordered", // Assuming the default status is "pending"
     });
 
     // Step 7: Save the order to your database

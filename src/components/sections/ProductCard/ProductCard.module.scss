@@ -80,7 +80,8 @@
 
   .productName {
     font-weight: 600;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
+    font-size: 17px;
 
     @include media.onMdM() {
       font-size: 12px;
@@ -93,12 +94,13 @@
   bottom: 0;
 
   .priceInfo {
-    font-size: 10px;
-    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .price {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
     color: rgb(75, 9, 9);
 

@@ -137,7 +137,42 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         <Grid item xs={6}>
           <TextField
             required
-            label="Weight"
+            label="Unit Quantity Value"
+            type="number"
+            fullWidth
+            value={product?.unitQuantity?.value}
+            onChange={(e) =>
+              handleChange("unitQuantity", {
+                ...product?.unitQuantity,
+                value: e.target.value,
+              })
+            }
+            inputProps={{
+              min: 0,
+            }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            label="Quantity Unit"
+            fullWidth
+            value={product?.unitQuantity?.unit}
+            onChange={(e) =>
+              handleChange("unitQuantity", {
+                ...product.unitQuantity,
+                unit: e.target.value,
+              })
+            }
+            inputProps={{
+              min: 0,
+            }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            label="Total Weight"
             type="number"
             fullWidth
             value={product.weight}
@@ -223,6 +258,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
           <FormControl fullWidth>
             <InputLabel>Categories</InputLabel>
             <Select
+              required
               labelId="productIds-label"
               value={product.category_ids}
               // renderValue={(selected) => selected.join(",")}
@@ -244,6 +280,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
           <FormControlLabel
             control={
               <Checkbox
+                required
                 checked={product.shipping_info.free_shipping}
                 onChange={(e) =>
                   handleChange("shipping_info", {
@@ -258,6 +295,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Estimated Delivery"
             fullWidth
             value={product.shipping_info.estimated_delivery}

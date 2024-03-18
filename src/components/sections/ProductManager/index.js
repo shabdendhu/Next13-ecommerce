@@ -51,6 +51,10 @@ const emptyProduct = {
     estimated_delivery: "",
   },
   related_products: [],
+  unitQuantity: {
+    value: 0,
+    unit: "",
+  },
 };
 
 export default function ProductManager() {
