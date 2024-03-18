@@ -67,7 +67,7 @@ const AddButton = ({
     if (res.success) {
       setLoading(false);
 
-      // setproductQuantity(productQuantity - 1);
+      setproductQuantity(0);
     }
   };
   // const handleAdd = async (e) => {

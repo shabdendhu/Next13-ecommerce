@@ -45,7 +45,7 @@ const MyOrders = () => {
           flexDirection: "column",
         }}
       >
-        <Image height={400} width={400} src={"/empty-order.png"} />
+        <Image height={400} width={400} src={"/empty-order.png"} alt="image" />
         <h2>No Orders Found</h2>
         <p>You have not placed any orders yet.</p>
         <p>Please check back later.</p>

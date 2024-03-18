@@ -152,7 +152,7 @@ const BasketProduct = ({ basket }) => {
         >
           {/* create an product map bellow from basketdata */}
           {basket.items.map((item, i) => (
-            <Grid item key={i}>
+            <Grid item key={item?._id}>
               <div
                 style={{
                   borderTop: "1px solid gray",

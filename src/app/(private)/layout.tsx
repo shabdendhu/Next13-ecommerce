@@ -14,22 +14,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div
-          style={{
-            // border: "1px solid red",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-          <Header />
-          {children}
-          <Footer />
-          <OtpLoginModal />
-        </div>
-      </body>
-    </html>
+    <>
+      <div
+        style={{
+          // border: "1px solid red",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Header />
+        {children}
+        <Footer />
+        <OtpLoginModal />
+      </div>
+    </>
   );
 }

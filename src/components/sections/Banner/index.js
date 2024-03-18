@@ -80,6 +80,7 @@ const Banner = () => {
                     width: "100%",
                   }}
                   src={e.imageUrl}
+                  alt="image"
                 />
               </a>
             ))}

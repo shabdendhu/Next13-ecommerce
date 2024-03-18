@@ -12,10 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <MiniDrawer>{children}</MiniDrawer>
-      </body>
-    </html>
+    <>
+      <MiniDrawer>{children}</MiniDrawer>
+    </>
   );
 }
