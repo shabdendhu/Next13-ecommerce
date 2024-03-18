@@ -40,8 +40,6 @@ export default async function TrackOrder({ params, query }) {
     return <PageWrapper>Order Not Found</PageWrapper>;
   }
 
-  console.log(order, "kkkkk"); // For debugging purposes (remove in production)
-
   return (
     <PageWrapper>
       <div className={styles.component}>
@@ -93,14 +91,16 @@ export default async function TrackOrder({ params, query }) {
                 </div>
                 <div>
                   <div style={{ fontSize: "17px" }}>{e?.product?.name}</div>
-                  <div style={{ fontSize: "13px" }}>{e?.product?.price}</div>
+                  <div style={{ fontSize: "13px" }}>
+                    {e.product.price * (1 - e.product.discount / 100)}₹
+                  </div>
                   <div style={{ fontSize: "13px" }}>{e?.product?.brand}</div>
                 </div>
               </div>
             ))}
           </CardContent>
         </Card>
-        <CancelOrderButton orderId={orderId} />
+        <CancelOrderButton orderId={orderId} status={order?.status} />
       </div>
     </PageWrapper>
   );

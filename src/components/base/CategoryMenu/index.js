@@ -38,7 +38,7 @@ const CategoryMenu = ({ category, icon }) => {
       />
     ));
   };
-  console.log(category?.parent_category?._id);
+  // console.log(category?.parent_category?._id);
   return (
     <>
       {!category?.parent_category?._id ? (

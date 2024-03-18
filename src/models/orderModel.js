@@ -79,11 +79,11 @@ const orderSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-console.log(mongoose.models);
+// console.log(mongoose.models);
 
 const Order = mongoose.model("order", orderSchema, "orders", {
   overwriteModels: true,
 });
-console.log(mongoose.models);
+// console.log(mongoose.models);
 
 module.exports = Order;

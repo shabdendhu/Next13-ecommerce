@@ -32,7 +32,7 @@ export default function calculateTotalPriceAndDiscount(
           selectedProductIds.includes(item.product._id)
         )
       : [];
-  console.log({ filteredItems, basketData, selectedProductIds });
+  // console.log({ filteredItems, basketData, selectedProductIds });
   // Loop through each selected item
   filteredItems.forEach((item) => {
     // Calculate the total price for one item

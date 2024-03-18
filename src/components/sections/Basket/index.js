@@ -8,6 +8,7 @@ import { apiGet, apiPost } from "@/helpers/api";
 import { useSession } from "next-auth/react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
@@ -20,10 +21,7 @@ const BasketProduct = ({ basket }) => {
   const [checkoutItems, setCheckoutItems] = useState(
     basket?.items?.map((e) => e?.product?._id || [])
   );
-  const [prices, setPrices] = useState({
-    totalItemPrice: 0,
-    totalDiscountPrice: 0,
-  });
+  const [prices, setPrices] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -36,7 +34,7 @@ const BasketProduct = ({ basket }) => {
       : router.push(`/checkout?checkoutItems=${checkoutItems}`);
   };
   const handleSelectItem = (e, item) => {
-    console.log(e.target.checked);
+    // console.log(e.target.checked);
     if (!checkoutItems.includes(item.product._id)) {
       setCheckoutItems((e) => [...e, item?.product?._id]);
     } else {
@@ -54,7 +52,7 @@ const BasketProduct = ({ basket }) => {
       discount: e.product.discount,
       mrp: e.product.price / (1 - e.product.discount / 100),
     }));
-    return data;
+    return selectedArray;
   }
   function calculatePrices(items) {
     let totalMrp = 0;
@@ -76,12 +74,59 @@ const BasketProduct = ({ basket }) => {
   }
   useEffect(() => {
     const data = getProductsByIds(basket.items, checkoutItems);
-    const priceData = calculatePrices(data);
-    setPrices(priceData);
+    // const priceData = calculatePrices(data);
+    setPrices(data);
+    // console.log(data);
   }, [basket, checkoutItems]);
   if (basket.items.length === 0) return <EmptyBasket />;
   return (
     <PageWrapper>
+      <Card
+        style={{
+          display: "flex",
+          width: "fit-content",
+          gap: "10px",
+          marginInline: "auto",
+          padding: "10px",
+          alignItems: "center",
+          backgroundColor: "whitesmoke",
+          marginTop: "10px",
+          position: "sticky",
+          top: "50px",
+          zIndex: 999,
+        }}
+      >
+        <div>
+          Price: ₹
+          {prices.reduce(
+            (total, item) =>
+              total +
+              item.product.price *
+                (1 - item.product.discount / 100) *
+                item.quantity,
+            0
+          )}
+        </div>
+        <div>
+          Discount: ₹
+          {prices.reduce(
+            (total, item) =>
+              total +
+              item.quantity * item.price * (item.product.discount / 100),
+            0
+          )}
+        </div>
+        <Button
+          size="small"
+          onClick={handleClickConfirmOrder}
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+          }}
+        >
+          Checkout
+        </Button>
+      </Card>
       <Grid
         container
         style={{
@@ -135,7 +180,7 @@ const BasketProduct = ({ basket }) => {
             </Grid>
           ))}
         </Grid>
-        <Grid
+        {/* <Grid
           item
           style={{
             border: "1px solid #3f0d0d7a",
@@ -149,19 +194,18 @@ const BasketProduct = ({ basket }) => {
             flexDirection: "column",
           }}
         >
-          {/* calculate total price witout discount and show then discounted amount,then total price then gst then a button to confirm order and checkout */}
           <h1>
-            Total MRP: <b>{Math.round(prices.totalMrp)}</b>
+            Total MRP: <b>{prices.totalMrp.toFixed(2)}</b>
           </h1>
           <h1>
-            Total Discount: <b>{Math.round(prices.totalDiscountPrice)}</b>
+            Total Discount: <b>{prices.totalDiscountPrice.toFixed(2)}</b>
           </h1>
           <h1>
             Final Price After Discount:{" "}
-            <b>{Math.round(prices.finalPriceAfterDiscount)}</b>
+            <b>{prices.finalPriceAfterDiscount.toFixed(2)}</b>
           </h1>
           <h1>
-            GST: <b>{Math.round(prices.finalPriceAfterDiscount * 0.18)}</b>
+            GST: <b>{(prices.finalPriceAfterDiscount * 0.18).toFixed(2)}</b>
           </h1>
           <h1>
             Delivery Charge: <b>{deliverycharge}</b>
@@ -169,31 +213,26 @@ const BasketProduct = ({ basket }) => {
           <h1>
             Total Amount:{" "}
             <b>
-              {/* total amount calculation */}
               <b>
-                {Math.round(
-                  Math.round(prices.finalPriceAfterDiscount) +
-                    Math.round(prices.finalPriceAfterDiscount * 0.18) +
-                    deliverycharge
-                )}
+                {(
+                  prices.finalPriceAfterDiscount +
+                  prices.finalPriceAfterDiscount * 0.18 +
+                  deliverycharge
+                ).toFixed(2)}
               </b>
             </b>
           </h1>
-          {/* create a button for confirm order and checkout */}
           <Button
+            size="small"
             onClick={handleClickConfirmOrder}
             style={{
               backgroundColor: "blue",
-              width: "100%",
-              height: "45px",
               color: "white",
-              borderRadius: "7px",
-              fontSize: "19px",
             }}
           >
             Proceed To Checkout
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
     </PageWrapper>
   );

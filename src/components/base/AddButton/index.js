@@ -28,7 +28,7 @@ const AddButton = ({
   const addRemoveApi = async (count) => {
     try {
       setLoading(true);
-      console.log(count);
+      // console.log(count);
       const res = await apiPost(
         "/api/basket",
         {

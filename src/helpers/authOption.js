@@ -96,9 +96,9 @@ export const authOption = {
           user.role = userRes?.role;
           user.avatar = userRes?.profile?.avatar;
           user.mobile = userRes?.mobile;
-          console.log("====================================");
-          console.log(userRes);
-          console.log("====================================");
+          // console.log("====================================");
+          // console.log(userRes);
+          // console.log("====================================");
         }
       }
 

@@ -25,7 +25,7 @@ export async function POST(request) {
     // Write the file to the uploads directory
     const path = `${parentFolder}/uploads/${file.name}`;
     await writeFile(path, buffer);
-    console.log(`Open ${path} to see the uploaded file`);
+    // console.log(`Open ${path} to see the uploaded file`);
 
     // Save file information to MongoDB using Mongoose
     const fileData = new FileModel({

@@ -58,7 +58,8 @@ const Signup = () => {
   };
   const handleClickGoogleLogin = (e) => {
     e.preventDefault();
-    signIn("google").then((e) => console.log(e));
+    signIn("google");
+    // .then((e) => console.log(e));
   };
   return (
     <div className={style.container}>

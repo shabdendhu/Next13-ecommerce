@@ -19,7 +19,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageWrapper from "../PageWrapper";
@@ -179,11 +179,11 @@ const CheckoutComponent = () => {
         searchParams.get("checkoutItems").split(",").includes(i.product._id)
       )
     );
-    console.log(
-      basketItems.items.filter((i) =>
-        searchParams.get("checkoutItems").split(",").includes(i.product._id)
-      )
-    );
+    // console.log(
+    //   basketItems.items.filter((i) =>
+    //     searchParams.get("checkoutItems").split(",").includes(i.product._id)
+    //   )
+    // );
   }, [searchParams.get("checkoutItems"), basketItems]);
   return (
     <PageWrapper>
@@ -588,12 +588,8 @@ const CheckoutComponent = () => {
                         </div>
                       ))}
                       <div>
-                        <del>
-                          {Math.round(
-                            e.product?.price / (1 - e.product?.discount / 100)
-                          )}
-                        </del>{" "}
-                        {e.product.price}₹ /kg
+                        <del>{e.product.price}</del>{" "}
+                        {e.product.price * (1 - e.product.discount / 100)} ₹ /kg
                       </div>
                       <div className={styles.discount}>
                         {e.product.discount}% Off
@@ -640,15 +636,7 @@ const CheckoutComponent = () => {
             style={{ display: "flex", gap: "10px", flexDirection: "column" }}
           >
             <div className={styles.paymentDetails}>
-              <div>
-                <b>Items:</b> {priceingDetails.totalPrice}₹
-              </div>
-              <div>
-                <b>Discount:</b> {priceingDetails.totalDiscount}₹
-              </div>
-              <div>
-                <b>Total:</b> {priceingDetails.totalAfterDiscount}₹
-              </div>
+              <b>Total Price:</b> {orderDetails.totalAmount}₹
             </div>
 
             <PayNowButton

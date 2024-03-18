@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
   name: String,
   description: String,
   price: Number,
+  mrp: Number,
   category_ids: [{ type: mongoose.Schema.Types.ObjectId, ref: "categories" }],
   brand: String,
   stock_quantity: Number,
@@ -50,4 +51,4 @@ const productSchema = new mongoose.Schema({
 module.exports = mongoose.model("product", productSchema, "products", {
   overwriteModels: true,
 });
-console.log(mongoose.models);
+// console.log(mongoose.models);

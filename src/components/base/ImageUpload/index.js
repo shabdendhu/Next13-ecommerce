@@ -11,7 +11,7 @@ import axios from "axios";
 const ImageUpload = ({ images, setImages }) => {
   const [mode, setMode] = useState("upload");
   const [link, setLink] = useState("");
-  console.log(process.env.base_url);
+  // console.log(process.env.base_url);
 
   const handleImageChange = async (e) => {
     try {
@@ -24,7 +24,7 @@ const ImageUpload = ({ images, setImages }) => {
       if (res.status === 200) {
         setImages([...images, productImageUrl]);
       }
-      console.log(productImageUrl);
+      // console.log(productImageUrl);
       // if (!res.ok) throw new Error(await res.text());
     } catch (e) {
       // Handle errors here

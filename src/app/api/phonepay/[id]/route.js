@@ -8,7 +8,7 @@ export async function POST(req, { params }) {
   try {
     const { id } = params;
     const data = await req.formData();
-    console.log(data, "-----------------------------------");
+    // console.log(data, "-----------------------------------");
     const status = data.get("code");
     const merchantId = data.get("merchantId");
     const transactionId = data.get("transactionId");
@@ -20,7 +20,7 @@ export async function POST(req, { params }) {
     const dataSha256 = sha256(st);
 
     const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
-    console.log(checksum);
+    // console.log(checksum);
 
     const options = {
       method: "GET",
@@ -35,7 +35,7 @@ export async function POST(req, { params }) {
 
     // CHECK PAYMENT STATUS
     const response = await axios.request(options);
-    console.log("r===", response.data.code);
+    // console.log("r===", response.data.code);
 
     if (response.data.code == "PAYMENT_SUCCESS") {
       const updatedOrder = await Order.findByIdAndUpdate(
@@ -50,7 +50,7 @@ export async function POST(req, { params }) {
           new: true,
         }
       );
-      console.log(updatedOrder, "updatedOrder");
+      // console.log(updatedOrder, "updatedOrder");
       return NextResponse.redirect(
         process.env.NEXT_BASE_URL + `/trackorder?orderId=${id}`,
         {

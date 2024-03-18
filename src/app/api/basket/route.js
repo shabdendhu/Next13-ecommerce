@@ -88,13 +88,10 @@ export async function POST(req) {
         total: product.price * quantity,
       });
       await newBasket.save();
-      return NextResponse.json(
-        {
-          data: newBasket,
-          success: true,
-        },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        data: newBasket,
+        success: true,
+      });
     }
 
     // If basket exists, check if the item is already in the basket

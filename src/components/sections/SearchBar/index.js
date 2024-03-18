@@ -63,6 +63,7 @@ export default function CustomizedInputBase() {
       >
         <Autocomplete
           id="free-solo-demo"
+          size="small"
           freeSolo
           options={searchProducts}
           loading={loading}
@@ -79,7 +80,7 @@ export default function CustomizedInputBase() {
           onChange={(e, i) => handleClickSelectedItem(i)}
           renderOption={(props, option) => (
             <Box
-              onClick={() => console.log(option)}
+              // onClick={() => console.log(option)}
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}

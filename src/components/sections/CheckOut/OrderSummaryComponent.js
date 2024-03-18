@@ -22,7 +22,7 @@ const OrderSummaryComponent = ({
   const orderdItems = basket.items.filter((e) =>
     selectedItems.includes(e.product._id)
   );
-  console.log(orderdItems);
+  // console.log(orderdItems);
   return (
     <div>
       <Typography variant={"h4"} textAlign={"center"} marginTop={"10px"}>

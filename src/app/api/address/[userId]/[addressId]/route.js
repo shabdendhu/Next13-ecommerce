@@ -21,7 +21,7 @@ export async function PUT(req, { params }) {
     const addressIndex = user.profile.addresses.findIndex((address) =>
       address._id.equals(addressId)
     );
-    console.log({ userId, addressId });
+    // console.log({ userId, addressId });
     if (addressIndex === -1) {
       return NextResponse.json({
         message: "Address not found",

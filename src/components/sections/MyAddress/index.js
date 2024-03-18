@@ -58,7 +58,7 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
     setOpenDialog(true);
   };
   const handleEditAddress = (address) => {
-    console.log(address);
+    // console.log(address);
     setAddress(address);
     setOpenDialog(true);
   };
@@ -155,7 +155,7 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   };
 
   const handleMakeDefault = async (addressId) => {
-    console.log(addressId);
+    // console.log(addressId);
 
     const res = await apiPost(
       "/api/address/make-address-default",
@@ -172,7 +172,7 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
   const onChangeAddress = (e) =>
     setAddress({ ...address, [e.target.name]: e.target.value });
   useEffect(() => {
-    console.log(userDetails);
+    // console.log(userDetails);
   }, [userDetails]);
 
   return (
@@ -213,7 +213,7 @@ const AddressComponent = ({ userDetails, reloadUserDetails }) => {
                   }}
                 />
               </IconButton>
-              {console.log(address)}
+              {/* {console.log(address)} */}
               <IconButton onClick={() => handleMakeDefault(address._id)}>
                 <Switch
                   edge="end"

@@ -8,7 +8,7 @@ export const auth = createSlice({
   },
   reducers: {
     openOtpModal: (state) => {
-      console.log("open otp modal");
+      // console.log("open otp modal");
 
       state.isOtpModalOpen = true;
     },

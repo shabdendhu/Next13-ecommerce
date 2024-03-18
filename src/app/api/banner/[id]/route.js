@@ -9,7 +9,7 @@ export async function PUT(req, { params }) {
   const { id } = params;
 
   const reqBody = await req.json();
-  console.log(reqBody);
+  // console.log(reqBody);
   try {
     const updatedBanner = await Banner.findByIdAndUpdate(id, reqBody, {
       new: true,

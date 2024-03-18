@@ -150,7 +150,7 @@ const Header = () => {
               ) : (
                 <></>
               )}
-              {console.log(session)}
+              {/* {console.log(session)} */}
               {session?.user.avatar ? (
                 <Avatar
                   onClick={() => handleClikMenuItem("/profile")}

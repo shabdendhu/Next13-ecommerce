@@ -138,10 +138,12 @@ const ProductCard = ({
 
         <div className={styles.details}>
           <div className={styles.priceInfo}>
-            <del>{Math.round(data?.price / (1 - data?.discount / 100))}/kg</del>
-            <span>{data.price}</span>
+            <del>{data.price}/kg</del>{" "}
+            <span>{data.price * (1 - data.discount / 100)}</span>
           </div>
-          <div className={styles.price}>₹{data.price}</div>
+          <div className={styles.price}>
+            ₹{data.price * (1 - data.discount / 100)}
+          </div>
         </div>
 
         <div className={styles.cardlower}>

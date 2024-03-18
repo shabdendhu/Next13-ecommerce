@@ -11,7 +11,7 @@ export async function POST(req, res) {
     const order = await Order.findById(reqBody.orderId).populate(
       "products.product"
     );
-    console.log(order, "ooooo");
+    // console.log(order, "ooooo");
 
     // Step 2: Check if the order exists
 

@@ -45,7 +45,7 @@ const DatePickerCell = ({ date, onChange }) => {
 
   const handleOpenDialog = () => {
     setOpen(true);
-    console.log(open);
+    // console.log(open);
   };
 
   const handleCloseDialog = () => {
@@ -113,7 +113,7 @@ export default function OrderManager() {
       {},
       openSnackbar
     );
-    console.log(res);
+    // console.log(res);
     setOrders(res.data);
     setTotalPages(res.totalPages);
   };
@@ -121,7 +121,7 @@ export default function OrderManager() {
     fetchOrders();
   }, [page]);
   const handlePageChange = (e, newPage) => {
-    console.log(newPage);
+    // console.log(newPage);
     setPage(newPage);
   };
   const handleExpectedDateChange = async (e, id) => {
@@ -134,7 +134,7 @@ export default function OrderManager() {
       openSnackbar
     );
     if (changeRes.success) {
-      console.log("success");
+      openSnackbar("success", "delivery Date Changed Successfully");
     }
   };
   return (

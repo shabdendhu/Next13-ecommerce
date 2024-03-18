@@ -61,6 +61,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
       >
         <Grid item xs={6}>
           <TextField
+            required
             label="Name"
             fullWidth
             value={product.name}
@@ -69,6 +70,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Description"
             fullWidth
             value={product.description}
@@ -77,24 +79,33 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Price"
             type="number"
             fullWidth
             value={product.price}
             onChange={(e) => handleChange("price", e.target.value)}
+            inputProps={{
+              min: 0,
+            }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Discount"
             type="number"
             fullWidth
             value={product?.discount}
             onChange={(e) => handleChange("discount", e.target.value)}
+            inputProps={{
+              min: 0,
+            }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Brand"
             fullWidth
             value={product.brand}
@@ -103,15 +114,20 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Stock Quantity"
             type="number"
             fullWidth
             value={product.stock_quantity}
             onChange={(e) => handleChange("stock_quantity", e.target.value)}
+            inputProps={{
+              min: 0,
+            }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Sku"
             fullWidth
             value={product.sku}
@@ -120,19 +136,27 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Weight"
             type="number"
             fullWidth
             value={product.weight}
             onChange={(e) => handleChange("weight", e.target.value)}
+            inputProps={{
+              min: 0,
+            }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Length"
             type="number"
             fullWidth
             value={product.dimensions.length}
+            inputProps={{
+              min: 0,
+            }}
             onChange={(e) =>
               handleChange("dimensions", {
                 ...product.dimensions,
@@ -143,10 +167,14 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Width"
             type="number"
             fullWidth
             value={product.dimensions.width}
+            inputProps={{
+              min: 0,
+            }}
             onChange={(e) =>
               handleChange("dimensions", {
                 ...product.dimensions,
@@ -157,10 +185,14 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Height"
             type="number"
             fullWidth
             value={product.dimensions.height}
+            inputProps={{
+              min: 0,
+            }}
             onChange={(e) =>
               handleChange("dimensions", {
                 ...product.dimensions,
@@ -171,6 +203,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Tags"
             fullWidth
             value={product.tags}
@@ -179,6 +212,7 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
+            required
             label="Availability"
             fullWidth
             value={product.availability}
@@ -357,6 +391,9 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
                 type="number"
                 fullWidth
                 value={product.ratings.average}
+                inputProps={{
+                  min: 0,
+                }}
                 onChange={(e) =>
                   handleChange("ratings", {
                     ...product.ratings,
@@ -371,6 +408,9 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
                 type="number"
                 fullWidth
                 value={product.ratings.count}
+                inputProps={{
+                  min: 0,
+                }}
                 onChange={(e) =>
                   handleChange("ratings", {
                     ...product.ratings,
@@ -408,6 +448,9 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
                   type="number"
                   fullWidth
                   value={review.rating}
+                  inputProps={{
+                    min: 0,
+                  }}
                   onChange={(e) =>
                     handleReviewChange(index, "rating", e.target.value)
                   }

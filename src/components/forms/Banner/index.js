@@ -27,7 +27,7 @@ const BannerForm = ({ banner, setBanner, handleSubmit }) => {
       if (res.status === 200) {
         setBanner({ ...banner, imageUrl: bannerImageUrl });
       }
-      console.log(bannerImageUrl);
+      // console.log(bannerImageUrl);
       // if (!res.ok) throw new Error(await res.text());
     } catch (e) {
       // Handle errors here

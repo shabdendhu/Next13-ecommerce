@@ -36,7 +36,7 @@ const ProfileMenu = ({ activeTab, setActiveTab, userDetails }) => {
     const { _id, ...address } = userDetails?.profile?.addresses.find(
       (e) => e._id == userDetails?.defaultAddress
     ) || { _id: "" };
-    console.log(userDetails);
+    // console.log(userDetails);
     setDefaultAddress(Object.values(address).toString());
   }, [userDetails]);
   useEffect(() => {}, [defaultAddress]);

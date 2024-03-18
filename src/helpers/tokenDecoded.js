@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 
 const decode = ({ secret, token }) => {
-  console.log("token");
+  // console.log("token");
   try {
-    console.log(
-      jwt.verify(token, process.env.NEXTAUTH_SECRET, { algorithms: ["HS256"] })
-    );
+    // console.log(
+    //   jwt.verify(token, process.env.NEXTAUTH_SECRET, { algorithms: ["HS256"] })
+    // );
   } catch (error) {
     console.log(error);
   }

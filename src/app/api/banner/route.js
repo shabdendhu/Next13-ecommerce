@@ -8,7 +8,7 @@ connect();
 export async function POST(req) {
   try {
     const reqBody = await req.json();
-    console.log(reqBody);
+    // console.log(reqBody);
     const banner = new Banner(reqBody);
     const savedBanner = await banner.save();
 

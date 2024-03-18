@@ -28,7 +28,7 @@ const MyOrders = () => {
     }
   };
   const handleClickTrackOrder = (o) => {
-    console.log("Track Order clicked");
+    // console.log("Track Order clicked");
     route.push(`/trackorder?orderId=${o._id}`);
   };
   useEffect(() => {
