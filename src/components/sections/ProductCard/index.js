@@ -139,7 +139,7 @@ const ProductCard = ({
 
       <div className={styles.cardinfo}>
         <div className={styles.productName}>{data.name}</div>
-        <span style={{ fontSize: "13px" }}>{data.brand}</span>
+        <div className={styles.brand}>{data.brand}</div>
         <div className={styles.details}>
           <div className={styles.priceInfo}>
             <del>₹{data.price}</del>{" "}

@@ -77,12 +77,21 @@
 .cardinfo {
   margin-top: 10px;
   margin-left: 5px;
-
+  .brand {
+    font-size: 13px;
+    white-space: nowrap;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .productName {
     font-weight: 600;
     // margin-bottom: 10px;
     font-size: 17px;
-
+    white-space: nowrap;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @include media.onMdM() {
       font-size: 12px;
       margin-bottom: 3px;
