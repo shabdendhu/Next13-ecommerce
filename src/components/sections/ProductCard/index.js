@@ -94,6 +94,9 @@ const ProductCard = ({
       },
       openSnackbar
     );
+    if (addres.success) {
+      openSnackbar("success", "Added to wishlist");
+    }
   };
   const handleAddToBasket = () => {
     dispatch(addToBasket({ product: data, quantity: 1 })); // Assuming data contains the product information

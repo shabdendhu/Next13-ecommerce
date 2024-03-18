@@ -280,7 +280,6 @@ const ProductForm = ({ product, setProduct, handleSubmit }) => {
           <FormControlLabel
             control={
               <Checkbox
-                required
                 checked={product.shipping_info.free_shipping}
                 onChange={(e) =>
                   handleChange("shipping_info", {

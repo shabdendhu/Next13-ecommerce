@@ -43,6 +43,11 @@ const AddButton = ({
         setproductQuantity(
           res.data.items.find((e) => e.product == product._id).quantity
         );
+        if (count >= 1) {
+          openSnackbar("success", `${product.name} Added To Your Basket`);
+        } else {
+          openSnackbar("success", `${product.name} Removed From Your Basket`);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -61,6 +66,7 @@ const AddButton = ({
     );
     if (res.success) {
       setLoading(false);
+
       // setproductQuantity(productQuantity - 1);
     }
   };
