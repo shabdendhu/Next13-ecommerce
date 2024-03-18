@@ -91,9 +91,7 @@ export default async function TrackOrder({ params, query }) {
                 </div>
                 <div>
                   <div style={{ fontSize: "17px" }}>{e?.product?.name}</div>
-                  <div style={{ fontSize: "13px" }}>
-                    {e.product.price * (1 - e.product.discount / 100)}₹
-                  </div>
+                  <div style={{ fontSize: "13px" }}>{e.product.brand}</div>
                   <div style={{ fontSize: "13px" }}>{e?.product?.brand}</div>
                 </div>
               </div>
