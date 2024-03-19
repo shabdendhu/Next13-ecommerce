@@ -1,14 +1,13 @@
+import { apiPost } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
+import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import style from "./Signup.module.scss";
-import EmailIcon from "@mui/icons-material/Email";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { apiPost } from "@/helpers/api";
-import { signIn } from "next-auth/react";
-import { useSnackbar } from "@/hooks/useSnakBar";
+import style from "./Signup.module.scss";
 
 const Home = () => {
   return (
@@ -47,7 +46,7 @@ const Signup = () => {
         router.push("/login");
       }
     } catch (error) {
-      toast.error("Someting went wrong");
+      openSnackbar("error", "Someting went wrong");
     }
   };
   const handleredirectToLogin = () => {

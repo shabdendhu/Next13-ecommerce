@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import { apiPost } from "@/helpers/api";
 import axios from "axios";
+import Image from "next/image";
 
 const ImageUpload = ({ images, setImages }) => {
   const [mode, setMode] = useState("upload");
@@ -93,11 +94,11 @@ const ImageUpload = ({ images, setImages }) => {
             {images.map((imageUrl, index) => (
               <Grid item key={index} xs={3}>
                 <Box display="flex" flexDirection="column">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={`Image ${index}`}
-                    width="100"
-                    height="100"
+                    width={100}
+                    height={100}
                   />
                   <Button
                     variant="outlined"
@@ -139,11 +140,11 @@ const ImageUpload = ({ images, setImages }) => {
           {images.map((imageUrl, index) => (
             <Grid item key={index} xs={3}>
               <Box display="flex" flexDirection="column">
-                <img
+                <Image
                   src={imageUrl}
                   alt={`Image ${index}`}
-                  width="100"
-                  height="100"
+                  width={100}
+                  height={100}
                 />
                 <Button
                   variant="outlined"

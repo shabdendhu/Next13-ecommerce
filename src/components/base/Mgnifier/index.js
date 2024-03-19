@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./Magnifier.module.scss";
 import cx from "classnames";
+import Image from "next/image";
 
 const Magnifier = ({ imageSrc, magnifiedSrc, className }) => {
   const [isMagnifierVisible, setIsMagnifierVisible] = useState(false);
@@ -36,7 +37,13 @@ const Magnifier = ({ imageSrc, magnifiedSrc, className }) => {
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      <img className={styles.magnifierImage} src={imageSrc} alt="Image" />
+      <Image
+        className={styles.magnifierImage}
+        src={imageSrc}
+        alt="Image"
+        height={100}
+        width={100}
+      />
       {isMagnifierVisible & (window.innerWidth > 900) ? (
         <div
           className={styles.magnifier}

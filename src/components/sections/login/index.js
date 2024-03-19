@@ -1,7 +1,6 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { LoginContent } from "../OtpLoginModal";
 import style from "./Login.module.scss";
 
@@ -36,7 +35,7 @@ const Login = () => {
         email: userInfo.email,
         password: userInfo.password,
         callbackUrl: "/",
-      }).catch((e) => toast.error("something went wrong"));
+      });
       // if (loginRes.success) {
       //   router.push("/");
       // }

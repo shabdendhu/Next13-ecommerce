@@ -1,10 +1,9 @@
-// EmptyBasket.js
-
 import React from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const EmptyBasket = () => {
   const router = useRouter();
@@ -18,11 +17,7 @@ const EmptyBasket = () => {
         justifyContent: "center",
       }}
     >
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/622/622043.png"
-        alt="Empty Basket"
-        style={{ maxWidth: "200px", margin: "20px auto" }}
-      />
+      <Image height={200} width={200} src={"/emptybasket.png"} />
       <Typography variant="h5" gutterBottom textAlign={"center"}>
         Your basket is empty. Why not add something?
       </Typography>

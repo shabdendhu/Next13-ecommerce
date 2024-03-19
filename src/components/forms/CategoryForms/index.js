@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { apiGet } from "@/helpers/api";
 import { useSnackbar } from "@/hooks/useSnakBar";
+import Image from "next/image";
 
 const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
   const { openSnackbar } = useSnackbar();
@@ -99,12 +100,11 @@ const CategoryForm = ({ newCategory, setNewCategory, handleSubmit }) => {
           <input type="file" accept="image/*" onChange={handleImageChange} />
           {newCategory?.image ? (
             <>
-              <img
+              <Image
                 src={newCategory.image}
-                style={{
-                  maxHeight: "100px",
-                  maxWidth: "100px",
-                }}
+                alt="image"
+                height={100}
+                width={100}
               />
               {/* <Button>Delete</Button> */}
             </>

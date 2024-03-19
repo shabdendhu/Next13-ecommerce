@@ -1,5 +1,7 @@
 "use client";
+import PayNowButton from "@/components/sections//PayNowButton";
 import { apiGet, apiPost, apiPut } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import { openOtpModal } from "@/redux/auth/auth";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -24,8 +26,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageWrapper from "../PageWrapper";
 import styles from "./Checkout.module.scss";
-import PayNowButton from "@/components/sections//PayNowButton";
-import { useSnackbar } from "@/hooks/useSnakBar";
 
 const initialAddress = {
   name: "",
@@ -38,28 +38,6 @@ const initialAddress = {
   alternateMobileNumber: "",
   locationType: "",
 };
-function calculateTotal(items) {
-  let totalPrice = 0;
-  let totalDiscount = 0;
-
-  // Calculate total price and discount for each item
-  items.forEach((item) => {
-    const price = item.product.price * item.quantity;
-    const discount = (price * item.product.discount) / 100;
-
-    totalPrice += price;
-    totalDiscount += discount;
-  });
-
-  // Calculate total after discount
-  const totalAfterDiscount = totalPrice - totalDiscount;
-
-  return {
-    totalPrice: totalPrice,
-    totalDiscount: totalDiscount,
-    totalAfterDiscount: totalAfterDiscount,
-  };
-}
 
 const CheckoutComponent = () => {
   const [step, setStep] = useState(1);
@@ -76,7 +54,6 @@ const CheckoutComponent = () => {
   const [orderDetails, setorderDetails] = useState({});
   const [showVarifyMobileCard, setShowVarifyMobileCard] = useState(false);
   const [basket, setBasket] = useState([]);
-  const priceingDetails = calculateTotal(basket);
   const onChangeAddress = (e) =>
     setAddress({ ...address, [e.target.name]: e.target.value });
   const handleChangeAccount = () => {
@@ -113,9 +90,6 @@ const CheckoutComponent = () => {
   };
   const backStep = () => {
     setStep(step - 1);
-  };
-  const handleClickConfirmOrder = () => {
-    nextStep();
   };
 
   const getUserDetailsById = () => {
@@ -179,11 +153,6 @@ const CheckoutComponent = () => {
         searchParams.get("checkoutItems").split(",").includes(i.product._id)
       )
     );
-    // console.log(
-    //   basketItems.items.filter((i) =>
-    //     searchParams.get("checkoutItems").split(",").includes(i.product._id)
-    //   )
-    // );
   }, [searchParams.get("checkoutItems"), basketItems]);
   return (
     <PageWrapper>

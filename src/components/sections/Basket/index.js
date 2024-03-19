@@ -1,32 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import styles from "./Basket.module.scss";
-import AddButton from "@/components/base/AddButton";
+import EmptyBasket from "@/components/sections/EmptyBasket";
 import ProductCard from "@/components/sections/ProductCard";
-import PageWrapper from "../PageWrapper";
-import { apiGet, apiPost } from "@/helpers/api";
-import { useSession } from "next-auth/react";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
-import EmptyBasket from "@/components/sections/EmptyBasket";
-import { Route } from "@mui/icons-material";
+import Grid from "@mui/material/Grid";
 import { useRouter } from "next/navigation";
-import calculateTotalPriceAndDiscount from "@/helpers/calculateTotalPriceAndDiscount";
+import { useEffect, useState } from "react";
+import PageWrapper from "../PageWrapper";
+import styles from "./Basket.module.scss";
 const BasketProduct = ({ basket }) => {
-  const [basketdata, setBasketData] = useState({ items: [] });
   const [checkoutItems, setCheckoutItems] = useState(
     basket?.items?.map((e) => e?.product?._id || [])
   );
   const [prices, setPrices] = useState([]);
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  const { data: session } = useSession();
-  let deliverycharge = 40;
   const handleClickConfirmOrder = async () => {
     //minimum 1 product much be selected
     checkoutItems.length === 0
@@ -46,37 +35,13 @@ const BasketProduct = ({ basket }) => {
     const selectedArray = products.filter((product) =>
       productIds.includes(product.product._id)
     );
-    const data = selectedArray.map((e) => ({
-      quantity: e.quantity,
-      price: e.product.price,
-      discount: e.product.discount,
-      mrp: e.product.price / (1 - e.product.discount / 100),
-    }));
+
     return selectedArray;
   }
-  function calculatePrices(items) {
-    let totalMrp = 0;
-    let totalDiscountPrice = 0;
 
-    items.forEach((item) => {
-      totalMrp += item.quantity * item.mrp;
-      totalDiscountPrice +=
-        item.quantity * ((item.price * item.discount) / 100);
-    });
-
-    const finalPriceAfterDiscount = totalMrp - totalDiscountPrice;
-
-    return {
-      totalMrp,
-      totalDiscountPrice,
-      finalPriceAfterDiscount,
-    };
-  }
   useEffect(() => {
     const data = getProductsByIds(basket.items, checkoutItems);
-    // const priceData = calculatePrices(data);
     setPrices(data);
-    // console.log(data);
   }, [basket, checkoutItems]);
   if (basket.items.length === 0) return <EmptyBasket />;
   return (
@@ -180,59 +145,6 @@ const BasketProduct = ({ basket }) => {
             </Grid>
           ))}
         </Grid>
-        {/* <Grid
-          item
-          style={{
-            border: "1px solid #3f0d0d7a",
-            borderRadius: "10px",
-            padding: "10px",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            width: window.innerWidth > 900 ? "fit-content" : "100%",
-            fontSize: "20px",
-            display: "flex",
-            gap: "5px",
-            flexDirection: "column",
-          }}
-        >
-          <h1>
-            Total MRP: <b>{prices.totalMrp.toFixed(2)}</b>
-          </h1>
-          <h1>
-            Total Discount: <b>{prices.totalDiscountPrice.toFixed(2)}</b>
-          </h1>
-          <h1>
-            Final Price After Discount:{" "}
-            <b>{prices.finalPriceAfterDiscount.toFixed(2)}</b>
-          </h1>
-          <h1>
-            GST: <b>{(prices.finalPriceAfterDiscount * 0.18).toFixed(2)}</b>
-          </h1>
-          <h1>
-            Delivery Charge: <b>{deliverycharge}</b>
-          </h1>
-          <h1>
-            Total Amount:{" "}
-            <b>
-              <b>
-                {(
-                  prices.finalPriceAfterDiscount +
-                  prices.finalPriceAfterDiscount * 0.18 +
-                  deliverycharge
-                ).toFixed(2)}
-              </b>
-            </b>
-          </h1>
-          <Button
-            size="small"
-            onClick={handleClickConfirmOrder}
-            style={{
-              backgroundColor: "blue",
-              color: "white",
-            }}
-          >
-            Proceed To Checkout
-          </Button>
-        </Grid> */}
       </Grid>
     </PageWrapper>
   );
