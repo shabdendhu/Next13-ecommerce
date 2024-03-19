@@ -7,7 +7,7 @@ connect();
 export async function PUT(req) {
   try {
     const reqBody = await req.json();
-    const { newDeliveryDate, id } = reqBody;
+    const { newDeliveryDate, newStatus, id } = reqBody;
     // Step 1: Find the order by its ID
     const order = await Order.findById(id);
 
@@ -16,18 +16,27 @@ export async function PUT(req) {
       return NextResponse.json({ error: "Order not found", success: false });
     }
 
-    // Step 3: Update the expected delivery date
+    // Step 3: Update the order based on the provided parameters
+    if (newDeliveryDate) {
+      order.expectedDeliveryDate = newDeliveryDate;
+    }
 
-    order.expectedDeliveryDate = newDeliveryDate;
+    if (newStatus) {
+      order.status = newStatus;
+    }
 
-    // Step 4: Save the updated order to the database
-    await order.save();
+    // Step 4: Update the order in the database
+    await Order.findByIdAndUpdate(id, order);
 
     return NextResponse.json({ data: order, success: true });
   } catch (error) {
-    return NextResponse.json({
-      error: "Error updating the delivery date",
-      success: false,
-    });
+    return NextResponse.json(
+      {
+        error: "Error updating the order",
+        success: false,
+        message: error.message,
+      },
+      { status: 500 }
+    );
   }
 }

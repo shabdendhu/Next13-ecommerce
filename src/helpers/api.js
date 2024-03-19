@@ -35,6 +35,7 @@ export const apiPut = async (url, data = {}, openSnackbar) => {
     return response.data;
   } catch (error) {
     handleApiError(error, openSnackbar);
+    // return error;
   }
 };
 

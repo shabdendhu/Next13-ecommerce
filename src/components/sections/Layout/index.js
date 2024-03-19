@@ -398,7 +398,17 @@ export default function MiniDrawer({ children }) {
               marginRight: 10,
             }}
           />
-          <p style={{ flex: 1 }}> {session?.user?.name}</p>
+          <p
+            style={{
+              flex: 1,
+              maxWdth: "100%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              textTransform: "uppercase",
+            }}
+          >
+            {session?.user?.name}
+          </p>
           <IconButton onClick={handleDrawerClose} style={{ color: "white" }}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />

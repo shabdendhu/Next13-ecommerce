@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
-
-export default function CopyButton({ textToCopy }) {
+const colorByStatus = {
+  ordered: "orange",
+  payment: "blue",
+  shipped: "hotpink",
+  delivered: "green",
+  canceled: "red",
+};
+export default function CopyButton({ textToCopy, status }) {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleCopyClick = () => {
@@ -18,7 +24,7 @@ export default function CopyButton({ textToCopy }) {
   return (
     <div>
       <FileCopyOutlinedIcon
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", color: colorByStatus[status] }}
         onClick={handleCopyClick}
       />
       <Snackbar

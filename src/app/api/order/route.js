@@ -6,6 +6,8 @@ import Product from "@/models/productModel";
 import Basket from "@/models/basketModel";
 import mongoose from "mongoose";
 import User from "@/models/userModel";
+import { getServerSession } from "next-auth";
+import { authOption } from "@/helpers/authOption";
 connect();
 
 export async function POST(req) {
@@ -101,22 +103,44 @@ export async function POST(req) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-export async function GET(req) {
+export async function GET(req, res) {
   try {
+    const session = await getServerSession(authOption);
+    if (!session) {
+      return NextResponse.json(
+        {
+          message: "You must be logged in to view your orders.",
+          success: false,
+        },
+        { status: 401 }
+      );
+    }
+
     const searchParams = req.nextUrl.searchParams;
     const userId = searchParams.get("user");
     const page = parseInt(searchParams.get("page")) || 1; // Default to page 1 if not provided
     const limit = parseInt(searchParams.get("limit")) || 10; // Default to limit 10 if not provided
-
+    const statusFilter = searchParams.get("status");
     if (!userId) {
+      //check if session.user.role is admin
+      if (session.user.role !== "admin") {
+        return NextResponse.json(
+          {
+            message: "You are not authorized to view all orders.",
+            success: false,
+          },
+          { status: 401 }
+        );
+      }
       // Fetch all orders if user is not available
-      const totalCount = await Order.countDocuments({});
+      const query = {};
+      if (statusFilter) query.status = statusFilter;
+      const totalCount = await Order.countDocuments(query);
       const totalPages = Math.ceil(totalCount / limit);
-
-      const allOrders = await Order.find({})
+      const allOrders = await Order.find(query)
         .populate({
           path: "user",
-          select: "email",
+          select: { email: 1, mobile: 1 },
         })
         .skip((page - 1) * limit) // Skip documents based on pagination
         .limit(limit); // Limit number of documents per page
@@ -129,7 +153,16 @@ export async function GET(req) {
         limit,
       });
     }
-
+    // Check if session.user.id is same as userId
+    if (session.user.id !== userId) {
+      return NextResponse.json(
+        {
+          message: "You are not authorized to view this user's orders.",
+          success: false,
+        },
+        { status: 401 }
+      );
+    }
     // Check if the user ID is valid
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json(
