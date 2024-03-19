@@ -1,16 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { apiGet } from "@/helpers/api";
-import ProductCard from "../ProductCard";
-import Button from "@mui/material/Button";
-import ReviewManagement from "@/components/sections/ReviewManagement"; // Import the new component
-import styles from "./MyOrder.module.scss";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useSnackbar } from "@/hooks/useSnakBar";
-import { Card, CardContent, CardHeader, Divider } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
+import Button from "@mui/material/Button";
 import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./MyOrder.module.scss";
 
 const MyOrders = () => {
   const { data: session } = useSession();
@@ -91,47 +89,11 @@ const MyOrders = () => {
                     <div className={styles.brand}>
                       Brand: <b>{item.product.brand}</b>
                     </div>
-
-                    {/* <p>OrderId: {order._id}</p>
-                    <p>OrderDate: {formatDate(order.createdAt)}</p>
-                    <p>PaymentMethod: {order.paymentMethod}</p>
-                    <p>PaymentStatus: {order.paymentStatus}</p>
-                    <p>OrderStatus: {order.status}</p>
-                    <p>
-                      ExpectedDelivery: {formatDate(order.expectedDeliveryDate)}
-                    </p>
-                    <p>DeliveryAddress: {order.deliveryAddress}</p>
-                    <p>DeliveryCity: {order.deliveryCity}</p>
-                    <p>DeliveryState: {order.deliveryState}</p> */}
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-          {/* <div style={{ display: "flex" }}>
-            <b>PaymentStatus: </b>
-            <p style={{ textTransform: "uppercase" }}> {order.paymentStatus}</p>
-          </div>
-          <div style={{ display: "flex" }}>
-            <b>OrderStatus: </b>
-            <p style={{ textTransform: "uppercase" }}> {order.status}</p>
-          </div>
-          <div style={{ display: "flex" }}>
-            <b>Expected Delivery: </b>
-            <p style={{ textTransform: "uppercase" }}>
-              {formatDate(order.expectedDeliveryDate)}
-            </p>
-          </div>
-          <Button
-            size="small"
-            style={{ backgroundColor: "blue", color: "white" }}
-            onClick={() => handleClickTrackOrder(order)}
-          >
-            Track Order
-          </Button>
-          {order.status == "Delivered" && (
-            <ReviewManagement orderId={order._id} />
-          )} */}
         </button>
       ))}
     </div>

@@ -2,8 +2,6 @@
 import EditProfile from "@/components/sections/EditProfile";
 import AddressComponent from "@/components/sections/MyAddress";
 import MyOrders from "@/components/sections/MyOrders";
-import MyPayments from "@/components/sections/MyPayments";
-import MyRatingsAndReviews from "@/components/sections/MyRatingAndReview";
 import MyWishList from "@/components/sections/MyWishList";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -157,8 +155,6 @@ const ProfileContent = ({
       <ContentWrapper>
         {activeTab == "/profile/order" && <MyOrders />}
         {activeTab == "/profile/wishlist" && <MyWishList />}
-        {activeTab == "/profile/payment" && <MyPayments />}
-        {activeTab == "/profile/review" && <MyRatingsAndReviews />}
         {activeTab == "/profile/address" && (
           <AddressComponent
             userDetails={userDetails}

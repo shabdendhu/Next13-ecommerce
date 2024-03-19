@@ -21,12 +21,7 @@ export default function RootLayout({
           fontFamily: "sans-serif",
         }}
       >
-        {/* <ReduxProvider store={store}> */}
-        {/* <MyProvider> */}
         <Providers>{children}</Providers>
-        {/* </MyProvider> */}
-        {/* </ReduxProvider> */}
-        {/* <SpeedInsights /> */}
       </body>
     </html>
   );

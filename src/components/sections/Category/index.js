@@ -1,15 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import ProductCard from "@/components/sections/ProductCard";
+import { apiGet, apiPost } from "@/helpers/api";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
-import PageWrapper from "../PageWrapper";
-import { apiGet, apiPost } from "@/helpers/api";
 import { useRouter, useSearchParams } from "next/navigation";
-import Filter from "@/components/sections/Filter";
-import ProductCard from "@/components/sections/ProductCard";
+import { useEffect, useState } from "react";
+import PageWrapper from "../PageWrapper";
 import styles from "./Category.module.scss";
-import { useSnackbar } from "@/hooks/useSnakBar";
 
 function Category() {
   const search = useSearchParams();

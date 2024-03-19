@@ -25,6 +25,7 @@ import {
   Facebook,
   YouTube,
 } from "@mui/icons-material";
+import Link from "next/link";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Footer = () => {
@@ -119,7 +120,7 @@ const Footer = () => {
       </div>
 
       <div className={styles.footerdetails}>
-        <a
+        <Link
           style={{
             display: "flex",
             alignItems: "center",
@@ -128,8 +129,8 @@ const Footer = () => {
           aria-label="Call us"
         >
           <Phone fontSize="small" style={{ color: "blue" }} /> Call Us
-        </a>
-        <a
+        </Link>
+        <Link
           style={{
             display: "flex",
             alignItems: "center",
@@ -138,8 +139,8 @@ const Footer = () => {
           aria-label="Email us"
         >
           <Email fontSize="small" style={{ color: "red" }} /> Email
-        </a>
-        <a
+        </Link>
+        <Link
           style={{
             display: "flex",
             alignItems: "center",
@@ -148,8 +149,8 @@ const Footer = () => {
           aria-label="Learn more about us"
         >
           <Info fontSize="small" /> About Us
-        </a>
-        <a
+        </Link>
+        <Link
           style={{
             display: "flex",
             alignItems: "center",
@@ -158,8 +159,8 @@ const Footer = () => {
           aria-label="Follow us on Instagram"
         >
           <Instagram fontSize="small" style={{ color: "#ff00a0" }} /> Instagram
-        </a>
-        <a
+        </Link>
+        <Link
           style={{
             display: "flex",
             alignItems: "center",
@@ -168,8 +169,8 @@ const Footer = () => {
           aria-label="Follow us on Facebook"
         >
           <Facebook fontSize="small" style={{ color: "blue" }} /> Facebook
-        </a>
-        <a
+        </Link>
+        <Link
           style={{
             display: "flex",
             alignItems: "center",
@@ -178,7 +179,7 @@ const Footer = () => {
           aria-label="Subscribe to our Youtube channel"
         >
           <YouTube fontSize="small" style={{ color: "red" }} /> Youtube
-        </a>
+        </Link>
       </div>
     </div>
   );
