@@ -1,30 +1,25 @@
 "use client";
 import CategoryMenu from "@/components/base/CategoryMenu";
+import CustomizedInputBase from "@/components/sections/SearchBar";
 import { apiGet, apiPost } from "@/helpers/api";
 import useScrollDirection from "@/hooks/useScrollDirection";
+import { useSnackbar } from "@/hooks/useSnakBar";
 import { openOtpModal } from "@/redux/auth/auth";
 import { loadUsersBasket } from "@/redux/basket/addUpdateBasket";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
-import SearchIcon from "@mui/icons-material/Search";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import Divider from "@mui/material/Divider";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
+import IconButton from "@mui/material/IconButton";
 import Skeleton from "@mui/material/Skeleton";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TextField from "@mui/material/TextField";
-import CustomizedInputBase from "@/components/sections/SearchBar";
-import Autocomplete from "@mui/material/Autocomplete";
 import QuickCategory from "../QuickCategory";
-import Badge from "@mui/material/Badge";
-import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import styles from "./Header.module.scss";
-import Avatar from "@mui/material/Avatar";
-import { useSnackbar } from "@/hooks/useSnakBar";
 const Header = () => {
   const router = useRouter();
   const { openSnackbar } = useSnackbar();
@@ -140,6 +135,7 @@ const Header = () => {
             <div className={styles.rightIcon}>
               {session?.user?.role === "admin" ? (
                 <AdminPanelSettingsIcon
+                  className={styles.adminIcon}
                   onClick={() => handleClikMenuItem("/admin-dashboard")}
                   style={{
                     fontSize: "44px",
@@ -163,21 +159,13 @@ const Header = () => {
                   }}
                 />
               ) : (
-                <PersonIcon
+                <PersonOutlineOutlinedIcon
+                  className={styles.personIcon}
                   onClick={() => handleClikMenuItem("/profile")}
-                  style={{
-                    fontSize: "44px",
-                    color: "#FFFFFF",
-                    cursor: "pointer",
-                  }}
                 />
               )}
-              <FavoriteIcon
-                style={{
-                  fontSize: "44px",
-                  color: "#FFFFFF",
-                  cursor: "pointer",
-                }}
+              <FavoriteBorderOutlinedIcon
+                className={styles.faboriteIcon}
                 onClick={() => handleClikMenuItem("/profile?tab=wishlist")}
               />
               <IconButton
@@ -188,12 +176,8 @@ const Header = () => {
                   badgeContent={basketCount?.items?.length}
                   color="secondary"
                 >
-                  <ShoppingCartIcon
-                    style={{
-                      fontSize: "44px",
-                      color: "#FFFFFF",
-                      cursor: "pointer",
-                    }}
+                  <ShoppingCartOutlinedIcon
+                    className={styles.shoppingCartIcon}
                   />
                 </Badge>
               </IconButton>

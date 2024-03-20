@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import Image from "next/image";
+import SearchIcon from "@mui/icons-material/Search";
 import { apiPost } from "@/helpers/api";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/hooks/useSnakBar";
+import styles from "./SearchBar.module.scss";
 
 export default function CustomizedInputBase() {
   const route = useRouter();
@@ -49,7 +50,7 @@ export default function CustomizedInputBase() {
   }, [searchText]);
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div style={{ width: "100%", height: "100%", display: "flex" }}>
       <Paper
         component="form"
         sx={{
@@ -97,7 +98,7 @@ export default function CustomizedInputBase() {
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
+          <SearchIcon className={styles.searchIcon} />
         </IconButton>
       </Paper>
     </div>

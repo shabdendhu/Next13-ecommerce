@@ -1,4 +1,5 @@
 @use "../../../styles/media.scss";
+@use "../../../styles//variables.scss";
 
 .component {
   position: sticky;
@@ -9,7 +10,7 @@
   transition-duration: 500ms;
   .headerContainer {
     // background-color: rgba(14, 100, 14, 0.993);
-    background-color: rgba(35, 52, 97, 0.993);
+    background-color: variables.$primary-background-color;
     min-height: 80px;
     display: flex;
     align-items: center;
@@ -28,6 +29,7 @@
         color: #ffffff;
         font-size: 40px;
         font-weight: 600;
+        display: flex;
         img {
           height: 50px;
           border-radius: 10px;
@@ -48,8 +50,9 @@
         display: flex;
         border-radius: 5px;
         min-width: 415px;
-        height: 50px;
+        // height: 50px;
         position: relative;
+
         .searchBbar {
           // border: 1px solid rgb(6, 65, 14);
           height: 100%;
@@ -123,6 +126,21 @@
         display: flex;
         align-items: center;
         gap: 5px;
+        .personIcon {
+          color: variables.$primary-color;
+          font-size: 40px;
+          cursor: pointer;
+        }
+        .faboriteIcon {
+          color: variables.$secondary-color;
+          font-size: 40px;
+          cursor: pointer;
+        }
+        .shoppingCartIcon {
+          color: variables.$accent-color;
+          font-size: 40px;
+          cursor: pointer;
+        }
         @include media.onMdM() {
           display: none;
         }
@@ -152,7 +170,7 @@
     }
   }
   .navBar {
-    background-color: whitesmoke;
+    background-color: variables.$secondary-background-color;
 
     .navContent {
       min-height: 40px;
@@ -166,6 +184,15 @@
       .navItem {
         cursor: pointer;
         font-weight: 500;
+        text-transform: capitalize;
+        color: variables.$text-color;
+        &:hover {
+          cursor: pointer;
+          // opacity: 0.5;
+          color: variables.$secondary-color;
+          transition: color 0.25s ease-in-out;
+          border-radius: 5px;
+        }
       }
     }
     @include media.onMdM() {

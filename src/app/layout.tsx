@@ -1,4 +1,4 @@
-import "./globals.css";
+import styles from "./globals.module.scss";
 import Providers from "@/providers";
 // import { MyProvider } from "@/providers/Context";
 // import store from "@/store";
@@ -16,11 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        style={{
-          fontFamily: "sans-serif",
-        }}
-      >
+      <body className={styles.component}>
         <Providers>{children}</Providers>
       </body>
     </html>

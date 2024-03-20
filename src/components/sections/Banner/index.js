@@ -71,10 +71,10 @@ const Banner = () => {
             onChangeIndex={handleChangeIndex}
           >
             {banners?.map((e, i) => (
-              <a href={e?.pathURL} key={i}>
+              <a href={e?.pathURL} key={i} style={{ display: "flex" }}>
                 <Image
-                  width={1917}
-                  height={600}
+                  width={2000}
+                  height={500}
                   style={{
                     height: "100%",
                     width: "100%",

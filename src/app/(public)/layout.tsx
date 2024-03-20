@@ -15,19 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <div
-        style={{
-          // border: "1px solid red",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <Header />
-        {children}
-        <Footer />
-        <OtpLoginModal />
-      </div>
-    </>
+    <div
+      style={{
+        // border: "1px solid red",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Header />
+      {children}
+      <Footer />
+      <OtpLoginModal />
+    </div>
   );
 }

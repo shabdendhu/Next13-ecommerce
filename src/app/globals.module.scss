@@ -1,0 +1,9 @@
+@use "../styles/media.scss";
+@use "../styles/variables.scss";
+
+.component {
+  color: variables.$text-color;
+  // background: variables.$primary-background-color;
+  background: rgb(24, 24, 24);
+  font-family: sans-serif;
+}

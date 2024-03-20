@@ -175,9 +175,9 @@ const MultipleProductsHomeSection = () => {
           style={{
             // background: "rgb(180,173,58)",
             background:
-              i % 2 == 0
-                ? "linear-gradient(180deg, #fff00087 0%, rgba(255,235,0,0) 100%)"
-                : "linear-gradient(180deg, #00ff306b 0%, rgba(255,235,0,0) 100%)",
+              i % 2 !== 0
+                ? "linear-gradient(rgb(255 240 0) 0%, rgb(255 0 0) 100%)"
+                : "linear-gradient(rgb(0 255 48) 0%, rgb(255 235 0) 100%)",
           }}
         />
       ))}

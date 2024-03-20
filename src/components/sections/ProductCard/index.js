@@ -119,17 +119,6 @@ const ProductCard = ({
         {!isInWishList ? <FavoriteBorderIcon /> : <FavoriteIcon />}
       </div>
       <div className={styles.cardimg}>
-        {/* <Image
-          src={data?.images?.length ? data?.images[0] : ""}
-          width={500}
-          height={500}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          alt={data?.name}
-        /> */}
-        {/* <img src={data?.images?.length ? data?.images[0] : ""} /> */}
         <Image
           src={data?.images?.length ? data?.images[0] : ""}
           height={1000}

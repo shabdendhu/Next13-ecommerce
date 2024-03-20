@@ -1,0 +1,6 @@
+@use "../../../styles/media.scss";
+@use "../../../styles//variables.scss";
+
+.component {
+  background-color: variables.$primary-background-color;
+}
