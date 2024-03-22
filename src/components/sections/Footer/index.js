@@ -42,7 +42,7 @@ const Footer = async () => {
               width: "80%",
             }}
           >
-            Discover the essence of Odisha's culinary heritage at AcharPapad.in,
+            Discover the essence of Odishas culinary heritage at AcharPapad.in,
             your premier online destination for the finest sweets, handcrafted
             papads, aromatic spices, and regional delights. From the iconic
             flavors of rasagulla and chhena poda to the irresistible crunch of
