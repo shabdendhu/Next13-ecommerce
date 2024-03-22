@@ -1,186 +1,155 @@
-"use client";
-import React from "react";
-import styles from "./Footer.module.scss";
+import CallIcon from "@mui/icons-material/Call";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import useScrollDirection from "@/hooks/useScrollDirection";
-import HomeIcon from "@mui/icons-material/Home";
-import CategoryIcon from "@mui/icons-material/Category";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PersonIcon from "@mui/icons-material/Person";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import {
-  Phone,
-  Email,
-  Info,
-  Instagram,
-  Facebook,
-  YouTube,
-} from "@mui/icons-material";
-// import SearchIcon from '@mui/icons-material/Search';
+import Link from "next/link";
+import styles from "./Footer.module.scss";
+import MobileFooter from "./MobileFooter";
+import { connect } from "@/dbConfig/connection";
+import Category from "@/models/categoryModel";
+const Footer = async () => {
+  let category;
+  let error;
 
-const Footer = () => {
-  const scrollDirection = useScrollDirection();
-  const router = useRouter();
-  const pathname = usePathname();
+  await connect();
+
+  try {
+    category = await Category.find({}, { _id: 1, name: 1 }).limit(10).lean();
+  } catch (err) {
+    error = err;
+  }
   return (
-    <div
-      className={styles.footercontainer}
-      style={{
-        bottom: scrollDirection === "down" ? -60 : 0,
-      }}
-    >
-      <div className={styles.mobileFooter}>
-        <button onClick={() => router.push("/")} className={styles.footerMenu}>
-          {pathname == "/" ? (
-            <HomeIcon
-              className={styles.icon}
-              style={{
-                color: "#0e640efd",
-              }}
-            />
-          ) : (
-            <HomeOutlinedIcon className={styles.icon} />
-          )}
-          <span className={styles.text}>Home</span>
-        </button>
-        <button
-          onClick={() => router.push("/category")}
-          className={styles.footerMenu}
-        >
-          {pathname === "/category" ? (
-            <CategoryIcon
-              className={styles.icon}
-              style={{
-                color: "#0e640efd",
-              }}
-            />
-          ) : (
-            <CategoryOutlinedIcon className={styles.icon} />
-          )}
-          <span className={styles.text}>Category</span>
-        </button>
-        <button
-          onClick={() => router.push("/profile/wishlist")}
-          className={styles.footerMenu}
-        >
-          {pathname === "/profile/wishlist" ? (
-            <FavoriteIcon
-              className={styles.icon}
-              style={{
-                color: "#0e640efd",
-              }}
-            />
-          ) : (
-            <FavoriteBorderOutlinedIcon className={styles.icon} />
-          )}
-          <span className={styles.text}>WishList</span>
-        </button>
-        <button
-          onClick={() => router.push("/basket")}
-          className={styles.footerMenu}
-        >
-          {pathname === "/basket" ? (
-            <ShoppingBasketIcon
-              className={styles.icon}
-              style={{
-                color: "#0e640efd",
-              }}
-            />
-          ) : (
-            <ShoppingBasketOutlinedIcon className={styles.icon} />
-          )}
-          <span className={styles.text}>Basket</span>
-        </button>
-        <button
-          onClick={() => router.push("/profile")}
-          className={styles.footerMenu}
-        >
-          {pathname === "/profile" ? (
-            <PersonIcon
-              className={styles.icon}
-              style={{
-                color: "#0e640efd",
-              }}
-            />
-          ) : (
-            <PersonOutlineOutlinedIcon className={styles.icon} />
-          )}
-          <span className={styles.text}>Profile</span>
-        </button>
-      </div>
-
+    <>
+      <MobileFooter />
       <div className={styles.footerdetails}>
-        <a
+        <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            flex: 2,
           }}
-          href="tel:+1234567890"
-          aria-label="Call us"
         >
-          <Phone fontSize="small" style={{ color: "blue" }} /> Call Us
-        </a>
-        <a
+          <div
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              marginBottom: "1rem",
+            }}
+          >
+            Acharpapad.in
+          </div>
+          <p
+            style={{
+              width: "80%",
+            }}
+          >
+            Discover the essence of Odisha's culinary heritage at AcharPapad.in,
+            your premier online destination for the finest sweets, handcrafted
+            papads, aromatic spices, and regional delights. From the iconic
+            flavors of rasagulla and chhena poda to the irresistible crunch of
+            our hand-made papads, each product embodies the rich traditions and
+            flavors of Odia cuisine. Let our carefully curated selection
+            transport you to the vibrant streets and bustling markets of Odisha,
+            where every bite tells a story of culture and tradition. With just a
+            few clicks, indulge in the authentic taste of Odisha and elevate
+            your culinary experience with AcharPapad.in.
+          </p>
+        </div>
+        <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            flex: 1,
           }}
-          href="mailto:info@example.com"
-          aria-label="Email us"
         >
-          <Email fontSize="small" style={{ color: "red" }} /> Email
-        </a>
-        <a
+          <div
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              marginBottom: "1rem",
+            }}
+          >
+            Categories
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: ".5rem",
+            }}
+          >
+            {category.map((e) => (
+              <Link
+                href={"/category?id=" + e._id}
+                style={{ textTransform: "capitalize" }}
+              >
+                {e.name}
+              </Link>
+            ))}
+            <p>Others</p>
+          </div>
+        </div>
+        <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            flex: 1,
           }}
-          href="/about"
-          aria-label="Learn more about us"
         >
-          <Info fontSize="small" /> About Us
-        </a>
-        <a
+          <div
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              marginBottom: "1rem",
+            }}
+          >
+            Links
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: ".5rem",
+            }}
+          >
+            <Link href={"/"}>About Us</Link>
+            <Link href={"/"}>Contact Us</Link>
+            <Link href={"/"}>Privacy Policy</Link>
+            <Link href={"/"}>Terms of Use</Link>
+            <Link href={"/"}>Help</Link>
+            <Link href={"/"}>Refund Policy</Link>
+            <Link href={"/"}>Privacy Policy</Link>
+            <Link href={"/"}>Terms of Use</Link>
+            <Link href={"/"}>Help</Link>
+            <Link href={"/"}>FAQ</Link>
+          </div>
+        </div>
+        <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            flex: 1,
           }}
-          href="https://www.instagram.com/username"
-          aria-label="Follow us on Instagram"
         >
-          <Instagram fontSize="small" style={{ color: "#ff00a0" }} /> Instagram
-        </a>
-        <a
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-          href="https://www.facebook.com/username"
-          aria-label="Follow us on Facebook"
-        >
-          <Facebook fontSize="small" style={{ color: "blue" }} /> Facebook
-        </a>
-        <a
-          style={{
-            display: "flex",
-            alignItems: "center",
-          }}
-          href="https://www.youtube.com/channel/channelID"
-          aria-label="Subscribe to our Youtube channel"
-        >
-          <YouTube fontSize="small" style={{ color: "red" }} /> Youtube
-        </a>
+          <div
+            style={{
+              fontWeight: "bold",
+              fontSize: "1.2rem",
+              marginBottom: "1rem",
+            }}
+          >
+            Contact Us
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            <InstagramIcon />
+            <TwitterIcon />
+            <FacebookIcon />
+            <YouTubeIcon />
+            <CallIcon />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
