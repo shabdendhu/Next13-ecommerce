@@ -77,6 +77,7 @@ const Footer = async () => {
           >
             {category.map((e) => (
               <Link
+                key={e._id}
                 href={"/category?id=" + e._id}
                 style={{ textTransform: "capitalize" }}
               >
