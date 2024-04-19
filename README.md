@@ -1,6 +1,3 @@
-Certainly! Here's the README content formatted for easy copying and pasting:
-
-```
 # Next.js README
 
 This README provides guidance on setting up a Next.js project with necessary configurations and dependencies.
@@ -67,6 +64,3 @@ This will start the development server and your Next.js application will be acce
 Make sure MongoDB is running in the background for your application to interact with the database.
 
 That's it! You've successfully set up your Next.js project with the required configurations and dependencies. Happy coding! 🚀
-```
-
-Feel free to copy and paste this into your project's README file.
